@@ -59,6 +59,62 @@
             margin-bottom: 5px;
         }
 
+        /* עיצוב הלו"ז השבועי */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .day-card {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .day-card.today {
+            background: #EBF8FF;
+            border-color: #3182CE;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .day-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #2D3748;
+        }
+
+        .day-date {
+            font-size: 0.8rem;
+            color: #718096;
+            margin: 4px 0;
+        }
+
+        .day-type {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .type-workout {
+            background: #FED7D7;
+            color: #9B2C2C;
+        }
+
+        .type-rest {
+            background: #C6F6D5;
+            color: #22543D;
+        }
+
+        /* מבנה תצוגת אימון */
         .workout-section-title {
             display: flex;
             align-items: center;
@@ -121,6 +177,7 @@
             display: flex;
             gap: 8px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn-timer {
@@ -164,6 +221,7 @@
             border-radius: 2px;
         }
 
+        /* מפת רמות */
         .level-map {
             display: flex;
             flex-direction: column;
@@ -235,11 +293,25 @@
 
 <div class="container">
 
+    <!-- כותרת ראשית -->
     <div class="card header-card">
         <h1>המקום הקסום שלי ✨</h1>
-        <p id="today-date-display">אימון היומי שלך מוכן!</p>
+        <p id="today-date-display">טוען תאריך...</p>
     </div>
 
+    <!-- לוח זמנים שבועי מבוסס תאריכים -->
+    <div class="card">
+        <div class="workout-section-title">
+            <span>📅</span>
+            <h2>לוח הזמנים השבועי שלי</h2>
+        </div>
+        <p>הנה תכנית האימונים והתאריכים לשבוע הקרוב:</p>
+        <div class="schedule-grid" id="schedule-container">
+            <!-- ייוצר דינמית ב-JS -->
+        </div>
+    </div>
+
+    <!-- אימון יום -->
     <div class="card">
         <div class="workout-section-title">
             <span>☀️</span>
@@ -249,23 +321,23 @@
         <div class="workout-grid">
             <div>
                 <div class="video-container">
-                    <iframe id="day-video" src="https://www.youtube.com/embed/PSlcuJ64Vq4" title="אימון יום" allowfullscreen></iframe>
+                    <iframe id="day-video" src="https://www.youtube.com/embed/gC_L9qAHVJ8" title="אימון יום" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="workout-info">
                 <div class="timer-box">
                     <span>⏱️ סטופר תרגיל / מנוחה</span>
-                    <div class="timer-display" id="day-timer">00:45</div>
+                    <div class="timer-display" id="day-timer">00:30</div>
                     <div class="timer-controls">
-                        <button class="btn-timer" onclick="startTimer('day', 45)">התחל (45 שנ')</button>
-                        <button class="btn-timer" onclick="startTimer('day', 30)">מנוחה (30 שנ')</button>
+                        <button class="btn-timer" onclick="startTimer('day', 30)">עבודה (30 שנ')</button>
+                        <button class="btn-timer" onclick="startTimer('day', 20)">מנוחה (20 שנ')</button>
                         <button class="btn-timer reset" onclick="resetTimer('day')">איפוס</button>
                     </div>
                 </div>
 
                 <div class="instructions-box">
-                    <h4>📝 הנחיות לאימון:</h4>
+                    <h4>📝 הנחיות לאימון יום (רמה 1):</h4>
                     <ul id="day-instructions">
                         <li>טוען הנחיות...</li>
                     </ul>
@@ -274,8 +346,10 @@
         </div>
     </div>
 
+    <!-- קו מפריד ראשון -->
     <hr class="section-divider">
 
+    <!-- אימון ערב -->
     <div class="card">
         <div class="workout-section-title">
             <span>🌙</span>
@@ -285,7 +359,7 @@
         <div class="workout-grid">
             <div>
                 <div class="video-container">
-                    <iframe id="night-video" src="https://www.youtube.com/embed/g_TEA8ZNk5A" title="אימון ערב" allowfullscreen></iframe>
+                    <iframe id="night-video" src="https://www.youtube.com/embed/v7SN-d4qXx0" title="אימון ערב ושחרור" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -294,77 +368,120 @@
                     <span>⏱️ סטופר מתיחות</span>
                     <div class="timer-display" id="night-timer">00:30</div>
                     <div class="timer-controls">
-                        <button class="btn-timer" onclick="startTimer('night', 30)">התחל מתיחה (30 שנ')</button>
+                        <button class="btn-timer" onclick="startTimer('night', 30)">מתיחה (30 שנ')</button>
                         <button class="btn-timer reset" onclick="resetTimer('night')">איפוס</button>
                     </div>
                 </div>
 
                 <div class="instructions-box">
-                    <h4>🌙 הנחיות לערב:</h4>
+                    <h4>🌙 הנחיות לערב (שחרור ויוגה קלה):</h4>
                     <ul>
-                        <li><strong>מתיחות גב וירכיים:</strong> 30 שניות לכל מתיחה להורדת עומס מהיום.</li>
-                        <li><strong>נשימות עמוקות:</strong> 4 שניות שאיפה, 4 שניות החזקה, 6 שניות נשיפה.</li>
-                        <li><strong>מטרה:</strong> להרגיע את השרירים ולהכיוון את הגוף לשינה איכותית.</li>
+                        <li><strong>מתיחות גב וירכיים:</strong> 30 שניות לכל תנוחה להורדת מתח מהיום.</li>
+                        <li><strong>תנוחת הילד ותנוחת חתול-פרה:</strong> שחרור עמוד השדרה בצורה נעימה.</li>
+                        <li><strong>נשימות להרפיה:</strong> שאיפה איטית דרך האף ונשיפה ארוכה דרך הפיות.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- קו מפריד שני -->
     <hr class="section-divider">
 
+    <!-- מפת ההתקדמות ברמות -->
     <div class="card">
         <div class="workout-section-title">
             <span>🗺️</span>
             <h2>מפת ההתקדמות שלי ברמות</h2>
         </div>
-        <p>עדכני את הרמה שבה את נמצאת כעת כדי לעקוב אחר ההתקדמות שלך:</p>
+        <p>את נמצאת כעת ברמה 1! תוכלי לעדכן את הרמה ככל שתתקדמי:</p>
 
         <div class="level-map" id="level-map-container">
         </div>
 
-        <button class="level-select-btn" onclick="changeUserLevel()">שינוי/עדכון רמה 🎯</button>
+        <button class="level-select-btn" onclick="changeUserLevel()">שינוי / עדכון רמה 🎯</button>
     </div>
 
 </div>
 
 <script>
+    // ימי השבוע בעברית
+    const daysHebrew = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+
+    // תכנית האימונים לרמה 1 (מתחילה)
     const dayWorkouts = {
         active: {
-            title: "אימון כוח וחיזוק גוף (רמה 2)",
-            video: "https://www.youtube.com/embed/PSlcuJ64Vq4",
+            title: "אימון בסיס וחיזוק (רמה 1)",
+            video: "https://www.youtube.com/embed/gC_L9qAHVJ8",
             instructions: [
-                "<strong>חימום (3 דקות):</strong> סיבובי זרועות, קפיצות קלות במקום.",
-                "<strong>תרגיל 1:</strong> שקילת שמיכה / שילוב מתח אוסטרלי (3 סטים x 8 חזרות).",
-                "<strong>תרגיל 2:</strong> סקוואטים ומכרעים לחיזוק הרגליים (3 סטים x 12 חזרות).",
-                "<strong>תרגיל 3:</strong> פלאנק והרמות רגליים לבטן (3 סטים x 30 שניות)."
+                "<strong>חימום קל (2 דקות):</strong> סיבובי כתפיים, הליכה במקום.",
+                "<strong>סקוואט אל הכיסא:</strong> 3 סטים x 10 חזרות (ירידה איטית אל כיסא וקמה).",
+                "<strong>שילוב מתח אוסטרלי / שקילת שמיכה:</strong> 3 סטים x 6 חזרות.",
+                "<strong>פלאנק על הברכיים:</strong> 3 סטים x 20 שניות לבניית יציבות."
             ]
         },
         rest: {
-            title: "יום מנוחה פעילה ותנועתיות ☕",
+            title: "יום מנוחה ותנועתיות ☕",
             video: "https://www.youtube.com/embed/inpok4MKVLM",
             instructions: [
-                "<strong>יום התאוששות:</strong> הגוף בונה את השרירים בזמן מנוחה!",
-                "<strong>מה עושים היום?</strong> מתיחות קלות, הליכה בכיף או יוגה קלה.",
-                "<strong>שתיית מים:</strong> הקפידי לשתות מים במהלך היום."
+                "<strong>יום התאוששות:</strong> הגוף נח ובונה את השרירים!",
+                "<strong>מה עושים?</strong> מתיחות קלות, הליכה בכיף באוויר הפתוח.",
+                "<strong>שתיית מים:</strong> הקפידי לשתות מים באופן סדיר."
             ]
         }
     };
 
+    // רמות התקדמות (ברירת מחדל: רמה 1)
     const levels = [
-        { level: 1, title: "רמה 1: מתחילה 🌟", desc: "תרגילי בסיס, למידת טכניקה ובניית הרגל." },
+        { level: 1, title: "רמה 1: מתחילה 🌟", desc: "תרגילי בסיס, למידת טכניקה, סקוואטים פשוטים וחיזוק הליבה." },
         { level: 2, title: "רמה 2: מתקדמת קלה 💪", desc: "שילוב תרגילי משקל גוף, מתח אוסטרלי ועבודה על יציבות." },
         { level: 3, title: "רמה 3: אלופה 🔥", desc: "עבודה על עליות מתח, מקבילים וסיבולת גבוהה." },
         { level: 4, title: "רמה 4: מקצוענית 🚀", desc: "תרגילים מורכבים בקליסטניקס ושליטה מלאה בגוף." }
     ];
 
     let timerIntervals = {};
-    let currentLevel = parseInt(localStorage.getItem('my_fitness_level')) || 2;
+    // מוגדר כברירת מחדל לרמה 1
+    let currentLevel = parseInt(localStorage.getItem('my_fitness_level')) || 1;
 
     window.onload = function() {
+        setupWeeklySchedule();
         setupTodayWorkout();
         renderLevelMap();
     };
+
+    // הגדרת לוח זמנים שבועי עם תאריכים מקוצרים (2 ספרות לשנה)
+    function setupWeeklySchedule() {
+        const scheduleContainer = document.getElementById('schedule-container');
+        scheduleContainer.innerHTML = '';
+
+        const today = new Date();
+        const currentDayIndex = today.getDay();
+
+        for (let i = 0; i < 7; i++) {
+            const date = new Date();
+            date.setDate(today.getDate() - currentDayIndex + i);
+
+            const isToday = (i === currentDayIndex);
+            const isWorkoutDay = (i === 0 || i === 2 || i === 4); // ראשון, שלישי, חמישי
+
+            // פורמט תאריך עם שנה בת 2 ספרות (YY)
+            const dayNum = date.getDate();
+            const monthNum = date.getMonth() + 1;
+            const yearNum = String(date.getFullYear()).slice(-2);
+            const dateFormatted = `${dayNum}.${monthNum}.${yearNum}`;
+
+            const dayDiv = document.createElement('div');
+            dayDiv.className = `day-card ${isToday ? 'today' : ''}`;
+            dayDiv.innerHTML = `
+                <div class="day-name">יום ${daysHebrew[i]}</div>
+                <div class="day-date">${dateFormatted}</div>
+                <div class="day-type ${isWorkoutDay ? 'type-workout' : 'type-rest'}">
+                    ${isWorkoutDay ? 'אימון' : 'מנוחה'}
+                </div>
+            `;
+            scheduleContainer.appendChild(dayDiv);
+        }
+    }
 
     function setupTodayWorkout() {
         const today = new Date();
@@ -384,10 +501,12 @@
             instructionsList.appendChild(li);
         });
 
+        // הצגת תאריך מלא בכותרת העליונה
         const options = { weekday: 'long', year: '2-digit', month: 'long', day: 'numeric' };
         document.getElementById('today-date-display').innerText = today.toLocaleDateString('he-IL', options);
     }
 
+    // ניהול טיימרים
     function startTimer(type, seconds) {
         clearInterval(timerIntervals[type]);
         let timeLeft = seconds;
@@ -408,7 +527,7 @@
 
     function resetTimer(type) {
         clearInterval(timerIntervals[type]);
-        const defaultTime = type === 'day' ? "00:45" : "00:30";
+        const defaultTime = type === 'day' ? "00:30" : "00:30";
         document.getElementById(`${type}-timer`).innerText = defaultTime;
     }
 
@@ -418,6 +537,7 @@
         element.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
+    // ניהול מפת רמות
     function renderLevelMap() {
         const container = document.getElementById('level-map-container');
         container.innerHTML = '';
@@ -447,7 +567,7 @@
             currentLevel = parseInt(newLevel);
             localStorage.setItem('my_fitness_level', currentLevel);
             renderLevelMap();
-            alert(`איזה יופי! הרמה עודכנה לרמה ${currentLevel} 🚀`);
+            alert(`מעולה! הרמה עודכנה לרמה ${currentLevel} 🚀`);
         }
     }
 </script>
