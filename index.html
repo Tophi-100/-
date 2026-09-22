@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הלו"ז והכושר שלי עם לילי</title>
+    <title>הלו"ז, הכושר והסטייל עם לילי</title>
     <style>
         :root {
             --primary: #ff6b81;
@@ -65,7 +65,7 @@
 
         .companion-card {
             flex: 1;
-            min-width: 280px;
+            min-width: 290px;
             background: white;
             border-radius: 20px;
             padding: 20px;
@@ -83,15 +83,15 @@
             font-size: 14px;
             margin-bottom: 15px;
             text-align: center;
-            width: 85%;
+            width: 90%;
             border: 2px solid #ff4757;
             line-height: 1.4;
             font-weight: 500;
         }
 
         .avatar-container {
-            width: 160px;
-            height: 240px;
+            width: 180px;
+            height: 250px;
             position: relative;
             margin-bottom: 15px;
             background: #f1f2f6;
@@ -107,6 +107,51 @@
             height: 100%;
         }
 
+        /* Wardrobe / Shop Styling */
+        .shop-box {
+            width: 100%;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .shop-category-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2f3542;
+            margin: 8px 0 4px 0;
+            border-bottom: 2px solid #ff6b81;
+            display: inline-block;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .shop-item-btn {
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .shop-item-btn:hover {
+            border-color: #ff6b81;
+            background: #fff0f3;
+        }
+
         .content-area {
             flex: 2;
             min-width: 320px;
@@ -120,6 +165,55 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        /* Progress Map */
+        .map-card {
+            background: #eccc68;
+            background: linear-gradient(135deg, #f1f2f6 0%, #ffeaa7 100%);
+            border: 2px solid #ffa502;
+        }
+
+        .map-path {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-top: 15px;
+            padding: 0 10px;
+        }
+
+        .map-node {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #ffa502;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 2;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .map-node.completed {
+            background: #2ed573;
+            border-color: #2ed573;
+            color: white;
+        }
+
+        .map-line {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            background: #ffa502;
+            z-index: 1;
+            transform: translateY(-50%);
         }
 
         /* Quiz Box */
@@ -189,7 +283,6 @@
             margin-top: 10px;
         }
 
-        /* Video Responsive */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -208,7 +301,6 @@
             border: none;
         }
 
-        /* Popup Notification */
         .popup {
             position: fixed;
             bottom: 20px;
@@ -223,12 +315,6 @@
             gap: 12px;
             z-index: 1000;
             max-width: 320px;
-            animation: popIn 0.4s ease;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.6); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -237,12 +323,12 @@
     <div class="header-bar">
         <h2>✨ הלו"ז והשגרה שלי</h2>
         <div class="time-badge" id="timeBadge">⏰ בודק שעה...</div>
-        <div class="coin-display">🪙 <span id="coinCount">100</span> מטבעות</div>
+        <div class="coin-display">🪙 <span id="coinCount">12</span> מטבעות</div>
     </div>
 
     <div class="main-layout">
         
-        <!-- Companion (Lily) -->
+        <!-- Companion (Lily + Wardrobe Shop) -->
         <div class="companion-card">
             <div class="speech-bubble" id="companionBubble">
                 טוען הודעה...
@@ -256,57 +342,117 @@
                     <!-- Head & Neck -->
                     <circle cx="50" cy="32" r="18" fill="#f5cda7"/>
                     <rect x="46" y="48" width="8" height="8" fill="#f5cda7"/>
-                    <!-- Smooth Brown Hair -->
-                    <path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>
-                    <!-- Blue Eyes -->
+                    
+                    <!-- Dynamic Hair -->
+                    <g id="hairLayer">
+                        <!-- Straight Brown (Default) -->
+                        <path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>
+                    </g>
+
+                    <!-- Eyes (Blue) -->
                     <circle cx="43" cy="32" r="2.5" fill="#00a8ff"/>
                     <circle cx="57" cy="32" r="2.5" fill="#00a8ff"/>
                     <circle cx="44" cy="31" r="0.8" fill="#fff"/>
                     <circle cx="58" cy="31" r="0.8" fill="#fff"/>
-                    <!-- Smile -->
-                    <path d="M 44,40 Q 50,44 56,40" stroke="#d63031" stroke-width="1.2" fill="none"/>
 
-                    <!-- Top Sweater -->
-                    <g id="avatarTop">
+                    <!-- Dynamic Nose -->
+                    <g id="noseLayer">
+                        <circle cx="50" cy="36" r="1" fill="#e0ac69"/>
+                    </g>
+
+                    <!-- Dynamic Mouth -->
+                    <g id="mouthLayer">
+                        <path d="M 44,41 Q 50,45 56,41" stroke="#d63031" stroke-width="1.2" fill="none"/>
+                    </g>
+
+                    <!-- Dynamic Glasses / Hats -->
+                    <g id="accessoryLayer"></g>
+
+                    <!-- Dynamic Top Sweater -->
+                    <g id="topLayer">
                         <path d="M 34,54 L 66,54 L 63,90 L 37,90 Z" fill="#f5f6fa"/>
                         <rect x="42" y="48" width="16" height="8" rx="2" fill="#dcdde1"/>
                         <path d="M 34,54 L 25,75 L 29,77 L 36,60 Z" fill="#f5f6fa"/>
                         <path d="M 66,54 L 75,75 L 71,77 L 64,60 Z" fill="#f5f6fa"/>
                     </g>
 
-                    <!-- Pink Skirt -->
-                    <g id="avatarBottom">
+                    <!-- Skirt -->
+                    <g id="skirtLayer">
                         <path d="M 35,88 L 65,88 L 74,108 L 26,108 Z" fill="#fd79a8"/>
                     </g>
 
-                    <!-- Classic Black All-Star Shoes -->
-                    <g id="avatarShoes">
-                        <!-- Left Shoe -->
+                    <!-- Dynamic Shoes -->
+                    <g id="shoesLayer">
+                        <!-- Black All-Stars -->
                         <path d="M 32,126 L 47,126 C 48,131 47,135 47,136 L 32,136 Z" fill="#111111"/>
-                        <path d="M 43,126 L 47,126 C 48,131 47,135 47,136 L 43,136 Z" fill="#ffffff"/>
                         <rect x="31" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="31" y1="135.5" x2="48" y2="135.5" stroke="#111" stroke-width="0.5"/>
-                        <line x1="36" y1="128" x2="41" y2="128" stroke="#ffffff" stroke-width="0.7"/>
-                        <line x1="36" y1="131" x2="41" y2="131" stroke="#ffffff" stroke-width="0.7"/>
-
-                        <!-- Right Shoe -->
                         <path d="M 53,126 L 68,126 L 68,136 L 53,136 Z" fill="#111111"/>
-                        <path d="M 53,126 L 57,126 L 57,136 L 53,136 Z" fill="#ffffff"/>
                         <rect x="52" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="52" y1="135.5" x2="69" y2="135.5" stroke="#111" stroke-width="0.5"/>
-                        <line x1="58" y1="128" x2="63" y2="128" stroke="#ffffff" stroke-width="0.7"/>
-                        <line x1="58" y1="131" x2="63" y2="131" stroke="#ffffff" stroke-width="0.7"/>
                     </g>
                 </svg>
+            </div>
+
+            <!-- Wardrobe Shop -->
+            <div class="shop-box">
+                <div style="font-weight:bold; font-size:14px; text-align:center; margin-bottom:5px;">🛍️ הארון של לילי</div>
+                
+                <div class="shop-category-title">🧥 סריגים ובגדים</div>
+                <div class="shop-grid">
+                    <button class="shop-item-btn" onclick="buyItem('top', '#ff78ae', 15)"><span>סריג ורוד</span> <span>15🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('top', '#70a1ff', 15)"><span>סריג תכלת</span> <span>15🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('top', '#a29bfe', 18)"><span>סריג סגול</span> <span>18🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('top', '#2ed573', 20)"><span>סריג ניאון</span> <span>20🪙</span></button>
+                </div>
+
+                <div class="shop-category-title">💇‍♀️ תסרוקות</div>
+                <div class="shop-grid">
+                    <button class="shop-item-btn" onclick="buyItem('hair', 'straight', 0)"><span>חלק קלאסי</span> <span>חינם</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('hair', 'ponytail', 10)"><span>קוקו גבוה</span> <span>10🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('hair', 'wavy', 12)"><span>שיער גלי</span> <span>12🪙</span></button>
+                </div>
+
+                <div class="shop-category-title">👓 משקפיים וכובעים</div>
+                <div class="shop-grid">
+                    <button class="shop-item-btn" onclick="buyItem('acc', 'sunglasses', 8)"><span>משקפי שמש</span> <span>8🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('acc', 'glasses', 6)"><span>משקפי ראייה</span> <span>6🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('acc', 'cap', 10)"><span>כובע מצחייה</span> <span>10🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('acc', 'none', 0)"><span>ללא</span> <span>0🪙</span></button>
+                </div>
+
+                <div class="shop-category-title">👟 נעליים</div>
+                <div class="shop-grid">
+                    <button class="shop-item-btn" onclick="buyItem('shoes', '#111111', 0)"><span>אולסטאר שחור</span> <span>חינם</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('shoes', '#ffffff', 8)"><span>אולסטאר לבן</span> <span>8🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('shoes', '#ff4757', 10)"><span>אולסטאר אדום</span> <span>10🪙</span></button>
+                </div>
+
+                <div class="shop-category-title">😊 תווי פנים (אף ופה)</div>
+                <div class="shop-grid">
+                    <button class="shop-item-btn" onclick="buyItem('face', 'bigsmile', 5)"><span>חיוך ענק</span> <span>5🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('face', 'buttonNose', 5)"><span>אף כפתור</span> <span>5🪙</span></button>
+                </div>
             </div>
         </div>
 
         <div class="content-area">
 
+            <!-- Progress Map Card -->
+            <div class="card map-card">
+                <h3>🗺️ מפת ההתקדמות היומית שלי</h3>
+                <p style="font-size: 12px; color: #555;">לחצי על התחנות שסיימת כדי להציג הצעדה קדימה!</p>
+                <div class="map-path">
+                    <div class="map-line"></div>
+                    <div class="map-node completed" id="node1" onclick="toggleNode(1)">🏫</div>
+                    <div class="map-node" id="node2" onclick="toggleNode(2)">☀️</div>
+                    <div class="map-node" id="node3" onclick="toggleNode(3)">💥</div>
+                    <div class="map-node" id="node4" onclick="toggleNode(4)">🌙</div>
+                </div>
+            </div>
+
             <!-- Funny School Quiz -->
             <div class="card quiz-card" id="schoolQuizCard">
                 <h3>😜 שאלת בית ספר קורעת</h3>
-                <p style="font-weight: bold;">כמה קרצייה הייתה המורה היום במנה של 1 עד 10?</p>
+                <p style="font-weight: bold;">כמה קרצייה הייתה המורה היום במדד של 1 עד 10?</p>
                 <div class="quiz-option" onclick="answerQuiz('10! ברחתי בדמיון למאדים 🚀')">10! ברחתי בדמיון למאדים 🚀</div>
                 <div class="quiz-option" onclick="answerQuiz('5 - סביר, אבל עדיין מעייפת 🥱')">5 - סביר, אבל עדיין מעייפת 🥱</div>
                 <div class="quiz-option" onclick="answerQuiz('1 - מפתיע, שרדנו בלי דרמות! 😎')">1 - מפתיע, שרדנו בלי דרמות! 😎</div>
@@ -317,7 +463,6 @@
                 <h3>☀️ אימון צהריים מרוקן אנרגיות (~14 דקות)</h3>
                 <p style="font-size: 13px; color: #555;">קצבי, קצר ומקפיץ לשחרור הלחץ של בית הספר!</p>
                 
-                <!-- Stopwatch -->
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
                     <div class="timer-display" id="timerDisplay1">00:00</div>
@@ -330,15 +475,7 @@
                     <iframe src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
                 </div>
 
-                <button class="btn-main" id="btnTask1" onclick="finishTask(1)">סיימתי את אימון הצהריים! (+50 🪙)</button>
-
-                <!-- Task Feedback Quiz -->
-                <div class="quiz-card" id="taskQuiz1" style="display:none; padding:10px; margin-top:10px; border-radius:10px;">
-                    <strong>איך היה האימון? (יעדכן את מחר!)</strong>
-                    <div class="quiz-option" onclick="submitDifficulty(1, 'easy')">😊 קל מדי, רוצה יותר קשה מחר</div>
-                    <div class="quiz-option" onclick="submitDifficulty(1, 'medium')">👍 בול במידה!</div>
-                    <div class="quiz-option" onclick="submitDifficulty(1, 'hard')">🥵 קשה רצח, להוריד עומס למחר</div>
-                </div>
+                <button class="btn-main" id="btnTask1" onclick="finishTask(1)">סיימתי את אימון הצהריים! (+3 🪙)</button>
             </div>
 
             <!-- Evening Workout Card -->
@@ -346,7 +483,6 @@
                 <h3 id="eveningTitle">💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
                 <p id="eveningSub" style="font-size: 13px; color: #555;">קליסטניקס ואירובי מקפיץ - בלי יוגה משעממת!</p>
 
-                <!-- Stopwatch -->
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
                     <div class="timer-display" id="timerDisplay2">00:00</div>
@@ -359,32 +495,14 @@
                     <iframe src="https://www.youtube.com/embed/gC_L9qAHVJ8" allowfullscreen></iframe>
                 </div>
 
-                <button class="btn-main" id="btnTask2" onclick="finishTask(2)">סיימתי את אימון הערב! (+50 🪙)</button>
-
-                <div class="quiz-card" id="taskQuiz2" style="display:none; padding:10px; margin-top:10px; border-radius:10px;">
-                    <strong>איך הרגיש אימון הערב?</strong>
-                    <div class="quiz-option" onclick="submitDifficulty(2, 'easy')">⚡ הרים לי את האנרגיה בטירוף</div>
-                    <div class="quiz-option" onclick="submitDifficulty(2, 'medium')">💪 מעולה ומחזק!</div>
-                    <div class="quiz-option" onclick="submitDifficulty(2, 'hard')">🥵 מעייף, אשן טוב הלילה</div>
-                </div>
-            </div>
-
-            <!-- Event Scheduler -->
-            <div class="card">
-                <h3>📅 אירועים בלו"ז (תזכורת 20 דקות לפני)</h3>
-                <div style="display:flex; gap:8px;">
-                    <input type="text" id="eventName" placeholder="אירוע (למשל: בת מצווה)" style="flex:2; padding:8px; border-radius:8px; border:1px solid #ccc;">
-                    <input type="time" id="eventTime" style="flex:1; padding:8px; border-radius:8px; border:1px solid #ccc;">
-                    <button class="btn-main" style="flex:1; margin:0;" onclick="addEvent()">הוסף</button>
-                </div>
-                <ul id="eventList" style="margin-top:10px; padding-right:20px; font-size:14px;"></ul>
+                <button class="btn-main" id="btnTask2" onclick="finishTask(2)">סיימתי את אימון הערב! (+4 🪙)</button>
             </div>
 
         </div>
 
     </div>
 
-    <!-- Floating Popup -->
+    <!-- Popup -->
     <div class="popup" id="reminderPopup">
         <span style="font-size:30px;">💖</span>
         <div>
@@ -395,9 +513,9 @@
     </div>
 
     <script>
-        let coins = 100;
+        let coins = 12;
         let timerIntervals = {};
-        let events = [];
+        let inventory = [];
 
         function updateTime() {
             const now = new Date();
@@ -407,32 +525,76 @@
 
             if (hours >= 6 && hours < 12) {
                 badge.innerText = '🌅 בוקר טוב';
-                bubble.innerText = 'בוקר אור! לוקחים שלוק מים ומוכנים ליום מעולה! ☀️';
+                bubble.innerText = 'בוקר אור! שותים מים ומתחילים יום מנצח! ☀️';
             } else if (hours >= 12 && hours < 18) {
                 badge.innerText = '☀️ צהריים';
-                bubble.innerText = 'היי! חזרת מבית הספר? בואי נעשה אימון קצר ונתפרק! 💪';
+                bubble.innerText = 'חזרת מבית ספר? בואי ניפטר מהלחץ באימון קצר! 💪';
             } else if (hours >= 18 && hours < 21) {
                 badge.innerText = '🌆 ערב';
-                bubble.innerText = 'ערב טוב! זמן לאימון קפיצי ומעורר או לריצה קלה! 💥';
+                bubble.innerText = 'ערב טוב! זמן לאימון קפיצי או ריצה קלה בחוץ! 💥';
             } else {
                 badge.innerText = '🌙 לילה';
-                bubble.innerText = 'כבר מאוחר! להתארגן לשינה ולכבות מסכים скоро 😴';
-            }
-
-            // Decide randomly on running option for evening
-            if (hours >= 18 && Math.random() > 0.6) {
-                document.getElementById('eveningTitle').innerText = '🏃‍♀️ משימת הערב: ריצה באוויר הפתוח!';
-                document.getElementById('eveningSub').innerText = '15 דקות של ריצה קלה בשכונה להזרמת דם ואנרגיות!';
-                document.getElementById('eveningVideoBox').style.display = 'none';
+                bubble.innerText = 'כבר מאוחר! להתכונן לשינה ולסגור מסכים 😴';
             }
         }
 
-        // Stopwatch Mechanism (30s / 45s)
+        // Shop System
+        function buyItem(type, val, price) {
+            if (coins < price) {
+                showPopup('אין מספיק מטבעות! 🪙', `הפריט עולה ${price} מטבעות. השלימי אימונים ומשימות כדי להרוויח עוד!`);
+                return;
+            }
+
+            coins -= price;
+            document.getElementById('coinCount').innerText = coins;
+
+            if (type === 'top') {
+                document.getElementById('topLayer').querySelectorAll('path').forEach(el => el.setAttribute('fill', val));
+            } else if (type === 'shoes') {
+                document.getElementById('shoesLayer').querySelectorAll('path').forEach(el => {
+                    if (el.getAttribute('fill') !== '#ffffff') el.setAttribute('fill', val);
+                });
+            } else if (type === 'hair') {
+                const hairLayer = document.getElementById('hairLayer');
+                if (val === 'straight') {
+                    hairLayer.innerHTML = `<path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>`;
+                } else if (val === 'ponytail') {
+                    hairLayer.innerHTML = `<circle cx="50" cy="28" r="18" fill="#4a3000"/><path d="M 65,25 Q 82,20 80,45" stroke="#4a3000" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+                } else if (val === 'wavy') {
+                    hairLayer.innerHTML = `<path d="M 25,32 Q 20,50 30,75 Q 35,50 30,30 Q 70,30 70,50 Q 80,50 75,75" fill="#4a3000"/>`;
+                }
+            } else if (type === 'acc') {
+                const acc = document.getElementById('accessoryLayer');
+                if (val === 'sunglasses') {
+                    acc.innerHTML = `<rect x="37" y="29" width="12" height="7" rx="2" fill="#111"/><rect x="51" y="29" width="12" height="7" rx="2" fill="#111"/><line x1="49" y1="32" x2="51" y2="32" stroke="#111" stroke-width="1.5"/>`;
+                } else if (val === 'glasses') {
+                    acc.innerHTML = `<circle cx="43" cy="32" r="4" stroke="#111" stroke-width="1" fill="none"/><circle cx="57" cy="32" r="4" stroke="#111" stroke-width="1" fill="none"/><line x1="47" y1="32" x2="53" y2="32" stroke="#111" stroke-width="1"/>`;
+                } else if (val === 'cap') {
+                    acc.innerHTML = `<path d="M 30,22 Q 50,10 70,22 Z" fill="#ff4757"/><path d="M 25,22 Q 50,22 75,18" stroke="#ff4757" stroke-width="3" fill="none"/>`;
+                } else {
+                    acc.innerHTML = '';
+                }
+            } else if (type === 'face') {
+                if (val === 'bigsmile') {
+                    document.getElementById('mouthLayer').innerHTML = `<path d="M 42,40 Q 50,48 58,40 Z" fill="#d63031"/>`;
+                } else if (val === 'buttonNose') {
+                    document.getElementById('noseLayer').innerHTML = `<circle cx="50" cy="36" r="1.8" fill="#ff7675"/>`;
+                }
+            }
+            showPopup('תתחדשי! ✨', 'לילי מרוצה מאוד מהלוק החדש שלה!');
+        }
+
+        // Map Node Toggle
+        function toggleNode(num) {
+            const node = document.getElementById(`node${num}`);
+            node.classList.toggle('completed');
+        }
+
+        // Stopwatch
         function startTimer(displayId, seconds) {
             clearInterval(timerIntervals[displayId]);
             let timeLeft = seconds;
             const display = document.getElementById(displayId);
-            
             display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
             
             timerIntervals[displayId] = setInterval(() => {
@@ -440,7 +602,7 @@
                 display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 if (timeLeft <= 0) {
                     clearInterval(timerIntervals[displayId]);
-                    display.innerText = '⏰ זמנך עבר!';
+                    display.innerText = '⏰ סיימת!';
                 }
             }, 1000);
         }
@@ -454,64 +616,18 @@
             document.getElementById('schoolQuizCard').innerHTML = `
                 <h3>😜 קיבלתי!</h3>
                 <p>ענית: <strong>${text}</strong></p>
-                <p>לילי אומרת: "העיקר שעברנו את זה! עכשיו פורקים את העצבים באימון!" 🔥</p>
+                <p>לילי אומרת: "שחררי את זה באימון, מחר יום חדש!" 🔥</p>
             `;
+            coins += 2;
+            document.getElementById('coinCount').innerText = coins;
         }
 
         function finishTask(num) {
             document.getElementById(`btnTask${num}`).style.display = 'none';
-            document.getElementById(`taskQuiz${num}`).style.display = 'block';
-            coins += 50;
+            coins += (num === 1 ? 3 : 4);
             document.getElementById('coinCount').innerText = coins;
-        }
-
-        function submitDifficulty(num, diff) {
-            document.getElementById(`taskQuiz${num}`).innerHTML = '✨ המשוב נשמר! מחר נעדכן את דרגת הקושי לפי התשובה שלך!';
-        }
-
-        // Event Scheduler & 20-min Alert Logic
-        function addEvent() {
-            const name = document.getElementById('eventName').value;
-            const time = document.getElementById('eventTime').value;
-
-            if (!name || !time) return;
-
-            events.push({ name, time, notified: false });
-            const ul = document.getElementById('eventList');
-            const li = document.createElement('li');
-            li.innerText = `📌 ${name} בשעה ${time}`;
-            ul.appendChild(li);
-
-            document.getElementById('eventName').value = '';
-            document.getElementById('eventTime').value = '';
-            
-            showPopup('אירוע נוסף!', `נוסף ללו"ז: ${name} בשעה ${time}. אלעקוב ואזכיר לך 20 דקות לפני!`);
-        }
-
-        function checkReminders() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const currentTotalMin = hours * 60 + minutes;
-
-            // Check Events 20 mins before
-            events.forEach(ev => {
-                if (ev.notified) return;
-                const [h, m] = ev.time.split(':').map(Number);
-                const eventTotalMin = h * 60 + m;
-
-                if (eventTotalMin - currentTotalMin === 20) {
-                    ev.notified = true;
-                    showPopup('👗 התארגנת כבר?', `יש לך עוד 20 דקות את ה-${ev.name}! לבשת משהו הורס? לשים אולסטאר?`);
-                }
-            });
-
-            // Night Sleep Nagging (Every 20 mins after 21:00)
-            if (hours >= 21) {
-                if (minutes % 20 === 0) {
-                    showPopup('🌙 נודניק שינה מלילי', 'חביבתי, כבר אחרי תשע בלילה! הגיע הזמן ללכת לישון כדי להיות רעננה מחר!');
-                }
-            }
+            toggleNode(num + 1);
+            showPopup('כל הכבוד! 💪', `סיימת את האימון והרווחת מטבעות! היכנסו לארון להלביש את לילי.`);
         }
 
         function showPopup(title, text) {
@@ -524,9 +640,7 @@
             document.getElementById('reminderPopup').style.display = 'none';
         }
 
-        // Init & Timers
         updateTime();
-        setInterval(checkReminders, 60000); // Check every minute
     </script>
 </body>
 </html>
