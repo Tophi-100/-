@@ -1,14 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>העולם של לילי - אתר לבנות בלבד</title>
+  <title>העולם של לילי - סוכות וחופש!</title>
   <style>
     :root {
       --primary-color: #ff85a2;
+      --secondary-color: #ffd1dc;
       --bg-color: #fff0f5;
-      --panel-bg: #ffffff;
+      --card-bg: #ffffff;
       --text-color: #4a4a4a;
     }
 
@@ -30,7 +32,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -40,7 +42,7 @@
     .modal-content {
       background: white;
       padding: 30px;
-      border-radius: 20px;
+      border-radius: 25px;
       max-width: 450px;
       width: 90%;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -66,8 +68,8 @@
     .question-group select, .question-group input {
       width: 100%;
       padding: 10px;
-      border: 2px solid #ffccd5;
-      border-radius: 10px;
+      border: 2px solid var(--secondary-color);
+      border-radius: 12px;
       font-size: 14px;
       box-sizing: border-box;
     }
@@ -90,10 +92,10 @@
 
     /* תוכן האפליקציה */
     #app {
-      display: none; /* מוסתר עד למילוי השאלון */
+      display: none;
       flex: 1;
       padding: 20px;
-      padding-bottom: 120px; /* רווח לתפריט האוכל למטה */
+      padding-bottom: 140px;
       max-width: 800px;
       margin: 0 auto;
       width: 100%;
@@ -104,12 +106,12 @@
       text-align: center;
       background: white;
       padding: 15px;
-      border-radius: 15px;
+      border-radius: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       margin-bottom: 20px;
     }
 
-    /* עיצוב לילי */
+    /* עיצוב לילי - מראה אנושי, חמוד ונורמלי */
     .character-section {
       background: white;
       border-radius: 20px;
@@ -119,75 +121,115 @@
       margin-bottom: 20px;
     }
 
-    .lily-avatar {
-      width: 160px;
-      height: 220px;
-      margin: 0 auto 15px;
-      position: relative;
-      background: #fbe3e8;
-      border-radius: 80px 80px 40px 40px;
-      border: 3px solid #ffb6c1;
+    .lily-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 15px;
+      margin-bottom: 15px;
     }
 
-    /* הפנים של לילי */
+    /* ראש ושיער */
+    .lily-head {
+      position: relative;
+      width: 90px;
+      height: 90px;
+    }
+
+    .lily-hair {
+      position: absolute;
+      top: -5px;
+      left: -8px;
+      width: 106px;
+      height: 110px;
+      background: #5c3a21; /* שיער חום טבעי */
+      border-radius: 50px 50px 20px 20px;
+      z-index: 1;
+    }
+
     .lily-face {
+      position: absolute;
+      top: 10px;
+      left: 5px;
       width: 80px;
       height: 80px;
-      background: #ffdbac;
+      background: #ffe0bd; /* גוון עור טבעי */
       border-radius: 50%;
-      position: relative;
+      z-index: 2;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .eyes {
       display: flex;
-      gap: 20px;
+      gap: 18px;
+      margin-top: 5px;
     }
 
     .eye {
-      width: 10px;
-      height: 10px;
-      background: #333;
+      width: 8px;
+      height: 8px;
+      background: #2b1d0c;
       border-radius: 50%;
     }
 
-    .smile {
-      width: 20px;
-      height: 10px;
-      border-bottom: 3px solid #333;
-      border-radius: 0 0 10px 10px;
-      position: absolute;
-      bottom: 15px;
-    }
-
-    /* גוף/בגדים ונעליים */
-    .lily-outfit {
-      width: 90px;
-      height: 70px;
-      background: var(--primary-color);
-      margin-top: 10px;
-      border-radius: 10px 10px 0 0;
-    }
-
-    .lily-shoes {
-      width: 80px;
+    .cheeks {
       display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
+      gap: 30px;
+      position: absolute;
+      top: 42px;
+    }
+
+    .cheek {
+      width: 10px;
+      height: 6px;
+      background: #ffb6c1;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    .smile {
+      width: 16px;
+      height: 8px;
+      border-bottom: 3px solid #b5425b;
+      border-radius: 0 0 10px 10px;
+      margin-top: 8px;
+    }
+
+    /* גוף, בגדים ונעליים */
+    .lily-body {
+      width: 50px;
+      height: 65px;
+      background: var(--primary-color);
+      border-radius: 12px 12px 5px 5px;
+      z-index: 2;
+      margin-top: -5px;
+    }
+
+    .lily-legs {
+      display: flex;
+      gap: 12px;
+      margin-top: -2px;
+    }
+
+    .leg {
+      width: 10px;
+      height: 35px;
+      background: #ffe0bd;
+    }
+
+    .shoes {
+      display: flex;
+      gap: 8px;
+      margin-top: -5px;
     }
 
     .shoe {
-      width: 30px;
-      height: 15px;
-      background: #333;
-      border-radius: 8px 8px 3px 3px;
+      width: 22px;
+      height: 10px;
+      background: #333333; /* נעלי ספורט נורמליות */
+      border-radius: 6px 10px 3px 3px;
     }
 
     .speech-bubble {
@@ -195,16 +237,17 @@
       border: 2px solid var(--primary-color);
       border-radius: 15px;
       padding: 15px;
-      margin-top: 10px;
       font-weight: bold;
       color: #d6336c;
+      font-size: 15px;
+      line-height: 1.4;
     }
 
     /* ארון בגדים */
-    .wardrobe-section, .workout-section {
+    .section-card {
       background: white;
       border-radius: 20px;
-      padding: 15px;
+      padding: 20px;
       margin-bottom: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
@@ -223,9 +266,89 @@
       padding: 8px 15px;
       border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    /* תפריט אוכל קבוע למטה */
+    /* מפת התקדמות בשלבים (1 עד 10) */
+    .progress-track {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 10px;
+      position: relative;
+      padding: 0 10px;
+    }
+
+    .progress-track::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 20px;
+      height: 6px;
+      background: #f0f0f0;
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .progress-bar-fill {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      height: 6px;
+      background: var(--primary-color);
+      z-index: 1;
+      transform: translateY(-50%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .step-node {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      z-index: 2;
+      color: #aaa;
+    }
+
+    .step-node.active {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* מתכונים מגרים */
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .recipe-link {
+      background: #fff5f7;
+      border: 1px solid #ffccd5;
+      padding: 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #c2255c;
+      font-weight: bold;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .recipe-link:hover {
+      background: #ffe3e8;
+    }
+
+    /* תפריט אוכל רגיל למטה */
     .food-menu-bar {
       position: fixed;
       bottom: 0;
@@ -237,6 +360,7 @@
       padding: 10px;
       box-sizing: border-box;
       text-align: center;
+      z-index: 100;
     }
 
     .food-items {
@@ -251,6 +375,7 @@
       background: #fff0f5;
       padding: 5px 10px;
       border-radius: 8px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -259,130 +384,191 @@
   <!-- מודאל כניסה: 3 שאלות התעניינות בשלומך -->
   <div id="welcome-modal">
     <div class="modal-content">
-      <h2>ברוכה הבאה! 💕</h2>
-      <p>לפני שנכנסים, לילי רוצה לשאול לשלומך:</p>
+      <h2>היי אהובה! ברוכה הבאה 💖</h2>
+      <p>כדי שלילי תדע איך לעזור לך היום, עני על 3 שאלות קצרות:</p>
       
       <div class="question-group">
         <label for="q1">1. איך המרגש שלך היום?</label>
         <select id="q1">
-          <option value="מעולה">מעולה ושמח! 😄</option>
+          <option value="מעולה">מעולה ושמחה! 😄</option>
           <option value="רגיל">בסדר, יום רגיל 🙂</option>
           <option value="עייפה">קצת עייפה 😴</option>
-          <option value="קשה">קצת קשה לי היום 🥺</option>
+          <option value="זקוקה לחיזוק">זקוקה לקצת חיזוק וחיבוק 🥺</option>
         </select>
       </div>
 
       <div class="question-group">
         <label for="q2">2. כמה אנרגיה יש לך מ-1 עד 10?</label>
-        <input type="number" id="q2" min="1" max="10" value="7">
+        <input type="number" id="q2" min="1" max="10" value="8">
       </div>
 
       <div class="question-group">
-        <label for="q3">3. מה הכי בא לך לעשות כרגע?</label>
+        <label for="q3">3. משהו שבא לך לעשות כרגע?</label>
         <select id="q3">
-          <option value="לנוח">לנוח ולהירגע 🧘‍♀️</option>
-          <option value="להתאמן">לעשות אימון / ריצה 🏃‍♀️</option>
-          <option value="לאכול">לאכול משהו טוב 🍕</option>
+          <option value="לנוח בחופש">לנוח וליהנות מחופשת סוכות 🌴</option>
+          <option value="להתאמן בחופש">אימון כיפי או ריצת ערב 🏃‍♀️</option>
+          <option value="מתכון מגרה">להכין משהו מטורף ומגרה למאנץ' 🥞</option>
         </select>
       </div>
 
-      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר</button>
+      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר ✨</button>
     </div>
   </div>
 
   <!-- התוכן הראשי של האתר -->
   <div id="app">
     <header>
-      <h1>העולם של לילי 💖</h1>
-      <div>יתרה: <strong id="money-display">0 ₪</strong> (מתחילים מ-0!)</div>
+      <h1>העולם של לילי 👑</h1>
+      <div>יתרה בחלל: <strong id="money-display">0 ₪</strong> (התחלה מ-0!)</div>
     </header>
 
-    <!-- הצגת לילי -->
+    <!-- הצגת לילי בלוק נורמלי וחמוד -->
     <div class="character-section">
-      <div class="lily-avatar">
-        <div class="lily-face" id="lily-face">
-          <div class="eyes">
-            <div class="eye"></div>
-            <div class="eye"></div>
+      <div class="lily-container">
+        <div class="lily-head">
+          <div class="lily-hair"></div>
+          <div class="lily-face" id="lily-face">
+            <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+            <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
+            <div class="smile"></div>
           </div>
-          <div class="smile"></div>
         </div>
-        <div class="lily-outfit" id="lily-outfit"></div>
-        <div class="lily-shoes">
+        <div class="lily-body" id="lily-outfit"></div>
+        <div class="lily-legs">
+          <div class="leg"></div>
+          <div class="leg"></div>
+        </div>
+        <div class="shoes">
           <div class="shoe" id="shoe-left"></div>
           <div class="shoe" id="shoe-right"></div>
         </div>
       </div>
       
-      <!-- התגובה של לילי מיד בכניסה -->
+      <!-- התגובה והחיזוקים של לילי -->
       <div class="speech-bubble" id="lily-speech">
-        טוען את התגובה של לילי...
+        טוענת את התגובה של לילי...
       </div>
     </div>
 
-    <!-- ארון בגדים גדול ומרווח -->
-    <div class="wardrobe-section">
+    <!-- מפת התקדמות 1 עד 10 -->
+    <div class="section-card">
+      <h3>מפת ההתקדמות שלך 🏆 (שלב <span id="current-step-num">1</span> מתוך 10)</h3>
+      <div class="progress-track">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+        <div class="step-node active" id="node-1">1</div>
+        <div class="step-node" id="node-2">2</div>
+        <div class="step-node" id="node-3">3</div>
+        <div class="step-node" id="node-4">4</div>
+        <div class="step-node" id="node-5">5</div>
+        <div class="step-node" id="node-6">6</div>
+        <div class="step-node" id="node-7">7</div>
+        <div class="step-node" id="node-8">8</div>
+        <div class="step-node" id="node-9">9</div>
+        <div class="step-node" id="node-10">10</div>
+      </div>
+      <button class="btn-submit" style="margin-top:15px; width:100%;" onclick="advanceStep()">השלמתי משימה! עלי שלב 🎉</button>
+    </div>
+
+    <!-- מתכונים מגרים ומפתים (שהם בעצם מחטבים ובריאים!) -->
+    <div class="section-card">
+      <h3>מתכונים מטורפים ומגרים רצח! 🧀🍫</h3>
+      <p>שמות מפתים – אבל הכל בריא, עשיר בחלבון ומחטב:</p>
+      <div class="recipes-grid">
+        <a href="https://www.google.com/search?q=מתכון+פנקייק+חלבון+שוקולד+בריא" target="_blank" class="recipe-link">🥞 פנקייק שוקולד מושחת (ומחטב!)</a>
+        <a href="https://www.google.com/search?q=מתכון+פיצה+על+בסיס+יוגורט+יווני+חלבון" target="_blank" class="recipe-link">🍕 פיצת גבינות נמסה (עשירה בחלבון)</a>
+        <a href="https://www.google.com/search?q=מתכון+גלידת+חלבון+פירות+יער" target="_blank" class="recipe-link">🍦 גלידת שמנת פירות יער (אפס מצפון)</a>
+        <a href="https://www.google.com/search?q=מתכון+עוגת+סופלה+שוקולד+חלבון" target="_blank" class="recipe-link">🍫 עוגת שוקולד חמה זורמת (בריאה!)</a>
+      </div>
+    </div>
+
+    <!-- ארון בגדים גדול -->
+    <div class="section-card">
       <h3>הארון של לילי 👗</h3>
-      <p>החליפי פנים, בגדים ונעלים בצורה נוחה:</p>
-      
       <div class="controls-grid">
-        <button class="opt-btn" onclick="changeFace('#ffdbac')">פנים: בהיר</button>
-        <button class="opt-btn" onclick="changeFace('#f1c27d')">פנים: שזוף</button>
+        <button class="opt-btn" onclick="changeFace('#ffe0bd')">עור: בהיר</button>
+        <button class="opt-btn" onclick="changeFace('#f1c27d')">עור: שזוף</button>
         <button class="opt-btn" onclick="changeOutfit('#ff85a2')">שמלה ורודה</button>
         <button class="opt-btn" onclick="changeOutfit('#4ea8de')">חולצה כחולה</button>
-        <button class="opt-btn" onclick="changeShoes('#333333')">נעלי ספורט שחורות</button>
-        <button class="opt-btn" onclick="changeShoes('#white')">נעליים לבנות</button>
+        <button class="opt-btn" onclick="changeShoes('#333333')">נעליים שחורות</button>
+        <button class="opt-btn" onclick="changeShoes('#ffffff')">נעליים לבנות</button>
       </div>
     </div>
 
-    <!-- אזור אימונים וריצת ערב -->
-    <div class="workout-section">
-      <h3>פעילות וכושר 👟</h3>
-      <p id="workout-status">בודק מה שעת היום...</p>
-      <button class="btn-submit" onclick="checkWorkout()">בדקי אימון מלילי</button>
+    <!-- כושר, חופש וריצת ערב -->
+    <div class="section-card">
+      <h3>לו"ז כושר בחופש 👟</h3>
+      <p id="workout-status">בודקת שעה...</p>
+      <button class="btn-submit" onclick="checkWorkout()">בדקי משימת כושר מלילי</button>
     </div>
   </div>
 
-  <!-- תפריט אוכל רגיל וקבוע בתחתית המסך -->
+  <!-- תפריט אוכל רגיל וקבוע למטה -->
   <div class="food-menu-bar">
     <strong>תפריט האוכל היומי שלי 🥗</strong>
     <div class="food-items">
       <div class="food-item">🌅 בוקר: חביתה וסלט</div>
-      <div class="food-item">☀️ צהריים: חזה עוף / פסטה</div>
-      <div class="food-item">🍎 ביניים: פרי / מעדן</div>
-      <div class="food-item">🌙 ערב: טוסט / שקשוקה</div>
+      <div class="food-item">☀️ צהריים: חזה עוף / פפארדלה</div>
+      <div class="food-item">🍎 ביניים: פרי / מעדן חלבון</div>
+      <div class="food-item">🌙 ערב: טוסט גבינה / שקשוקה</div>
     </div>
   </div>
 
   <script>
-    // הגדרות והתחלה
-    let money = 0; // מתחילים בלי כסף
-    const workoutsList = ["מתיחות בוקר 🧘‍♀️", "אימון בטן קצר 💪", "יוגה קלה 🌸", "תרגילי קפיצות 🤸‍♀️"];
+    let currentStep = 1;
+    const workoutsList = ["מתיחות בוקר כיפיות 🧘‍♀️", "אימון בטן קצר ומחטב 💪", "יוגה קלה לשיחרור 🌸", "תרגילי קפיצות ואנרגיה 🤸‍♀️"];
+
+    // חיזוקים ומילים טובות מלילי
+    const encouragementQuotes = [
+      "את פשוט אלופה ומדהימה! כל הכבוד על המאמץ! 🌟",
+      "אין עליך בעולם! גאה בך שאת משקיעה בעצמך! 💖",
+      "צעד אחר צעד את מגיעה הכי גבוה שיש! 👑",
+      "איזה כוחות! את פשוט מודל לחיקוי! ✨",
+      "תזכרי שאת מלכה, לא משנה מה! 🌺"
+    ];
 
     function submitQuiz() {
       const mood = document.getElementById('q1').value;
       const energy = document.getElementById('q2').value;
-      const wantTo = document.getElementById('q3').value;
 
-      // סגירת מודאל
       document.getElementById('welcome-modal').style.display = 'none';
       document.getElementById('app').style.display = 'block';
 
-      // תגובה מיידית של לילי בהתאם לתשובות
       const speech = document.getElementById('lily-speech');
-      let response = `היי מתוקה! ראיתי שאת מרגישה ${mood} עם רמת אנרגיה של ${energy}/10. `;
       
-      if (mood === "קשה" || mood === "עייפה") {
-        response += "אני כאן איתך, קחי את הזמן להירגע ולנוח היום. 💕";
+      // תגובה מותאמת לפי חופשת סוכות ושמחת תורה
+      let response = `איזה כיף שבאות! סוכות ושמחת תורה כאן ואין לימודים בכלל עד יום ראשון הבא! 🎉<br>`;
+      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. `;
+
+      if (mood === "זקוקה לחיזוק" || mood === "עייפה") {
+        response += "<br>❤️ <strong>חיבוק ענקי מלילי:</strong> את מדהימה, אלופה וחזקה. קחי את החופש הזה להטעין מצברים, מגיע לך לנוח ולפנק את עצמך!";
       } else {
-        response += "איזה כיף שאת כאן! שיהיה לנו יום מהמם ביחד! 🌟";
+        response += "<br>✨ <strong>חיזוק מלילי:</strong> את נראית ומרגישה כמו מלכה! בואי ננצל את החופש הזה לעשות דברים שאת אוהבת!";
       }
 
-      speech.innerText = response;
+      speech.innerHTML = response;
       updateWorkoutInfo();
     }
 
-    // שינוי עיצוב של לילי (ארון בגדים ופנים)
+    // ניהול שלבי ההתקדמות 1-10
+    function advanceStep() {
+      if (currentStep < 10) {
+        currentStep++;
+        document.getElementById('current-step-num').innerText = currentStep;
+        document.getElementById(`node-${currentStep}`).classList.add('active');
+        
+        // עדכון פס ההתקדמות
+        const fillPercent = ((currentStep - 1) / 9) * 100;
+        document.getElementById('progress-fill').style.width = fillPercent + '%';
+
+        // חיזוק אקראי מלילי בכל עת שלב
+        const randomQuote = encouragementQuotes[Math.floor(Math.random() * encouragementQuotes.length)];
+        alert(`כל הכבוד! עלית לשלב ${currentStep}! 🎉\n\nלילי אומרת: "${randomQuote}"`);
+      } else {
+        alert("וואו!! הגעת לשלב 10! את אלופה אמיתית וכבשת את כל המפה! 🏆👑");
+      }
+    }
+
+    // שינוי מראה של לילי
     function changeFace(color) {
       document.getElementById('lily-face').style.backgroundColor = color;
     }
@@ -396,18 +582,16 @@
       document.getElementById('shoe-right').style.backgroundColor = color;
     }
 
-    // ניהול אימונים וריצת ערב
+    // לו"ז כושר וריצת ערב בחופש
     function updateWorkoutInfo() {
       const currentHour = new Date().getHours();
       const statusText = document.getElementById('workout-status');
       
-      // בדיקה אם זה שעות הערב (למשל מ-18:00 ומעלה)
       if (currentHour >= 18 || currentHour < 5) {
-        statusText.innerText = "עכשיו ערב! 🌙 לילי ממליצה לצאת לריצת ערב מרעננת בחוץ!";
+        statusText.innerText = "עכשיו ערב! 🌙 לילי שולחת אותך לריצת ערב מרעננת באוויר הפתוח!";
       } else {
-        // אימון מתחלף באקראי לשעות היום
         const randomWorkout = workoutsList[Math.floor(Math.random() * workoutsList.length)];
-        statusText.innerText = `האימון להיום: ${randomWorkout}`;
+        statusText.innerText = `אימון החופש להיום: ${randomWorkout}`;
       }
     }
 
@@ -415,9 +599,9 @@
       updateWorkoutInfo();
       const currentHour = new Date().getHours();
       if (currentHour >= 18 || currentHour < 5) {
-        alert("לילי: יציאה לריצת ערב! אל תשכחי לשתות מים! 🏃‍♀️✨");
+        alert("לילי: יציאה לריצת ערב בחופש! קחי אוזניות ומים וצאי ליהנות! 🏃‍♀️✨");
       } else {
-        alert("לילי: הנה האימון שלך להיום, תעשי מה שמתאים לרגש שלך!");
+        alert("לילי: הנה האימון שלך להיום! תעשי בכיף שלך, בלי לחץ של לימודים!");
       }
     }
   </script>
