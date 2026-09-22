@@ -25,7 +25,7 @@
 
         .header-bar {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -59,13 +59,13 @@
             display: flex;
             gap: 20px;
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             flex-wrap: wrap;
         }
 
         .companion-card {
             flex: 1;
-            min-width: 290px;
+            min-width: 300px;
             background: white;
             border-radius: 20px;
             padding: 20px;
@@ -90,16 +90,17 @@
         }
 
         .avatar-container {
-            width: 180px;
-            height: 250px;
+            width: 200px;
+            height: 280px;
             position: relative;
             margin-bottom: 15px;
-            background: #f1f2f6;
+            background: linear-gradient(180deg, #eccc68 0%, #f1f2f6 100%);
             border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 2px solid #dfe4ea;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
 
         .avatar-svg {
@@ -107,7 +108,7 @@
             height: 100%;
         }
 
-        /* Wardrobe / Shop Styling */
+        /* Wardrobe Shop */
         .shop-box {
             width: 100%;
             background: #f8f9fa;
@@ -115,15 +116,15 @@
             border-radius: 15px;
             padding: 10px;
             box-sizing: border-box;
-            max-height: 250px;
+            max-height: 220px;
             overflow-y: auto;
         }
 
         .shop-category-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #2f3542;
-            margin: 8px 0 4px 0;
+            margin: 6px 0 4px 0;
             border-bottom: 2px solid #ff6b81;
             display: inline-block;
         }
@@ -167,9 +168,62 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
+        /* Monthly Calendar Styling */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-day-label {
+            font-weight: bold;
+            font-size: 12px;
+            color: #a4b0be;
+            padding-bottom: 5px;
+        }
+
+        .calendar-day {
+            background: #f1f2f6;
+            padding: 8px 2px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #ffeaa7;
+        }
+
+        .calendar-day.today {
+            background: #ff6b81;
+            color: white;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: #2ed573;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         /* Progress Map */
         .map-card {
-            background: #eccc68;
             background: linear-gradient(135deg, #f1f2f6 0%, #ffeaa7 100%);
             border: 2px solid #ffa502;
         }
@@ -184,8 +238,8 @@
         }
 
         .map-node {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: white;
             border: 3px solid #ffa502;
@@ -193,7 +247,7 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             z-index: 2;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -216,54 +270,32 @@
             transform: translateY(-50%);
         }
 
-        /* Quiz Box */
-        .quiz-card {
-            background: #fff9db;
-            border: 2px dashed #f1c40f;
-        }
-
-        .quiz-option {
-            background: white;
-            border: 1px solid #f1c40f;
-            padding: 10px 14px;
-            margin: 8px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .quiz-option:hover {
-            background: #ffeaa7;
-            transform: translateX(-3px);
-        }
-
         /* Timer Controls */
         .timer-box {
             background: #f1f2f6;
             border-radius: 15px;
-            padding: 12px;
+            padding: 10px;
             margin: 10px 0;
             text-align: center;
         }
 
         .timer-display {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: #ff4757;
-            margin: 5px 0;
+            margin: 4px 0;
         }
 
         .timer-btn {
             background: #ff6b81;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 10px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            margin: 3px;
+            margin: 2px;
+            font-size: 12px;
         }
 
         .timer-btn:hover {
@@ -321,14 +353,14 @@
 <body>
 
     <div class="header-bar">
-        <h2>✨ הלו"ז והשגרה שלי</h2>
+        <h2>✨ הלו"ז, הכושר והסטייל שלי</h2>
         <div class="time-badge" id="timeBadge">⏰ בודק שעה...</div>
         <div class="coin-display">🪙 <span id="coinCount">12</span> מטבעות</div>
     </div>
 
     <div class="main-layout">
         
-        <!-- Companion (Lily + Wardrobe Shop) -->
+        <!-- Companion (Lily Realistic SVG) -->
         <div class="companion-card">
             <div class="speech-bubble" id="companionBubble">
                 טוען הודעה...
@@ -337,81 +369,101 @@
             <div class="avatar-container">
                 <svg class="avatar-svg" viewBox="0 0 100 150">
                     <!-- Legs -->
-                    <rect x="40" y="98" width="6" height="32" fill="#f5cda7"/>
-                    <rect x="54" y="98" width="6" height="32" fill="#f5cda7"/>
-                    <!-- Head & Neck -->
-                    <circle cx="50" cy="32" r="18" fill="#f5cda7"/>
-                    <rect x="46" y="48" width="8" height="8" fill="#f5cda7"/>
+                    <rect x="42" y="96" width="5" height="34" fill="#f8d0b0"/>
+                    <rect x="53" y="96" width="5" height="34" fill="#f8d0b0"/>
                     
-                    <!-- Dynamic Hair -->
-                    <g id="hairLayer">
-                        <!-- Straight Brown (Default) -->
-                        <path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>
+                    <!-- Back Hair -->
+                    <g id="backHairLayer">
+                        <path d="M 30,30 C 25,50 25,80 32,85 C 38,85 36,50 35,30 Z" fill="#3a220f"/>
+                        <path d="M 70,30 C 75,50 75,80 68,85 C 62,85 64,50 65,30 Z" fill="#3a220f"/>
                     </g>
 
-                    <!-- Eyes (Blue) -->
-                    <circle cx="43" cy="32" r="2.5" fill="#00a8ff"/>
-                    <circle cx="57" cy="32" r="2.5" fill="#00a8ff"/>
-                    <circle cx="44" cy="31" r="0.8" fill="#fff"/>
-                    <circle cx="58" cy="31" r="0.8" fill="#fff"/>
+                    <!-- Realistic Head & Neck -->
+                    <rect x="46" y="44" width="8" height="9" fill="#f8d0b0" rx="2"/>
+                    <ellipse cx="50" cy="30" rx="17" ry="19" fill="#f8d0b0"/>
 
-                    <!-- Dynamic Nose -->
+                    <!-- Realistic Eyes -->
+                    <!-- Eye Whites -->
+                    <ellipse cx="43" cy="29" rx="3.5" ry="2.2" fill="#ffffff"/>
+                    <ellipse cx="57" cy="29" rx="3.5" ry="2.2" fill="#ffffff"/>
+                    <!-- Blue Iris -->
+                    <circle cx="43" cy="29" r="1.8" fill="#0097e6"/>
+                    <circle cx="57" cy="29" r="1.8" fill="#0097e6"/>
+                    <!-- Pupil -->
+                    <circle cx="43" cy="29" r="0.9" fill="#111111"/>
+                    <circle cx="57" cy="29" r="0.9" fill="#111111"/>
+                    <!-- Eye Highlight -->
+                    <circle cx="43.6" cy="28.4" r="0.5" fill="#ffffff"/>
+                    <circle cx="57.6" cy="28.4" r="0.5" fill="#ffffff"/>
+                    <!-- Eyelashes & Eyebrows -->
+                    <path d="M 39,26 Q 43,24 47,26" stroke="#2c1a0e" stroke-width="0.8" fill="none"/>
+                    <path d="M 53,26 Q 57,24 61,26" stroke="#2c1a0e" stroke-width="0.8" fill="none"/>
+                    <path d="M 39,22 Q 43,20 47,22" stroke="#3a220f" stroke-width="1" fill="none"/>
+                    <path d="M 53,22 Q 57,20 61,22" stroke="#3a220f" stroke-width="1" fill="none"/>
+
+                    <!-- Realistic Nose -->
                     <g id="noseLayer">
-                        <circle cx="50" cy="36" r="1" fill="#e0ac69"/>
+                        <path d="M 50,29 Q 49,34 51,34" stroke="#e0a880" stroke-width="0.8" fill="none"/>
                     </g>
 
-                    <!-- Dynamic Mouth -->
+                    <!-- Realistic Mouth/Lips -->
                     <g id="mouthLayer">
-                        <path d="M 44,41 Q 50,45 56,41" stroke="#d63031" stroke-width="1.2" fill="none"/>
+                        <path d="M 44,39 Q 50,44 56,39" fill="#e84118" opacity="0.7"/>
+                        <path d="M 44,39 Q 50,42 56,39" stroke="#c23616" stroke-width="0.8" fill="none"/>
                     </g>
 
-                    <!-- Dynamic Glasses / Hats -->
+                    <!-- Front Hair (Bangs & Framing) -->
+                    <g id="hairLayer">
+                        <path d="M 33,26 C 33,10 67,10 67,26 C 62,15 38,15 33,26 Z" fill="#4a2c11"/>
+                        <path d="M 33,20 C 30,30 32,50 34,60 C 36,40 37,25 35,18 Z" fill="#4a2c11"/>
+                        <path d="M 67,20 C 70,30 68,50 66,60 C 64,40 63,25 65,18 Z" fill="#4a2c11"/>
+                    </g>
+
+                    <!-- Accessories (Glasses/Hats) -->
                     <g id="accessoryLayer"></g>
 
                     <!-- Dynamic Top Sweater -->
                     <g id="topLayer">
-                        <path d="M 34,54 L 66,54 L 63,90 L 37,90 Z" fill="#f5f6fa"/>
-                        <rect x="42" y="48" width="16" height="8" rx="2" fill="#dcdde1"/>
-                        <path d="M 34,54 L 25,75 L 29,77 L 36,60 Z" fill="#f5f6fa"/>
-                        <path d="M 66,54 L 75,75 L 71,77 L 64,60 Z" fill="#f5f6fa"/>
+                        <path d="M 35,52 L 65,52 L 62,88 L 38,88 Z" fill="#ff78ae"/>
+                        <path d="M 42,48 Q 50,53 58,48 L 57,52 Q 50,55 43,52 Z" fill="#e84393"/>
+                        <path d="M 35,52 L 25,70 L 29,72 L 37,58 Z" fill="#ff78ae"/>
+                        <path d="M 65,52 L 75,70 L 71,72 L 63,58 Z" fill="#ff78ae"/>
                     </g>
 
                     <!-- Skirt -->
                     <g id="skirtLayer">
-                        <path d="M 35,88 L 65,88 L 74,108 L 26,108 Z" fill="#fd79a8"/>
+                        <path d="M 37,86 L 63,86 L 70,102 L 30,102 Z" fill="#2e86de"/>
                     </g>
 
-                    <!-- Dynamic Shoes -->
+                    <!-- Classic Black All-Star Shoes -->
                     <g id="shoesLayer">
-                        <!-- Black All-Stars -->
-                        <path d="M 32,126 L 47,126 C 48,131 47,135 47,136 L 32,136 Z" fill="#111111"/>
-                        <rect x="31" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
-                        <path d="M 53,126 L 68,126 L 68,136 L 53,136 Z" fill="#111111"/>
-                        <rect x="52" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
+                        <!-- Left Shoe -->
+                        <path d="M 33,124 L 46,124 C 47,128 46,133 46,134 L 33,134 Z" fill="#111111"/>
+                        <path d="M 43,124 L 46,124 L 46,134 L 43,134 Z" fill="#ffffff"/>
+                        <rect x="32" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
+                        <line x1="32" y1="133.5" x2="47" y2="133.5" stroke="#111" stroke-width="0.4"/>
+                        <!-- Right Shoe -->
+                        <path d="M 54,124 L 67,124 L 67,134 L 54,134 Z" fill="#111111"/>
+                        <path d="M 54,124 L 57,124 L 57,134 L 54,134 Z" fill="#ffffff"/>
+                        <rect x="53" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
+                        <line x1="53" y1="133.5" x2="68" y2="133.5" stroke="#111" stroke-width="0.4"/>
                     </g>
                 </svg>
             </div>
 
             <!-- Wardrobe Shop -->
             <div class="shop-box">
-                <div style="font-weight:bold; font-size:14px; text-align:center; margin-bottom:5px;">🛍️ הארון של לילי</div>
+                <div style="font-weight:bold; font-size:13px; text-align:center; margin-bottom:5px;">🛍️ הארון של לילי</div>
                 
                 <div class="shop-category-title">🧥 סריגים ובגדים</div>
                 <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('top', '#ff78ae', 15)"><span>סריג ורוד</span> <span>15🪙</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('top', '#ff78ae', 0)"><span>סריג ורוד</span> <span>חינם</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#70a1ff', 15)"><span>סריג תכלת</span> <span>15🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#a29bfe', 18)"><span>סריג סגול</span> <span>18🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#2ed573', 20)"><span>סריג ניאון</span> <span>20🪙</span></button>
                 </div>
 
-                <div class="shop-category-title">💇‍♀️ תסרוקות</div>
-                <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('hair', 'straight', 0)"><span>חלק קלאסי</span> <span>חינם</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('hair', 'ponytail', 10)"><span>קוקו גבוה</span> <span>10🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('hair', 'wavy', 12)"><span>שיער גלי</span> <span>12🪙</span></button>
-                </div>
-
-                <div class="shop-category-title">👓 משקפיים וכובעים</div>
+                <div class="shop-category-title">👓 אקססוריז</div>
                 <div class="shop-grid">
                     <button class="shop-item-btn" onclick="buyItem('acc', 'sunglasses', 8)"><span>משקפי שמש</span> <span>8🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('acc', 'glasses', 6)"><span>משקפי ראייה</span> <span>6🪙</span></button>
@@ -425,21 +477,31 @@
                     <button class="shop-item-btn" onclick="buyItem('shoes', '#ffffff', 8)"><span>אולסטאר לבן</span> <span>8🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('shoes', '#ff4757', 10)"><span>אולסטאר אדום</span> <span>10🪙</span></button>
                 </div>
-
-                <div class="shop-category-title">😊 תווי פנים (אף ופה)</div>
-                <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('face', 'bigsmile', 5)"><span>חיוך ענק</span> <span>5🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('face', 'buttonNose', 5)"><span>אף כפתור</span> <span>5🪙</span></button>
-                </div>
             </div>
         </div>
 
         <div class="content-area">
 
-            <!-- Progress Map Card -->
+            <!-- Monthly Calendar Card -->
+            <div class="card">
+                <div class="calendar-header">
+                    <h3 style="margin:0;">📅 לו"ז חודשי אישי</h3>
+                    <span id="calendarMonthName" style="font-weight:bold; color:#ff6b81;">ספטמבר 2026</span>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Days loaded dynamically -->
+                </div>
+                <div id="selectedDayInfo" style="margin-top:12px; font-size:13px; background:#f1f2f6; padding:10px; border-radius:10px; display:none;">
+                    <strong id="selectedDayTitle"></strong>
+                    <div id="selectedDayTasks" style="margin-top:4px;"></div>
+                    <button onclick="addCalendarEventPrompt()" style="margin-top:6px; background:#ff6b81; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:11px;">+ הוסף אירוע ליום זה</button>
+                </div>
+            </div>
+
+            <!-- Daily Progress Map -->
             <div class="card map-card">
-                <h3>🗺️ מפת ההתקדמות היומית שלי</h3>
-                <p style="font-size: 12px; color: #555;">לחצי על התחנות שסיימת כדי להציג הצעדה קדימה!</p>
+                <h3 style="margin:0;">🗺️ מפת ההתקדמות היומית</h3>
+                <p style="font-size: 12px; color: #555; margin:3px 0 0 0;">לחצי על תחנה כדי לסמן שהשלמת אותה!</p>
                 <div class="map-path">
                     <div class="map-line"></div>
                     <div class="map-node completed" id="node1" onclick="toggleNode(1)">🏫</div>
@@ -449,19 +511,10 @@
                 </div>
             </div>
 
-            <!-- Funny School Quiz -->
-            <div class="card quiz-card" id="schoolQuizCard">
-                <h3>😜 שאלת בית ספר קורעת</h3>
-                <p style="font-weight: bold;">כמה קרצייה הייתה המורה היום במדד של 1 עד 10?</p>
-                <div class="quiz-option" onclick="answerQuiz('10! ברחתי בדמיון למאדים 🚀')">10! ברחתי בדמיון למאדים 🚀</div>
-                <div class="quiz-option" onclick="answerQuiz('5 - סביר, אבל עדיין מעייפת 🥱')">5 - סביר, אבל עדיין מעייפת 🥱</div>
-                <div class="quiz-option" onclick="answerQuiz('1 - מפתיע, שרדנו בלי דרמות! 😎')">1 - מפתיע, שרדנו בלי דרמות! 😎</div>
-            </div>
-
             <!-- Afternoon Workout Card -->
             <div class="card">
-                <h3>☀️ אימון צהריים מרוקן אנרגיות (~14 דקות)</h3>
-                <p style="font-size: 13px; color: #555;">קצבי, קצר ומקפיץ לשחרור הלחץ של בית הספר!</p>
+                <h3>☀️ אימון צהריים מרוקן אנרגיות (~15 דקות)</h3>
+                <p style="font-size: 13px; color: #555;">הסרטון מתחלף אוטומטית בכל יום בשבוע למניעת שעמום!</p>
                 
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
@@ -472,7 +525,7 @@
                 </div>
 
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
+                    <iframe id="afternoonIframe" src="" allowfullscreen></iframe>
                 </div>
 
                 <button class="btn-main" id="btnTask1" onclick="finishTask(1)">סיימתי את אימון הצהריים! (+3 🪙)</button>
@@ -480,8 +533,8 @@
 
             <!-- Evening Workout Card -->
             <div class="card" id="eveningCard">
-                <h3 id="eveningTitle">💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
-                <p id="eveningSub" style="font-size: 13px; color: #555;">קליסטניקס ואירובי מקפיץ - בלי יוגה משעממת!</p>
+                <h3>💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
+                <p style="font-size: 13px; color: #555;">קליסטניקס ואירובי אנרגטי - קצר, מקפיץ ומעורר!</p>
 
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
@@ -491,8 +544,8 @@
                     <button class="timer-btn" style="background:#a4b0be;" onclick="resetTimer('timerDisplay2')">איפוס</button>
                 </div>
 
-                <div class="video-container" id="eveningVideoBox">
-                    <iframe src="https://www.youtube.com/embed/gC_L9qAHVJ8" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe id="eveningIframe" src="" allowfullscreen></iframe>
                 </div>
 
                 <button class="btn-main" id="btnTask2" onclick="finishTask(2)">סיימתי את אימון הערב! (+4 🪙)</button>
@@ -502,7 +555,7 @@
 
     </div>
 
-    <!-- Popup -->
+    <!-- Floating Popup -->
     <div class="popup" id="reminderPopup">
         <span style="font-size:30px;">💖</span>
         <div>
@@ -515,7 +568,36 @@
     <script>
         let coins = 12;
         let timerIntervals = {};
-        let inventory = [];
+        let selectedDayNumber = null;
+        let calendarEvents = {
+            15: ['מבחן באנגלית'],
+            23: ['אימון כושר אישי'],
+            28: ['ערב סרט עם חברות 🎬']
+        };
+
+        // Playlist of varied 15-minute workouts (rotates daily)
+        const afternoonVideos = [
+            "https://www.youtube.com/embed/UoC_O3HzsH0",
+            "https://www.youtube.com/embed/gC_L9qAHVJ8",
+            "https://www.youtube.com/embed/ml6cT4AZdqI",
+            "https://www.youtube.com/embed/d3LPrhI0v-w"
+        ];
+
+        const eveningVideos = [
+            "https://www.youtube.com/embed/gC_L9qAHVJ8",
+            "https://www.youtube.com/embed/UoC_O3HzsH0",
+            "https://www.youtube.com/embed/50kH47ZztHs",
+            "https://www.youtube.com/embed/ml6cT4AZdqI"
+        ];
+
+        function initDailyVideos() {
+            const dayOfWeek = new Date().getDay();
+            const aftUrl = afternoonVideos[dayOfWeek % afternoonVideos.length];
+            const eveUrl = eveningVideos[(dayOfWeek + 1) % eveningVideos.length];
+
+            document.getElementById('afternoonIframe').src = aftUrl;
+            document.getElementById('eveningIframe').src = eveUrl;
+        }
 
         function updateTime() {
             const now = new Date();
@@ -525,122 +607,167 @@
 
             if (hours >= 6 && hours < 12) {
                 badge.innerText = '🌅 בוקר טוב';
-                bubble.innerText = 'בוקר אור! שותים מים ומתחילים יום מנצח! ☀️';
+                bubble.innerText = 'בוקר אור! שותים מים ומוכנות ליום מעולה! ☀️';
             } else if (hours >= 12 && hours < 18) {
                 badge.innerText = '☀️ צהריים';
-                bubble.innerText = 'חזרת מבית ספר? בואי ניפטר מהלחץ באימון קצר! 💪';
+                bubble.innerText = 'חזרת מבית הספר? בואי נתפרק באימון קצר ונתרענן! 💪';
             } else if (hours >= 18 && hours < 21) {
                 badge.innerText = '🌆 ערב';
-                bubble.innerText = 'ערב טוב! זמן לאימון קפיצי או ריצה קלה בחוץ! 💥';
+                bubble.innerText = 'זמן מעולה לאימון הערב המקפיץ שלנו! 💥';
             } else {
-                badge.innerText = '🌙 לילה';
-                bubble.innerText = 'כבר מאוחר! להתכונן לשינה ולסגור מסכים 😴';
+                badge.innerText = '🌙 לילה טוב';
+                bubble.innerText = 'זמן להירגע, לשים מסכת פנים וללכת לישון מוקדם 😴';
             }
         }
 
-        // Shop System
-        function buyItem(type, val, price) {
-            if (coins < price) {
-                showPopup('אין מספיק מטבעות! 🪙', `הפריט עולה ${price} מטבעות. השלימי אימונים ומשימות כדי להרוויח עוד!`);
-                return;
-            }
+        // Monthly Calendar Generator
+        function generateCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
 
-            coins -= price;
-            document.getElementById('coinCount').innerText = coins;
+            const dayNames = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
+            dayNames.forEach(name => {
+                const label = document.createElement('div');
+                label.className = 'calendar-day-label';
+                label.innerText = name;
+                grid.appendChild(label);
+            });
 
-            if (type === 'top') {
-                document.getElementById('topLayer').querySelectorAll('path').forEach(el => el.setAttribute('fill', val));
-            } else if (type === 'shoes') {
-                document.getElementById('shoesLayer').querySelectorAll('path').forEach(el => {
-                    if (el.getAttribute('fill') !== '#ffffff') el.setAttribute('fill', val);
-                });
-            } else if (type === 'hair') {
-                const hairLayer = document.getElementById('hairLayer');
-                if (val === 'straight') {
-                    hairLayer.innerHTML = `<path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>`;
-                } else if (val === 'ponytail') {
-                    hairLayer.innerHTML = `<circle cx="50" cy="28" r="18" fill="#4a3000"/><path d="M 65,25 Q 82,20 80,45" stroke="#4a3000" stroke-width="8" fill="none" stroke-linecap="round"/>`;
-                } else if (val === 'wavy') {
-                    hairLayer.innerHTML = `<path d="M 25,32 Q 20,50 30,75 Q 35,50 30,30 Q 70,30 70,50 Q 80,50 75,75" fill="#4a3000"/>`;
-                }
-            } else if (type === 'acc') {
-                const acc = document.getElementById('accessoryLayer');
-                if (val === 'sunglasses') {
-                    acc.innerHTML = `<rect x="37" y="29" width="12" height="7" rx="2" fill="#111"/><rect x="51" y="29" width="12" height="7" rx="2" fill="#111"/><line x1="49" y1="32" x2="51" y2="32" stroke="#111" stroke-width="1.5"/>`;
-                } else if (val === 'glasses') {
-                    acc.innerHTML = `<circle cx="43" cy="32" r="4" stroke="#111" stroke-width="1" fill="none"/><circle cx="57" cy="32" r="4" stroke="#111" stroke-width="1" fill="none"/><line x1="47" y1="32" x2="53" y2="32" stroke="#111" stroke-width="1"/>`;
-                } else if (val === 'cap') {
-                    acc.innerHTML = `<path d="M 30,22 Q 50,10 70,22 Z" fill="#ff4757"/><path d="M 25,22 Q 50,22 75,18" stroke="#ff4757" stroke-width="3" fill="none"/>`;
-                } else {
-                    acc.innerHTML = '';
-                }
-            } else if (type === 'face') {
-                if (val === 'bigsmile') {
-                    document.getElementById('mouthLayer').innerHTML = `<path d="M 42,40 Q 50,48 58,40 Z" fill="#d63031"/>`;
-                } else if (val === 'buttonNose') {
-                    document.getElementById('noseLayer').innerHTML = `<circle cx="50" cy="36" r="1.8" fill="#ff7675"/>`;
-                }
+            const today = new Date().getDate();
+
+            for (let i = 1; i <= 30; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                if (i === today) dayCell.classList.add('today');
+                if (calendarEvents[i] && calendarEvents[i].length > 0) dayCell.classList.add('has-event');
+
+                dayCell.innerText = i;
+                dayCell.onclick = () => selectCalendarDay(i);
+                grid.appendChild(dayCell);
             }
-            showPopup('תתחדשי! ✨', 'לילי מרוצה מאוד מהלוק החדש שלה!');
         }
 
-        // Map Node Toggle
-        function toggleNode(num) {
-            const node = document.getElementById(`node${num}`);
-            node.classList.toggle('completed');
+        function selectCalendarDay(day) {
+            selectedDayNumber = day;
+            const infoBox = document.getElementById('selectedDayInfo');
+            const title = document.getElementById('selectedDayTitle');
+            const tasks = document.getElementById('selectedDayTasks');
+
+            infoBox.style.display = 'block';
+            title.innerText = `אירועים ליום ${day} בחודש:`;
+
+            const events = calendarEvents[day] || [];
+            if (events.length === 0) {
+                tasks.innerHTML = '<em>אין אירועים רשומים ליום זה.</em>';
+            } else {
+                tasks.innerHTML = events.map(e => `• ${e}`).join('<br>');
+            }
         }
 
-        // Stopwatch
-        function startTimer(displayId, seconds) {
+        function addCalendarEventPrompt() {
+            if (!selectedDayNumber) return;
+            const eventName = prompt(`הכניסי אירוע חדש ליום ${selectedDayNumber}:`);
+            if (eventName) {
+                if (!calendarEvents[selectedDayNumber]) calendarEvents[selectedDayNumber] = [];
+                calendarEvents[selectedDayNumber].push(eventName);
+                selectCalendarDay(selectedDayNumber);
+                generateCalendar();
+            }
+        }
+
+        function startTimer(displayId, duration) {
             clearInterval(timerIntervals[displayId]);
-            let timeLeft = seconds;
+            let timer = duration;
             const display = document.getElementById(displayId);
-            display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
-            
+
             timerIntervals[displayId] = setInterval(() => {
-                timeLeft--;
-                display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
-                if (timeLeft <= 0) {
+                let seconds = parseInt(timer % 60, 10);
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = "00:" + seconds;
+
+                if (--timer < 0) {
                     clearInterval(timerIntervals[displayId]);
-                    display.innerText = '⏰ סיימת!';
+                    display.textContent = "DONE! 🎉";
+                    showPopup("אלופה!", "סיימת את הסט בהצלחה!");
                 }
             }, 1000);
         }
 
         function resetTimer(displayId) {
             clearInterval(timerIntervals[displayId]);
-            document.getElementById(displayId).innerText = '00:00';
+            document.getElementById(displayId).textContent = "00:00";
         }
 
-        function answerQuiz(text) {
-            document.getElementById('schoolQuizCard').innerHTML = `
-                <h3>😜 קיבלתי!</h3>
-                <p>ענית: <strong>${text}</strong></p>
-                <p>לילי אומרת: "שחררי את זה באימון, מחר יום חדש!" 🔥</p>
-            `;
-            coins += 2;
+        function finishTask(taskId) {
+            const btn = document.getElementById(`btnTask${taskId}`);
+            if (taskId === 1) {
+                coins += 3;
+                btn.innerText = "סומן כהושלם! ✨ (+3 🪙)";
+                document.getElementById('node2').classList.add('completed');
+            } else if (taskId === 2) {
+                coins += 4;
+                btn.innerText = "סומן כהושלם! ✨ (+4 🪙)";
+                document.getElementById('node3').classList.add('completed');
+            }
+            btn.style.background = "#a4b0be";
+            btn.disabled = true;
             document.getElementById('coinCount').innerText = coins;
+            showPopup("כל הכבוד!", "המטבעות תופחו לארנק שלך!");
         }
 
-        function finishTask(num) {
-            document.getElementById(`btnTask${num}`).style.display = 'none';
-            coins += (num === 1 ? 3 : 4);
+        function toggleNode(nodeId) {
+            const node = document.getElementById(`node${nodeId}`);
+            node.classList.toggle('completed');
+        }
+
+        function buyItem(type, val, cost) {
+            if (coins < cost) {
+                showPopup("אין מספיק מטבעות!", "תשלימי אימונים כדי להרוויח עוד מטבעות 🪙");
+                return;
+            }
+            coins -= cost;
             document.getElementById('coinCount').innerText = coins;
-            toggleNode(num + 1);
-            showPopup('כל הכבוד! 💪', `סיימת את האימון והרווחת מטבעות! היכנסו לארון להלביש את לילי.`);
+
+            if (type === 'top') {
+                const topPaths = document.querySelectorAll('#topLayer path');
+                topPaths[0].setAttribute('fill', val);
+                topPaths[2].setAttribute('fill', val);
+                topPaths[3].setAttribute('fill', val);
+            } else if (type === 'acc') {
+                const accGroup = document.getElementById('accessoryLayer');
+                if (val === 'sunglasses') {
+                    accGroup.innerHTML = '<rect x="36" y="26" width="12" height="7" rx="2" fill="#111"/><rect x="52" y="26" width="12" height="7" rx="2" fill="#111"/><line x1="48" y1="29" x2="52" y2="29" stroke="#111" stroke-width="2"/>';
+                } else if (val === 'glasses') {
+                    accGroup.innerHTML = '<circle cx="43" cy="29" r="4.5" stroke="#111" stroke-width="1" fill="none"/><circle cx="57" cy="29" r="4.5" stroke="#111" stroke-width="1" fill="none"/><line x1="47.5" y1="29" x2="52.5" y2="29" stroke="#111" stroke-width="1"/>';
+                } else if (val === 'cap') {
+                    accGroup.innerHTML = '<path d="M 33,22 C 33,12 67,12 67,22 Z" fill="#ff4757"/><path d="M 30,22 Q 50,18 70,22" stroke="#ff4757" stroke-width="3" fill="none"/>';
+                } else {
+                    accGroup.innerHTML = '';
+                }
+            } else if (type === 'shoes') {
+                const shoePaths = document.querySelectorAll('#shoesLayer path');
+                shoePaths[0].setAttribute('fill', val);
+                shoePaths[4].setAttribute('fill', val);
+            }
+            showPopup("תתחדשי!", "הפריט הולבש בהצלחה!");
         }
 
         function showPopup(title, text) {
             document.getElementById('popupTitle').innerText = title;
             document.getElementById('popupText').innerText = text;
             document.getElementById('reminderPopup').style.display = 'flex';
+            setTimeout(() => closePopup(), 4000);
         }
 
         function closePopup() {
             document.getElementById('reminderPopup').style.display = 'none';
         }
 
+        // Initialize On Load
         updateTime();
+        generateCalendar();
+        initDailyVideos();
+        setInterval(updateTime, 60000);
     </script>
 </body>
 </html>
