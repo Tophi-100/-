@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מסלול הכושר והבריאות שלי</title>
+    <title>מפת המסלול היומי והלבשת הדמות</title>
     <style>
         :root {
             --primary: #ff6b81;
-            --primary-hover: #ff4757;
-            --bg-color: #f7f1e3;
+            --secondary: #70a1ff;
+            --accent: #eccc68;
+            --bg: #f7f1e3;
             --card-bg: #ffffff;
-            --text-color: #2f3542;
-            --accent: #70a1ff;
+            --text: #2f3542;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -25,518 +25,489 @@
             align-items: center;
         }
 
-        .header-bar {
+        .container {
+            max-width: 800px;
             width: 100%;
-            max-width: 900px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        }
+
+        header {
+            text-align: center;
             background: white;
             padding: 15px 25px;
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            margin-bottom: 25px;
-        }
-
-        .coin-display {
-            font-size: 20px;
-            font-weight: bold;
-            background: #ffeaa7;
-            padding: 8px 18px;
-            border-radius: 30px;
-            color: #d63031;
+            margin-bottom: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(255, 234, 167, 0.5);
         }
 
-        .main-layout {
-            display: flex;
-            gap: 25px;
-            width: 100%;
-            max-width: 900px;
-            flex-wrap: wrap;
+        .coins-display {
+            background: #fff0f5;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #d63031;
+            border: 2px solid #ff7675;
+            font-size: 1.1rem;
         }
 
-        /* Companion & Wardrobe Section */
-        .companion-card {
-            flex: 1;
-            min-width: 280px;
+        /* מפת המסלול בסללום */
+        .map-container {
             background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-radius: 25px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            min-height: 450px;
+        }
+
+        .map-path {
             display: flex;
             flex-direction: column;
+            gap: 40px;
+            position: relative;
+        }
+
+        .map-node-row {
+            display: flex;
+            width: 100%;
+            position: relative;
+        }
+
+        .map-node-row:nth-child(odd) { justify-content: flex-start; padding-right: 50px; }
+        .map-node-row:nth-child(even) { justify-content: flex-end; padding-left: 50px; }
+
+        .node {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #dfe4ea;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #747d8c;
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .node.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.15);
+        }
+
+        .node.completed {
+            background: #2ed573;
+            color: white;
+        }
+
+        /* קווים מקווקווים בין התחנות */
+        .connector-line {
+            position: absolute;
+            border-left: 4px dashed #a4b0be;
+            z-index: 1;
+        }
+
+        .line-1-2 {
+            top: 50px;
+            right: 80px;
+            width: 70%;
+            height: 80px;
+            transform: rotate(-25deg);
+            transform-origin: top right;
+        }
+
+        .line-2-3 {
+            top: 170px;
+            left: 80px;
+            width: 70%;
+            height: 80px;
+            transform: rotate(25deg);
+            transform-origin: top left;
+        }
+
+        /* הדמות המלווה */
+        .buddy-box {
+            background: #f1f2f6;
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            border: 2px dashed #ced6e0;
+        }
+
+        .buddy-avatar-mini {
+            width: 70px;
+            height: 70px;
+            background: #ffeaa7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
             position: relative;
         }
 
         .speech-bubble {
-            background: #f1f2f6;
+            background: white;
             padding: 12px 18px;
             border-radius: 15px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            text-align: center;
-            position: relative;
-            width: 85%;
-            border: 2px solid #dfe4ea;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            flex: 1;
+            font-size: 0.95rem;
         }
 
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px 10px 0;
-            border-style: solid;
-            border-color: #dfe4ea transparent;
-            display: block;
-            width: 0;
-        }
-
-        /* Avatar Visuals */
-        .avatar-container {
-            width: 160px;
-            height: 230px;
-            position: relative;
-            margin-bottom: 15px;
-            background: #f8efba;
-            border-radius: 50% 50% 20% 20%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border: 3px solid #f7b731;
-        }
-
-        /* SVG Avatar Drawing Parts */
-        .avatar-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .tab-btn {
-            background: #f1f2f6;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .shop-items-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-height: 220px;
-            overflow-y: auto;
-            margin-top: 10px;
-            padding-left: 5px;
-        }
-
-        .shop-item {
-            border: 2px solid #f1f2f6;
-            border-radius: 12px;
-            padding: 8px;
-            text-align: center;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #fafafa;
-        }
-
-        .shop-item:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .shop-item.equipped {
-            border-color: #2ed573;
-            background: #e8fae8;
-        }
-
-        /* Main Content Map Section */
-        .content-area {
-            flex: 2;
-            min-width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .map-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            text-align: center;
-        }
-
-        .svg-map {
-            width: 100%;
-            height: 220px;
-        }
-
-        .node-btn {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .node-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Tasks/Video Cards */
+        /* אזור משימה אקטיבית */
         .task-card {
             background: white;
             border-radius: 20px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
         }
 
-        .video-wrapper {
+        .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 12px;
-            margin-top: 12px;
+            border-radius: 15px;
+            margin: 15px 0;
         }
 
-        .video-wrapper iframe {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            border: 0;
         }
 
-        .claim-btn {
-            background: #2ed573;
+        .btn {
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
             font-weight: bold;
-            border-radius: 12px;
             cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
-            transition: background 0.2s;
+            transition: transform 0.2s;
         }
 
-        .claim-btn:hover {
-            background: #26af5f;
+        .btn:hover { transform: scale(1.05); }
+
+        /* חנות והלבשת הדמות */
+        .dressup-section {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
-        .claim-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
+        .dressup-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 20px;
+        }
+
+        .character-preview {
+            background: #eccc6822;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            position: relative;
+        }
+
+        .char-layer {
+            position: absolute;
+            font-size: 4rem;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .categories {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .cat-btn {
+            background: #f1f2f6;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .cat-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .item-card {
+            border: 2px solid #f1f2f6;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover { border-color: var(--primary); }
+
+        .item-card.owned { border-color: #2ed573; background: #e8fae3; }
+
+        .item-price {
+            font-size: 0.85rem;
+            color: #d63031;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-bar">
-        <h2>✨ מסלול הכושר והחוויה שלי</h2>
-        <div class="coin-display">
-            🪙 <span id="coinCount">0</span> מטבעות
+<div class="container">
+    <header>
+        <h2>✨ המסלול היומי שלי</h2>
+        <div class="coins-display">🪙 <span id="coinsCount">0</span> מטבעות</div>
+    </header>
+
+    <!-- מפת סללום -->
+    <div class="map-container">
+        <h3>📍 מפת המשימות</h3>
+        <div class="map-path">
+            <!-- קווים מחברים -->
+            <div class="connector-line line-1-2"></div>
+            <div class="connector-line line-2-3"></div>
+
+            <div class="map-node-row">
+                <div class="node active" id="node-1" onclick="selectTask(1)">1</div>
+            </div>
+            <div class="map-node-row">
+                <div class="node" id="node-2" onclick="selectTask(2)">2</div>
+            </div>
+            <div class="map-node-row">
+                <div class="node" id="node-3" onclick="selectTask(3)">3</div>
+            </div>
+        </div>
+
+        <!-- דמות מלווה וטיפים -->
+        <div class="buddy-box">
+            <div class="buddy-avatar-mini" id="mapBuddy">👧</div>
+            <div class="speech-bubble" id="buddyTip">
+                "היי! אני איתך במסלול. בואי נתחיל את אימון הבוקר ונקבל מטבעות ראשונים!"
+            </div>
         </div>
     </div>
 
-    <div class="main-layout">
+    <!-- כרטיס משימה -->
+    <div class="task-card">
+        <h3 id="taskTitle">משימה 1: אימון בוקר מרענן</h3>
+        <p id="taskDesc">מתחילים את היום באנרגיה חיובית עם תרגילים קלים לגוף!</p>
         
-        <!-- Companion & Shop Section -->
-        <div class="companion-card">
-            <div class="speech-bubble" id="companionBubble">
-                שלום! אני לילי! מוכנה להתאמן איתך, להרוויח מטבעות ולהתלבש בסטייל! 💖
-            </div>
-
-            <div class="avatar-container">
-                <svg class="avatar-svg" viewBox="0 0 100 150">
-                    <!-- Base Body -->
-                    <circle cx="50" cy="40" r="22" fill="#ffdbac"/> <!-- Head -->
-                    <rect x="42" y="60" width="16" height="15" fill="#ffdbac"/> <!-- Neck -->
-                    <path d="M 30,75 L 70,75 L 65,120 L 35,120 Z" fill="#f8efba"/> <!-- Torso base -->
-                    
-                    <!-- Legs -->
-                    <rect x="38" y="115" width="8" height="25" fill="#ffdbac"/>
-                    <rect x="54" y="115" width="8" height="25" fill="#ffdbac"/>
-
-                    <!-- Dynamic Hair -->
-                    <path id="avatarHair" d="M 28,40 Q 50,10 72,40 Q 75,15 50,10 Q 25,15 28,40" fill="#4a3000"/>
-
-                    <!-- Dynamic Eyes -->
-                    <circle cx="43" cy="38" r="3.5" id="eyeL" fill="#00a8ff"/>
-                    <circle cx="57" cy="38" r="3.5" id="eyeR" fill="#00a8ff"/>
-                    <circle cx="44" cy="37" r="1" fill="#fff"/>
-                    <circle cx="58" cy="37" r="1" fill="#fff"/>
-
-                    <!-- Smile -->
-                    <path d="M 44,48 Q 50,54 56,48" stroke="#d63031" stroke-width="1.5" fill="none"/>
-
-                    <!-- Dynamic Clothes (Tops / Skirts / Pants) -->
-                    <g id="avatarTop">
-                        <!-- Default Top (Golf Sweater) -->
-                        <path d="M 30,75 L 70,75 L 67,100 L 33,100 Z" fill="#ff7675"/>
-                        <rect x="42" y="68" width="16" height="8" fill="#d63031"/>
-                    </g>
-
-                    <g id="avatarBottom">
-                        <!-- Default Skirt (Nafnaf) -->
-                        <path d="M 33,98 L 67,98 L 78,122 L 22,122 Z" fill="#fd79a8"/>
-                    </g>
-
-                    <!-- Dynamic Shoes (All Star Sneakers) -->
-                    <g id="avatarShoes">
-                        <path d="M 34,136 L 47,136 L 47,142 L 34,142 Z" fill="#111"/> <!-- Left Shoe -->
-                        <path d="M 53,136 L 66,136 L 66,142 L 53,142 Z" fill="#111"/> <!-- Right Shoe -->
-                        <rect x="34" y="140" width="13" height="2" fill="#fff"/>
-                        <rect x="53" y="140" width="13" height="2" fill="#fff"/>
-                    </g>
-                </svg>
-            </div>
-
-            <!-- Wardrobe Category Tabs -->
-            <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: center;">
-                <button class="tab-btn active" onclick="switchCategory('shoes')">👟 נעליים</button>
-                <button class="tab-btn" onclick="switchCategory('tops')">🧥 חולצות</button>
-                <button class="tab-btn" onclick="switchCategory('bottoms')">👖 מכנסיים/חצאיות</button>
-                <button class="tab-btn" onclick="switchCategory('face')">👀 פנים/שיער</button>
-            </div>
-
-            <!-- Wardrobe Items Grid -->
-            <div class="shop-items-grid" id="shopGrid">
-                <!-- Populated dynamically via JavaScript -->
-            </div>
+        <div class="video-container">
+            <iframe id="videoIframe" src="https://www.youtube.com/embed/gC_L9qAHVJ8" allowfullscreen></iframe>
         </div>
 
-        <!-- Main Map & Daily Tasks -->
-        <div class="content-area">
-            
-            <!-- Slalom Map -->
-            <div class="map-card">
-                <h3>🗺️ מפת המשימות שלי</h3>
-                <svg class="svg-map" viewBox="0 0 400 180">
-                    <!-- Slalom Dashed Path leading from Node 1 to Node 2 -->
-                    <path d="M 80,130 C 150,180 180,20 260,70 C 290,90 310,100 320,100" 
-                          fill="none" 
-                          stroke="#ff7675" 
-                          stroke-width="5" 
-                          stroke-dasharray="10,10" />
-
-                    <!-- Node 1: Active Mission -->
-                    <g class="node-btn" onclick="selectMission(1)">
-                        <circle cx="80" cy="130" r="28" fill="#2ed573" stroke="#fff" stroke-width="4"/>
-                        <text x="80" y="136" font-size="18" font-weight="bold" fill="white" text-anchor="middle">1</text>
-                        <text x="80" y="170" font-size="12" font-weight="bold" fill="#2f3542" text-anchor="middle">יומי - בוקר וערב</text>
-                    </g>
-
-                    <!-- Node 2: Next Mission (Locked / Slalom Destination) -->
-                    <g class="node-btn" onclick="selectMission(2)">
-                        <circle cx="320" cy="100" r="24" fill="#a4b0be" stroke="#fff" stroke-width="4"/>
-                        <text x="320" y="105" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🔒 2</text>
-                        <text x="320" y="138" font-size="12" font-weight="bold" fill="#747d8c" text-anchor="middle">שלב 2 (נפתח בהמשך)</text>
-                    </g>
-                </svg>
-            </div>
-
-            <!-- Active Video Tasks -->
-            <div class="task-card">
-                <h3>☀️ משימת בוקר: אנרגיה וכושר קל (10 דקות)</h3>
-                <p>התחילי את היום באנרגיות שיא עם אימון כושר כיפי לכל הגוף!</p>
-                <div class="video-wrapper">
-                    <!-- Updated Active Youtube Video for Morning Workout -->
-                    <iframe src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
-                </div>
-                <button class="claim-btn" id="btnMorning" onclick="completeTask('morning', 50)">סיימתי את אימון הבוקר! (+50 מטבעות 🪙)</button>
-            </div>
-
-            <div class="task-card">
-                <h3>🌙 משימת ערב: מתיחות והרפיה לשינה מתוקה (10 דקות)</h3>
-                <p>מתיחות יוגה קלות ונעימות כדי להרגיע את השרירים לפני השינה.</p>
-                <div class="video-wrapper">
-                    <!-- Updated Active Youtube Video for Evening Stretch -->
-                    <iframe src="https://www.youtube.com/embed/sgVhK8adA3k" allowfullscreen></iframe>
-                </div>
-                <button class="claim-btn" id="btnEvening" onclick="completeTask('evening', 50)">סיימתי את מתיחות הערב! (+50 מטבעות 🪙)</button>
-            </div>
-
-        </div>
-
+        <button class="btn" id="completeBtn" onclick="completeCurrentTask()">סייימתי את המשימה (+15 🪙)</button>
     </div>
 
-    <script>
-        // State Management
-        let coins = 100;
-        let currentTab = 'shoes';
-        let completedTasks = { morning: false, evening: false };
+    <!-- חנות והלבשת הדמות -->
+    <div class="dressup-section">
+        <h3>👗 הלבשת הדמות והחנות</h3>
+        <div class="dressup-grid">
+            <div class="character-preview">
+                <div id="charHair" class="char-layer" style="top: 35px; z-index: 3;">🎀</div>
+                <div id="charFace" class="char-layer" style="top: 75px; z-index: 2;">👧</div>
+                <div id="charTop" class="char-layer" style="top: 115px; z-index: 4;">🧥</div>
+                <div id="charBottom" class="char-layer" style="top: 150px; z-index: 3;">👖</div>
+                <div id="charShoes" class="char-layer" style="top: 190px; z-index: 3;">👟</div>
+            </div>
 
-        // Extensive Wardrobe Catalog
-        const itemsCatalog = {
-            shoes: [
-                { id: 'allstar_black', name: 'אולסטאר שחור קלאסי', type: 'shoes', color: '#111111', price: 0, owned: true },
-                { id: 'allstar_white', name: 'אולסטאר לבן צחור', type: 'shoes', color: '#ffffff', price: 30, owned: false },
-                { id: 'allstar_pink', name: 'אולסטאר ורוד בייבי', type: 'shoes', color: '#ff9ff3', price: 40, owned: false },
-                { id: 'allstar_red', name: 'אולסטאר אדום נועז', type: 'shoes', color: '#ff4757', price: 40, owned: false },
-                { id: 'allstar_turquoise', name: 'אולסטאר טורקיז מנטה', type: 'shoes', color: '#48dbfb', price: 50, owned: false },
-                { id: 'allstar_purple', name: 'אולסטאר סגול פלטפורמה', type: 'shoes', color: '#5f27cd', price: 60, owned: false },
-                { id: 'allstar_yellow', name: 'אולסטאר צהוב שמש', type: 'shoes', color: '#feca57', price: 45, owned: false }
-            ],
-            tops: [
-                { id: 'golf_cream', name: 'סריג גולף שמנת', type: 'top', color: '#f5f6fa', style: 'golf', price: 0, owned: true },
-                { id: 'golf_coral', name: 'סריג גולף קורל', type: 'top', color: '#ff7675', style: 'golf', price: 40, owned: false },
-                { id: 'golf_lilac', name: 'סריג גולף לילך', type: 'top', color: '#a29bfe', price: 45, owned: false },
-                { id: 'golf_mint', name: 'סריג גולף ירוק מנטה', type: 'top', color: '#55efc4', price: 50, owned: false },
-                { id: 'golf_black', name: 'סריג גולף שחור אלגנט', type: 'top', color: '#2d3436', price: 55, owned: false }
-            ],
-            bottoms: [
-                { id: 'skirt_nafnaf_pink', name: 'חצאית נפנף ורודה', type: 'bottom', color: '#fd79a8', style: 'skirt', price: 0, owned: true },
-                { id: 'skirt_nafnaf_purple', name: 'חצאית נפנף סגולה', type: 'bottom', color: '#a29bfe', style: 'skirt', price: 35, owned: false },
-                { id: 'skirt_nafnaf_white', name: 'חצאית נפנף לבנה', type: 'bottom', color: '#ffffff', style: 'skirt', price: 40, owned: false },
-                { id: 'jeans_classic', name: 'ג\'ינס כחול קלאסי', type: 'bottom', color: '#0984e3', style: 'jeans', price: 50, owned: false },
-                { id: 'jeans_light', name: 'ג\'ינס בהיר משופשף', type: 'bottom', color: '#74b9ff', style: 'jeans', price: 55, owned: false },
-                { id: 'jeans_dark', name: 'ג\'ינס Mom כהה', type: 'bottom', color: '#2c3e50', style: 'jeans', price: 60, owned: false }
-            ],
-            face: [
-                { id: 'eye_blue', name: 'עיניים תכלת', type: 'eyes', color: '#00a8ff', price: 0, owned: true },
-                { id: 'eye_green', name: 'עיניים ירוקות', type: 'eyes', color: '#44bd32', price: 25, owned: false },
-                { id: 'eye_hazel', name: 'עיני דבש-חום', type: 'eyes', color: '#e1b12c', price: 25, owned: false },
-                { id: 'hair_brown', name: 'שיער חום שטני', type: 'hair', color: '#4a3000', price: 0, owned: true },
-                { id: 'hair_blonde', name: 'שיער בלונד זוהר', type: 'hair', color: '#f1c40f', price: 40, owned: false },
-                { id: 'hair_black', name: 'שיער שחור פחם', type: 'hair', color: '#2d3436', price: 30, owned: false }
-            ]
-        };
+            <div>
+                <div class="categories">
+                    <button class="cat-btn active" onclick="filterCategory('shoes')">👟 נעליים (אולסטאר)</button>
+                    <button class="cat-btn" onclick="filterCategory('tops')">🧥 סריגי גולף</button>
+                    <button class="cat-btn" onclick="filterCategory('bottoms')">👖 ג'ינסים</button>
+                    <button class="cat-btn" onclick="filterCategory('skirts')">👗 חצאיות נפנף</button>
+                    <button class="cat-btn" onclick="filterCategory('hair')">💇‍♀️ תסרוקות</button>
+                </div>
 
-        // Switch Wardrobe Tab
-        function switchCategory(cat) {
-            currentTab = cat;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderShop();
+                <div class="items-grid" id="itemsGrid">
+                    <!-- הפריטים יוטענו דינמית -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // נתוני משימות מעודכנים כולל סרטונים מתאימים
+    const tasks = {
+        1: {
+            title: "משימה 1: אימון בוקר מרענן",
+            desc: "מתיחות וחימום קל לקום איתם בכיף.",
+            video: "https://www.youtube.com/embed/gC_L9qAHVJ8",
+            tip: "בוקר טוב! אימון בוקר עוזר לרומם את המצבי רוח לכל היום!"
+        },
+        2: {
+            title: "משימה 2: אימון צהריים - חיזוק ודופק",
+            desc: "תרגילי סקוואט, לאנג'ים וקפיצות קלות לפריקת אנרגיה.",
+            video: "https://www.youtube.com/embed/bdCX8A3oBjg",
+            tip: "צהריים טובים! הפסקה פעילה עוזרת להתרענן ולהמשיך את היום בכוחות מחודשים!"
+        },
+        3: {
+            title: "משימה 3: מתיחות והרפיה לערב",
+            desc: "שחרור שרירים ורוגע לפני השינה.",
+            video: "https://www.youtube.com/embed/inpok4MKVLM",
+            tip: "כל הכבוד על המסלול היום! מתיחות בערב יעזרו לך לישון מעולה."
         }
+    };
 
-        // Render Wardrobe Items
-        function renderShop() {
-            const grid = document.getElementById('shopGrid');
-            grid.innerHTML = '';
+    let currentTask = 1;
+    let coins = 0;
+    let completedTasks = [];
 
-            itemsCatalog[currentTab].forEach(item => {
-                const card = document.createElement('div');
-                card.className = `shop-item ${item.equipped ? 'equipped' : ''}`;
-                
-                let btnText = item.owned ? (item.equipped ? 'לבושה' : 'לבשי') : `קני 🪙${item.price}`;
-                
-                card.innerHTML = `
-                    <div><strong>${item.name}</strong></div>
-                    <div style="font-size:11px; color:#666; margin:4px 0;">
-                        ${item.owned ? 'בבעלותך' : 'מחיר: ' + item.price}
-                    </div>
-                    <button style="background:${item.equipped ? '#2ed573' : 'var(--primary)'}; color:white; border:none; border-radius:8px; padding:4px 8px; cursor:pointer;">
-                        ${btnText}
-                    </button>
-                `;
+    // קטלוג פריטים לחנות
+    const shopItems = [
+        // אולסטאר
+        { id: 's1', name: 'אולסטאר שחור', cat: 'shoes', price: 0, icon: '👟', color: 'black' },
+        { id: 's2', name: 'אולסטאר אדום קלאסי', cat: 'shoes', price: 15, icon: '👟' },
+        { id: 's3', name: 'אולסטאר לבן פלטפורמה', cat: 'shoes', price: 20, icon: '👟' },
+        { id: 's4', name: 'אולסטאר ירוק זית', cat: 'shoes', price: 25, icon: '👟' },
+        { id: 's5', name: 'אולסטאר סגול פסטל', cat: 'shoes', price: 30, icon: '👟' },
+        
+        // סריגי גולף
+        { id: 't1', name: 'גולף שמנת קלאסי', cat: 'tops', price: 0, icon: '🧥' },
+        { id: 't2', name: 'גולף תכלת נעים', cat: 'tops', price: 15, icon: '🧥' },
+        { id: 't3', name: 'גולף ורוד עתיק', cat: 'tops', price: 20, icon: '🧥' },
+        { id: 't4', name: 'גולף אפור מלנז\'', cat: 'tops', price: 25, icon: '🧥' },
 
-                card.onclick = () => handleItemClick(item);
-                grid.appendChild(card);
-            });
-        }
+        // ג'ינסים
+        { id: 'b1', name: 'ג\'ינס בויפרנד בהיר', cat: 'bottoms', price: 0, icon: '👖' },
+        { id: 'b2', name: 'ג\'ינס כהה משופשף', cat: 'bottoms', price: 15, icon: '👖' },
+        { id: 'b3', name: 'ג\'ינס שחור סקיני', cat: 'bottoms', price: 20, icon: '👖' },
 
-        // Handle Buying or Equipping Items
-        function handleItemClick(item) {
-            if (!item.owned) {
-                if (coins >= item.price) {
-                    coins -= item.price;
-                    item.owned = true;
-                    updateCoins();
-                    speak(`איזה יופי! תתחדשי על ה-${item.name}! זה יושב עליי מדהים! ✨`);
-                } else {
-                    speak(`אין מספיק מטבעות לקנות ${item.name}. תשלימי משימות כושר כדי להרוויח עוד! 💪`);
-                    return;
-                }
+        // חצאיות נפנף
+        { id: 'k1', name: 'חצאית נפנף קפלים לבנה', cat: 'skirts', price: 15, icon: '👗' },
+        { id: 'k2', name: 'חצאית נפנף ורודה', cat: 'skirts', price: 20, icon: '👗' },
+        { id: 'k3', name: 'חצאית ג\'ינס קצרה', cat: 'skirts', price: 25, icon: '👗' },
+
+        // תסרוקות
+        { id: 'h1', name: 'קוקו עם סרט', cat: 'hair', price: 0, icon: '🎀' },
+        { id: 'h2', name: 'שיער פזור גלי', cat: 'hair', price: 15, icon: '👩' },
+        { id: 'h3', name: 'שתי צמות', cat: 'hair', price: 20, icon: '👧' }
+    ];
+
+    let inventory = ['s1', 't1', 'b1', 'h1'];
+
+    function selectTask(id) {
+        currentTask = id;
+        
+        // עדכון תצוגת המפה
+        document.querySelectorAll('.node').forEach(node => node.classList.remove('active'));
+        document.getElementById(`node-${id}`).classList.add('active');
+
+        // עדכון פרטי משימה
+        document.getElementById('taskTitle').innerText = tasks[id].title;
+        document.getElementById('taskDesc').innerText = tasks[id].desc;
+        document.getElementById('videoIframe').src = tasks[id].video;
+        
+        // טיפ מהדמות
+        document.getElementById('buddyTip').innerText = tasks[id].tip;
+    }
+
+    function completeCurrentTask() {
+        if (!completedTasks.includes(currentTask)) {
+            completedTasks.push(currentTask);
+            coins += 15;
+            document.getElementById('coinsCount').innerText = coins;
+            document.getElementById(`node-${currentTask}`).classList.add('completed');
+            
+            document.getElementById('buddyTip').innerText = `כל הכבוד! הרווחת 15 מטבעות! 🎉 כנסי לחנות לשדרג אותי!`;
+
+            if(currentTask < 3) {
+                selectTask(currentTask + 1);
             }
-
-            // Equip logic
-            itemsCatalog[currentTab].forEach(i => {
-                if (i.type === item.type) i.equipped = false;
-            });
-            item.equipped = true;
-
-            applyCustomization(item);
-            renderShop();
+        } else {
+            alert('כבר סיימת את המשימה הזו היום!');
         }
+    }
 
-        // Update Avatar Visuals based on equipped item
-        function applyCustomization(item) {
-            if (item.type === 'shoes') {
-                document.querySelectorAll('#avatarShoes path').forEach(p => p.setAttribute('fill', item.color));
-                speak(`וואו! נעלי אולסטאר בצבע ${item.name} פשוט מושלמות! 👟`);
-            } else if (item.type === 'top') {
-                document.querySelector('#avatarTop path').setAttribute('fill', item.color);
-                speak(`סריג גולף מהמם! ממש נעים ואיכותי! 🧥`);
-            } else if (item.type === 'bottom') {
-                document.querySelector('#avatarBottom path').setAttribute('fill', item.color);
-                speak(`בחירה מעולה! הלוק שלי הופך להיות הכי יפה שיש! 👗`);
-            } else if (item.type === 'eyes') {
-                document.getElementById('eyeL').setAttribute('fill', item.color);
-                document.getElementById('eyeR').setAttribute('fill', item.color);
-                speak(`איזה עיניים יפות! הצבע המהפנט הזה ממש מתאים לי! 👀`);
-            } else if (item.type === 'hair') {
-                document.getElementById('avatarHair').setAttribute('fill', item.color);
-                speak(`תסרוקת חדשה! אני מתה על הסגנון הזה! 💇‍♀️`);
-            }
+    function filterCategory(cat) {
+        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const grid = document.getElementById('itemsGrid');
+        grid.innerHTML = '';
+
+        const filtered = shopItems.filter(item => item.cat === cat);
+        filtered.forEach(item => {
+            const isOwned = inventory.includes(item.id);
+            const card = document.createElement('div');
+            card.className = `item-card ${isOwned ? 'owned' : ''}`;
+            card.innerHTML = `
+                <div style="font-size: 2rem;">${item.icon}</div>
+                <div style="font-size: 0.85rem; font-weight: bold;">${item.name}</div>
+                <div class="item-price">${isOwned ? 'בבעלותך' : item.price + ' 🪙'}</div>
+            `;
+            card.onclick = () => handleItemClick(item);
+            grid.appendChild(card);
+        });
+    }
+
+    function handleItemClick(item) {
+        if (inventory.includes(item.id)) {
+            equipItem(item);
+        } else if (coins >= item.price) {
+            coins -= item.price;
+            inventory.push(item.id);
+            document.getElementById('coinsCount').innerText = coins;
+            equipItem(item);
+            filterCategory(item.cat);
+        } else {
+            alert('אין לך מספיק מטבעות! השלימי משימות במסלול כדי להרוויח עוד.');
         }
+    }
 
-        // Speak function for Companion Speech Bubble
-        function speak(text) {
-            document.getElementById('companionBubble').innerText = text;
+    function equipItem(item) {
+        if (item.cat === 'shoes') document.getElementById('charShoes').innerText = item.icon;
+        if (item.cat === 'tops') document.getElementById('charTop').innerText = item.icon;
+        if (item.cat === 'bottoms' || item.cat === 'skirts') {
+            document.getElementById('charBottom').innerText = item.icon;
         }
+        if (item.cat === 'hair') document.getElementById('charHair').innerText = item.icon;
+    }
 
-        // Complete Tasks & Earn Coins
-        function completeTask(taskType, reward) {
-            if (completedTasks[taskType]) return;
+    // טעינה ראשונית של החנות
+    filterCategory('shoes');
+</script>
 
-            completedTasks[taskType] = true;
-            coins += reward;
-            updateCoins();
-
-            if (taskType === 'morning') {
-                document.getElementById('btnMorning').disabled = true;
-                document.getElementById('btnMorning').innerText = 'משימת הבוקר הושלמה! ✨';
-                speak('כל הכבוד! אימון בוקר מדהים! הרווחת 50 מטבעות! בואי נלך לחנות להתלבש! 🪙');
-            } else if (taskType === 'evening') {
-                document.getElementById('btnEvening').disabled = true;
-                document.getElementById('btnEvening').innerText = 'משימת הערב הושלמה! ✨';
-                speak('איזה מתיחות מרגיעות! עכשיו הגוף רפוי ומוכן לשינה מתוקה. הרווחת עוד 50 מטבעות! 🌙');
-            }
-        }
-
-        function updateCoins() {
-            document.getElementById('coinCount').innerText = coins;
-        }
-
-        function selectMission(num) {
-            if (num === 1) {
-                speak('אנחנו במשימה הראשונה - אימוני הבוקר והערב! בואי נסיים אותם!');
-            } else {
-                speak('שלב 2 עדיין נעול! השלימי את משימות הבוקר והערב כדי להתקדם במסלול!');
-            }
-        }
-
-        // Initialize Shop
-        renderShop();
-    </script>
 </body>
 </html>
