@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>העולם של לילי - הכל מעודכן!</title>
+  <title>העולם המלא של לילי ✨</title>
   <style>
     :root {
       --primary-color: #ff85a2;
@@ -31,7 +31,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,7 +42,7 @@
       background: white;
       padding: 30px;
       border-radius: 25px;
-      max-width: 450px;
+      max-width: 480px;
       width: 90%;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       text-align: center;
@@ -54,14 +54,14 @@
     }
 
     .question-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       text-align: right;
     }
 
     .question-group label {
       display: block;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .question-group select, .question-group input {
@@ -94,7 +94,7 @@
       display: none;
       flex: 1;
       padding: 20px;
-      padding-bottom: 180px;
+      padding-bottom: 190px;
       max-width: 800px;
       margin: 0 auto;
       width: 100%;
@@ -113,7 +113,7 @@
     .coin-badge {
       background: #fff3bf;
       color: #f59f00;
-      padding: 5px 12px;
+      padding: 6px 15px;
       border-radius: 20px;
       font-weight: bold;
       display: inline-block;
@@ -121,7 +121,7 @@
       border: 1px solid #ffe066;
     }
 
-    /* עיצוב לילי - מראה אנושי וגמיש לשילובים */
+    /* עיצוב לילי */
     .character-section {
       background: white;
       border-radius: 20px;
@@ -160,6 +160,10 @@
 
     .lily-hair.ponytail {
       border-radius: 50px 50px 0 0;
+    }
+
+    .lily-hair.braids {
+      border-radius: 40px 40px 10px 10px;
     }
 
     .lily-face {
@@ -215,7 +219,7 @@
       margin-top: 8px;
     }
 
-    /* סריגים ובגדים */
+    /* סריגים */
     .lily-body {
       width: 54px;
       height: 65px;
@@ -227,7 +231,7 @@
       position: relative;
     }
 
-    /* אולסטאר ונעליים */
+    /* רגליים ואולסטאר */
     .lily-legs {
       display: flex;
       gap: 12px;
@@ -251,7 +255,7 @@
       height: 12px;
       background: #333333;
       border-radius: 4px 8px 2px 2px;
-      border-bottom: 3px solid white; /* סוליית אולסטאר לבנה */
+      border-bottom: 3px solid white;
       position: relative;
       transition: 0.3s;
     }
@@ -291,6 +295,11 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 13px;
+      transition: 0.2s;
+    }
+
+    button.opt-btn:hover {
+      background: #ffd1dc;
     }
 
     button.opt-btn.locked {
@@ -351,7 +360,7 @@
     }
 
     .timer-display {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       color: #d6336c;
       margin: 5px 0;
@@ -361,14 +370,20 @@
     .food-edit-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .food-edit-group label {
+      font-weight: bold;
+      font-size: 14px;
     }
 
     .food-edit-group input {
-      padding: 8px;
-      border: 1px solid #ffb6c1;
-      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #ffb6c1;
+      border-radius: 10px;
+      font-size: 14px;
     }
 
     /* תפריט אוכל קבוע למטה */
@@ -389,14 +404,16 @@
     .food-items {
       display: flex;
       justify-content: space-around;
-      max-width: 700px;
+      max-width: 750px;
       margin: 5px auto 0;
+      flex-wrap: wrap;
+      gap: 5px;
     }
 
     .food-item {
       font-size: 11px;
       background: #fff0f5;
-      padding: 5px 8px;
+      padding: 6px 10px;
       border-radius: 8px;
       font-weight: bold;
     }
@@ -404,16 +421,16 @@
 </head>
 <body>
 
-  <!-- מודאל כניסה: 3 שאלות התעניינות בשלומך -->
+  <!-- מודאל כניסה: שאלון להתעניינות בשלומך -->
   <div id="welcome-modal">
     <div class="modal-content">
       <h2>היי אהובה! ברוכה הבאה 💖</h2>
-      <p>כדי שלילי תדע איך לעזור לך היום, עני על 3 שאלות קצרות:</p>
+      <p>כדי שלילי תדע איך לעזור לך היום, עני על השאלות הקצרות:</p>
       
       <div class="question-group">
-        <label for="q1">1. איך המרגש שלך היום?</label>
+        <label for="q1">1. איך הרגשתך היום?</label>
         <select id="q1">
-          <option value="מעולה">מעולה ושמחה! 😄</option>
+          <option value="מעולה ושמחה">מעולה ושמחה! 😄</option>
           <option value="רגיל">בסדר, יום רגיל 🙂</option>
           <option value="עייפה">קצת עייפה 😴</option>
           <option value="זקוקה לחיזוק">זקוקה לקצת חיזוק וחיבוק 🥺</option>
@@ -426,11 +443,11 @@
       </div>
 
       <div class="question-group">
-        <label for="q3">3. מה הכי בא לך לעשות כרגע?</label>
+        <label for="q3">3. מה בא לך לעשות כרגע?</label>
         <select id="q3">
-          <option value="לנוח בחופש">לנוח מחופשת סוכות 🌴</option>
-          <option value="להתאמן בחופש">אימון כיפי / ריצת ערב 🏃‍♀️</option>
-          <option value="מתכון מגרה">להכין מתכון מגרה ומחטב 🥞</option>
+          <option value="לנוח מחופשת סוכות">לנוח ולבלות בכיף 🌴</option>
+          <option value="להתאמן ולעשות ספורט">אימון כיפי / ריצת ערב 🏃‍♀️</option>
+          <option value="להכין מתכון טעים">להכין מתכון טעים ומחטב 🥞</option>
         </select>
       </div>
 
@@ -475,28 +492,34 @@
     <!-- הארון והחנות של לילי -->
     <div class="section-card">
       <h3>הארון והחנות של לילי 👗✨</h3>
-      <p style="font-size:13px; color:#666;">עיצוב שיער, עיניים, סריגים ואולסטאר! (חלק נפתחים בקנייה עם מטבעות):</p>
+      <p style="font-size:13px; color:#666;">בחרי עיצוב לשיער, עיניים, סריגים ואולסטאר! (חלק נפתחים בקנייה עם מטבעות):</p>
       
       <div class="controls-grid">
         <!-- שיער ותסרוקות -->
         <button class="opt-btn" onclick="setHair('#5c3a21', 'normal')">שיער חום גלי</button>
         <button class="opt-btn" onclick="setHair('#222222', 'ponytail')">קוקו שחור</button>
         <button class="opt-btn" onclick="setHair('#e6b800', 'normal')">בלונד גלי</button>
+        <button class="opt-btn" onclick="setHair('#b33b00', 'braids')">צמות ג'ינג'יות</button>
         
         <!-- עיניים -->
         <button class="opt-btn" onclick="setEyes('#2b1d0c')">עיניים חומות</button>
         <button class="opt-btn" onclick="setEyes('#2b6cb0')">עיניים כחולות</button>
         <button class="opt-btn" onclick="setEyes('#2f855a')">עיניים ירוקות</button>
+        <button class="opt-btn" onclick="setEyes('#6b46c1')">עיניים סגולות</button>
 
         <!-- סריגים -->
         <button class="opt-btn" onclick="setOutfit('#ff85a2')">סריג ורוד</button>
         <button class="opt-btn" onclick="setOutfit('#4ea8de')">סריג תכלת</button>
-        <button class="opt-btn" id="buy-sweater-purple" onclick="buyItem('sweater', '#9c36b5', 20)">סריג סגול (20 ₪)</button>
+        <button class="opt-btn" onclick="setOutfit('#a8e6cf')">סריג ירוק פסטל</button>
+        <button class="opt-btn" id="buy-sweater-purple" onclick="buyItem('sweater-purple', '#9c36b5', 20)">סריג סגול (20 ₪)</button>
+        <button class="opt-btn" id="buy-sweater-yellow" onclick="buyItem('sweater-yellow', '#ffd166', 25)">סריג צהוב (25 ₪)</button>
 
         <!-- נעלי אולסטאר -->
         <button class="opt-btn" onclick="setShoes('#333333')">אולסטאר שחור</button>
         <button class="opt-btn" onclick="setShoes('#ffffff')">אולסטאר לבן</button>
-        <button class="opt-btn" id="buy-allstar-red" onclick="buyItem('shoes', '#e63946', 30)">אולסטאר אדום (30 ₪)</button>
+        <button class="opt-btn" onclick="setShoes('#ff85a2')">אולסטאר ורוד</button>
+        <button class="opt-btn" id="buy-allstar-red" onclick="buyItem('shoes-red', '#e63946', 30)">אולסטאר אדום (30 ₪)</button>
+        <button class="opt-btn" id="buy-allstar-teal" onclick="buyItem('shoes-teal', '#00b4d8', 35)">אולסטאר טורקיז (35 ₪)</button>
       </div>
     </div>
 
@@ -520,27 +543,35 @@
 
     <!-- תוכנית אימונים מפורטת עם סרטונים וסטופר -->
     <div class="section-card">
-      <h3>📋 תוכנית אימונים, סרטונים וסטופר</h3>
+      <h3>📋 תוכנית אימונים, סרטונים וסטופרים</h3>
 
       <div class="workout-item">
         <strong>1. סקוואטים לחיזוק הרגליים (Squats)</strong>
         <p style="font-size:13px; margin:5px 0;">הסבר: עמדי בפיסוק ברוחב הכתפיים, רדי לאחור כאילו את יושבת על כיסא ושמרי על גב ישר.</p>
         <a href="https://www.youtube.com/results?search_query=how+to+do+squats+for+beginners" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
+        <div class="timer-display" id="timer-1">00:45</div>
+        <button class="opt-btn" onclick="startTimer('timer-1', 45)">הפעילי טיימר (45 שניות) ⏱️</button>
       </div>
 
       <div class="workout-item">
-        <strong>2. פלאנק לבטן חזקה (Plank) - 30 שניות</strong>
+        <strong>2. פלאנק לבטן חזקה (Plank)</strong>
         <p style="font-size:13px; margin:5px 0;">הסבר: הישעני על האמות והבהונות, שמרי על הגוף ישר כמו קרש ללא צניחה של האגן.</p>
         <a href="https://www.youtube.com/results?search_query=how+to+do+a+plank" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
-        
-        <!-- סטופר מובנה -->
-        <div class="timer-display" id="timer">00:30</div>
-        <button class="opt-btn" onclick="startTimer(30)">הפעילי סטופר ⏱️</button>
+        <div class="timer-display" id="timer-2">00:30</div>
+        <button class="opt-btn" onclick="startTimer('timer-2', 30)">הפעילי טיימר (30 שניות) ⏱️</button>
       </div>
 
       <div class="workout-item">
-        <strong>3. ריצת ערב מרעננת 🌙</strong>
-        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: יוצאים לריצה רק בערב כשנעים בחוץ! 15-20 דקות בקצב קל.</p>
+        <strong>3. מכרעים (Lunges) לחיזוק הירכיים</strong>
+        <p style="font-size:13px; margin:5px 0;">הסבר: קחי צעד גדול קדימה ורדי עם הברך האחורית כמעט עד הרצפה. החליפי רגליים.</p>
+        <a href="https://www.youtube.com/results?search_query=how+to+do+lunges" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
+        <div class="timer-display" id="timer-3">00:40</div>
+        <button class="opt-btn" onclick="startTimer('timer-3', 40)">הפעילי טיימר (40 שניות) ⏱️</button>
+      </div>
+
+      <div class="workout-item">
+        <strong>4. ריצת ערב מרעננת 🌙</strong>
+        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: יוצאים לריצה בכיף בערב כשנעים בחוץ! 15-20 דקות בקצב קל.</p>
       </div>
     </div>
 
@@ -568,7 +599,7 @@
 
   </div>
 
-  <!-- תפריט אוכל רגיל וקבוע למטה -->
+  <!-- תפריט אוכל קבוע למטה -->
   <div class="food-menu-bar">
     <strong>התפריט היומי שלי 🥗</strong>
     <div class="food-items">
@@ -582,12 +613,14 @@
   <script>
     let money = 0;
     let currentStep = 1;
-    let timerInterval = null;
+    let activeTimers = {};
 
-    // רשימת פריטים שנקנו
-    const inventory = {
-      sweaterPurple: false,
-      shoesRed: false
+    // חנות פריטים שנרכשו
+    const ownedItems = {
+      'sweater-purple': false,
+      'sweater-yellow': false,
+      'shoes-red': false,
+      'shoes-teal': false
     };
 
     function submitQuiz() {
@@ -602,14 +635,13 @@
       speech.innerHTML = response;
     }
 
-    // הגדרות עיצוב לילי
+    // הגדרות מראה לילי
     function setHair(color, style) {
       const hair = document.getElementById('lily-hair');
       hair.style.backgroundColor = color;
-      if (style === 'ponytail') {
-        hair.classList.add('ponytail');
-      } else {
-        hair.classList.remove('ponytail');
+      hair.className = 'lily-hair'; // איפוס מחלקות
+      if (style) {
+        hair.classList.add(style);
       }
     }
 
@@ -628,20 +660,30 @@
     }
 
     // קניית פריטים בחנות
-    function buyItem(type, color, price) {
+    function buyItem(itemId, color, price) {
+      if (ownedItems[itemId]) {
+        // אם הפיט כבר בבעלות, פשוט נלביש אותו
+        if (itemId.startsWith('sweater')) setOutfit(color);
+        if (itemId.startsWith('shoes')) setShoes(color);
+        return;
+      }
+
       if (money >= price) {
         money -= price;
+        ownedItems[itemId] = true;
         document.getElementById('money-display').innerText = money;
-        if (type === 'sweater') {
+
+        const btn = document.getElementById(`buy-${itemId}`);
+        if (itemId.startsWith('sweater')) {
           setOutfit(color);
-          document.getElementById('buy-sweater-purple').innerText = "סריג סגול (בבעלותך)";
-        } else if (type === 'shoes') {
+          btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+        } else if (itemId.startsWith('shoes')) {
           setShoes(color);
-          document.getElementById('buy-allstar-red').innerText = "אולסטאר אדום (בבעלותך)";
+          btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
         }
         alert("תתחדשי! הקנייה בוצעה בהצלחה! 🎉");
       } else {
-        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪. השלימי אימונים כדי להרוויח!`);
+        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪. השלימי אימונים במפה כדי להרוויח!`);
       }
     }
 
@@ -659,39 +701,42 @@
       }
     }
 
-    // סטופר
-    function startTimer(seconds) {
-      clearInterval(timerInterval);
-      let timeLeft = seconds;
-      const display = document.getElementById('timer');
+    // סטופר/טיימר מותאם לכל תרגיל
+    function startTimer(timerId, seconds) {
+      if (activeTimers[timerId]) {
+        clearInterval(activeTimers[timerId]);
+      }
 
-      timerInterval = setInterval(() => {
+      let timeLeft = seconds;
+      const display = document.getElementById(timerId);
+
+      activeTimers[timerId] = setInterval(() => {
         timeLeft--;
         let sec = timeLeft < 10 ? '0' + timeLeft : timeLeft;
         display.innerText = `00:${sec}`;
 
         if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          display.innerText = "00:00 - כל הכבוד!";
-          alert("הזמן נגמר! עבודה מעולה בפלאנק! 💪");
+          clearInterval(activeTimers[timerId]);
+          display.innerText = "00:00 - סיימת!";
+          alert("אלופה!! הזמן נגמר, עבודה מצוינת! 💪✨");
         }
       }, 1000);
     }
 
-    // עדכון תפריט האוכל והערות לילי
+    // עדכון תפריט האוכל והערות מלילי
     function updateUserFood() {
       const b = document.getElementById('input-breakfast').value;
       const l = document.getElementById('input-lunch').value;
       const s = document.getElementById('input-snack').value;
       const d = document.getElementById('input-dinner').value;
 
-      // עדכון התפריט הקבוע למטה
+      // עדכון התפריט הקבוע בתחתית המסך
       document.getElementById('bar-breakfast').innerText = `🌅 בוקר: ${b}`;
       document.getElementById('bar-lunch').innerText = `☀️ צהריים: ${l}`;
       document.getElementById('bar-snack').innerText = `🍎 ביניים: ${s}`;
       document.getElementById('bar-dinner').innerText = `🌙 ערב: ${d}`;
 
-      // בדיקת מילים קיצוניות (ג'אנק/ממתקים)
+      // בדיקת מילים קיצוניות בלבד (ממתקים/חטיפים/ג'אנק)
       const allFood = (b + l + s + d).toLowerCase();
       const speech = document.getElementById('lily-speech');
 
