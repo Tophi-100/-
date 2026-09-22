@@ -1,933 +1,425 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>העולם של לילי - לו"ז, כושר וסטייל</title>
-    <style>
-        :root {
-            --primary: #ff3366;
-            --secondary: #70a1ff;
-            --accent: #ffbe76;
-            --bg: #0f111a;
-            --card-bg: #1e2230;
-            --text-main: #ffffff;
-            --text-sub: #a4b0be;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>העולם של לילי - אתר לבנות בלבד</title>
+  <style>
+    :root {
+      --primary-color: #ff85a2;
+      --bg-color: #fff0f5;
+      --panel-bg: #ffffff;
+      --text-color: #4a4a4a;
+    }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .header-bar {
-            width: 100%;
-            max-width: 1000px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 15px 25px;
-            border-radius: 20px;
-            border: 2px solid #2f3640;
-            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.15);
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
+    /* מודאל השאלון בכניסה */
+    #welcome-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-        .coin-display {
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f6b93b, #fa983a);
-            padding: 8px 18px;
-            border-radius: 30px;
-            color: #1e2230;
-            box-shadow: 0 4px 12px rgba(246, 185, 59, 0.4);
-        }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
 
-        .time-badge {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
+    .modal-content h2 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
 
-        .main-layout {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            flex-wrap: wrap;
-        }
+    .question-group {
+      margin-bottom: 15px;
+      text-align: right;
+    }
 
-        /* Lily's Column */
-        .companion-card {
-            flex: 1;
-            min-width: 320px;
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 20px;
-            border: 2px solid #2f3640;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
-        }
+    .question-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
 
-        .speech-bubble {
-            background: linear-gradient(135deg, #ff3366, #ff6b81);
-            color: white;
-            padding: 14px 18px;
-            border-radius: 18px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            text-align: center;
-            width: 90%;
-            line-height: 1.4;
-            font-weight: 600;
-            box-shadow: 0 6px 15px rgba(255, 51, 102, 0.3);
-            position: relative;
-        }
+    .question-group select, .question-group input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ffccd5;
+      border-radius: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
 
-        .avatar-container {
-            width: 220px;
-            height: 300px;
-            position: relative;
-            margin-bottom: 15px;
-            background: radial-gradient(circle, #2f3640 0%, #181b26 100%);
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #ff3366;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
-        }
+    .btn-submit {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
 
-        .avatar-svg {
-            width: 100%;
-            height: 100%;
-        }
+    .btn-submit:hover {
+      background: #ff527b;
+    }
 
-        /* Wardrobe Shop */
-        .shop-box {
-            width: 100%;
-            background: #151821;
-            border: 1px solid #2f3640;
-            border-radius: 16px;
-            padding: 12px;
-            box-sizing: border-box;
-            max-height: 230px;
-            overflow-y: auto;
-        }
+    /* תוכן האפליקציה */
+    #app {
+      display: none; /* מוסתר עד למילוי השאלון */
+      flex: 1;
+      padding: 20px;
+      padding-bottom: 120px; /* רווח לתפריט האוכל למטה */
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-        .shop-category-title {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--accent);
-            margin: 8px 0 4px 0;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
-        }
+    header {
+      text-align: center;
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
 
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-        }
+    /* עיצוב לילי */
+    .character-section {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
 
-        .shop-item-btn {
-            background: #222736;
-            color: white;
-            border: 1px solid #3d4457;
-            border-radius: 10px;
-            padding: 8px;
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
+    .lily-avatar {
+      width: 160px;
+      height: 220px;
+      margin: 0 auto 15px;
+      position: relative;
+      background: #fbe3e8;
+      border-radius: 80px 80px 40px 40px;
+      border: 3px solid #ffb6c1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 15px;
+    }
 
-        .shop-item-btn:hover {
-            border-color: var(--primary);
-            background: #2d3448;
-            transform: translateY(-2px);
-        }
+    /* הפנים של לילי */
+    .lily-face {
+      width: 80px;
+      height: 80px;
+      background: #ffdbac;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        /* Content Area */
-        .content-area {
-            flex: 2;
-            min-width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .eyes {
+      display: flex;
+      gap: 20px;
+    }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 22px;
-            border: 2px solid #2f3640;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
+    .eye {
+      width: 10px;
+      height: 10px;
+      background: #333;
+      border-radius: 50%;
+    }
 
-        .card h3 {
-            margin-top: 0;
-            color: #ffffff;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .smile {
+      width: 20px;
+      height: 10px;
+      border-bottom: 3px solid #333;
+      border-radius: 0 0 10px 10px;
+      position: absolute;
+      bottom: 15px;
+    }
 
-        /* Monthly Calendar */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
+    /* גוף/בגדים ונעליים */
+    .lily-outfit {
+      width: 90px;
+      height: 70px;
+      background: var(--primary-color);
+      margin-top: 10px;
+      border-radius: 10px 10px 0 0;
+    }
 
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
-            text-align: center;
-        }
+    .lily-shoes {
+      width: 80px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
 
-        .calendar-day-label {
-            font-weight: bold;
-            font-size: 12px;
-            color: var(--text-sub);
-            padding-bottom: 4px;
-        }
+    .shoe {
+      width: 30px;
+      height: 15px;
+      background: #333;
+      border-radius: 8px 8px 3px 3px;
+    }
 
-        .calendar-day {
-            background: #151821;
-            padding: 10px 2px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            position: relative;
-            border: 1px solid #252a38;
-        }
+    .speech-bubble {
+      background: #fff0f3;
+      border: 2px solid var(--primary-color);
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #d6336c;
+    }
 
-        .calendar-day:hover {
-            border-color: var(--primary);
-            background: #252a38;
-        }
+    /* ארון בגדים */
+    .wardrobe-section, .workout-section {
+      background: white;
+      border-radius: 20px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
 
-        .calendar-day.today {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
+    .controls-grid {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
 
-        .calendar-day.has-event::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #2ed573;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    button.opt-btn {
+      background: #ffe3e8;
+      border: 1px solid #ffb6c1;
+      padding: 8px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
 
-        /* Progress Map */
-        .map-card {
-            background: linear-gradient(135deg, #1e2230 0%, #151821 100%);
-            border: 2px solid #f6b93b;
-        }
+    /* תפריט אוכל קבוע למטה */
+    .food-menu-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-top: 3px solid var(--primary-color);
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-        .map-path {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            margin-top: 20px;
-            padding: 0 15px;
-        }
+    .food-items {
+      display: flex;
+      justify-content: space-around;
+      max-width: 600px;
+      margin: 5px auto 0;
+    }
 
-        .map-node {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #1e2230;
-            border: 3px solid #f6b93b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 18px;
-            z-index: 2;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: 0.3s;
-        }
-
-        .map-node.completed {
-            background: #2ed573;
-            border-color: #2ed573;
-            color: white;
-            box-shadow: 0 0 15px rgba(46, 213, 115, 0.6);
-        }
-
-        .map-line {
-            position: absolute;
-            top: 50%;
-            left: 30px;
-            right: 30px;
-            height: 4px;
-            background: #f6b93b;
-            z-index: 1;
-            transform: translateY(-50%);
-        }
-
-        /* Written Workout Instructions */
-        .workout-guide {
-            background: #151821;
-            border-radius: 14px;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-right: 4px solid var(--primary);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .workout-guide ul {
-            margin: 5px 0 0 0;
-            padding-right: 18px;
-        }
-
-        /* Timers */
-        .timer-box {
-            background: #151821;
-            border-radius: 14px;
-            padding: 10px;
-            margin: 10px 0;
-            text-align: center;
-            border: 1px solid #2f3640;
-        }
-
-        .timer-display {
-            font-size: 26px;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 4px 0;
-        }
-
-        .timer-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 2px;
-            font-size: 12px;
-        }
-
-        .timer-btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-main {
-            background: linear-gradient(135deg, #2ed573, #26af5f);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 14px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 14px;
-            margin-top: 10px;
-            border: 1px solid #2f3640;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Quiz / Modal */
-        .quiz-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .quiz-card {
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
-            border-radius: 20px;
-            padding: 25px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
-        }
-
-        .quiz-option {
-            background: #151821;
-            border: 1px solid #2f3640;
-            color: white;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: 0.2s;
-            text-align: right;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--primary);
-            background: #252a38;
-        }
-
-        .popup {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 15px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: none;
-            align-items: center;
-            gap: 12px;
-            z-index: 1000;
-            max-width: 320px;
-        }
-    </style>
+    .food-item {
+      font-size: 12px;
+      background: #fff0f5;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="header-bar">
-        <h2>✨ המרכז של לילי</h2>
-        <div class="time-badge" id="timeBadge">⏰ מחרזת שעה...</div>
-        <div class="coin-display">🪙 <span id="coinCount">12</span> מטבעות</div>
+  <!-- מודאל כניסה: 3 שאלות התעניינות בשלומך -->
+  <div id="welcome-modal">
+    <div class="modal-content">
+      <h2>ברוכה הבאה! 💕</h2>
+      <p>לפני שנכנסים, לילי רוצה לשאול לשלומך:</p>
+      
+      <div class="question-group">
+        <label for="q1">1. איך המרגש שלך היום?</label>
+        <select id="q1">
+          <option value="מעולה">מעולה ושמח! 😄</option>
+          <option value="רגיל">בסדר, יום רגיל 🙂</option>
+          <option value="עייפה">קצת עייפה 😴</option>
+          <option value="קשה">קצת קשה לי היום 🥺</option>
+        </select>
+      </div>
+
+      <div class="question-group">
+        <label for="q2">2. כמה אנרגיה יש לך מ-1 עד 10?</label>
+        <input type="number" id="q2" min="1" max="10" value="7">
+      </div>
+
+      <div class="question-group">
+        <label for="q3">3. מה הכי בא לך לעשות כרגע?</label>
+        <select id="q3">
+          <option value="לנוח">לנוח ולהירגע 🧘‍♀️</option>
+          <option value="להתאמן">לעשות אימון / ריצה 🏃‍♀️</option>
+          <option value="לאכול">לאכול משהו טוב 🍕</option>
+        </select>
+      </div>
+
+      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר</button>
+    </div>
+  </div>
+
+  <!-- התוכן הראשי של האתר -->
+  <div id="app">
+    <header>
+      <h1>העולם של לילי 💖</h1>
+      <div>יתרה: <strong id="money-display">0 ₪</strong> (מתחילים מ-0!)</div>
+    </header>
+
+    <!-- הצגת לילי -->
+    <div class="character-section">
+      <div class="lily-avatar">
+        <div class="lily-face" id="lily-face">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="smile"></div>
+        </div>
+        <div class="lily-outfit" id="lily-outfit"></div>
+        <div class="lily-shoes">
+          <div class="shoe" id="shoe-left"></div>
+          <div class="shoe" id="shoe-right"></div>
+        </div>
+      </div>
+      
+      <!-- התגובה של לילי מיד בכניסה -->
+      <div class="speech-bubble" id="lily-speech">
+        טוען את התגובה של לילי...
+      </div>
     </div>
 
-    <div class="main-layout">
-        
-        <!-- Companion (Lily - Stylish & Sharp) -->
-        <div class="companion-card">
-            <div class="speech-bubble" id="companionBubble">
-                טוענת חוכמות...
-            </div>
-
-            <div class="avatar-container">
-                <svg class="avatar-svg" viewBox="0 0 100 150">
-                    <!-- Legs -->
-                    <rect x="42" y="96" width="5" height="34" fill="#f8d0b0"/>
-                    <rect x="53" y="96" width="5" height="34" fill="#f8d0b0"/>
-                    
-                    <!-- Back Hair -->
-                    <g id="backHairLayer">
-                        <path d="M 28,25 C 22,50 22,85 30,90 C 38,90 36,50 35,25 Z" fill="#2d1a0e"/>
-                        <path d="M 72,25 C 78,50 78,85 70,90 C 62,90 64,50 65,25 Z" fill="#2d1a0e"/>
-                    </g>
-
-                    <!-- Realistic Head & Neck -->
-                    <rect x="46" y="44" width="8" height="9" fill="#f8d0b0" rx="2"/>
-                    <ellipse cx="50" cy="30" rx="18" ry="20" fill="#f8d0b0"/>
-
-                    <!-- Big Glossy Eyes -->
-                    <ellipse cx="42" cy="29" rx="4" ry="2.8" fill="#ffffff"/>
-                    <ellipse cx="58" cy="29" rx="4" ry="2.8" fill="#ffffff"/>
-                    <!-- Iris -->
-                    <circle cx="42" cy="29" r="2" fill="#70a1ff"/>
-                    <circle cx="58" cy="29" r="2" fill="#70a1ff"/>
-                    <!-- Pupil -->
-                    <circle cx="42" cy="29" r="1" fill="#111111"/>
-                    <circle cx="58" cy="29" r="1" fill="#111111"/>
-                    <!-- Highlights -->
-                    <circle cx="42.8" cy="28.2" r="0.6" fill="#ffffff"/>
-                    <circle cx="58.8" cy="28.2" r="0.6" fill="#ffffff"/>
-
-                    <!-- Eyebrows & Lashes -->
-                    <path d="M 37,25 Q 42,23 46,25" stroke="#1d1109" stroke-width="1.2" fill="none"/>
-                    <path d="M 54,25 Q 58,23 63,25" stroke="#1d1109" stroke-width="1.2" fill="none"/>
-                    <path d="M 37,21 Q 42,19 46,21" stroke="#2d1a0e" stroke-width="1" fill="none"/>
-                    <path d="M 54,21 Q 58,19 63,21" stroke="#2d1a0e" stroke-width="1" fill="none"/>
-
-                    <!-- Nose -->
-                    <path d="M 50,29 Q 49,34 51,34" stroke="#e0a880" stroke-width="0.8" fill="none"/>
-
-                    <!-- Glossy Lips -->
-                    <path d="M 44,39 Q 50,44 56,39 Q 50,41 44,39 Z" fill="#ff4757"/>
-
-                    <!-- Front Hair Framing -->
-                    <g id="hairLayer">
-                        <path d="M 32,24 C 32,8 68,8 68,24 C 62,14 38,14 32,24 Z" fill="#3a220f"/>
-                        <path d="M 32,18 C 28,30 30,55 33,65 C 36,45 37,25 35,16 Z" fill="#3a220f"/>
-                        <path d="M 68,18 C 72,30 70,55 67,65 C 64,45 63,25 65,16 Z" fill="#3a220f"/>
-                    </g>
-
-                    <!-- Accessories -->
-                    <g id="accessoryLayer"></g>
-
-                    <!-- Dynamic Top -->
-                    <g id="topLayer">
-                        <path d="M 34,52 L 66,52 L 63,88 L 37,88 Z" fill="#ff3366"/>
-                        <path d="M 42,48 Q 50,54 58,48 L 57,52 Q 50,56 43,52 Z" fill="#d63031"/>
-                        <path d="M 34,52 L 24,70 L 28,72 L 36,58 Z" fill="#ff3366"/>
-                        <path d="M 66,52 L 76,70 L 72,72 L 64,58 Z" fill="#ff3366"/>
-                    </g>
-
-                    <!-- Skirt -->
-                    <g id="skirtLayer">
-                        <path d="M 36,86 L 64,86 L 71,102 L 29,102 Z" fill="#70a1ff"/>
-                    </g>
-
-                    <!-- Black Converse All-Star -->
-                    <g id="shoesLayer">
-                        <!-- Left Shoe -->
-                        <path d="M 33,124 L 46,124 C 47,128 46,133 46,134 L 33,134 Z" fill="#111111"/>
-                        <path d="M 43,124 L 46,124 L 46,134 L 43,134 Z" fill="#ffffff"/>
-                        <rect x="32" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="32" y1="133.5" x2="47" y2="133.5" stroke="#111" stroke-width="0.5"/>
-                        <!-- Right Shoe -->
-                        <path d="M 54,124 L 67,124 L 67,134 L 54,134 Z" fill="#111111"/>
-                        <path d="M 54,124 L 57,124 L 57,134 L 54,134 Z" fill="#ffffff"/>
-                        <rect x="53" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="53" y1="133.5" x2="68" y2="133.5" stroke="#111" stroke-width="0.5"/>
-                    </g>
-                </svg>
-            </div>
-
-            <!-- Smart Witty Question Button -->
-            <button onclick="askWittyQuestion()" style="background:#70a1ff; color:white; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:bold; font-size:12px; margin-bottom:10px; width:100%;">
-                💡 שאלי את לילי שאלה שנונה
-            </button>
-
-            <!-- Wardrobe Shop (Always Active) -->
-            <div class="shop-box">
-                <div style="font-weight:bold; font-size:13px; text-align:center; color:white; margin-bottom:4px;">🛍️ ארון הסטייל (פתוח תמיד!)</div>
-                
-                <div class="shop-category-title">🧥 סריגים וחולצות</div>
-                <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('top', '#ff3366', 0)"><span>סריג פופ</span> <span>חינם</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('top', '#70a1ff', 15)"><span>סריג תכלת</span> <span>15🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('top', '#a29bfe', 18)"><span>סריג סגול</span> <span>18🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('top', '#2ed573', 20)"><span>סריג ניאון</span> <span>20🪙</span></button>
-                </div>
-
-                <div class="shop-category-title">👓 אקססוריז</div>
-                <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('acc', 'sunglasses', 8)"><span>משקפי שמש</span> <span>8🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('acc', 'glasses', 6)"><span>משקפי ראייה</span> <span>6🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('acc', 'cap', 10)"><span>כובע מצחייה</span> <span>10🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('acc', 'none', 0)"><span>ללא</span> <span>0🪙</span></button>
-                </div>
-
-                <div class="shop-category-title">👟 נעלי אולסטאר</div>
-                <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('shoes', '#111111', 0)"><span>אולסטאר שחור</span> <span>חינם</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('shoes', '#ffffff', 8)"><span>אולסטאר לבן</span> <span>8🪙</span></button>
-                    <button class="shop-item-btn" onclick="buyItem('shoes', '#ff4757', 10)"><span>אולסטאר אדום</span> <span>10🪙</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-area">
-
-            <!-- Monthly Calendar Card -->
-            <div class="card">
-                <div class="calendar-header">
-                    <h3>📅 לו"ז חודשי אישי</h3>
-                    <span id="calendarMonthName" style="font-weight:bold; color:var(--primary);">ספטמבר 2026</span>
-                </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
-                <div id="selectedDayInfo" style="margin-top:12px; font-size:13px; background:#151821; padding:12px; border-radius:12px; display:none; border:1px solid #2f3640;">
-                    <strong id="selectedDayTitle" style="color:var(--accent);"></strong>
-                    <div id="selectedDayTasks" style="margin-top:6px; color:#ddd;"></div>
-                    <button onclick="addCalendarEventPrompt()" style="margin-top:8px; background:var(--primary); color:white; border:none; padding:6px 10px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:bold;">+ הוסף אירוע/משימה</button>
-                </div>
-            </div>
-
-            <!-- Progress Map Card -->
-            <div class="card map-card">
-                <h3>🗺️ מפת ההתקדמות היומית שלי</h3>
-                <p style="font-size: 12px; color: var(--text-sub); margin:3px 0 0 0;">לחצי על התחנות כדי לסמן שהשלמת עוד שלב במסלול!</p>
-                <div class="map-path">
-                    <div class="map-line"></div>
-                    <div class="map-node completed" id="node1" onclick="toggleNode(1)" title="בית ספר">🏫</div>
-                    <div class="map-node" id="node2" onclick="toggleNode(2)" title="אימון צהריים">☀️</div>
-                    <div class="map-node" id="node3" onclick="toggleNode(3)" title="אימון ערב">💥</div>
-                    <div class="map-node" id="node4" onclick="toggleNode(4)" title="מנוחת לילה">🌙</div>
-                </div>
-            </div>
-
-            <!-- Afternoon Workout Card -->
-            <div class="card">
-                <h3>☀️ אימון צהריים מרוקן אנרגיות (~15 דקות)</h3>
-                
-                <div class="workout-guide">
-                    <strong>📋 הסבר בכתב לאימון הצהריים:</strong>
-                    <ul>
-                        <li><strong>חימום (2 דק'):</strong> סיבובי זרועות וקפיצות קלות במקום.</li>
-                        <li><strong>חלק מרכזי (11 דק'):</strong> 3 סבבים של סקואטים, לאנצ'ים וסקוואט פולס (30 שניות עבודה, 15 שניות מנוחה).</li>
-                        <li><strong>שחרור (2 דק'):</strong> מתיחות רגליים ונשימות עמוקות.</li>
-                    </ul>
-                </div>
-
-                <div class="timer-box">
-                    <span>⏱️ סטופר לתרגילים:</span>
-                    <div class="timer-display" id="timerDisplay1">00:00</div>
-                    <button class="timer-btn" onclick="startTimer('timerDisplay1', 30)">30 שניות</button>
-                    <button class="timer-btn" onclick="startTimer('timerDisplay1', 45)">45 שניות</button>
-                    <button class="timer-btn" style="background:#a4b0be;" onclick="resetTimer('timerDisplay1')">איפוס</button>
-                </div>
-
-                <div class="video-container">
-                    <iframe id="afternoonIframe" src="" allowfullscreen></iframe>
-                </div>
-
-                <button class="btn-main" id="btnTask1" onclick="openQuiz(1)">סיימתי את האימון! למשוב קצר (+3 🪙)</button>
-            </div>
-
-            <!-- Evening Workout Card -->
-            <div class="card">
-                <h3>💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
-
-                <div class="workout-guide">
-                    <strong>📋 הסבר בכתב לאימון הערב:</strong>
-                    <ul>
-                        <li><strong>חימום (2 דק'):</strong> ג'מפינג ג'קס ומתיחות דינמיות.</li>
-                        <li><strong>חלק מרכזי (11 דק'):</strong> קליסטניקס ואירובי - פלאנק, טיפוס הרים, סקואט קפיצה (45 שניות עבודה, 15 שניות מנוחה).</li>
-                        <li><strong>שחרור (2 דק'):</strong> מתיחות גב והרפיית שרירים.</li>
-                    </ul>
-                </div>
-
-                <div class="timer-box">
-                    <span>⏱️ סטופר לתרגילים:</span>
-                    <div class="timer-display" id="timerDisplay2">00:00</div>
-                    <button class="timer-btn" onclick="startTimer('timerDisplay2', 30)">30 שניות</button>
-                    <button class="timer-btn" onclick="startTimer('timerDisplay2', 45)">45 שניות</button>
-                    <button class="timer-btn" style="background:#a4b0be;" onclick="resetTimer('timerDisplay2')">איפוס</button>
-                </div>
-
-                <div class="video-container">
-                    <iframe id="eveningIframe" src="" allowfullscreen></iframe>
-                </div>
-
-                <button class="btn-main" id="btnTask2" onclick="openQuiz(2)">סיימתי את האימון! למשוב קצר (+4 🪙)</button>
-            </div>
-
-        </div>
-
+    <!-- ארון בגדים גדול ומרווח -->
+    <div class="wardrobe-section">
+      <h3>הארון של לילי 👗</h3>
+      <p>החליפי פנים, בגדים ונעלים בצורה נוחה:</p>
+      
+      <div class="controls-grid">
+        <button class="opt-btn" onclick="changeFace('#ffdbac')">פנים: בהיר</button>
+        <button class="opt-btn" onclick="changeFace('#f1c27d')">פנים: שזוף</button>
+        <button class="opt-btn" onclick="changeOutfit('#ff85a2')">שמלה ורודה</button>
+        <button class="opt-btn" onclick="changeOutfit('#4ea8de')">חולצה כחולה</button>
+        <button class="opt-btn" onclick="changeShoes('#333333')">נעלי ספורט שחורות</button>
+        <button class="opt-btn" onclick="changeShoes('#white')">נעליים לבנות</button>
+      </div>
     </div>
 
-    <!-- Quiz Modal -->
-    <div class="quiz-modal" id="quizModal">
-        <div class="quiz-card">
-            <h3 style="color:var(--primary); margin-top:0;" id="quizTitle">📝 משוב התקדמות שנון מלילי</h3>
-            <p id="quizQuestion" style="font-size:14px; color:#fff;"></p>
-            <div id="quizOptions"></div>
-        </div>
+    <!-- אזור אימונים וריצת ערב -->
+    <div class="workout-section">
+      <h3>פעילות וכושר 👟</h3>
+      <p id="workout-status">בודק מה שעת היום...</p>
+      <button class="btn-submit" onclick="checkWorkout()">בדקי אימון מלילי</button>
     </div>
+  </div>
 
-    <!-- Floating Popup -->
-    <div class="popup" id="reminderPopup">
-        <span style="font-size:28px;">💖</span>
-        <div>
-            <strong id="popupTitle">תזכורת מלילי!</strong>
-            <p id="popupText" style="margin:3px 0 0 0; font-size:12px; color:var(--text-sub);"></p>
-        </div>
-        <button onclick="closePopup()" style="border:none; background:none; color:white; cursor:pointer; font-weight:bold; font-size:16px;">✕</button>
+  <!-- תפריט אוכל רגיל וקבוע בתחתית המסך -->
+  <div class="food-menu-bar">
+    <strong>תפריט האוכל היומי שלי 🥗</strong>
+    <div class="food-items">
+      <div class="food-item">🌅 בוקר: חביתה וסלט</div>
+      <div class="food-item">☀️ צהריים: חזה עוף / פסטה</div>
+      <div class="food-item">🍎 ביניים: פרי / מעדן</div>
+      <div class="food-item">🌙 ערב: טוסט / שקשוקה</div>
     </div>
+  </div>
 
-    <script>
-        let coins = 12;
-        let timerIntervals = {};
-        let selectedDayNumber = null;
-        let activeWorkoutForQuiz = null;
+  <script>
+    // הגדרות והתחלה
+    let money = 0; // מתחילים בלי כסף
+    const workoutsList = ["מתיחות בוקר 🧘‍♀️", "אימון בטן קצר 💪", "יוגה קלה 🌸", "תרגילי קפיצות 🤸‍♀️"];
 
-        let calendarEvents = {
-            15: ['מבחן באנגלית'],
-            23: ['אימון כושר אישי'],
-            28: ['ערב סרט 🎬']
-        };
+    function submitQuiz() {
+      const mood = document.getElementById('q1').value;
+      const energy = document.getElementById('q2').value;
+      const wantTo = document.getElementById('q3').value;
 
-        const afternoonVideos = [
-            "https://www.youtube.com/embed/UoC_O3HzsH0",
-            "https://www.youtube.com/embed/gC_L9qAHVJ8",
-            "https://www.youtube.com/embed/ml6cT4AZdqI"
-        ];
+      // סגירת מודאל
+      document.getElementById('welcome-modal').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
 
-        const eveningVideos = [
-            "https://www.youtube.com/embed/gC_L9qAHVJ8",
-            "https://www.youtube.com/embed/50kH47ZztHs",
-            "https://www.youtube.com/embed/UoC_O3HzsH0"
-        ];
+      // תגובה מיידית של לילי בהתאם לתשובות
+      const speech = document.getElementById('lily-speech');
+      let response = `היי מתוקה! ראיתי שאת מרגישה ${mood} עם רמת אנרגיה של ${energy}/10. `;
+      
+      if (mood === "קשה" || mood === "עייפה") {
+        response += "אני כאן איתך, קחי את הזמן להירגע ולנוח היום. 💕";
+      } else {
+        response += "איזה כיף שאת כאן! שיהיה לנו יום מהמם ביחד! 🌟";
+      }
 
-        const wittyQuestions = [
-            "אם שיעור מתמטיקה היה ספורט אולימפי, איזה מדליה היית מקבלת על הברזות?",
-            "בסולם של 1 עד 10, כמה היית רוצה להחליף את המערכת של בית ספר בשיעורי כושר ופופ?",
-            "מה הסיכוי ששיעורי בית נכתבו רק כדי לבדוק את סבלנות האנושות?",
-            "איזה שיר היית שמה ברקע כשאת נכנסת לבית ספר ברוקסטאר סטייל?"
-        ];
+      speech.innerText = response;
+      updateWorkoutInfo();
+    }
 
-        function askWittyQuestion() {
-            const randomQ = wittyQuestions[Math.floor(Math.random() * wittyQuestions.length)];
-            document.getElementById('companionBubble').innerText = randomQ;
-        }
+    // שינוי עיצוב של לילי (ארון בגדים ופנים)
+    function changeFace(color) {
+      document.getElementById('lily-face').style.backgroundColor = color;
+    }
 
-        function initDailyVideos() {
-            const dayOfWeek = new Date().getDay();
-            document.getElementById('afternoonIframe').src = afternoonVideos[dayOfWeek % afternoonVideos.length];
-            document.getElementById('eveningIframe').src = eveningVideos[(dayOfWeek + 1) % eveningVideos.length];
-        }
+    function changeOutfit(color) {
+      document.getElementById('lily-outfit').style.backgroundColor = color;
+    }
 
-        function updateTime() {
-            const hours = new Date().getHours();
-            const badge = document.getElementById('timeBadge');
-            const bubble = document.getElementById('companionBubble');
+    function changeShoes(color) {
+      document.getElementById('shoe-left').style.backgroundColor = color;
+      document.getElementById('shoe-right').style.backgroundColor = color;
+    }
 
-            if (hours >= 6 && hours < 12) {
-                badge.innerText = '🌅 בוקר טוב';
-                bubble.innerText = 'בוקר אור! שותים מים, שמים סניקרס ומוכנות ליום אלופות! ☀️';
-            } else if (hours >= 12 && hours < 18) {
-                badge.innerText = '☀️ צהריים';
-                bubble.innerText = 'חזרת? בואי נתפרק באימון הצהריים ונשרוף את העייפות! 💪';
-            } else if (hours >= 18 && hours < 22) {
-                badge.innerText = '🌆 ערב';
-                bubble.innerText = 'זמן מעולה לאימון הערב הקפיצי והמטורף שלנו! 💥';
-            } else {
-                badge.innerText = '🌙 לילה מאוחר';
-                bubble.innerText = 'שעה מאוחרת! החנות והכל פתוחים, אבל אל תשכחי גם לישון קצת 😴';
-            }
-        }
+    // ניהול אימונים וריצת ערב
+    function updateWorkoutInfo() {
+      const currentHour = new Date().getHours();
+      const statusText = document.getElementById('workout-status');
+      
+      // בדיקה אם זה שעות הערב (למשל מ-18:00 ומעלה)
+      if (currentHour >= 18 || currentHour < 5) {
+        statusText.innerText = "עכשיו ערב! 🌙 לילי ממליצה לצאת לריצת ערב מרעננת בחוץ!";
+      } else {
+        // אימון מתחלף באקראי לשעות היום
+        const randomWorkout = workoutsList[Math.floor(Math.random() * workoutsList.length)];
+        statusText.innerText = `האימון להיום: ${randomWorkout}`;
+      }
+    }
 
-        function generateCalendar() {
-            const grid = document.getElementById('calendarGrid');
-            grid.innerHTML = '';
-            const dayNames = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
-            
-            dayNames.forEach(name => {
-                const label = document.createElement('div');
-                label.className = 'calendar-day-label';
-                label.innerText = name;
-                grid.appendChild(label);
-            });
-
-            const today = new Date().getDate();
-
-            for (let i = 1; i <= 30; i++) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'calendar-day';
-                if (i === today) dayCell.classList.add('today');
-                if (calendarEvents[i] && calendarEvents[i].length > 0) dayCell.classList.add('has-event');
-
-                dayCell.innerText = i;
-                dayCell.onclick = () => selectCalendarDay(i);
-                grid.appendChild(dayCell);
-            }
-        }
-
-        function selectCalendarDay(day) {
-            selectedDayNumber = day;
-            const infoBox = document.getElementById('selectedDayInfo');
-            const title = document.getElementById('selectedDayTitle');
-            const tasks = document.getElementById('selectedDayTasks');
-
-            infoBox.style.display = 'block';
-            title.innerText = `אירועים ליום ${day} בחודש:`;
-
-            const events = calendarEvents[day] || [];
-            if (events.length === 0) {
-                tasks.innerHTML = '<em>אין אירועים רשומים ליום זה.</em>';
-            } else {
-                tasks.innerHTML = events.map(e => `• ${e}`).join('<br>');
-            }
-        }
-
-        function addCalendarEventPrompt() {
-            if (!selectedDayNumber) return;
-            const eventName = prompt(`הכניסי אירוע/משימה ליום ${selectedDayNumber}:`);
-            if (eventName) {
-                if (!calendarEvents[selectedDayNumber]) calendarEvents[selectedDayNumber] = [];
-                calendarEvents[selectedDayNumber].push(eventName);
-                selectCalendarDay(selectedDayNumber);
-                generateCalendar();
-            }
-        }
-
-        function startTimer(displayId, duration) {
-            clearInterval(timerIntervals[displayId]);
-            let timer = duration;
-            const display = document.getElementById(displayId);
-
-            timerIntervals[displayId] = setInterval(() => {
-                let seconds = parseInt(timer % 60, 10);
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = "00:" + seconds;
-
-                if (--timer < 0) {
-                    clearInterval(timerIntervals[displayId]);
-                    display.textContent = "DONE! 🎉";
-                    showPopup("אלופה!", "סיימת את הסט בהצלחה!");
-                }
-            }, 1000);
-        }
-
-        function resetTimer(displayId) {
-            clearInterval(timerIntervals[displayId]);
-            document.getElementById(displayId).textContent = "00:00";
-        }
-
-        // Workout Quiz System
-        function openQuiz(workoutId) {
-            activeWorkoutForQuiz = workoutId;
-            const modal = document.getElementById('quizModal');
-            const qText = document.getElementById('quizQuestion');
-            const optionsDiv = document.getElementById('quizOptions');
-
-            modal.style.display = 'flex';
-            optionsDiv.innerHTML = '';
-
-            if (workoutId === 1) {
-                qText.innerText = "איך הרגשת במהלך הסקואטים והלאנצ'ים באימון הצהריים?";
-                const opts = [
-                    "🚀 קטן עלי, הרגשתי כמו אשת ברזל!",
-                    "🔥 השרירים שרפו בדיוק במידה הנכונה!",
-                    "😅 היה מאתגר, אבל לא ויתרתי אפילו לשניה!"
-                ];
-                opts.forEach(opt => {
-                    const btn = document.createElement('div');
-                    btn.className = 'quiz-option';
-                    btn.innerText = opt;
-                    btn.onclick = finishQuiz;
-                    optionsDiv.appendChild(btn);
-                });
-            } else {
-                qText.innerText = "איך היה הקצב של הפלאנק וקפיצות הראלי באימון הערב?";
-                const opts = [
-                    "⚡ קצב מטורף, עפתי באוויר!",
-                    "💥 התאמצתי טיפה בסט השני, אבל ניצחתי אותו!",
-                    "🏆 הרגשתי שיפור אדיר לעומת שבוע שעבר!"
-                ];
-                opts.forEach(opt => {
-                    const btn = document.createElement('div');
-                    btn.className = 'quiz-option';
-                    btn.innerText = opt;
-                    btn.onclick = finishQuiz;
-                    optionsDiv.appendChild(btn);
-                });
-            }
-        }
-
-        function finishQuiz() {
-            document.getElementById('quizModal').style.display = 'none';
-            if (activeWorkoutForQuiz === 1) {
-                coins += 3;
-                const btn = document.getElementById('btnTask1');
-                btn.innerText = "הושלם בהצלחה! ✨ (+3 🪙)";
-                btn.disabled = true;
-                btn.style.background = "#3d4457";
-                document.getElementById('node2').classList.add('completed');
-            } else if (activeWorkoutForQuiz === 2) {
-                coins += 4;
-                const btn = document.getElementById('btnTask2');
-                btn.innerText = "הושלם בהצלחה! ✨ (+4 🪙)";
-                btn.disabled = true;
-                btn.style.background = "#3d4457";
-                document.getElementById('node3').classList.add('completed');
-            }
-            document.getElementById('coinCount').innerText = coins;
-            showPopup("המשוב התקבל!", "המטבעות התווספו לארנק שלך!");
-        }
-
-        function toggleNode(nodeId) {
-            document.getElementById(`node${nodeId}`).classList.toggle('completed');
-        }
-
-        function buyItem(type, val, cost) {
-            if (coins < cost) {
-                showPopup("אין מספיק מטבעות!", "תשלימי אימונים ומשובים כדי להרוויח עוד מטבעות 🪙");
-                return;
-            }
-            coins -= cost;
-            document.getElementById('coinCount').innerText = coins;
-
-            if (type === 'top') {
-                const topPaths = document.querySelectorAll('#topLayer path');
-                topPaths[0].setAttribute('fill', val);
-                topPaths[2].setAttribute('fill', val);
-                topPaths[3].setAttribute('fill', val);
-            } else if (type === 'acc') {
-                const accGroup = document.getElementById('accessoryLayer');
-                if (val === 'sunglasses') {
-                    accGroup.innerHTML = '<rect x="36" y="26" width="12" height="7" rx="2" fill="#111"/><rect x="52" y="26" width="12" height="7" rx="2" fill="#111"/><line x1="48" y1="29" x2="52" y2="29" stroke="#111" stroke-width="2"/>';
-                } else if (val === 'glasses') {
-                    accGroup.innerHTML = '<circle cx="42" cy="29" r="4.5" stroke="#fff" stroke-width="1" fill="none"/><circle cx="58" cy="29" r="4.5" stroke="#fff" stroke-width="1" fill="none"/><line x1="46.5" y1="29" x2="53.5" y2="29" stroke="#fff" stroke-width="1"/>';
-                } else if (val === 'cap') {
-                    accGroup.innerHTML = '<path d="M 33,22 C 33,10 67,10 67,22 Z" fill="#ff3366"/><path d="M 30,22 Q 50,18 70,22" stroke="#ff3366" stroke-width="3" fill="none"/>';
-                } else {
-                    accGroup.innerHTML = '';
-                }
-            } else if (type === 'shoes') {
-                const shoePaths = document.querySelectorAll('#shoesLayer path');
-                shoePaths[0].setAttribute('fill', val);
-                shoePaths[4].setAttribute('fill', val);
-            }
-            showPopup("תתחדשי!", "ה פריט הולבש בהצלחה!");
-        }
-
-        function showPopup(title, text) {
-            document.getElementById('popupTitle').innerText = title;
-            document.getElementById('popupText').innerText = text;
-            document.getElementById('reminderPopup').style.display = 'flex';
-            setTimeout(() => closePopup(), 4000);
-        }
-
-        function closePopup() {
-            document.getElementById('reminderPopup').style.display = 'none';
-        }
-
-        // Init
-        updateTime();
-        generateCalendar();
-        initDailyVideos();
-        setInterval(updateTime, 60000);
-    </script>
+    function checkWorkout() {
+      updateWorkoutInfo();
+      const currentHour = new Date().getHours();
+      if (currentHour >= 18 || currentHour < 5) {
+        alert("לילי: יציאה לריצת ערב! אל תשכחי לשתות מים! 🏃‍♀️✨");
+      } else {
+        alert("לילי: הנה האימון שלך להיום, תעשי מה שמתאים לרגש שלך!");
+      }
+    }
+  </script>
 </body>
 </html>
