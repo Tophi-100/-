@@ -34,7 +34,7 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -59,13 +59,11 @@
             margin-bottom: 15px;
         }
 
-        /* פרופיל וברכה */
+        /* כותרת וברכה */
         .header-card {
             background: linear-gradient(135deg, #FF8E53 0%, #FE6B8B 100%);
             color: white;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
         .header-card h1 {
@@ -93,11 +91,6 @@
             border: 2px solid #E0E0E0;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus, input[type="date"]:focus {
-            border-color: var(--secondary);
         }
 
         button {
@@ -116,6 +109,22 @@
         button:hover {
             transform: scale(1.05);
             background: #3dbbb3;
+        }
+
+        /* אימון היומי */
+        .workout-card {
+            background: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+            color: #2D3436;
+        }
+
+        .workout-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 15px 20px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 10px;
+            border-right: 6px solid #6C5CE7;
         }
 
         /* שאלון אינטראקטיבי */
@@ -139,12 +148,10 @@
             padding: 12px 20px;
             border-radius: 15px;
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .quiz-btn:hover {
             background: #FFE66D;
-            color: #333;
         }
 
         .feedback-msg {
@@ -157,14 +164,7 @@
             display: none;
         }
 
-        /* לוח שנה ולו"ז */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        /* לוח שנה */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -174,21 +174,19 @@
 
         .day-name {
             font-weight: bold;
-            color: #999;
+            color: #777;
             padding-bottom: 5px;
         }
 
         .day-cell {
             background: #F7F9FC;
             border-radius: 12px;
-            padding: 10px 5px;
-            min-height: 65px;
-            font-size: 0.9rem;
+            padding: 8px 4px;
+            min-height: 85px;
+            font-size: 0.85rem;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
-            position: relative;
             border: 1px solid #EAEFF5;
         }
 
@@ -201,30 +199,33 @@
         .holiday-tag {
             background: #FFD166;
             color: #333;
-            font-size: 0.68rem;
-            border-radius: 8px;
+            font-size: 0.65rem;
+            border-radius: 6px;
             padding: 2px 4px;
-            margin-top: 3px;
+            margin-top: 2px;
             width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        }
+
+        .workout-tag {
+            background: #6C5CE7;
+            color: white;
+            font-size: 0.65rem;
+            border-radius: 6px;
+            padding: 2px 4px;
+            margin-top: 2px;
+            width: 100%;
         }
 
         .event-tag {
             background: #FF85A1;
             color: white;
-            font-size: 0.68rem;
-            border-radius: 8px;
+            font-size: 0.65rem;
+            border-radius: 6px;
             padding: 2px 4px;
-            margin-top: 3px;
+            margin-top: 2px;
             width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
-        /* הוספת אירוע */
         .add-event-form {
             display: flex;
             flex-wrap: wrap;
@@ -233,28 +234,15 @@
             padding-top: 15px;
             border-top: 2px dashed #E0E0E0;
         }
-
-        /* מוטיבציה יומית */
-        .motivation-card {
-            background: linear-gradient(135deg, #A1C4FD 0%, #C2E9FB 100%);
-            text-align: center;
-            color: #2C3E50;
-        }
-
-        .quote {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- כותרת וברכה אישית -->
+    <!-- כותרת וברכה -->
     <div class="card header-card">
-        <h1 id="greeting">שלום לך, חבר/ה יקר/ה! 🌟</h1>
+        <h1 id="greeting">שלום לך! 🌟</h1>
         <p id="sub-greeting">כיף שקפצת לבקר! שיהיה לך יום מושלם 🎉</p>
         
         <div class="profile-setup">
@@ -263,35 +251,31 @@
         </div>
     </div>
 
-    <!-- מוטיבציה יומית -->
-    <div class="card motivation-card">
-        <h3>✨ הבוסטר היומי שלך</h3>
-        <p class="quote" id="daily-quote">"את/ה מסוגל/ת לעשות דברים מדהימים היום!" 💪🚀</p>
+    <!-- אימון יומי מיוחד -->
+    <div class="card workout-card">
+        <h3>🏋️‍♀️ אימון כושר יומי מתוכנן</h3>
+        <div class="workout-box" id="today-workout-display">
+            טוען את האימון להיום...
+        </div>
     </div>
 
-    <!-- שאלון אינטראקטיבי מתחשב -->
-    <div class="card quiz-card" id="quiz-section">
+    <!-- שאלון אינטראקטיבי -->
+    <div class="card quiz-card">
         <h3 id="quiz-title">מה שלומך עכשיו? 🤔</h3>
-        <div class="quiz-options" id="quiz-options">
-            <!-- אפשרויות נוצרות ב-JavaScript -->
-        </div>
+        <div class="quiz-options" id="quiz-options"></div>
         <div class="feedback-msg" id="feedback"></div>
     </div>
 
-    <!-- לוח שנה ולו"ז אישי -->
+    <!-- לוח שנה ואירועים -->
     <div class="card">
-        <div class="calendar-header">
-            <h3 id="month-year-title">לוח שנה חודשי 📅</h3>
-        </div>
+        <h3 id="month-year-title">לוח שנה 📅</h3>
 
-        <div class="calendar-grid" id="calendar-grid">
-            <!-- ימים יווצרו בדינמיות -->
-        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
 
-        <!-- טופס הוספת אירוע -->
+        <!-- הוספת אירוע אישי -->
         <div class="add-event-form">
             <input type="date" id="event-date">
-            <input type="text" id="event-title" placeholder="מה המשימה/אירוע? (למשל: מבחן, מסיבה)" style="flex: 1;">
+            <input type="text" id="event-title" placeholder="הוסף אירוע אישי (מבחן, יום הולדת, חוג...)" style="flex: 1;">
             <button onclick="addCustomEvent()">הוסף ללו"ז 📌</button>
         </div>
     </div>
@@ -299,76 +283,73 @@
 </div>
 
 <script>
-    // חגים ואירועים מובנים בישראל (דוגמאות נפוצות)
-    const holidays = {
-        "2026-09-12": "ראש השנה 🍎🍯",
-        "2026-09-13": "ראש השנה 🍎🍯",
-        "2026-09-21": "יום כיפור 🕊️",
-        "2026-09-26": "סוכות 🌿",
-        "2026-10-03": "שמיני עצרת 📜",
-        "2026-12-05": "חנוכה 🕎",
-        "2027-03-23": "פורים 🎭",
-        "2027-04-22": "פסח 🫓",
-        "2027-05-12": "יום העצמאות 🇮🇱",
-        "2027-06-11": "שבועות 🌾"
+    // תוכנית האימונים השבועית (א'-ה')
+    const workoutSchedule = {
+        1: "יום ראשון: פלג גוף עליון 💪 (שקילת שמיכה, מתח/אוסטרלי, מקבילים)",
+        2: "יום שני: רגליים ובטן 🦵 (סקוואטים, מכרעים, הרמות רגליים)",
+        3: "יום שלישי: אימון אירובי + ליבה 🏃‍♀️ (קפיצות בחבל, פלאנק, גשר)",
+        4: "יום רביעי: פלג גוף עליון וגב 🏋️‍♀️ (עבודה על טכניקה ומתח)",
+        5: "יום חמישי: אימון גוף מלא 🔥 (סבבים של כל התרגילים)",
+        0: "יום שישי: מנוחה והתאוששות ☕ (יוגה/מתיחות קלות)",
+        6: "יום שבת: מנוחה מלאה 🎈 (זמן איכות וכיף)"
     };
 
-    // משפטי מוטיבציה
-    const quotes = [
-        "את/ה הרבה יותר חזק/ה ומסוגל/ת ממה שאת/ה חושב/ת! 🌟",
-        "תחייך/י, העולם הרבה יותר יפה ככה! 😊",
-        "כל יום הוא הזדמנות חדשה לעשות משהו כיפי! 🎈",
-        "אין עלייך, פשוט אלופ/ה! 🏆",
-        "קח/י נשימה עמוקה, הכל קטן עלייך! 🌈"
-    ];
+    const holidays = {
+        "2026-09-12": "ראש השנה 🍎",
+        "2026-09-13": "ראש השנה 🍎",
+        "2026-09-21": "יום כיפור 🕊️",
+        "2026-09-26": "סוכות 🌿",
+        "2026-10-03": "שמחת תורה 📜"
+    };
 
     let userEvents = JSON.parse(localStorage.getItem('my_user_events')) || {};
 
-    // בטעינת העמוד
     window.onload = function() {
         loadUserProfile();
         setupDynamicQuiz();
         renderCalendar();
-        displayRandomQuote();
+        displayTodayWorkout();
     };
 
-    // שמירת שם משתמש
     function saveName() {
         const name = document.getElementById('username-input').value.trim();
         if (name) {
             localStorage.setItem('my_site_username', name);
             loadUserProfile();
+            setupDynamicQuiz();
             document.getElementById('username-input').value = '';
-            alert('איזה שם מהמם! שמור אצלי ✨');
         }
     }
 
-    // טעינת פרופיל וברכה לפי שעה
     function loadUserProfile() {
-        const name = localStorage.getItem('my_site_username') || 'חבר/ה';
+        const name = localStorage.getItem('my_site_username') || 'רני';
         const hour = new Date().getHours();
         let greetingText = '';
         let subText = '';
 
         if (hour >= 5 && hour < 12) {
-            greetingText = `בוקר טוב ומלא באור, ${name}! ☀️✨`;
-            subText = 'יום חדש מלא בהזדמנויות נפלאות מחכה לך!';
+            greetingText = `בוקר טוב, ${name}! ☀️✨`;
+            subText = 'יום חדש מלא בהזדמנויות נפלאות!';
         } else if (hour >= 12 && hour < 17) {
             greetingText = `צהריים טובים, ${name}! 🥪🎉`;
-            subText = 'מקווה שהיה לך יום מעולה ושמצאת זמן לנשום ולחייך!';
-        } else if (hour >= 17 && hour < 21) {
-            greetingText = `ערב טוב ומפנק, ${name}! 🌆🎨`;
-            subText = 'זמן להירגע, לנוח ולהתעסק בדברים שאת/ה אוהב/ת!';
+            subText = 'מקווה שהיה לך יום מעולה ושמצאת זמן לחייך!';
         } else {
-            greetingText = `לילה טוב ומלא בחלומות מתוקים, ${name}! 🌙⭐`;
-            subText = 'יום עמוס עבר, זמן להטעין מצברים להארות חדשות!';
+            greetingText = `ערב טוב, ${name}! 🌆🎨`;
+            subText = 'זמן להירגע ולעשות מה שאת אוהבת!';
         }
 
         document.getElementById('greeting').innerText = greetingText;
         document.getElementById('sub-greeting').innerText = subText;
     }
 
-    // שאלון מתחשב ומשתנה לפי שעה
+    function displayTodayWorkout() {
+        const dayOfWeek = new Date().getDay(); // 0=Sun, 1=Mon... 5=Fri, 6=Sat
+        // המרה לימי א-ש
+        const workoutDay = (dayOfWeek + 1) % 7; 
+        const workout = workoutSchedule[workoutDay];
+        document.getElementById('today-workout-display').innerText = workout;
+    }
+
     function setupDynamicQuiz() {
         const hour = new Date().getHours();
         const name = localStorage.getItem('my_site_username') || '';
@@ -378,28 +359,17 @@
         const quizOptions = document.getElementById('quiz-options');
 
         if (hour >= 11 && hour <= 16) {
-            // שאלות צהריים / בצפר
             quizTitle.innerText = `איך היה בבית הספר היום${nameStr}? 🏫✨`;
             quizOptions.innerHTML = `
-                <button class="quiz-btn" onclick="answerQuiz('היה ממש כיף ומצחיק! 🎉')">😍 היה ממש כיף ומצחיק עם החברים!</button>
-                <button class="quiz-btn" onclick="answerQuiz('המורה הייתה ממש קרציה הפעם... 😴')">🙄 כמה קרציה המורה הייתה הפעם! חפרה ברמות!</button>
-                <button class="quiz-btn" onclick="answerQuiz('עבר בסדר, העיקר שכבר בבית! 🏠')">🛋️ עבר בסדר, סוחטים את היום. העיקר שהגעתי לבית!</button>
-                <button class="quiz-btn" onclick="answerQuiz('מעייף ברמות, חייב/ת שנ״צ! 💤')">😴 מעייף ברמות, אני בדרך לשנ״צ מהסרטים!</button>
-            `;
-        } else if (hour > 16 && hour <= 21) {
-            // שאלות אחה"כ / ערב
-            quizTitle.innerText = `איך בא לך להעביר את הערב${nameStr}? 🎨✨`;
-            quizOptions.innerHTML = `
-                <button class="quiz-btn" onclick="answerQuiz('לראות סדרה טובה ולזלול משהו טעים 🍕')">🍕 לראות סדרה/סרט טעים ולזלול משהו טעים!</button>
-                <button class="quiz-btn" onclick="answerQuiz('לצאת לבלות או לדבר עם חברים 📱')">📱 לצאת עם חברים או לחפור בטלפון!</button>
-                <button class="quiz-btn" onclick="answerQuiz('סתם לנוח בלי לעשות כלום 🛋️')">🛋️ פשוט לרבוץ, לנוח ולעשות אפס דברים!</button>
+                <button class="quiz-btn" onclick="answerQuiz('היה ממש כיף ומצחיק! 🎉')">😍 היה ממש כיף ומצחיק!</button>
+                <button class="quiz-btn" onclick="answerQuiz('המורה הייתה קרציה... 😴')">🙄 כמה קרציה המורה הייתה הפעם!</button>
+                <button class="quiz-btn" onclick="answerQuiz('עבר בסדר, העיקר שבבית! 🏠')">🛋️ עבר בסדר, העיקר שאני בבית!</button>
             `;
         } else {
-            // בוקר / לילה
-            quizTitle.innerText = `מה הדיבור להיום${nameStr}? 🌈`;
+            quizTitle.innerText = `איך מרגיש היום שלך${nameStr}? 🌈`;
             quizOptions.innerHTML = `
-                <button class="quiz-btn" onclick="answerQuiz('באתי לטרוף את העולם! 🚀')">🚀 באתי לטרוף את העולם בכיף!</button>
-                <button class="quiz-btn" onclick="answerQuiz('צריך/ה עוד קצת זמן להתעורר... ☕')">😴 צרכים עוד קצת זמן להתעורר...</button>
+                <button class="quiz-btn" onclick="answerQuiz('אנרגיה מעולה! 🚀')">🚀 באנרגיות שיא למעשים טובים!</button>
+                <button class="quiz-btn" onclick="answerQuiz('במצב רוח לרגוע ☕')">😴 במצב רוח רגוע ונינוח.</button>
             `;
         }
     }
@@ -407,16 +377,9 @@
     function answerQuiz(responseText) {
         const feedback = document.getElementById('feedback');
         feedback.style.display = 'block';
-        feedback.innerText = `תשובה מעולה! "${responseText}" - האתר שומר על חיוך ותמיד כאן איתך! ❤️✨`;
+        feedback.innerText = `תשובה מעולה! "${responseText}" - שיהיה המשך יום מקסים! ❤️✨`;
     }
 
-    // משפט מוטיבציה רנדומלי
-    function displayRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        document.getElementById('daily-quote').innerText = `"${quotes[randomIndex]}"`;
-    }
-
-    // יצירת לוח שנה חודשי
     function renderCalendar() {
         const calendarGrid = document.getElementById('calendar-grid');
         calendarGrid.innerHTML = '';
@@ -428,7 +391,6 @@
         const monthNames = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
         document.getElementById('month-year-title').innerText = `📅 לוח שנה - ${monthNames[month]} ${year}`;
 
-        // ימי השבוע
         const dayNames = ['א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'ש\''];
         dayNames.forEach(day => {
             const div = document.createElement('div');
@@ -437,11 +399,9 @@
             calendarGrid.appendChild(div);
         });
 
-        // יום ראשון בחודש ומספר ימים בחודש
         const firstDayIndex = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        // תאים ריקים מתחילת השבוע
         for (let i = 0; i < firstDayIndex; i++) {
             const emptyCell = document.createElement('div');
             emptyCell.className = 'day-cell';
@@ -450,22 +410,22 @@
             calendarGrid.appendChild(emptyCell);
         }
 
-        // ימי החודש
         for (let day = 1; day <= daysInMonth; day++) {
             const dayCell = document.createElement('div');
             dayCell.className = 'day-cell';
             
-            const isToday = (day === now.getDate());
-            if (isToday) dayCell.classList.add('today');
+            const currentCellDate = new Date(year, month, day);
+            const dayOfWeek = currentCellDate.getDay(); // 0 = Sunday, 5 = Friday, 6 = Saturday
+
+            if (day === now.getDate()) dayCell.classList.add('today');
 
             dayCell.innerHTML = `<span>${day}</span>`;
 
-            // פורמט תאריך מלא YYYY-MM-DD
             const monthFormatted = String(month + 1).padStart(2, '0');
             const dayFormatted = String(day).padStart(2, '0');
             const fullDateStr = `${year}-${monthFormatted}-${dayFormatted}`;
 
-            // בדיקת חגים
+            // חגים
             if (holidays[fullDateStr]) {
                 const holidayTag = document.createElement('div');
                 holidayTag.className = 'holiday-tag';
@@ -473,7 +433,15 @@
                 dayCell.appendChild(holidayTag);
             }
 
-            // בדיקת אירועים אישיים של המשתמש
+            // אימונים קבועים (ימי ראשון עד חמישי)
+            if (dayOfWeek >= 0 && dayOfWeek <= 4) {
+                const workoutTag = document.createElement('div');
+                workoutTag.className = 'workout-tag';
+                workoutTag.innerText = "🏋️‍♀️ אימון";
+                dayCell.appendChild(workoutTag);
+            }
+
+            // אירועים אישיים שהוספת
             if (userEvents[fullDateStr]) {
                 userEvents[fullDateStr].forEach(evt => {
                     const eventTag = document.createElement('div');
@@ -487,7 +455,6 @@
         }
     }
 
-    // הוספת אירוע אישי ללו"ז
     function addCustomEvent() {
         const dateInput = document.getElementById('event-date').value;
         const titleInput = document.getElementById('event-title').value.trim();
