@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>המקום הקסום שלי ✨</title>
+    <title>ממלכת הכושר וההתקדמות שלי ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --bg-gradient: linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --primary: #FF6B6B;
             --secondary: #4ECDC4;
+            --purple: #6C5CE7;
             --text-color: #2D3436;
         }
 
@@ -20,20 +23,20 @@
         }
 
         body {
-            background: linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%);
+            background: var(--bg-gradient);
             min-height: 100vh;
             color: var(--text-color);
-            padding: 20px;
+            padding: 20px 10px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .card {
@@ -41,8 +44,7 @@
             border-radius: 24px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
 
         .header-card {
@@ -54,130 +56,178 @@
         .header-card h1 {
             font-size: 2.2rem;
             font-weight: 900;
+            margin-bottom: 5px;
         }
 
-        .profile-setup {
+        .workout-section-title {
             display: flex;
+            align-items: center;
             gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--purple);
+            margin-bottom: 15px;
         }
 
-        input[type="text"], input[type="date"] {
-            padding: 12px 18px;
-            border-radius: 50px;
-            border: 2px solid #E0E0E0;
-            font-size: 1rem;
-            outline: none;
+        .workout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        button {
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: none;
-            background: var(--secondary);
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+        @media (max-width: 768px) {
+            .workout-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .workout-card {
-            background: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
-        }
-
-        .workout-box {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 15px 20px;
+        .video-container {
+            width: 100%;
             border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 10px;
-            border-right: 6px solid #6C5CE7;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #000;
+            aspect-ratio: 16 / 9;
         }
 
-        .quiz-card {
-            background: #FFF9E6;
-            border: 2px dashed #FFE66D;
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .quiz-options {
+        .workout-info {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 15px;
         }
 
-        .quiz-btn {
-            background: white;
-            color: var(--text-color);
-            border: 2px solid #FFE66D;
-            text-align: right;
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-weight: 600;
-        }
-
-        .feedback-msg {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 12px;
-            background: #E8FAE8;
-            color: #2D8A2D;
-            font-weight: bold;
-            display: none;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+        .timer-box {
+            background: #F0F3FF;
+            border: 2px solid #C7D2FE;
+            border-radius: 16px;
+            padding: 15px;
             text-align: center;
         }
 
-        .day-name {
-            font-weight: bold;
-            color: #777;
-            padding-bottom: 5px;
+        .timer-display {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--purple);
+            margin: 5px 0;
+            font-family: monospace;
         }
 
-        .day-cell {
-            background: #F7F9FC;
+        .timer-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-timer {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: none;
+            background: var(--purple);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-timer.reset {
+            background: #A0AEC0;
+        }
+
+        .instructions-box {
+            background: #FFF9E6;
+            border-right: 5px solid #FFE66D;
+            padding: 15px;
             border-radius: 12px;
-            padding: 8px 4px;
-            min-height: 95px;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .instructions-box h4 {
+            color: #D69E2E;
+            margin-bottom: 8px;
+        }
+
+        .instructions-box ul {
+            padding-right: 20px;
+        }
+
+        .section-divider {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+            margin: 10px 0;
+            border-radius: 2px;
+        }
+
+        .level-map {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            border: 1px solid #EAEFF5;
-            cursor: pointer;
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        .day-cell:hover {
-            background: #FFF0F5;
-            border-color: #FF85A1;
-        }
-
-        .day-cell.today {
-            background: #E3F2FD;
-            border: 2px solid #42A5F5;
-            font-weight: bold;
-        }
-
-        .holiday-tag { background: #FFD166; color: #333; font-size: 0.65rem; border-radius: 6px; padding: 2px 4px; margin-top: 2px; width: 100%; }
-        .workout-tag { background: #6C5CE7; color: white; font-size: 0.65rem; border-radius: 6px; padding: 2px 4px; margin-top: 2px; width: 100%; }
-        .no-workout-tag { background: #E0E0E0; color: #666; font-size: 0.65rem; border-radius: 6px; padding: 2px 4px; margin-top: 2px; width: 100%; }
-        .event-tag { background: #FF85A1; color: white; font-size: 0.65rem; border-radius: 6px; padding: 2px 4px; margin-top: 2px; width: 100%; }
-
-        .add-event-form {
+        .level-step {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px dashed #E0E0E0;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 16px;
+            background: #F7FAFC;
+            border: 2px solid #EDF2F7;
+            transition: all 0.3s ease;
+        }
+
+        .level-step.active {
+            background: #EBF8FF;
+            border-color: #3182CE;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
+        }
+
+        .level-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #CBD5E0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .level-step.active .level-badge {
+            background: #3182CE;
+        }
+
+        .level-step.completed .level-badge {
+            background: #38A169;
+        }
+
+        .level-details h4 {
+            font-size: 1.1rem;
+            color: #2D3748;
+        }
+
+        .level-details p {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        .level-select-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background: var(--secondary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -186,233 +236,220 @@
 <div class="container">
 
     <div class="card header-card">
-        <h1 id="greeting">שלום לך! 🌟</h1>
-        <p id="sub-greeting">כיף שקפצת לבקר! שיהיה לך יום מושלם 🎉</p>
-        <div class="profile-setup">
-            <input type="text" id="username-input" placeholder="איך קוראים לך? 😊">
-            <button onclick="saveName()">שמור קוראים לי ככה!</button>
-        </div>
-    </div>
-
-    <div class="card workout-card">
-        <h3>🏋️‍♀️ אימון כושר יומי מתוכנן</h3>
-        <div class="workout-box" id="today-workout-display">טוען...</div>
-    </div>
-
-    <div class="card quiz-card">
-        <h3 id="quiz-title">מה שלומך עכשיו? 🤔</h3>
-        <div class="quiz-options" id="quiz-options"></div>
-        <div class="feedback-msg" id="feedback"></div>
+        <h1>המקום הקסום שלי ✨</h1>
+        <p id="today-date-display">אימון היומי שלך מוכן!</p>
     </div>
 
     <div class="card">
-        <h3 id="month-year-title">📅 לוח שנה (לחצי על יום בלוח!)</h3>
-        <div class="calendar-grid" id="calendar-grid"></div>
-
-        <div class="add-event-form">
-            <input type="date" id="event-date">
-            <input type="text" id="event-title" placeholder="תיאור אירוע..." style="flex: 1;">
-            <button onclick="addEventFromForm()">הוסף ללו"ז 📌</button>
+        <div class="workout-section-title">
+            <span>☀️</span>
+            <h2 id="day-workout-title">אימון יום</h2>
         </div>
+
+        <div class="workout-grid">
+            <div>
+                <div class="video-container">
+                    <iframe id="day-video" src="https://www.youtube.com/embed/cbK732SLLTo" title="אימון יום" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="workout-info">
+                <div class="timer-box">
+                    <span>⏱️ סטופר תרגיל / מנוחה</span>
+                    <div class="timer-display" id="day-timer">00:45</div>
+                    <div class="timer-controls">
+                        <button class="btn-timer" onclick="startTimer('day', 45)">התחל (45 שנ')</button>
+                        <button class="btn-timer" onclick="startTimer('day', 30)">מנוחה (30 שנ')</button>
+                        <button class="btn-timer reset" onclick="resetTimer('day')">איפוס</button>
+                    </div>
+                </div>
+
+                <div class="instructions-box">
+                    <h4>📝 הנחיות לאימון:</h4>
+                    <ul id="day-instructions">
+                        <li>טוען הנחיות...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="card">
+        <div class="workout-section-title">
+            <span>🌙</span>
+            <h2>אימון ערב ושחרור</h2>
+        </div>
+
+        <div class="workout-grid">
+            <div>
+                <div class="video-container">
+                    <iframe id="night-video" src="https://www.youtube.com/embed/g_TEA8ZNk5A" title="אימון ערב" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="workout-info">
+                <div class="timer-box">
+                    <span>⏱️ סטופר מתיחות</span>
+                    <div class="timer-display" id="night-timer">00:30</div>
+                    <div class="timer-controls">
+                        <button class="btn-timer" onclick="startTimer('night', 30)">התחל מתיחה (30 שנ')</button>
+                        <button class="btn-timer reset" onclick="resetTimer('night')">איפוס</button>
+                    </div>
+                </div>
+
+                <div class="instructions-box">
+                    <h4>🌙 הנחיות לערב:</h4>
+                    <ul>
+                        <li><strong>מתיחות גב וירכיים:</strong> 30 שניות לכל מתיחה להורדת עומס מהיום.</li>
+                        <li><strong>נשימות עמוקות:</strong> 4 שניות שאיפה, 4 שניות החזקה, 6 שניות נשיפה.</li>
+                        <li><strong>מטרה:</strong> להרגיע את השרירים ולהכיוון את הגוף לשינה איכותית.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="card">
+        <div class="workout-section-title">
+            <span>🗺️</span>
+            <h2>מפת ההתקדמות שלי ברמות</h2>
+        </div>
+        <p>עדכני את הרמה שבה את נמצאת כעת כדי לעקוב אחר ההתקדמות שלך:</p>
+
+        <div class="level-map" id="level-map-container">
+        </div>
+
+        <button class="level-select-btn" onclick="changeUserLevel()">שינוי/עדכון רמה 🎯</button>
     </div>
 
 </div>
 
 <script>
-    const workoutSchedule = {
-        1: "יום ראשון: פלג גוף עליון 💪 (שקילת שמיכה, מתח/אוסטרלי, מקבילים)",
-        2: "יום שני: רגליים ובטן 🦵 (סקוואטים, מכרעים, הרמות רגליים)",
-        3: "יום שלישי: אימון אירובי + ליבה 🏃‍♀️ (קפיצות בחבל, פלאנק, גשר)",
-        4: "יום רביעי: פלג גוף עליון וגב 🏋️‍♀️ (עבודה על טכניקה ומתח)",
-        5: "יום חמישי: אימון גוף מלא 🔥 (סבבים של כל התרגילים)",
-        0: "יום שישי: מנוחה והתאוששות ☕ (יוגה/מתיחות קלות)",
-        6: "יום שבת: מנוחה מלאה 🎈 (זמן איכות וכיף)"
+    const dayWorkouts = {
+        active: {
+            title: "אימון כוח וחיזוק גוף (רמה 2)",
+            video: "https://www.youtube.com/embed/cbK732SLLTo",
+            instructions: [
+                "<strong>חימום (3 דקות):</strong> סיבובי זרועות, קפיצות קלות במקום.",
+                "<strong>תרגיל 1:</strong> שקילת שמיכה / שילוב מתח אוסטרלי (3 סטים x 8 חזרות).",
+                "<strong>תרגיל 2:</strong> סקוואטים ומכרעים לחיזוק הרגליים (3 סטים x 12 חזרות).",
+                "<strong>תרגיל 3:</strong> פלאנק והרמות רגליים לבטן (3 סטים x 30 שניות)."
+            ]
+        },
+        rest: {
+            title: "יום מנוחה פעילה ותנועתיות ☕",
+            video: "https://www.youtube.com/embed/inpok4MKVLM",
+            instructions: [
+                "<strong>יום התאוששות:</strong> הגוף בונה את השרירים בזמן מנוחה!",
+                "<strong>מה עושים היום?</strong> מתיחות קלות, הליכה בכיף או יוגה קלה.",
+                "<strong>שתיית מים:</strong> הקפידי לשתות מים במהלך היום."
+            ]
+        }
     };
 
-    const holidays = {
-        "2026-09-12": "ראש השנה 🍎",
-        "2026-09-13": "ראש השנה 🍎",
-        "2026-09-21": "יום כיפור 🕊️",
-        "2026-09-26": "סוכות 🌿",
-        "2026-10-03": "שמחת תורה 📜"
-    };
+    const levels = [
+        { level: 1, title: "רמה 1: מתחילה 🌟", desc: "תרגילי בסיס, למידת טכניקה ובניית הרגל." },
+        { level: 2, title: "רמה 2: מתקדמת קלה 💪", desc: "שילוב תרגילי משקל גוף, מתח אוסטרלי ועבודה על יציבות." },
+        { level: 3, title: "רמה 3: אלופה 🔥", desc: "עבודה על עליות מתח, מקבילים וסיבולת גבוהה." },
+        { level: 4, title: "רמה 4: מקצוענית 🚀", desc: "תרגילים מורכבים בקליסטניקס ושליטה מלאה בגוף." }
+    ];
 
-    let userEvents = JSON.parse(localStorage.getItem('my_user_events')) || {};
-    let workoutPreferences = JSON.parse(localStorage.getItem('my_workout_prefs')) || {};
+    let timerIntervals = {};
+    let currentLevel = parseInt(localStorage.getItem('my_fitness_level')) || 2;
 
     window.onload = function() {
-        loadUserProfile();
-        setupDynamicQuiz();
-        renderCalendar();
-        displayTodayWorkout();
+        setupTodayWorkout();
+        renderLevelMap();
     };
 
-    function saveName() {
-        const name = document.getElementById('username-input').value.trim();
-        if (name) {
-            localStorage.setItem('my_site_username', name);
-            loadUserProfile();
-            setupDynamicQuiz();
-            document.getElementById('username-input').value = '';
-        }
-    }
+    function setupTodayWorkout() {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        
+        const isWorkoutDay = (dayOfWeek === 0 || dayOfWeek === 2 || dayOfWeek === 4);
+        const data = isWorkoutDay ? dayWorkouts.active : dayWorkouts.rest;
 
-    function loadUserProfile() {
-        const name = localStorage.getItem('my_site_username') || 'רני';
-        const hour = new Date().getHours();
-        let greetingText = (hour >= 5 && hour < 12) ? `בוקר טוב, ${name}! ☀️✨` : (hour >= 12 && hour < 17) ? `צהריים טובים, ${name}! 🥪🎉` : `ערב טוב, ${name}! 🌆🎨`;
-        document.getElementById('greeting').innerText = greetingText;
-    }
+        document.getElementById('day-workout-title').innerText = data.title;
+        document.getElementById('day-video').src = data.video;
 
-    function displayTodayWorkout() {
-        const dayOfWeek = new Date().getDay();
-        const workoutDay = (dayOfWeek + 1) % 7; 
-        document.getElementById('today-workout-display').innerText = workoutSchedule[workoutDay];
-    }
-
-    function setupDynamicQuiz() {
-        const hour = new Date().getHours();
-        const name = localStorage.getItem('my_site_username') || '';
-        const nameStr = name ? ` ${name}` : '';
-        const quizTitle = document.getElementById('quiz-title');
-        const quizOptions = document.getElementById('quiz-options');
-
-        if (hour >= 11 && hour <= 16) {
-            quizTitle.innerText = `איך היה בבית הספר היום${nameStr}? 🏫✨`;
-            quizOptions.innerHTML = `
-                <button class="quiz-btn" onclick="answerQuiz('היה ממש כיף ומצחיק! 🎉')">😍 היה ממש כיף ומצחיק!</button>
-                <button class="quiz-btn" onclick="answerQuiz('המורה הייתה קרציה... 😴')">🙄 כמה קרציה המורה הייתה הפעם!</button>
-                <button class="quiz-btn" onclick="answerQuiz('עבר בסדר, העיקר שבבית! 🏠')">🛋️ עבר בסדר, העיקר שאני בבית!</button>
-            `;
-        } else {
-            quizTitle.innerText = `איך מרגיש היום שלך${nameStr}? 🌈`;
-            quizOptions.innerHTML = `
-                <button class="quiz-btn" onclick="answerQuiz('אנרגיה מעולה! 🚀')">🚀 באנרגיות שיא למעשים טובים!</button>
-                <button class="quiz-btn" onclick="answerQuiz('במצב רוח לרגוע ☕')">😴 במצב רוח רגוע ונינוח.</button>
-            `;
-        }
-    }
-
-    function answerQuiz(responseText) {
-        const feedback = document.getElementById('feedback');
-        feedback.style.display = 'block';
-        feedback.innerText = `תשובה מעולה! "${responseText}" - שיהיה המשך יום מקסים! ❤️✨`;
-    }
-
-    function renderCalendar() {
-        const calendarGrid = document.getElementById('calendar-grid');
-        calendarGrid.innerHTML = '';
-
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
-
-        const monthNames = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
-        document.getElementById('month-year-title').innerText = `📅 לוח שנה - ${monthNames[month]} ${year}`;
-
-        ['א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'ש\''].forEach(day => {
-            const div = document.createElement('div');
-            div.className = 'day-name';
-            div.innerText = day;
-            calendarGrid.appendChild(div);
+        const instructionsList = document.getElementById('day-instructions');
+        instructionsList.innerHTML = '';
+        data.instructions.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item;
+            instructionsList.appendChild(li);
         });
 
-        const firstDayIndex = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        for (let i = 0; i < firstDayIndex; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'day-cell';
-            emptyCell.style.background = 'transparent';
-            emptyCell.style.border = 'none';
-            emptyCell.style.cursor = 'default';
-            calendarGrid.appendChild(emptyCell);
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayCell = document.createElement('div');
-            dayCell.className = 'day-cell';
-            const currentCellDate = new Date(year, month, day);
-            const dayOfWeek = currentCellDate.getDay();
-
-            if (day === now.getDate()) dayCell.classList.add('today');
-            dayCell.innerHTML = `<span>${day}</span>`;
-
-            const monthFormatted = String(month + 1).padStart(2, '0');
-            const dayFormatted = String(day).padStart(2, '0');
-            const fullDateStr = `${year}-${monthFormatted}-${dayFormatted}`;
-
-            // בלחיצה על היום בלוח – קופצת השאלה הישירה!
-            dayCell.onclick = () => processEventCreation(fullDateStr);
-
-            if (holidays[fullDateStr]) {
-                const holidayTag = document.createElement('div');
-                holidayTag.className = 'holiday-tag';
-                holidayTag.innerText = holidays[fullDateStr];
-                dayCell.appendChild(holidayTag);
-            }
-
-            const pref = workoutPreferences[fullDateStr];
-            if (pref === true || (pref === undefined && dayOfWeek >= 0 && dayOfWeek <= 4)) {
-                const workoutTag = document.createElement('div');
-                workoutTag.className = 'workout-tag';
-                workoutTag.innerText = "🏋️‍♀️ אימון";
-                dayCell.appendChild(workoutTag);
-            } else if (pref === false) {
-                const noWorkoutTag = document.createElement('div');
-                noWorkoutTag.className = 'no-workout-tag';
-                noWorkoutTag.innerText = "☕ ללא אימון";
-                dayCell.appendChild(noWorkoutTag);
-            }
-
-            if (userEvents[fullDateStr]) {
-                userEvents[fullDateStr].forEach(evt => {
-                    const eventTag = document.createElement('div');
-                    eventTag.className = 'event-tag';
-                    eventTag.innerText = `📌 ${evt}`;
-                    dayCell.appendChild(eventTag);
-                });
-            }
-
-            calendarGrid.appendChild(dayCell);
-        }
+        // פורמט תאריך עם שנה בת 2 ספרות ('2-digit')
+        const options = { weekday: 'long', year: '2-digit', month: 'long', day: 'numeric' };
+        document.getElementById('today-date-display').innerText = today.toLocaleDateString('he-IL', options);
     }
 
-    // הפונקציה הראשית ששואלת באופן ישיר
-    function processEventCreation(dateStr, prefilledTitle = "") {
-        let eventTitle = prefilledTitle;
-        if (!eventTitle) {
-            eventTitle = prompt(`מה האירוע או המשימה שתרצי להוסיף לתאריך ${dateStr}?`);
-        }
+    function startTimer(type, seconds) {
+        clearInterval(timerIntervals[type]);
+        let timeLeft = seconds;
+        const display = document.getElementById(`${type}-timer`);
 
-        // אם המשתמשת הזינה אירוע (או לחצה אישור)
-        if (eventTitle !== null) {
-            if (eventTitle.trim() !== "") {
-                if (!userEvents[dateStr]) userEvents[dateStr] = [];
-                userEvents[dateStr].push(eventTitle.trim());
-                localStorage.setItem('my_user_events', JSON.stringify(userEvents));
+        updateDisplay(display, timeLeft);
+
+        timerIntervals[type] = setInterval(() => {
+            timeLeft--;
+            if (timeLeft <= 0) {
+                clearInterval(timerIntervals[type]);
+                display.innerText = "סיום! 🎉";
+            } else {
+                updateDisplay(display, timeLeft);
             }
-
-            // השאלה לגבי האימון
-            const wantsWorkout = confirm(`מתאים לך לעשות אימון בתאריך ${dateStr}?\n\nלחצי 'אישור' ל-כן 👍 | לחצי 'ביטול' ל-לא 😴`);
-            workoutPreferences[dateStr] = wantsWorkout;
-            localStorage.setItem('my_workout_prefs', JSON.stringify(workoutPreferences));
-
-            renderCalendar();
-        }
+        }, 1000);
     }
 
-    function addEventFromForm() {
-        const dateInput = document.getElementById('event-date').value;
-        const titleInput = document.getElementById('event-title').value.trim();
+    function resetTimer(type) {
+        clearInterval(timerIntervals[type]);
+        const defaultTime = type === 'day' ? "00:45" : "00:30";
+        document.getElementById(`${type}-timer`).innerText = defaultTime;
+    }
 
-        if (!dateInput) {
-            alert('נא לבחור תאריך! 😊');
-            return;
+    function updateDisplay(element, timeInSeconds) {
+        const mins = Math.floor(timeInSeconds / 60);
+        const secs = timeInSeconds % 60;
+        element.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function renderLevelMap() {
+        const container = document.getElementById('level-map-container');
+        container.innerHTML = '';
+
+        levels.forEach(lvl => {
+            const stepDiv = document.createElement('div');
+            let statusClass = '';
+            
+            if (lvl.level < currentLevel) statusClass = 'completed';
+            else if (lvl.level === currentLevel) statusClass = 'active';
+
+            stepDiv.className = `level-step ${statusClass}`;
+            stepDiv.innerHTML = `
+                <div class="level-badge">${lvl.level < currentLevel ? '✓' : lvl.level}</div>
+                <div class="level-details">
+                    <h4>${lvl.title} ${lvl.level === currentLevel ? '(הרמה הנוכחית שלך!)' : ''}</h4>
+                    <p>${lvl.desc}</p>
+                </div>
+            `;
+            container.appendChild(stepDiv);
+        });
+    }
+
+    function changeUserLevel() {
+        const newLevel = prompt("באיזו רמה את נמצאת עכשיו? (הזיני מספר בין 1 ל-4):", currentLevel);
+        if (newLevel && !isNaN(newLevel) && newLevel >= 1 && newLevel <= 4) {
+            currentLevel = parseInt(newLevel);
+            localStorage.setItem('my_fitness_level', currentLevel);
+            renderLevelMap();
+            alert(`איזה יופי! הרמה עודכנה לרמה ${currentLevel} 🚀`);
         }
-
-        processEventCreation(dateInput, titleInput);
-        document.getElementById('event-title').value = '';
     }
 </script>
 
