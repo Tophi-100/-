@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מסלול הכושר, הסטייל והשגרה שלי</title>
+    <title>הלו"ז והכושר שלי עם לילי</title>
     <style>
         :root {
             --primary: #ff6b81;
@@ -65,7 +65,7 @@
 
         .companion-card {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
             background: white;
             border-radius: 20px;
             padding: 20px;
@@ -77,75 +77,34 @@
         }
 
         .speech-bubble {
-            background: #f1f2f6;
+            background: #fff0f3;
             padding: 12px 18px;
             border-radius: 15px;
             font-size: 14px;
             margin-bottom: 15px;
             text-align: center;
-            position: relative;
             width: 85%;
-            border: 2px solid #dfe4ea;
+            border: 2px solid #ff4757;
             line-height: 1.4;
+            font-weight: 500;
         }
 
         .avatar-container {
-            width: 180px;
-            height: 260px;
+            width: 160px;
+            height: 240px;
             position: relative;
             margin-bottom: 15px;
-            background: linear-gradient(180deg, #eccc6833 0%, #ff767511 100%);
+            background: #f1f2f6;
             border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #f7b731;
+            border: 2px solid #dfe4ea;
         }
 
         .avatar-svg {
             width: 100%;
             height: 100%;
-        }
-
-        .tab-btn {
-            background: #f1f2f6;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            margin: 2px;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .shop-items-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            width: 100%;
-            max-height: 180px;
-            overflow-y: auto;
-            margin-top: 10px;
-        }
-
-        .shop-item {
-            border: 2px solid #f1f2f6;
-            border-radius: 10px;
-            padding: 6px;
-            text-align: center;
-            font-size: 11px;
-            cursor: pointer;
-            background: #fafafa;
-        }
-
-        .shop-item.equipped {
-            border-color: #2ed573;
-            background: #e8fae8;
         }
 
         .content-area {
@@ -163,26 +122,84 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
-        .svg-map {
+        /* Quiz Box */
+        .quiz-card {
+            background: #fff9db;
+            border: 2px dashed #f1c40f;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 1px solid #f1c40f;
+            padding: 10px 14px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #ffeaa7;
+            transform: translateX(-3px);
+        }
+
+        /* Timer Controls */
+        .timer-box {
+            background: #f1f2f6;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff4757;
+            margin: 5px 0;
+        }
+
+        .timer-btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .timer-btn:hover {
+            background: #ff4757;
+        }
+
+        .btn-main {
+            background: #2ed573;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
             width: 100%;
-            height: 130px;
+            margin-top: 10px;
         }
 
-        .task-card {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .video-wrapper {
+        /* Video Responsive */
+        .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 12px;
+            margin-top: 10px;
         }
 
-        .video-wrapper iframe {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -191,78 +208,26 @@
             border: none;
         }
 
-        .btn-main {
-            background: #2ed573;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 12px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* American Quiz Box */
-        .quiz-box {
-            background: #fff3bf;
-            border: 2px dashed #f1c40f;
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .quiz-option {
-            background: white;
-            border: 1px solid #f1c40f;
-            padding: 8px 12px;
-            margin: 5px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-
-        .quiz-option:hover {
-            background: #ffeaa7;
-        }
-
-        /* Event Scheduler Input */
-        .schedule-input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .schedule-input-group input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        /* Floating Reminder Popup */
-        .reminder-popup {
+        /* Popup Notification */
+        .popup {
             position: fixed;
             bottom: 20px;
             left: 20px;
             background: white;
-            border: 3px solid var(--primary);
+            border: 3px solid #ff4757;
             border-radius: 20px;
             padding: 15px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             display: none;
             align-items: center;
             gap: 12px;
             z-index: 1000;
-            max-width: 300px;
-            animation: bounceIn 0.5s ease;
+            max-width: 320px;
+            animation: popIn 0.4s ease;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            80% { transform: scale(1.05); }
+        @keyframes popIn {
+            0% { transform: scale(0.6); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
     </style>
@@ -270,34 +235,38 @@
 <body>
 
     <div class="header-bar">
-        <h2>✨ המסלול והלו"ז היומי שלי</h2>
-        <div class="time-badge" id="timeBadge">⏰ מזהה שעה...</div>
+        <h2>✨ הלו"ז והשגרה שלי</h2>
+        <div class="time-badge" id="timeBadge">⏰ בודק שעה...</div>
         <div class="coin-display">🪙 <span id="coinCount">100</span> מטבעות</div>
     </div>
 
     <div class="main-layout">
         
-        <!-- Character & Shop -->
+        <!-- Companion (Lily) -->
         <div class="companion-card">
             <div class="speech-bubble" id="companionBubble">
-                בטוען הודעה...
+                טוען הודעה...
             </div>
 
             <div class="avatar-container">
                 <svg class="avatar-svg" viewBox="0 0 100 150">
+                    <!-- Legs -->
                     <rect x="40" y="98" width="6" height="32" fill="#f5cda7"/>
                     <rect x="54" y="98" width="6" height="32" fill="#f5cda7"/>
+                    <!-- Head & Neck -->
                     <circle cx="50" cy="32" r="18" fill="#f5cda7"/>
                     <rect x="46" y="48" width="8" height="8" fill="#f5cda7"/>
-
-                    <path id="avatarHair" d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>
-
-                    <circle cx="43" cy="32" r="2.5" id="eyeL" fill="#00a8ff"/>
-                    <circle cx="57" cy="32" r="2.5" id="eyeR" fill="#00a8ff"/>
+                    <!-- Smooth Brown Hair -->
+                    <path d="M 28,32 C 26,10 74,10 72,32 C 75,55 70,68 66,75 C 60,48 66,22 50,18 C 34,22 40,48 34,75 C 30,68 25,55 28,32 Z" fill="#4a3000"/>
+                    <!-- Blue Eyes -->
+                    <circle cx="43" cy="32" r="2.5" fill="#00a8ff"/>
+                    <circle cx="57" cy="32" r="2.5" fill="#00a8ff"/>
                     <circle cx="44" cy="31" r="0.8" fill="#fff"/>
                     <circle cx="58" cy="31" r="0.8" fill="#fff"/>
+                    <!-- Smile -->
                     <path d="M 44,40 Q 50,44 56,40" stroke="#d63031" stroke-width="1.2" fill="none"/>
 
+                    <!-- Top Sweater -->
                     <g id="avatarTop">
                         <path d="M 34,54 L 66,54 L 63,90 L 37,90 Z" fill="#f5f6fa"/>
                         <rect x="42" y="48" width="16" height="8" rx="2" fill="#dcdde1"/>
@@ -305,19 +274,23 @@
                         <path d="M 66,54 L 75,75 L 71,77 L 64,60 Z" fill="#f5f6fa"/>
                     </g>
 
+                    <!-- Pink Skirt -->
                     <g id="avatarBottom">
                         <path d="M 35,88 L 65,88 L 74,108 L 26,108 Z" fill="#fd79a8"/>
                     </g>
 
+                    <!-- Classic Black All-Star Shoes -->
                     <g id="avatarShoes">
-                        <path id="shoeCanvasL" d="M 32,126 L 47,126 C 48,131 47,135 47,136 L 32,136 Z" fill="#111111"/>
+                        <!-- Left Shoe -->
+                        <path d="M 32,126 L 47,126 C 48,131 47,135 47,136 L 32,136 Z" fill="#111111"/>
                         <path d="M 43,126 L 47,126 C 48,131 47,135 47,136 L 43,136 Z" fill="#ffffff"/>
                         <rect x="31" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
                         <line x1="31" y1="135.5" x2="48" y2="135.5" stroke="#111" stroke-width="0.5"/>
                         <line x1="36" y1="128" x2="41" y2="128" stroke="#ffffff" stroke-width="0.7"/>
                         <line x1="36" y1="131" x2="41" y2="131" stroke="#ffffff" stroke-width="0.7"/>
 
-                        <path id="shoeCanvasR" d="M 53,126 L 68,126 L 68,136 L 53,136 Z" fill="#111111"/>
+                        <!-- Right Shoe -->
+                        <path d="M 53,126 L 68,126 L 68,136 L 53,136 Z" fill="#111111"/>
                         <path d="M 53,126 L 57,126 L 57,136 L 53,136 Z" fill="#ffffff"/>
                         <rect x="52" y="134" width="17" height="3" fill="#ffffff" rx="1"/>
                         <line x1="52" y1="135.5" x2="69" y2="135.5" stroke="#111" stroke-width="0.5"/>
@@ -326,134 +299,107 @@
                     </g>
                 </svg>
             </div>
-
-            <div style="display: flex; gap: 2px; flex-wrap: wrap; justify-content: center;">
-                <button class="tab-btn active" onclick="switchCategory('shoes', event)">👟 אולסטאר</button>
-                <button class="tab-btn" onclick="switchCategory('tops', event)">🧥 סריגים</button>
-                <button class="tab-btn" onclick="switchCategory('bottoms', event)">👖 מכנסיים/חצאית</button>
-            </div>
-
-            <div class="shop-items-grid" id="shopGrid"></div>
         </div>
 
         <div class="content-area">
-            
-            <!-- School Routine Quiz (Only in Afternoon/Routine) -->
-            <div class="card" id="schoolQuizCard">
-                <h3>🏫 מה הולך בבית הספר היום?</h3>
-                <p id="quizQuestion">כמה קרצייה הייתה המורה היום במנה של 1 עד 10?</p>
-                <div class="quiz-option" onclick="answerSchoolQuiz('10! רציתי להיעלם למאדים 🚀')">10! רציתי להיעלם למאדים 🚀</div>
-                <div class="quiz-option" onclick="answerSchoolQuiz('5 - סביר, אבל עדיין מעייף 🥱')">5 - סביר, אבל עדיין מעייף 🥱</div>
-                <div class="quiz-option" onclick="answerSchoolQuiz('1 - מפתיע, שרדנו בלי דרמות! 😎')">1 - מפתיע, שרדנו בלי דרמות! 😎</div>
+
+            <!-- Funny School Quiz -->
+            <div class="card quiz-card" id="schoolQuizCard">
+                <h3>😜 שאלת בית ספר קורעת</h3>
+                <p style="font-weight: bold;">כמה קרצייה הייתה המורה היום במנה של 1 עד 10?</p>
+                <div class="quiz-option" onclick="answerQuiz('10! ברחתי בדמיון למאדים 🚀')">10! ברחתי בדמיון למאדים 🚀</div>
+                <div class="quiz-option" onclick="answerQuiz('5 - סביר, אבל עדיין מעייפת 🥱')">5 - סביר, אבל עדיין מעייפת 🥱</div>
+                <div class="quiz-option" onclick="answerQuiz('1 - מפתיע, שרדנו בלי דרמות! 😎')">1 - מפתיע, שרדנו בלי דרמות! 😎</div>
             </div>
 
-            <!-- Route Map -->
+            <!-- Afternoon Workout Card -->
             <div class="card">
-                <h3>🗺️ מפת המסלול הרציף שלי</h3>
-                <svg class="svg-map" viewBox="0 0 400 120">
-                    <path d="M 50,60 C 120,10 180,110 250,60 C 290,30 330,90 370,60" fill="none" stroke="#ff7675" stroke-width="5" />
-                    
-                    <g style="cursor:pointer" onclick="scrollToTask(1)">
-                        <circle cx="50" cy="60" r="20" fill="#ff6b81" stroke="#fff" stroke-width="3"/>
-                        <text x="50" y="65" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
-                        <text x="50" y="95" font-size="11" font-weight="bold" fill="#2f3542" text-anchor="middle">צהריים</text>
-                    </g>
-
-                    <g style="cursor:pointer" onclick="scrollToTask(2)">
-                        <circle cx="250" cy="60" r="20" fill="#a4b0be" stroke="#fff" stroke-width="3" id="node2Circle"/>
-                        <text x="250" y="65" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
-                        <text x="250" y="95" font-size="11" font-weight="bold" fill="#747d8c" text-anchor="middle">ערב</text>
-                    </g>
-
-                    <g>
-                        <circle cx="370" cy="60" r="16" fill="#dfe4ea" stroke="#fff" stroke-width="3"/>
-                        <text x="370" y="64" font-size="10" fill="#a4b0be" text-anchor="middle">🔒</text>
-                    </g>
-                </svg>
-            </div>
-
-            <!-- Afternoon Task -->
-            <div class="card task-card" id="taskCard1">
-                <h3>☀️ אימון צהריים (<span id="afternoonDiffLabel">רמה רגילה</span>)</h3>
-                <div class="video-wrapper">
-                    <iframe id="videoAfternoon" src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
+                <h3>☀️ אימון צהריים מרוקן אנרגיות (~14 דקות)</h3>
+                <p style="font-size: 13px; color: #555;">קצבי, קצר ומקפיץ לשחרור הלחץ של בית הספר!</p>
+                
+                <!-- Stopwatch -->
+                <div class="timer-box">
+                    <span>⏱️ סטופר לתרגילים:</span>
+                    <div class="timer-display" id="timerDisplay1">00:00</div>
+                    <button class="timer-btn" onclick="startTimer('timerDisplay1', 30)">30 שניות</button>
+                    <button class="timer-btn" onclick="startTimer('timerDisplay1', 45)">45 שניות</button>
+                    <button class="timer-btn" style="background:#a4b0be;" onclick="resetTimer('timerDisplay1')">איפוס</button>
                 </div>
-                <button class="btn-main" id="btnAfternoon" onclick="finishTask('afternoon')">סיימתי את האימון! (+50 🪙)</button>
 
-                <!-- Feedback Quiz -->
-                <div class="quiz-box" id="quizAfternoon">
-                    <strong>איך היה האימון עבורך? (יעדכן את הקושי למחר!)</strong>
-                    <div class="quiz-option" onclick="submitDifficulty('afternoon', 'easy')">😊 קל מדי! רוצה אתגר מחר</div>
-                    <div class="quiz-option" onclick="submitDifficulty('afternoon', 'medium')">👍 בדיוק במידה הנכונה</div>
-                    <div class="quiz-option" onclick="submitDifficulty('afternoon', 'hard')">🥵 קשה ברמות, להוריד עומס למחר</div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
+                </div>
+
+                <button class="btn-main" id="btnTask1" onclick="finishTask(1)">סיימתי את אימון הצהריים! (+50 🪙)</button>
+
+                <!-- Task Feedback Quiz -->
+                <div class="quiz-card" id="taskQuiz1" style="display:none; padding:10px; margin-top:10px; border-radius:10px;">
+                    <strong>איך היה האימון? (יעדכן את מחר!)</strong>
+                    <div class="quiz-option" onclick="submitDifficulty(1, 'easy')">😊 קל מדי, רוצה יותר קשה מחר</div>
+                    <div class="quiz-option" onclick="submitDifficulty(1, 'medium')">👍 בול במידה!</div>
+                    <div class="quiz-option" onclick="submitDifficulty(1, 'hard')">🥵 קשה רצח, להוריד עומס למחר</div>
                 </div>
             </div>
 
-            <!-- Evening Task -->
-            <div class="card task-card" id="taskCard2">
-                <h3>🌙 מתיחות ערב ושינה (<span id="eveningDiffLabel">רמה מרגיעה</span>)</h3>
-                <div class="video-wrapper">
-                    <iframe id="videoEvening" src="https://www.youtube.com/embed/sgVhK8adA3k" allowfullscreen></iframe>
-                </div>
-                <button class="btn-main" id="btnEvening" onclick="finishTask('evening')">סיימתי את המתיחות! (+50 🪙)</button>
+            <!-- Evening Workout Card -->
+            <div class="card" id="eveningCard">
+                <h3 id="eveningTitle">💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
+                <p id="eveningSub" style="font-size: 13px; color: #555;">קליסטניקס ואירובי מקפיץ - בלי יוגה משעממת!</p>
 
-                <div class="quiz-box" id="quizEvening">
-                    <strong>איך המתיחות הרגישו?</strong>
-                    <div class="quiz-option" onclick="submitDifficulty('evening', 'easy')">😴 נרדמתי כמעט, היה מעולה</div>
-                    <div class="quiz-option" onclick="submitDifficulty('evening', 'medium')">🧘‍♀️ שחרר את השרירים בדיוק</div>
-                    <div class="quiz-option" onclick="submitDifficulty('evening', 'hard')">היה קצת קשה למתוח</div>
+                <!-- Stopwatch -->
+                <div class="timer-box">
+                    <span>⏱️ סטופר לתרגילים:</span>
+                    <div class="timer-display" id="timerDisplay2">00:00</div>
+                    <button class="timer-btn" onclick="startTimer('timerDisplay2', 30)">30 שניות</button>
+                    <button class="timer-btn" onclick="startTimer('timerDisplay2', 45)">45 שניות</button>
+                    <button class="timer-btn" style="background:#a4b0be;" onclick="resetTimer('timerDisplay2')">איפוס</button>
+                </div>
+
+                <div class="video-container" id="eveningVideoBox">
+                    <iframe src="https://www.youtube.com/embed/gC_L9qAHVJ8" allowfullscreen></iframe>
+                </div>
+
+                <button class="btn-main" id="btnTask2" onclick="finishTask(2)">סיימתי את אימון הערב! (+50 🪙)</button>
+
+                <div class="quiz-card" id="taskQuiz2" style="display:none; padding:10px; margin-top:10px; border-radius:10px;">
+                    <strong>איך הרגיש אימון הערב?</strong>
+                    <div class="quiz-option" onclick="submitDifficulty(2, 'easy')">⚡ הרים לי את האנרגיה בטירוף</div>
+                    <div class="quiz-option" onclick="submitDifficulty(2, 'medium')">💪 מעולה ומחזק!</div>
+                    <div class="quiz-option" onclick="submitDifficulty(2, 'hard')">🥵 מעייף, אשן טוב הלילה</div>
                 </div>
             </div>
 
             <!-- Event Scheduler -->
             <div class="card">
-                <h3>📅 לו"ז ואירועים מיוחדים</h3>
-                <p style="font-size: 13px;">תוסיפי אירוע (למשל: בת מצווה, חוג, יום הולדת) ולילי תזכיר לך להתארגן 20 דקות לפני!</p>
-                <div class="schedule-input-group">
-                    <input type="text" id="eventName" placeholder="שם האירוע (למשל: בת מצווה)" style="flex:2;">
-                    <input type="time" id="eventTime" style="flex:1;">
-                    <button class="btn-main" style="flex:1; padding:8px;" onclick="addEvent()">הוסיפי</button>
+                <h3>📅 אירועים בלו"ז (תזכורת 20 דקות לפני)</h3>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="eventName" placeholder="אירוע (למשל: בת מצווה)" style="flex:2; padding:8px; border-radius:8px; border:1px solid #ccc;">
+                    <input type="time" id="eventTime" style="flex:1; padding:8px; border-radius:8px; border:1px solid #ccc;">
+                    <button class="btn-main" style="flex:1; margin:0;" onclick="addEvent()">הוסף</button>
                 </div>
-                <ul id="eventList" style="font-size: 13px; padding-right: 20px; margin-top: 10px;"></ul>
+                <ul id="eventList" style="margin-top:10px; padding-right:20px; font-size:14px;"></ul>
             </div>
 
         </div>
 
     </div>
 
-    <!-- Popup Reminder -->
-    <div class="reminder-popup" id="reminderPopup">
-        <span style="font-size:30px;">🌸</span>
+    <!-- Floating Popup -->
+    <div class="popup" id="reminderPopup">
+        <span style="font-size:30px;">💖</span>
         <div>
             <strong id="popupTitle">תזכורת מלילי!</strong>
-            <p id="popupText" style="margin:4px 0 0 0; font-size:13px;"></p>
+            <p id="popupText" style="margin:3px 0 0 0; font-size:13px;"></p>
         </div>
-        <button onclick="closePopup()" style="border:none; background:none; cursor:pointer; font-weight:bold;">✕</button>
+        <button onclick="closePopup()" style="border:none; background:none; cursor:pointer; font-weight:bold; font-size:16px;">✕</button>
     </div>
 
     <script>
         let coins = 100;
-        let currentTab = 'shoes';
+        let timerIntervals = {};
         let events = [];
 
-        const itemsCatalog = {
-            shoes: [
-                { id: 'allstar_black', name: 'אולסטאר שחור', canvasColor: '#111111', price: 0, owned: true, equipped: true },
-                { id: 'allstar_white', name: 'אולסטאר לבן', canvasColor: '#ffffff', price: 30, owned: false },
-                { id: 'allstar_pink', name: 'אולסטאר ורוד', canvasColor: '#ff9ff3', price: 40, owned: false }
-            ],
-            tops: [
-                { id: 'golf_cream', name: 'סריג שמנת', mainColor: '#f5f6fa', neckColor: '#dcdde1', price: 0, owned: true, equipped: true },
-                { id: 'golf_coral', name: 'סריג קורל', mainColor: '#ff7675', neckColor: '#d63031', price: 40, owned: false }
-            ],
-            bottoms: [
-                { id: 'skirt_pink', name: 'חצאית ורודה', type: 'skirt', color: '#fd79a8', price: 0, owned: true, equipped: true },
-                { id: 'jeans_blue', name: 'ג\'ינס כחול', type: 'jeans', color: '#0984e3', price: 45, owned: false }
-            ]
-        };
-
-        // Time and Routine Setup
-        function initTimeContext() {
+        function updateTime() {
             const now = new Date();
             const hours = now.getHours();
             const badge = document.getElementById('timeBadge');
@@ -461,49 +407,66 @@
 
             if (hours >= 6 && hours < 12) {
                 badge.innerText = '🌅 בוקר טוב';
-                bubble.innerText = 'בוקר טוב! שותים כוס מים ראשונה ומוכנות ליום מוצלח! ☀️';
+                bubble.innerText = 'בוקר אור! לוקחים שלוק מים ומוכנים ליום מעולה! ☀️';
             } else if (hours >= 12 && hours < 18) {
                 badge.innerText = '☀️ צהריים';
-                bubble.innerText = 'היי! חזרת מבית הספר? בואי נעשה הפסקת כושר קצרה ונמלא מצברים! 💪';
-            } else if (hours >= 18 && hours < 22) {
+                bubble.innerText = 'היי! חזרת מבית הספר? בואי נעשה אימון קצר ונתפרק! 💪';
+            } else if (hours >= 18 && hours < 21) {
                 badge.innerText = '🌆 ערב';
-                bubble.innerText = 'ערב טוב! זמן להירגע, לעשות מתיחות נעימות ולהכין את הגוף לשינה. 🌙';
+                bubble.innerText = 'ערב טוב! זמן לאימון קפיצי ומעורר או לריצה קלה! 💥';
             } else {
-                badge.innerText = '🌙 לילה מאוחר';
-                bubble.innerText = 'לילה טוב! עכשיו זמן לישון ולנוח. אל תשכחי לשתות מים ולכבות מסכים скоро! 😴';
-                document.getElementById('schoolQuizCard').style.display = 'none';
+                badge.innerText = '🌙 לילה';
+                bubble.innerText = 'כבר מאוחר! להתארגן לשינה ולכבות מסכים скоро 😴';
+            }
+
+            // Decide randomly on running option for evening
+            if (hours >= 18 && Math.random() > 0.6) {
+                document.getElementById('eveningTitle').innerText = '🏃‍♀️ משימת הערב: ריצה באוויר הפתוח!';
+                document.getElementById('eveningSub').innerText = '15 דקות של ריצה קלה בשכונה להזרמת דם ואנרגיות!';
+                document.getElementById('eveningVideoBox').style.display = 'none';
             }
         }
 
-        function answerSchoolQuiz(answerText) {
+        // Stopwatch Mechanism (30s / 45s)
+        function startTimer(displayId, seconds) {
+            clearInterval(timerIntervals[displayId]);
+            let timeLeft = seconds;
+            const display = document.getElementById(displayId);
+            
+            display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+            
+            timerIntervals[displayId] = setInterval(() => {
+                timeLeft--;
+                display.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerIntervals[displayId]);
+                    display.innerText = '⏰ זמנך עבר!';
+                }
+            }, 1000);
+        }
+
+        function resetTimer(displayId) {
+            clearInterval(timerIntervals[displayId]);
+            document.getElementById(displayId).innerText = '00:00';
+        }
+
+        function answerQuiz(text) {
             document.getElementById('schoolQuizCard').innerHTML = `
-                <h3>🏫 משהו!</h3>
-                <p>ענית: <strong>${answerText}</strong></p>
-                <p>לילי אומרת: "חפשי אותי בסיבוב, העיקר ועברנו את זה! עכשיו זמן לאימון קל ונשנוש!" 😉</p>
+                <h3>😜 קיבלתי!</h3>
+                <p>ענית: <strong>${text}</strong></p>
+                <p>לילי אומרת: "העיקר שעברנו את זה! עכשיו פורקים את העצבים באימון!" 🔥</p>
             `;
         }
 
-        function finishTask(taskType) {
-            if (taskType === 'afternoon') {
-                document.getElementById('btnAfternoon').style.display = 'none';
-                document.getElementById('quizAfternoon').style.display = 'block';
-                document.getElementById('node2Circle').setAttribute('fill', '#2ed573');
-            } else {
-                document.getElementById('btnEvening').style.display = 'none';
-                document.getElementById('quizEvening').style.display = 'block';
-            }
+        function finishTask(num) {
+            document.getElementById(`btnTask${num}`).style.display = 'none';
+            document.getElementById(`taskQuiz${num}`).style.display = 'block';
             coins += 50;
             document.getElementById('coinCount').innerText = coins;
         }
 
-        function submitDifficulty(taskType, diff) {
-            if (taskType === 'afternoon') {
-                document.getElementById('quizAfternoon').innerHTML = '✨ המשוב נשמר! מחר נתאים לך אימון לפי הרמה שבחרת.';
-                if(diff === 'easy') document.getElementById('afternoonDiffLabel').innerText = 'מחר: מוגבר!';
-                if(diff === 'hard') document.getElementById('afternoonDiffLabel').innerText = 'מחר: קל וקליל!';
-            } else {
-                document.getElementById('quizEvening').innerHTML = '✨ המשוב נשמר! שיהיה לילה רגוע ומתוק!';
-            }
+        function submitDifficulty(num, diff) {
+            document.getElementById(`taskQuiz${num}`).innerHTML = '✨ המשוב נשמר! מחר נעדכן את דרגת הקושי לפי התשובה שלך!';
         }
 
         // Event Scheduler & 20-min Alert Logic
@@ -522,38 +485,36 @@
             document.getElementById('eventName').value = '';
             document.getElementById('eventTime').value = '';
             
-            triggerPopup('אירוע נוסף!', `נוסף הלו"ז: ${name} בשעה ${time}. אעקוב ואזכיר לך 20 דקות לפני!`);
+            showPopup('אירוע נוסף!', `נוסף ללו"ז: ${name} בשעה ${time}. אלעקוב ואזכיר לך 20 דקות לפני!`);
         }
 
-        function checkEventReminders() {
+        function checkReminders() {
             const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const currentTotalMin = hours * 60 + minutes;
 
+            // Check Events 20 mins before
             events.forEach(ev => {
                 if (ev.notified) return;
                 const [h, m] = ev.time.split(':').map(Number);
-                const eventMinutes = h * 60 + m;
+                const eventTotalMin = h * 60 + m;
 
-                if (eventMinutes - currentMinutes === 20) {
+                if (eventTotalMin - currentTotalMin === 20) {
                     ev.notified = true;
-                    triggerPopup('👗 התארגנת כבר?', `יש לך עוד 20 דקות את ה-${ev.name}! לבשת משהו הורס? לשים אולסטאר?`);
+                    showPopup('👗 התארגנת כבר?', `יש לך עוד 20 דקות את ה-${ev.name}! לבשת משהו הורס? לשים אולסטאר?`);
                 }
             });
+
+            // Night Sleep Nagging (Every 20 mins after 21:00)
+            if (hours >= 21) {
+                if (minutes % 20 === 0) {
+                    showPopup('🌙 נודניק שינה מלילי', 'חביבתי, כבר אחרי תשע בלילה! הגיע הזמן ללכת לישון כדי להיות רעננה מחר!');
+                }
+            }
         }
 
-        // Random Helpful Popups (Water, Homework, Mid-Task)
-        function triggerRandomPopup() {
-            const messages = [
-                "💧 קפצתי להזכיר: שתית כוס מים בשעה האחרונה?",
-                "📚 תזכורת קטנה: יש שיעורי בית או שסיימנו הכל?",
-                "✨ באמצע משימה? זכרי לנשום עמוק ולחייך!",
-                "👟 הנעלי אולסטאר שלך נראות מדהים היום!"
-            ];
-            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-            triggerPopup('לילי קפצה לבקר!', randomMsg);
-        }
-
-        function triggerPopup(title, text) {
+        function showPopup(title, text) {
             document.getElementById('popupTitle').innerText = title;
             document.getElementById('popupText').innerText = text;
             document.getElementById('reminderPopup').style.display = 'flex';
@@ -563,39 +524,9 @@
             document.getElementById('reminderPopup').style.display = 'none';
         }
 
-        function switchCategory(cat, evt) {
-            currentTab = cat;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if(evt) evt.target.classList.add('active');
-            renderShop();
-        }
-
-        function renderShop() {
-            const grid = document.getElementById('shopGrid');
-            grid.innerHTML = '';
-            itemsCatalog[currentTab].forEach(item => {
-                const card = document.createElement('div');
-                card.className = `shop-item ${item.equipped ? 'equipped' : ''}`;
-                card.innerHTML = `<div><strong>${item.name}</strong></div>`;
-                card.onclick = () => {
-                    itemsCatalog[currentTab].forEach(i => i.equipped = false);
-                    item.equipped = true;
-                    renderShop();
-                };
-                grid.appendChild(card);
-            });
-        }
-
-        function scrollToTask(num) {
-            document.getElementById(`taskCard${num}`).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Timers & Init
-        initTimeContext();
-        renderShop();
-        setInterval(checkEventReminders, 30000); // Check events every 30 sec
-        setTimeout(triggerRandomPopup, 10000); // First popup after 10 sec
-        setInterval(triggerRandomPopup, 180000); // Then popup every 3 min
+        // Init & Timers
+        updateTime();
+        setInterval(checkReminders, 60000); // Check every minute
     </script>
 </body>
 </html>
