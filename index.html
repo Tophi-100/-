@@ -3,554 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ממלכת הכושר וההתקדמות שלי ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>מסלול הכושר והבריאות שלי</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
-            --purple: #6C5CE7;
-            --text-color: #2D3436;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: 'Rubik', sans-serif;
-            margin: 0;
-            padding: 0;
+            --primary: #ff6b81;
+            --primary-hover: #ff4757;
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --accent: #70a1ff;
         }
 
         body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
-            padding: 20px 10px;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
+        .header-bar {
             width: 100%;
             max-width: 900px;
             display: flex;
-            flex-direction: column;
-            gap: 25px;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-        }
-
-        .header-card {
-            background: linear-gradient(135deg, #FF8E53 0%, #FE6B8B 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .header-card h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 5px;
-        }
-
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .day-card {
-            background: #F8FAFC;
-            border: 2px solid #E2E8F0;
-            border-radius: 16px;
-            padding: 12px 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .day-card.today {
-            background: #EBF8FF;
-            border-color: #3182CE;
-            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .day-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #2D3748;
-        }
-
-        .day-date {
-            font-size: 0.8rem;
-            color: #718096;
-            margin: 4px 0;
-        }
-
-        .day-type {
-            font-size: 0.8rem;
+        .coin-display {
+            font-size: 20px;
             font-weight: bold;
-            padding: 3px 6px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 4px;
-        }
-
-        .type-workout {
-            background: #FED7D7;
-            color: #9B2C2C;
-        }
-
-        .type-rest {
-            background: #C6F6D5;
-            color: #22543D;
-        }
-
-        .workout-section-title {
+            background: #ffeaa7;
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: #d63031;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            color: var(--purple);
-            margin-bottom: 15px;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(255, 234, 167, 0.5);
         }
 
-        .workout-grid {
+        .main-layout {
+            display: flex;
+            gap: 25px;
+            width: 100%;
+            max-width: 900px;
+            flex-wrap: wrap;
+        }
+
+        /* Companion & Wardrobe Section */
+        .companion-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .speech-bubble {
+            background: #f1f2f6;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+            width: 85%;
+            border: 2px solid #dfe4ea;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #dfe4ea transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Avatar Visuals */
+        .avatar-container {
+            width: 160px;
+            height: 230px;
+            position: relative;
+            margin-bottom: 15px;
+            background: #f8efba;
+            border-radius: 50% 50% 20% 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 3px solid #f7b731;
+        }
+
+        /* SVG Avatar Drawing Parts */
+        .avatar-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tab-btn {
+            background: #f1f2f6;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .shop-items-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-height: 220px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding-left: 5px;
+        }
+
+        .shop-item {
+            border: 2px solid #f1f2f6;
+            border-radius: 12px;
+            padding: 8px;
+            text-align: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fafafa;
+        }
+
+        .shop-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .shop-item.equipped {
+            border-color: #2ed573;
+            background: #e8fae8;
+        }
+
+        /* Main Content Map Section */
+        .content-area {
+            flex: 2;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
-        @media (max-width: 768px) {
-            .workout-grid {
-                grid-template-columns: 1fr;
-            }
+        .map-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            text-align: center;
         }
 
-        .video-container {
+        .svg-map {
             width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            background: #000;
-            aspect-ratio: 16 / 9;
+            height: 220px;
         }
 
-        .video-container iframe {
+        .node-btn {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .node-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Tasks/Video Cards */
+        .task-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
 
-        .workout-info {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .timer-box {
-            background: #F0F3FF;
-            border: 2px solid #C7D2FE;
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .timer-display {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--purple);
-            margin: 5px 0;
-            font-family: monospace;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-timer {
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: none;
-            background: var(--purple);
+        .claim-btn {
+            background: #2ed573;
             color: white;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn-timer.reset {
-            background: #A0AEC0;
-        }
-
-        .instructions-box {
-            background: #FFF9E6;
-            border-right: 5px solid #FFE66D;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .instructions-box h4 {
-            color: #D69E2E;
-            margin-bottom: 8px;
-        }
-
-        .instructions-box ul {
-            padding-right: 20px;
-        }
-
-        .section-divider {
             border: none;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--purple), transparent);
-            margin: 10px 0;
-            border-radius: 2px;
-        }
-
-        .level-map {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .level-step {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border-radius: 16px;
-            background: #F7FAFC;
-            border: 2px solid #EDF2F7;
-            transition: all 0.3s ease;
-        }
-
-        .level-step.active {
-            background: #EBF8FF;
-            border-color: #3182CE;
-            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
-        }
-
-        .level-badge {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: #CBD5E0;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-
-        .level-step.active .level-badge {
-            background: #3182CE;
-        }
-
-        .level-step.completed .level-badge {
-            background: #38A169;
-        }
-
-        .level-details h4 {
-            font-size: 1.1rem;
-            color: #2D3748;
-        }
-
-        .level-details p {
-            font-size: 0.85rem;
-            color: #718096;
-        }
-
-        .level-select-btn {
-            margin-top: 15px;
             padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            background: var(--secondary);
-            color: white;
+            font-size: 16px;
             font-weight: bold;
+            border-radius: 12px;
             cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .claim-btn:hover {
+            background: #26af5f;
+        }
+
+        .claim-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-
-    <div class="card header-card">
-        <h1>המקום הקסום שלי ✨</h1>
-        <p id="today-date-display">טוען תאריך...</p>
-    </div>
-
-    <div class="card">
-        <div class="workout-section-title">
-            <span>📅</span>
-            <h2>לוח הזמנים השבועי שלי</h2>
-        </div>
-        <p>הנה תכנית האימונים והתאריכים לשבוע הקרוב:</p>
-        <div class="schedule-grid" id="schedule-container">
+    <div class="header-bar">
+        <h2>✨ מסלול הכושר והחוויה שלי</h2>
+        <div class="coin-display">
+            🪙 <span id="coinCount">0</span> מטבעות
         </div>
     </div>
 
-    <div class="card">
-        <div class="workout-section-title">
-            <span>☀️</span>
-            <h2 id="day-workout-title">אימון יום</h2>
-        </div>
-
-        <div class="workout-grid">
-            <div>
-                <div class="video-container">
-                    <iframe id="day-video" src="https://www.youtube.com/embed/cbK732SLLTo" title="אימון יום" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="workout-info">
-                <div class="timer-box">
-                    <span>⏱️ סטופר תרגיל / מנוחה</span>
-                    <div class="timer-display" id="day-timer">00:30</div>
-                    <div class="timer-controls">
-                        <button class="btn-timer" onclick="startTimer('day', 30)">עבודה (30 שנ')</button>
-                        <button class="btn-timer" onclick="startTimer('day', 20)">מנוחה (20 שנ')</button>
-                        <button class="btn-timer reset" onclick="resetTimer('day')">איפוס</button>
-                    </div>
-                </div>
-
-                <div class="instructions-box">
-                    <h4>📝 הנחיות לאימון יום (רמה 1):</h4>
-                    <ul id="day-instructions">
-                        <li>טוען הנחיות...</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr class="section-divider">
-
-    <div class="card">
-        <div class="workout-section-title">
-            <span>🌙</span>
-            <h2>אימון ערב ושחרור</h2>
-        </div>
-
-        <div class="workout-grid">
-            <div>
-                <div class="video-container">
-                    <iframe id="night-video" src="https://www.youtube.com/embed/inpok4MKVLM" title="אימון ערב ושחרור" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="workout-info">
-                <div class="timer-box">
-                    <span>⏱️ סטופר מתיחות</span>
-                    <div class="timer-display" id="night-timer">00:30</div>
-                    <div class="timer-controls">
-                        <button class="btn-timer" onclick="startTimer('night', 30)">מתיחה (30 שנ')</button>
-                        <button class="btn-timer reset" onclick="resetTimer('night')">איפוס</button>
-                    </div>
-                </div>
-
-                <div class="instructions-box">
-                    <h4>🌙 הנחיות לערב (שחרור ויוגה קלה):</h4>
-                    <ul>
-                        <li><strong>מתיחות גב וירכיים:</strong> 30 שניות לכל תנוחה להורדת מתח מהיום.</li>
-                        <li><strong>תנוחת הילד ותנוחת חתול-פרה:</strong> שחרור עמוד השדרה בצורה נעימה.</li>
-                        <li><strong>נשימות להרפיה:</strong> שאיפה איטית דרך האף ונשיפה ארוכה דרך הפיות.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr class="section-divider">
-
-    <div class="card">
-        <div class="workout-section-title">
-            <span>🗺️</span>
-            <h2>מפת ההתקדמות שלי ברמות</h2>
-        </div>
-        <p>את נמצאת כעת ברמה 1! תוכלי לעדכן את הרמה ככל שתתקדמי:</p>
-
-        <div class="level-map" id="level-map-container">
-        </div>
-
-        <button class="level-select-btn" onclick="changeUserLevel()">שינוי / עדכון רמה 🎯</button>
-    </div>
-
-</div>
-
-<script>
-    const daysHebrew = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
-
-    const dayWorkouts = {
-        active: {
-            title: "אימון בסיס וחיזוק (רמה 1)",
-            video: "https://www.youtube.com/embed/cbK732SLLTo",
-            instructions: [
-                "<strong>חימום קל (2 דקות):</strong> סיבובי כתפיים, הליכה במקום.",
-                "<strong>סקוואט אל הכיסא:</strong> 3 סטים x 10 חזרות (ירידה איטית אל כיסא וקמה).",
-                "<strong>שילוב מתח אוסטרלי / שקילת שמיכה:</strong> 3 סטים x 6 חזרות.",
-                "<strong>פלאנק על הברכיים:</strong> 3 סטים x 20 שניות לבניית יציבות."
-            ]
-        },
-        rest: {
-            title: "יום מנוחה ותנועתיות ☕",
-            video: "https://www.youtube.com/embed/inpok4MKVLM",
-            instructions: [
-                "<strong>יום התאוששות:</strong> הגוף נח ובונה את השרירים!",
-                "<strong>מה עושים?</strong> מתיחות קלות, הליכה בכיף באוויר הפתוח.",
-                "<strong>שתיית מים:</strong> הקפידי לשתות מים באופן סדיר."
-            ]
-        }
-    };
-
-    const levels = [
-        { level: 1, title: "רמה 1: מתחילה 🌟", desc: "תרגילי בסיס, למידת טכניקה, סקוואטים פשוטים וחיזוק הליבה." },
-        { level: 2, title: "רמה 2: מתקדמת קלה 💪", desc: "שילוב תרגילי משקל גוף, מתח אוסטרלי ועבודה על יציבות." },
-        { level: 3, title: "רמה 3: אלופה 🔥", desc: "עבודה על עליות מתח, מקבילים וסיבולת גבוהה." },
-        { level: 4, title: "רמה 4: מקצוענית 🚀", desc: "תרגילים מורכבים בקליסטניקס ושליטה מלאה בגוף." }
-    ];
-
-    let timerIntervals = {};
-    let currentLevel = parseInt(localStorage.getItem('my_fitness_level')) || 1;
-
-    window.onload = function() {
-        setupWeeklySchedule();
-        setupTodayWorkout();
-        renderLevelMap();
-    };
-
-    function setupWeeklySchedule() {
-        const scheduleContainer = document.getElementById('schedule-container');
-        scheduleContainer.innerHTML = '';
-
-        const today = new Date();
-        const currentDayIndex = today.getDay();
-
-        for (let i = 0; i < 7; i++) {
-            const date = new Date();
-            date.setDate(today.getDate() - currentDayIndex + i);
-
-            const isToday = (i === currentDayIndex);
-            const isWorkoutDay = (i === 0 || i === 2 || i === 4);
-
-            const dayNum = date.getDate();
-            const monthNum = date.getMonth() + 1;
-            const yearNum = String(date.getFullYear()).slice(-2);
-            const dateFormatted = `${dayNum}.${monthNum}.${yearNum}`;
-
-            const dayDiv = document.createElement('div');
-            dayDiv.className = `day-card ${isToday ? 'today' : ''}`;
-            dayDiv.innerHTML = `
-                <div class="day-name">יום ${daysHebrew[i]}</div>
-                <div class="day-date">${dateFormatted}</div>
-                <div class="day-type ${isWorkoutDay ? 'type-workout' : 'type-rest'}">
-                    ${isWorkoutDay ? 'אימון' : 'מנוחה'}
-                </div>
-            `;
-            scheduleContainer.appendChild(dayDiv);
-        }
-    }
-
-    function setupTodayWorkout() {
-        const today = new Date();
-        const dayOfWeek = today.getDay();
+    <div class="main-layout">
         
-        const isWorkoutDay = (dayOfWeek === 0 || dayOfWeek === 2 || dayOfWeek === 4);
-        const data = isWorkoutDay ? dayWorkouts.active : dayWorkouts.rest;
+        <!-- Companion & Shop Section -->
+        <div class="companion-card">
+            <div class="speech-bubble" id="companionBubble">
+                שלום! אני לילי! מוכנה להתאמן איתך, להרוויח מטבעות ולהתלבש בסטייל! 💖
+            </div>
 
-        document.getElementById('day-workout-title').innerText = data.title;
-        document.getElementById('day-video').src = data.video;
+            <div class="avatar-container">
+                <svg class="avatar-svg" viewBox="0 0 100 150">
+                    <!-- Base Body -->
+                    <circle cx="50" cy="40" r="22" fill="#ffdbac"/> <!-- Head -->
+                    <rect x="42" y="60" width="16" height="15" fill="#ffdbac"/> <!-- Neck -->
+                    <path d="M 30,75 L 70,75 L 65,120 L 35,120 Z" fill="#f8efba"/> <!-- Torso base -->
+                    
+                    <!-- Legs -->
+                    <rect x="38" y="115" width="8" height="25" fill="#ffdbac"/>
+                    <rect x="54" y="115" width="8" height="25" fill="#ffdbac"/>
 
-        const instructionsList = document.getElementById('day-instructions');
-        instructionsList.innerHTML = '';
-        data.instructions.forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = item;
-            instructionsList.appendChild(li);
-        });
+                    <!-- Dynamic Hair -->
+                    <path id="avatarHair" d="M 28,40 Q 50,10 72,40 Q 75,15 50,10 Q 25,15 28,40" fill="#4a3000"/>
 
-        const options = { weekday: 'long', year: '2-digit', month: 'long', day: 'numeric' };
-        document.getElementById('today-date-display').innerText = today.toLocaleDateString('he-IL', options);
-    }
+                    <!-- Dynamic Eyes -->
+                    <circle cx="43" cy="38" r="3.5" id="eyeL" fill="#00a8ff"/>
+                    <circle cx="57" cy="38" r="3.5" id="eyeR" fill="#00a8ff"/>
+                    <circle cx="44" cy="37" r="1" fill="#fff"/>
+                    <circle cx="58" cy="37" r="1" fill="#fff"/>
 
-    function startTimer(type, seconds) {
-        clearInterval(timerIntervals[type]);
-        let timeLeft = seconds;
-        const display = document.getElementById(`${type}-timer`);
+                    <!-- Smile -->
+                    <path d="M 44,48 Q 50,54 56,48" stroke="#d63031" stroke-width="1.5" fill="none"/>
 
-        updateDisplay(display, timeLeft);
+                    <!-- Dynamic Clothes (Tops / Skirts / Pants) -->
+                    <g id="avatarTop">
+                        <!-- Default Top (Golf Sweater) -->
+                        <path d="M 30,75 L 70,75 L 67,100 L 33,100 Z" fill="#ff7675"/>
+                        <rect x="42" y="68" width="16" height="8" fill="#d63031"/>
+                    </g>
 
-        timerIntervals[type] = setInterval(() => {
-            timeLeft--;
-            if (timeLeft <= 0) {
-                clearInterval(timerIntervals[type]);
-                display.innerText = "סיום! 🎉";
-            } else {
-                updateDisplay(display, timeLeft);
-            }
-        }, 1000);
-    }
+                    <g id="avatarBottom">
+                        <!-- Default Skirt (Nafnaf) -->
+                        <path d="M 33,98 L 67,98 L 78,122 L 22,122 Z" fill="#fd79a8"/>
+                    </g>
 
-    function resetTimer(type) {
-        clearInterval(timerIntervals[type]);
-        const defaultTime = type === 'day' ? "00:30" : "00:30";
-        document.getElementById(`${type}-timer`).innerText = defaultTime;
-    }
+                    <!-- Dynamic Shoes (All Star Sneakers) -->
+                    <g id="avatarShoes">
+                        <path d="M 34,136 L 47,136 L 47,142 L 34,142 Z" fill="#111"/> <!-- Left Shoe -->
+                        <path d="M 53,136 L 66,136 L 66,142 L 53,142 Z" fill="#111"/> <!-- Right Shoe -->
+                        <rect x="34" y="140" width="13" height="2" fill="#fff"/>
+                        <rect x="53" y="140" width="13" height="2" fill="#fff"/>
+                    </g>
+                </svg>
+            </div>
 
-    function updateDisplay(element, timeInSeconds) {
-        const mins = Math.floor(timeInSeconds / 60);
-        const secs = timeInSeconds % 60;
-        element.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
+            <!-- Wardrobe Category Tabs -->
+            <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: center;">
+                <button class="tab-btn active" onclick="switchCategory('shoes')">👟 נעליים</button>
+                <button class="tab-btn" onclick="switchCategory('tops')">🧥 חולצות</button>
+                <button class="tab-btn" onclick="switchCategory('bottoms')">👖 מכנסיים/חצאיות</button>
+                <button class="tab-btn" onclick="switchCategory('face')">👀 פנים/שיער</button>
+            </div>
 
-    function renderLevelMap() {
-        const container = document.getElementById('level-map-container');
-        container.innerHTML = '';
+            <!-- Wardrobe Items Grid -->
+            <div class="shop-items-grid" id="shopGrid">
+                <!-- Populated dynamically via JavaScript -->
+            </div>
+        </div>
 
-        levels.forEach(lvl => {
-            const stepDiv = document.createElement('div');
-            let statusClass = '';
+        <!-- Main Map & Daily Tasks -->
+        <div class="content-area">
             
-            if (lvl.level < currentLevel) statusClass = 'completed';
-            else if (lvl.level === currentLevel) statusClass = 'active';
+            <!-- Slalom Map -->
+            <div class="map-card">
+                <h3>🗺️ מפת המשימות שלי</h3>
+                <svg class="svg-map" viewBox="0 0 400 180">
+                    <!-- Slalom Dashed Path leading from Node 1 to Node 2 -->
+                    <path d="M 80,130 C 150,180 180,20 260,70 C 290,90 310,100 320,100" 
+                          fill="none" 
+                          stroke="#ff7675" 
+                          stroke-width="5" 
+                          stroke-dasharray="10,10" />
 
-            stepDiv.className = `level-step ${statusClass}`;
-            stepDiv.innerHTML = `
-                <div class="level-badge">${lvl.level < currentLevel ? '✓' : lvl.level}</div>
-                <div class="level-details">
-                    <h4>${lvl.title} ${lvl.level === currentLevel ? '(הרמה הנוכחית שלך!)' : ''}</h4>
-                    <p>${lvl.desc}</p>
+                    <!-- Node 1: Active Mission -->
+                    <g class="node-btn" onclick="selectMission(1)">
+                        <circle cx="80" cy="130" r="28" fill="#2ed573" stroke="#fff" stroke-width="4"/>
+                        <text x="80" y="136" font-size="18" font-weight="bold" fill="white" text-anchor="middle">1</text>
+                        <text x="80" y="170" font-size="12" font-weight="bold" fill="#2f3542" text-anchor="middle">יומי - בוקר וערב</text>
+                    </g>
+
+                    <!-- Node 2: Next Mission (Locked / Slalom Destination) -->
+                    <g class="node-btn" onclick="selectMission(2)">
+                        <circle cx="320" cy="100" r="24" fill="#a4b0be" stroke="#fff" stroke-width="4"/>
+                        <text x="320" y="105" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🔒 2</text>
+                        <text x="320" y="138" font-size="12" font-weight="bold" fill="#747d8c" text-anchor="middle">שלב 2 (נפתח בהמשך)</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Active Video Tasks -->
+            <div class="task-card">
+                <h3>☀️ משימת בוקר: אנרגיה וכושר קל (10 דקות)</h3>
+                <p>התחילי את היום באנרגיות שיא עם אימון כושר כיפי לכל הגוף!</p>
+                <div class="video-wrapper">
+                    <!-- Updated Active Youtube Video for Morning Workout -->
+                    <iframe src="https://www.youtube.com/embed/UoC_O3HzsH0" allowfullscreen></iframe>
                 </div>
-            `;
-            container.appendChild(stepDiv);
-        });
-    }
+                <button class="claim-btn" id="btnMorning" onclick="completeTask('morning', 50)">סיימתי את אימון הבוקר! (+50 מטבעות 🪙)</button>
+            </div>
 
-    function changeUserLevel() {
-        const newLevel = prompt("באיזו רמה את נמצאת עכשיו? (הזיני מספר בין 1 ל-4):", currentLevel);
-        if (newLevel && !isNaN(newLevel) && newLevel >= 1 && newLevel <= 4) {
-            currentLevel = parseInt(newLevel);
-            localStorage.setItem('my_fitness_level', currentLevel);
-            renderLevelMap();
-            alert(`מעולה! הרמה עודכנה לרמה ${currentLevel} 🚀`);
+            <div class="task-card">
+                <h3>🌙 משימת ערב: מתיחות והרפיה לשינה מתוקה (10 דקות)</h3>
+                <p>מתיחות יוגה קלות ונעימות כדי להרגיע את השרירים לפני השינה.</p>
+                <div class="video-wrapper">
+                    <!-- Updated Active Youtube Video for Evening Stretch -->
+                    <iframe src="https://www.youtube.com/embed/sgVhK8adA3k" allowfullscreen></iframe>
+                </div>
+                <button class="claim-btn" id="btnEvening" onclick="completeTask('evening', 50)">סיימתי את מתיחות הערב! (+50 מטבעות 🪙)</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // State Management
+        let coins = 100;
+        let currentTab = 'shoes';
+        let completedTasks = { morning: false, evening: false };
+
+        // Extensive Wardrobe Catalog
+        const itemsCatalog = {
+            shoes: [
+                { id: 'allstar_black', name: 'אולסטאר שחור קלאסי', type: 'shoes', color: '#111111', price: 0, owned: true },
+                { id: 'allstar_white', name: 'אולסטאר לבן צחור', type: 'shoes', color: '#ffffff', price: 30, owned: false },
+                { id: 'allstar_pink', name: 'אולסטאר ורוד בייבי', type: 'shoes', color: '#ff9ff3', price: 40, owned: false },
+                { id: 'allstar_red', name: 'אולסטאר אדום נועז', type: 'shoes', color: '#ff4757', price: 40, owned: false },
+                { id: 'allstar_turquoise', name: 'אולסטאר טורקיז מנטה', type: 'shoes', color: '#48dbfb', price: 50, owned: false },
+                { id: 'allstar_purple', name: 'אולסטאר סגול פלטפורמה', type: 'shoes', color: '#5f27cd', price: 60, owned: false },
+                { id: 'allstar_yellow', name: 'אולסטאר צהוב שמש', type: 'shoes', color: '#feca57', price: 45, owned: false }
+            ],
+            tops: [
+                { id: 'golf_cream', name: 'סריג גולף שמנת', type: 'top', color: '#f5f6fa', style: 'golf', price: 0, owned: true },
+                { id: 'golf_coral', name: 'סריג גולף קורל', type: 'top', color: '#ff7675', style: 'golf', price: 40, owned: false },
+                { id: 'golf_lilac', name: 'סריג גולף לילך', type: 'top', color: '#a29bfe', price: 45, owned: false },
+                { id: 'golf_mint', name: 'סריג גולף ירוק מנטה', type: 'top', color: '#55efc4', price: 50, owned: false },
+                { id: 'golf_black', name: 'סריג גולף שחור אלגנט', type: 'top', color: '#2d3436', price: 55, owned: false }
+            ],
+            bottoms: [
+                { id: 'skirt_nafnaf_pink', name: 'חצאית נפנף ורודה', type: 'bottom', color: '#fd79a8', style: 'skirt', price: 0, owned: true },
+                { id: 'skirt_nafnaf_purple', name: 'חצאית נפנף סגולה', type: 'bottom', color: '#a29bfe', style: 'skirt', price: 35, owned: false },
+                { id: 'skirt_nafnaf_white', name: 'חצאית נפנף לבנה', type: 'bottom', color: '#ffffff', style: 'skirt', price: 40, owned: false },
+                { id: 'jeans_classic', name: 'ג\'ינס כחול קלאסי', type: 'bottom', color: '#0984e3', style: 'jeans', price: 50, owned: false },
+                { id: 'jeans_light', name: 'ג\'ינס בהיר משופשף', type: 'bottom', color: '#74b9ff', style: 'jeans', price: 55, owned: false },
+                { id: 'jeans_dark', name: 'ג\'ינס Mom כהה', type: 'bottom', color: '#2c3e50', style: 'jeans', price: 60, owned: false }
+            ],
+            face: [
+                { id: 'eye_blue', name: 'עיניים תכלת', type: 'eyes', color: '#00a8ff', price: 0, owned: true },
+                { id: 'eye_green', name: 'עיניים ירוקות', type: 'eyes', color: '#44bd32', price: 25, owned: false },
+                { id: 'eye_hazel', name: 'עיני דבש-חום', type: 'eyes', color: '#e1b12c', price: 25, owned: false },
+                { id: 'hair_brown', name: 'שיער חום שטני', type: 'hair', color: '#4a3000', price: 0, owned: true },
+                { id: 'hair_blonde', name: 'שיער בלונד זוהר', type: 'hair', color: '#f1c40f', price: 40, owned: false },
+                { id: 'hair_black', name: 'שיער שחור פחם', type: 'hair', color: '#2d3436', price: 30, owned: false }
+            ]
+        };
+
+        // Switch Wardrobe Tab
+        function switchCategory(cat) {
+            currentTab = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderShop();
         }
-    }
-</script>
 
+        // Render Wardrobe Items
+        function renderShop() {
+            const grid = document.getElementById('shopGrid');
+            grid.innerHTML = '';
+
+            itemsCatalog[currentTab].forEach(item => {
+                const card = document.createElement('div');
+                card.className = `shop-item ${item.equipped ? 'equipped' : ''}`;
+                
+                let btnText = item.owned ? (item.equipped ? 'לבושה' : 'לבשי') : `קני 🪙${item.price}`;
+                
+                card.innerHTML = `
+                    <div><strong>${item.name}</strong></div>
+                    <div style="font-size:11px; color:#666; margin:4px 0;">
+                        ${item.owned ? 'בבעלותך' : 'מחיר: ' + item.price}
+                    </div>
+                    <button style="background:${item.equipped ? '#2ed573' : 'var(--primary)'}; color:white; border:none; border-radius:8px; padding:4px 8px; cursor:pointer;">
+                        ${btnText}
+                    </button>
+                `;
+
+                card.onclick = () => handleItemClick(item);
+                grid.appendChild(card);
+            });
+        }
+
+        // Handle Buying or Equipping Items
+        function handleItemClick(item) {
+            if (!item.owned) {
+                if (coins >= item.price) {
+                    coins -= item.price;
+                    item.owned = true;
+                    updateCoins();
+                    speak(`איזה יופי! תתחדשי על ה-${item.name}! זה יושב עליי מדהים! ✨`);
+                } else {
+                    speak(`אין מספיק מטבעות לקנות ${item.name}. תשלימי משימות כושר כדי להרוויח עוד! 💪`);
+                    return;
+                }
+            }
+
+            // Equip logic
+            itemsCatalog[currentTab].forEach(i => {
+                if (i.type === item.type) i.equipped = false;
+            });
+            item.equipped = true;
+
+            applyCustomization(item);
+            renderShop();
+        }
+
+        // Update Avatar Visuals based on equipped item
+        function applyCustomization(item) {
+            if (item.type === 'shoes') {
+                document.querySelectorAll('#avatarShoes path').forEach(p => p.setAttribute('fill', item.color));
+                speak(`וואו! נעלי אולסטאר בצבע ${item.name} פשוט מושלמות! 👟`);
+            } else if (item.type === 'top') {
+                document.querySelector('#avatarTop path').setAttribute('fill', item.color);
+                speak(`סריג גולף מהמם! ממש נעים ואיכותי! 🧥`);
+            } else if (item.type === 'bottom') {
+                document.querySelector('#avatarBottom path').setAttribute('fill', item.color);
+                speak(`בחירה מעולה! הלוק שלי הופך להיות הכי יפה שיש! 👗`);
+            } else if (item.type === 'eyes') {
+                document.getElementById('eyeL').setAttribute('fill', item.color);
+                document.getElementById('eyeR').setAttribute('fill', item.color);
+                speak(`איזה עיניים יפות! הצבע המהפנט הזה ממש מתאים לי! 👀`);
+            } else if (item.type === 'hair') {
+                document.getElementById('avatarHair').setAttribute('fill', item.color);
+                speak(`תסרוקת חדשה! אני מתה על הסגנון הזה! 💇‍♀️`);
+            }
+        }
+
+        // Speak function for Companion Speech Bubble
+        function speak(text) {
+            document.getElementById('companionBubble').innerText = text;
+        }
+
+        // Complete Tasks & Earn Coins
+        function completeTask(taskType, reward) {
+            if (completedTasks[taskType]) return;
+
+            completedTasks[taskType] = true;
+            coins += reward;
+            updateCoins();
+
+            if (taskType === 'morning') {
+                document.getElementById('btnMorning').disabled = true;
+                document.getElementById('btnMorning').innerText = 'משימת הבוקר הושלמה! ✨';
+                speak('כל הכבוד! אימון בוקר מדהים! הרווחת 50 מטבעות! בואי נלך לחנות להתלבש! 🪙');
+            } else if (taskType === 'evening') {
+                document.getElementById('btnEvening').disabled = true;
+                document.getElementById('btnEvening').innerText = 'משימת הערב הושלמה! ✨';
+                speak('איזה מתיחות מרגיעות! עכשיו הגוף רפוי ומוכן לשינה מתוקה. הרווחת עוד 50 מטבעות! 🌙');
+            }
+        }
+
+        function updateCoins() {
+            document.getElementById('coinCount').innerText = coins;
+        }
+
+        function selectMission(num) {
+            if (num === 1) {
+                speak('אנחנו במשימה הראשונה - אימוני הבוקר והערב! בואי נסיים אותם!');
+            } else {
+                speak('שלב 2 עדיין נעול! השלימי את משימות הבוקר והערב כדי להתקדם במסלול!');
+            }
+        }
+
+        // Initialize Shop
+        renderShop();
+    </script>
 </body>
 </html>
