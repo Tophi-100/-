@@ -249,7 +249,7 @@
         <div class="workout-grid">
             <div>
                 <div class="video-container">
-                    <iframe id="day-video" src="https://www.youtube.com/embed/cbK732SLLTo" title="אימון יום" allowfullscreen></iframe>
+                    <iframe id="day-video" src="https://www.youtube.com/embed/PSlcuJ64Vq4" title="אימון יום" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -332,7 +332,7 @@
     const dayWorkouts = {
         active: {
             title: "אימון כוח וחיזוק גוף (רמה 2)",
-            video: "https://www.youtube.com/embed/cbK732SLLTo",
+            video: "https://www.youtube.com/embed/PSlcuJ64Vq4",
             instructions: [
                 "<strong>חימום (3 דקות):</strong> סיבובי זרועות, קפיצות קלות במקום.",
                 "<strong>תרגיל 1:</strong> שקילת שמיכה / שילוב מתח אוסטרלי (3 סטים x 8 חזרות).",
@@ -384,7 +384,6 @@
             instructionsList.appendChild(li);
         });
 
-        // פורמט תאריך עם שנה בת 2 ספרות ('2-digit')
         const options = { weekday: 'long', year: '2-digit', month: 'long', day: 'numeric' };
         document.getElementById('today-date-display').innerText = today.toLocaleDateString('he-IL', options);
     }
