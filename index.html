@@ -182,12 +182,20 @@
             background: #F7F9FC;
             border-radius: 12px;
             padding: 8px 4px;
-            min-height: 85px;
+            min-height: 95px;
             font-size: 0.85rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             border: 1px solid #EAEFF5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .day-cell:hover {
+            background: #FFF0F5;
+            border-color: #FF85A1;
+            transform: scale(1.02);
         }
 
         .day-cell.today {
@@ -216,6 +224,16 @@
             width: 100%;
         }
 
+        .no-workout-tag {
+            background: #E0E0E0;
+            color: #666;
+            font-size: 0.65rem;
+            border-radius: 6px;
+            padding: 2px 4px;
+            margin-top: 2px;
+            width: 100%;
+        }
+
         .event-tag {
             background: #FF85A1;
             color: white;
@@ -234,6 +252,41 @@
             padding-top: 15px;
             border-top: 2px dashed #E0E0E0;
         }
+
+        /* מודאל / חלון קופץ להוספת אירוע */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-yes { background: #4ECDC4; }
+        .btn-no { background: #FF6B6B; }
+        .btn-cancel { background: #A8A4CE; }
     </style>
 </head>
 <body>
@@ -251,7 +304,7 @@
         </div>
     </div>
 
-    <!-- אימון יומי מיוחד -->
+    <!-- אימון היומי -->
     <div class="card workout-card">
         <h3>🏋️‍♀️ אימון כושר יומי מתוכנן</h3>
         <div class="workout-box" id="today-workout-display">
@@ -268,22 +321,39 @@
 
     <!-- לוח שנה ואירועים -->
     <div class="card">
-        <h3 id="month-year-title">לוח שנה 📅</h3>
+        <h3 id="month-year-title">לוח שנה 📅 (לחצי על יום בלוח להוספת אירוע!)</h3>
 
         <div class="calendar-grid" id="calendar-grid"></div>
 
-        <!-- הוספת אירוע אישי -->
+        <!-- הוספת אירוע אישי מחוץ ללוח -->
         <div class="add-event-form">
             <input type="date" id="event-date">
-            <input type="text" id="event-title" placeholder="הוסף אירוע אישי (מבחן, יום הולדת, חוג...)" style="flex: 1;">
-            <button onclick="addCustomEvent()">הוסף ללו"ז 📌</button>
+            <input type="text" id="event-title" placeholder="תיאור אירוע (למשל: יום הולדת, מבחן...)" style="flex: 1;">
+            <button onclick="openEventModalFromInput()">הוסף ללו"ז 📌</button>
         </div>
     </div>
 
 </div>
 
+<!-- חלון קופץ ששואל לגבי האימון -->
+<div class="modal" id="eventModal">
+    <div class="modal-content">
+        <h3 id="modal-title">הוספת אירוע 📌</h3>
+        <p id="modal-date-str" style="margin-bottom: 15px; color: #666;"></p>
+        
+        <input type="text" id="modal-event-input" placeholder="מה המשימה או האירוע?" style="width: 100%; margin-bottom: 20px;">
+        
+        <p style="font-weight: bold; font-size: 1.1rem; color: #4A4E69;">מתאים לך לעשות אימון ביום הזה? 🏋️‍♀️</p>
+        
+        <div class="modal-buttons">
+            <button class="btn-yes" onclick="saveEventWithWorkout(true)">כן, מתאים! 💪</button>
+            <button class="btn-no" onclick="saveEventWithWorkout(false)">לא, יום עמוס 😴</button>
+            <button class="btn-cancel" onclick="closeModal()">ביטול ❌</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // תוכנית האימונים השבועית (א'-ה')
     const workoutSchedule = {
         1: "יום ראשון: פלג גוף עליון 💪 (שקילת שמיכה, מתח/אוסטרלי, מקבילים)",
         2: "יום שני: רגליים ובטן 🦵 (סקוואטים, מכרעים, הרמות רגליים)",
@@ -303,6 +373,8 @@
     };
 
     let userEvents = JSON.parse(localStorage.getItem('my_user_events')) || {};
+    let workoutPreferences = JSON.parse(localStorage.getItem('my_workout_prefs')) || {}; // { "YYYY-MM-DD": true/false }
+    let selectedDateForModal = "";
 
     window.onload = function() {
         loadUserProfile();
@@ -343,8 +415,7 @@
     }
 
     function displayTodayWorkout() {
-        const dayOfWeek = new Date().getDay(); // 0=Sun, 1=Mon... 5=Fri, 6=Sat
-        // המרה לימי א-ש
+        const dayOfWeek = new Date().getDay();
         const workoutDay = (dayOfWeek + 1) % 7; 
         const workout = workoutSchedule[workoutDay];
         document.getElementById('today-workout-display').innerText = workout;
@@ -407,6 +478,7 @@
             emptyCell.className = 'day-cell';
             emptyCell.style.background = 'transparent';
             emptyCell.style.border = 'none';
+            emptyCell.style.cursor = 'default';
             calendarGrid.appendChild(emptyCell);
         }
 
@@ -415,7 +487,7 @@
             dayCell.className = 'day-cell';
             
             const currentCellDate = new Date(year, month, day);
-            const dayOfWeek = currentCellDate.getDay(); // 0 = Sunday, 5 = Friday, 6 = Saturday
+            const dayOfWeek = currentCellDate.getDay();
 
             if (day === now.getDate()) dayCell.classList.add('today');
 
@@ -425,6 +497,9 @@
             const dayFormatted = String(day).padStart(2, '0');
             const fullDateStr = `${year}-${monthFormatted}-${dayFormatted}`;
 
+            // בלחיצה על התא בלוח השנה
+            dayCell.onclick = () => openEventModal(fullDateStr);
+
             // חגים
             if (holidays[fullDateStr]) {
                 const holidayTag = document.createElement('div');
@@ -433,15 +508,21 @@
                 dayCell.appendChild(holidayTag);
             }
 
-            // אימונים קבועים (ימי ראשון עד חמישי)
-            if (dayOfWeek >= 0 && dayOfWeek <= 4) {
+            // בדיקת אימון לפי העדפה אישית או יום ברירת מחדל
+            const pref = workoutPreferences[fullDateStr];
+            if (pref === true || (pref === undefined && dayOfWeek >= 0 && dayOfWeek <= 4)) {
                 const workoutTag = document.createElement('div');
                 workoutTag.className = 'workout-tag';
                 workoutTag.innerText = "🏋️‍♀️ אימון";
                 dayCell.appendChild(workoutTag);
+            } else if (pref === false) {
+                const noWorkoutTag = document.createElement('div');
+                noWorkoutTag.className = 'no-workout-tag';
+                noWorkoutTag.innerText = "☕ ללא אימון";
+                dayCell.appendChild(noWorkoutTag);
             }
 
-            // אירועים אישיים שהוספת
+            // אירועים אישיים
             if (userEvents[fullDateStr]) {
                 userEvents[fullDateStr].forEach(evt => {
                     const eventTag = document.createElement('div');
@@ -455,25 +536,53 @@
         }
     }
 
-    function addCustomEvent() {
+    // פתיחת המודאל בלחיצה על תא בלוח
+    function openEventModal(dateStr) {
+        selectedDateForModal = dateStr;
+        document.getElementById('modal-date-str').innerText = `תאריך נבחר: ${dateStr}`;
+        document.getElementById('modal-event-input').value = '';
+        document.getElementById('eventModal').style.display = 'flex';
+    }
+
+    // פתיחת המודאל מטופס התאריך למטה
+    function openEventModalFromInput() {
         const dateInput = document.getElementById('event-date').value;
         const titleInput = document.getElementById('event-title').value.trim();
 
-        if (!dateInput || !titleInput) {
-            alert('יש לבחור תאריך ולכתוב תיאור לאירוע! 😊');
+        if (!dateInput) {
+            alert('נא לבחור תאריך! 😊');
             return;
         }
 
-        if (!userEvents[dateInput]) {
-            userEvents[dateInput] = [];
+        selectedDateForModal = dateInput;
+        document.getElementById('modal-date-str').innerText = `תאריך נבחר: ${dateInput}`;
+        document.getElementById('modal-event-input').value = titleInput;
+        document.getElementById('eventModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('eventModal').style.display = 'none';
+    }
+
+    // שמירת האירוע + ההעדפה של האימון
+    function saveEventWithWorkout(wantsWorkout) {
+        const titleInput = document.getElementById('modal-event-input').value.trim();
+
+        if (titleInput) {
+            if (!userEvents[selectedDateForModal]) {
+                userEvents[selectedDateForModal] = [];
+            }
+            userEvents[selectedDateForModal].push(titleInput);
+            localStorage.setItem('my_user_events', JSON.stringify(userEvents));
         }
 
-        userEvents[dateInput].push(titleInput);
-        localStorage.setItem('my_user_events', JSON.stringify(userEvents));
+        // שמירת העדפת האימון
+        workoutPreferences[selectedDateForModal] = wantsWorkout;
+        localStorage.setItem('my_workout_prefs', JSON.stringify(workoutPreferences));
 
-        document.getElementById('event-title').value = '';
+        closeModal();
         renderCalendar();
-        alert('האירוע הנוסף בהצלחה ללוח השנה שלך! 🎉');
+        alert('האירוע והעדפות האימון נשמרו בהצלחה! 🎉');
     }
 </script>
 
