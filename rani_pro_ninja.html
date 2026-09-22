@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>המקום הקסום שלי ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --purple: #A8A4CE;
+            --text-color: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h1, h2, h3 {
+            color: #4A4E69;
+            margin-bottom: 15px;
+        }
+
+        /* פרופיל וברכה */
+        .header-card {
+            background: linear-gradient(135deg, #FF8E53 0%, #FE6B8B 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card h1 {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-card p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .profile-setup {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 12px 18px;
+            border-radius: 50px;
+            border: 2px solid #E0E0E0;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: var(--secondary);
+        }
+
+        button {
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            background: var(--secondary);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #3dbbb3;
+        }
+
+        /* שאלון אינטראקטיבי */
+        .quiz-card {
+            background: #FFF9E6;
+            border: 2px dashed #FFE66D;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quiz-btn {
+            background: white;
+            color: var(--text-color);
+            border: 2px solid #FFE66D;
+            text-align: right;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .quiz-btn:hover {
+            background: #FFE66D;
+            color: #333;
+        }
+
+        .feedback-msg {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #E8FAE8;
+            color: #2D8A2D;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* לוח שנה ולו"ז */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .day-name {
+            font-weight: bold;
+            color: #999;
+            padding-bottom: 5px;
+        }
+
+        .day-cell {
+            background: #F7F9FC;
+            border-radius: 12px;
+            padding: 10px 5px;
+            min-height: 65px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            border: 1px solid #EAEFF5;
+        }
+
+        .day-cell.today {
+            background: #E3F2FD;
+            border: 2px solid #42A5F5;
+            font-weight: bold;
+        }
+
+        .holiday-tag {
+            background: #FFD166;
+            color: #333;
+            font-size: 0.68rem;
+            border-radius: 8px;
+            padding: 2px 4px;
+            margin-top: 3px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .event-tag {
+            background: #FF85A1;
+            color: white;
+            font-size: 0.68rem;
+            border-radius: 8px;
+            padding: 2px 4px;
+            margin-top: 3px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* הוספת אירוע */
+        .add-event-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #E0E0E0;
+        }
+
+        /* מוטיבציה יומית */
+        .motivation-card {
+            background: linear-gradient(135deg, #A1C4FD 0%, #C2E9FB 100%);
+            text-align: center;
+            color: #2C3E50;
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- כותרת וברכה אישית -->
+    <div class="card header-card">
+        <h1 id="greeting">שלום לך, חבר/ה יקר/ה! 🌟</h1>
+        <p id="sub-greeting">כיף שקפצת לבקר! שיהיה לך יום מושלם 🎉</p>
+        
+        <div class="profile-setup">
+            <input type="text" id="username-input" placeholder="איך קוראים לך? 😊">
+            <button onclick="saveName()">שמור קוראים לי ככה!</button>
+        </div>
+    </div>
+
+    <!-- מוטיבציה יומית -->
+    <div class="card motivation-card">
+        <h3>✨ הבוסטר היומי שלך</h3>
+        <p class="quote" id="daily-quote">"את/ה מסוגל/ת לעשות דברים מדהימים היום!" 💪🚀</p>
+    </div>
+
+    <!-- שאלון אינטראקטיבי מתחשב -->
+    <div class="card quiz-card" id="quiz-section">
+        <h3 id="quiz-title">מה שלומך עכשיו? 🤔</h3>
+        <div class="quiz-options" id="quiz-options">
+            <!-- אפשרויות נוצרות ב-JavaScript -->
+        </div>
+        <div class="feedback-msg" id="feedback"></div>
+    </div>
+
+    <!-- לוח שנה ולו"ז אישי -->
+    <div class="card">
+        <div class="calendar-header">
+            <h3 id="month-year-title">לוח שנה חודשי 📅</h3>
+        </div>
+
+        <div class="calendar-grid" id="calendar-grid">
+            <!-- ימים יווצרו בדינמיות -->
+        </div>
+
+        <!-- טופס הוספת אירוע -->
+        <div class="add-event-form">
+            <input type="date" id="event-date">
+            <input type="text" id="event-title" placeholder="מה המשימה/אירוע? (למשל: מבחן, מסיבה)" style="flex: 1;">
+            <button onclick="addCustomEvent()">הוסף ללו"ז 📌</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // חגים ואירועים מובנים בישראל (דוגמאות נפוצות)
+    const holidays = {
+        "2026-09-12": "ראש השנה 🍎🍯",
+        "2026-09-13": "ראש השנה 🍎🍯",
+        "2026-09-21": "יום כיפור 🕊️",
+        "2026-09-26": "סוכות 🌿",
+        "2026-10-03": "שמיני עצרת 📜",
+        "2026-12-05": "חנוכה 🕎",
+        "2027-03-23": "פורים 🎭",
+        "2027-04-22": "פסח 🫓",
+        "2027-05-12": "יום העצמאות 🇮🇱",
+        "2027-06-11": "שבועות 🌾"
+    };
+
+    // משפטי מוטיבציה
+    const quotes = [
+        "את/ה הרבה יותר חזק/ה ומסוגל/ת ממה שאת/ה חושב/ת! 🌟",
+        "תחייך/י, העולם הרבה יותר יפה ככה! 😊",
+        "כל יום הוא הזדמנות חדשה לעשות משהו כיפי! 🎈",
+        "אין עלייך, פשוט אלופ/ה! 🏆",
+        "קח/י נשימה עמוקה, הכל קטן עלייך! 🌈"
+    ];
+
+    let userEvents = JSON.parse(localStorage.getItem('my_user_events')) || {};
+
+    // בטעינת העמוד
+    window.onload = function() {
+        loadUserProfile();
+        setupDynamicQuiz();
+        renderCalendar();
+        displayRandomQuote();
+    };
+
+    // שמירת שם משתמש
+    function saveName() {
+        const name = document.getElementById('username-input').value.trim();
+        if (name) {
+            localStorage.setItem('my_site_username', name);
+            loadUserProfile();
+            document.getElementById('username-input').value = '';
+            alert('איזה שם מהמם! שמור אצלי ✨');
+        }
+    }
+
+    // טעינת פרופיל וברכה לפי שעה
+    function loadUserProfile() {
+        const name = localStorage.getItem('my_site_username') || 'חבר/ה';
+        const hour = new Date().getHours();
+        let greetingText = '';
+        let subText = '';
+
+        if (hour >= 5 && hour < 12) {
+            greetingText = `בוקר טוב ומלא באור, ${name}! ☀️✨`;
+            subText = 'יום חדש מלא בהזדמנויות נפלאות מחכה לך!';
+        } else if (hour >= 12 && hour < 17) {
+            greetingText = `צהריים טובים, ${name}! 🥪🎉`;
+            subText = 'מקווה שהיה לך יום מעולה ושמצאת זמן לנשום ולחייך!';
+        } else if (hour >= 17 && hour < 21) {
+            greetingText = `ערב טוב ומפנק, ${name}! 🌆🎨`;
+            subText = 'זמן להירגע, לנוח ולהתעסק בדברים שאת/ה אוהב/ת!';
+        } else {
+            greetingText = `לילה טוב ומלא בחלומות מתוקים, ${name}! 🌙⭐`;
+            subText = 'יום עמוס עבר, זמן להטעין מצברים להארות חדשות!';
+        }
+
+        document.getElementById('greeting').innerText = greetingText;
+        document.getElementById('sub-greeting').innerText = subText;
+    }
+
+    // שאלון מתחשב ומשתנה לפי שעה
+    function setupDynamicQuiz() {
+        const hour = new Date().getHours();
+        const name = localStorage.getItem('my_site_username') || '';
+        const nameStr = name ? ` ${name}` : '';
+        
+        const quizTitle = document.getElementById('quiz-title');
+        const quizOptions = document.getElementById('quiz-options');
+
+        if (hour >= 11 && hour <= 16) {
+            // שאלות צהריים / בצפר
+            quizTitle.innerText = `איך היה בבית הספר היום${nameStr}? 🏫✨`;
+            quizOptions.innerHTML = `
+                <button class="quiz-btn" onclick="answerQuiz('היה ממש כיף ומצחיק! 🎉')">😍 היה ממש כיף ומצחיק עם החברים!</button>
+                <button class="quiz-btn" onclick="answerQuiz('המורה הייתה ממש קרציה הפעם... 😴')">🙄 כמה קרציה המורה הייתה הפעם! חפרה ברמות!</button>
+                <button class="quiz-btn" onclick="answerQuiz('עבר בסדר, העיקר שכבר בבית! 🏠')">🛋️ עבר בסדר, סוחטים את היום. העיקר שהגעתי לבית!</button>
+                <button class="quiz-btn" onclick="answerQuiz('מעייף ברמות, חייב/ת שנ״צ! 💤')">😴 מעייף ברמות, אני בדרך לשנ״צ מהסרטים!</button>
+            `;
+        } else if (hour > 16 && hour <= 21) {
+            // שאלות אחה"כ / ערב
+            quizTitle.innerText = `איך בא לך להעביר את הערב${nameStr}? 🎨✨`;
+            quizOptions.innerHTML = `
+                <button class="quiz-btn" onclick="answerQuiz('לראות סדרה טובה ולזלול משהו טעים 🍕')">🍕 לראות סדרה/סרט טעים ולזלול משהו טעים!</button>
+                <button class="quiz-btn" onclick="answerQuiz('לצאת לבלות או לדבר עם חברים 📱')">📱 לצאת עם חברים או לחפור בטלפון!</button>
+                <button class="quiz-btn" onclick="answerQuiz('סתם לנוח בלי לעשות כלום 🛋️')">🛋️ פשוט לרבוץ, לנוח ולעשות אפס דברים!</button>
+            `;
+        } else {
+            // בוקר / לילה
+            quizTitle.innerText = `מה הדיבור להיום${nameStr}? 🌈`;
+            quizOptions.innerHTML = `
+                <button class="quiz-btn" onclick="answerQuiz('באתי לטרוף את העולם! 🚀')">🚀 באתי לטרוף את העולם בכיף!</button>
+                <button class="quiz-btn" onclick="answerQuiz('צריך/ה עוד קצת זמן להתעורר... ☕')">😴 צרכים עוד קצת זמן להתעורר...</button>
+            `;
+        }
+    }
+
+    function answerQuiz(responseText) {
+        const feedback = document.getElementById('feedback');
+        feedback.style.display = 'block';
+        feedback.innerText = `תשובה מעולה! "${responseText}" - האתר שומר על חיוך ותמיד כאן איתך! ❤️✨`;
+    }
+
+    // משפט מוטיבציה רנדומלי
+    function displayRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        document.getElementById('daily-quote').innerText = `"${quotes[randomIndex]}"`;
+    }
+
+    // יצירת לוח שנה חודשי
+    function renderCalendar() {
+        const calendarGrid = document.getElementById('calendar-grid');
+        calendarGrid.innerHTML = '';
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+
+        const monthNames = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+        document.getElementById('month-year-title').innerText = `📅 לוח שנה - ${monthNames[month]} ${year}`;
+
+        // ימי השבוע
+        const dayNames = ['א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'ש\''];
+        dayNames.forEach(day => {
+            const div = document.createElement('div');
+            div.className = 'day-name';
+            div.innerText = day;
+            calendarGrid.appendChild(div);
+        });
+
+        // יום ראשון בחודש ומספר ימים בחודש
+        const firstDayIndex = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // תאים ריקים מתחילת השבוע
+        for (let i = 0; i < firstDayIndex; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'day-cell';
+            emptyCell.style.background = 'transparent';
+            emptyCell.style.border = 'none';
+            calendarGrid.appendChild(emptyCell);
+        }
+
+        // ימי החודש
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'day-cell';
+            
+            const isToday = (day === now.getDate());
+            if (isToday) dayCell.classList.add('today');
+
+            dayCell.innerHTML = `<span>${day}</span>`;
+
+            // פורמט תאריך מלא YYYY-MM-DD
+            const monthFormatted = String(month + 1).padStart(2, '0');
+            const dayFormatted = String(day).padStart(2, '0');
+            const fullDateStr = `${year}-${monthFormatted}-${dayFormatted}`;
+
+            // בדיקת חגים
+            if (holidays[fullDateStr]) {
+                const holidayTag = document.createElement('div');
+                holidayTag.className = 'holiday-tag';
+                holidayTag.innerText = holidays[fullDateStr];
+                dayCell.appendChild(holidayTag);
+            }
+
+            // בדיקת אירועים אישיים של המשתמש
+            if (userEvents[fullDateStr]) {
+                userEvents[fullDateStr].forEach(evt => {
+                    const eventTag = document.createElement('div');
+                    eventTag.className = 'event-tag';
+                    eventTag.innerText = `📌 ${evt}`;
+                    dayCell.appendChild(eventTag);
+                });
+            }
+
+            calendarGrid.appendChild(dayCell);
+        }
+    }
+
+    // הוספת אירוע אישי ללו"ז
+    function addCustomEvent() {
+        const dateInput = document.getElementById('event-date').value;
+        const titleInput = document.getElementById('event-title').value.trim();
+
+        if (!dateInput || !titleInput) {
+            alert('יש לבחור תאריך ולכתוב תיאור לאירוע! 😊');
+            return;
+        }
+
+        if (!userEvents[dateInput]) {
+            userEvents[dateInput] = [];
+        }
+
+        userEvents[dateInput].push(titleInput);
+        localStorage.setItem('my_user_events', JSON.stringify(userEvents));
+
+        document.getElementById('event-title').value = '';
+        renderCalendar();
+        alert('האירוע הנוסף בהצלחה ללוח השנה שלך! 🎉');
+    }
+</script>
+
+</body>
+</html>
