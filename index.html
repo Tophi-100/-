@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הלו"ז, הכושר והסטייל עם לילי</title>
+    <title>העולם של לילי - לו"ז, כושר וסטייל</title>
     <style>
         :root {
-            --primary: #ff6b81;
-            --bg-color: #f7f1e3;
-            --card-bg: #ffffff;
-            --text-color: #2f3542;
+            --primary: #ff3366;
+            --secondary: #70a1ff;
+            --accent: #ffbe76;
+            --bg: #0f111a;
+            --card-bg: #1e2230;
+            --text-main: #ffffff;
+            --text-sub: #a4b0be;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -25,33 +28,35 @@
 
         .header-bar {
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: white;
+            background: var(--card-bg);
             padding: 15px 25px;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 2px solid #2f3640;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.15);
             margin-bottom: 20px;
             box-sizing: border-box;
         }
 
         .coin-display {
             font-size: 18px;
-            font-weight: bold;
-            background: #ffeaa7;
-            padding: 8px 16px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f6b93b, #fa983a);
+            padding: 8px 18px;
             border-radius: 30px;
-            color: #d63031;
+            color: #1e2230;
+            box-shadow: 0 4px 12px rgba(246, 185, 59, 0.4);
         }
 
         .time-badge {
-            background: #a29bfe;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             color: white;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
         }
 
@@ -59,17 +64,18 @@
             display: flex;
             gap: 20px;
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
             flex-wrap: wrap;
         }
 
+        /* Lily's Column */
         .companion-card {
             flex: 1;
-            min-width: 300px;
-            background: white;
-            border-radius: 20px;
+            min-width: 320px;
+            background: var(--card-bg);
+            border-radius: 24px;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 2px solid #2f3640;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -77,30 +83,32 @@
         }
 
         .speech-bubble {
-            background: #fff0f3;
-            padding: 12px 18px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #ff3366, #ff6b81);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 18px;
             font-size: 14px;
             margin-bottom: 15px;
             text-align: center;
             width: 90%;
-            border: 2px solid #ff4757;
             line-height: 1.4;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(255, 51, 102, 0.3);
+            position: relative;
         }
 
         .avatar-container {
-            width: 200px;
-            height: 280px;
+            width: 220px;
+            height: 300px;
             position: relative;
             margin-bottom: 15px;
-            background: linear-gradient(180deg, #eccc68 0%, #f1f2f6 100%);
+            background: radial-gradient(circle, #2f3640 0%, #181b26 100%);
             border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #dfe4ea;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            border: 2px solid #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
         }
 
         .avatar-svg {
@@ -111,21 +119,21 @@
         /* Wardrobe Shop */
         .shop-box {
             width: 100%;
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 15px;
-            padding: 10px;
+            background: #151821;
+            border: 1px solid #2f3640;
+            border-radius: 16px;
+            padding: 12px;
             box-sizing: border-box;
-            max-height: 220px;
+            max-height: 230px;
             overflow-y: auto;
         }
 
         .shop-category-title {
             font-size: 12px;
-            font-weight: bold;
-            color: #2f3542;
-            margin: 6px 0 4px 0;
-            border-bottom: 2px solid #ff6b81;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 8px 0 4px 0;
+            border-bottom: 2px solid var(--accent);
             display: inline-block;
         }
 
@@ -136,23 +144,26 @@
         }
 
         .shop-item-btn {
-            background: white;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            padding: 6px;
+            background: #222736;
+            color: white;
+            border: 1px solid #3d4457;
+            border-radius: 10px;
+            padding: 8px;
             font-size: 11px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
 
         .shop-item-btn:hover {
-            border-color: #ff6b81;
-            background: #fff0f3;
+            border-color: var(--primary);
+            background: #2d3448;
+            transform: translateY(-2px);
         }
 
+        /* Content Area */
         .content-area {
             flex: 2;
             min-width: 320px;
@@ -162,70 +173,83 @@
         }
 
         .card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 22px;
+            border: 2px solid #2f3640;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        /* Monthly Calendar Styling */
+        .card h3 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Monthly Calendar */
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            gap: 6px;
             text-align: center;
         }
 
         .calendar-day-label {
             font-weight: bold;
             font-size: 12px;
-            color: #a4b0be;
-            padding-bottom: 5px;
+            color: var(--text-sub);
+            padding-bottom: 4px;
         }
 
         .calendar-day {
-            background: #f1f2f6;
-            padding: 8px 2px;
-            border-radius: 10px;
+            background: #151821;
+            padding: 10px 2px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
             position: relative;
+            border: 1px solid #252a38;
         }
 
         .calendar-day:hover {
-            background: #ffeaa7;
+            border-color: var(--primary);
+            background: #252a38;
         }
 
         .calendar-day.today {
-            background: #ff6b81;
+            background: var(--primary);
             color: white;
+            border-color: var(--primary);
         }
 
         .calendar-day.has-event::after {
             content: '';
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: #2ed573;
             border-radius: 50%;
             position: absolute;
-            bottom: 3px;
+            bottom: 4px;
             left: 50%;
             transform: translateX(-50%);
         }
 
         /* Progress Map */
         .map-card {
-            background: linear-gradient(135deg, #f1f2f6 0%, #ffeaa7 100%);
-            border: 2px solid #ffa502;
+            background: linear-gradient(135deg, #1e2230 0%, #151821 100%);
+            border: 2px solid #f6b93b;
         }
 
         .map-path {
@@ -233,64 +257,83 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
-            margin-top: 15px;
-            padding: 0 10px;
+            margin-top: 20px;
+            padding: 0 15px;
         }
 
         .map-node {
-            width: 42px;
-            height: 42px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: white;
-            border: 3px solid #ffa502;
+            background: #1e2230;
+            border: 3px solid #f6b93b;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
             z-index: 2;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: 0.3s;
         }
 
         .map-node.completed {
             background: #2ed573;
             border-color: #2ed573;
             color: white;
+            box-shadow: 0 0 15px rgba(46, 213, 115, 0.6);
         }
 
         .map-line {
             position: absolute;
             top: 50%;
-            left: 20px;
-            right: 20px;
+            left: 30px;
+            right: 30px;
             height: 4px;
-            background: #ffa502;
+            background: #f6b93b;
             z-index: 1;
             transform: translateY(-50%);
         }
 
-        /* Timer Controls */
+        /* Written Workout Instructions */
+        .workout-guide {
+            background: #151821;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-right: 4px solid var(--primary);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .workout-guide ul {
+            margin: 5px 0 0 0;
+            padding-right: 18px;
+        }
+
+        /* Timers */
         .timer-box {
-            background: #f1f2f6;
-            border-radius: 15px;
+            background: #151821;
+            border-radius: 14px;
             padding: 10px;
             margin: 10px 0;
             text-align: center;
+            border: 1px solid #2f3640;
         }
 
         .timer-display {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff4757;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--primary);
             margin: 4px 0;
         }
 
         .timer-btn {
-            background: #ff6b81;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
@@ -299,20 +342,21 @@
         }
 
         .timer-btn:hover {
-            background: #ff4757;
+            opacity: 0.9;
         }
 
         .btn-main {
-            background: #2ed573;
+            background: linear-gradient(135deg, #2ed573, #26af5f);
             color: white;
             border: none;
             padding: 12px;
             font-size: 15px;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
         }
 
         .video-container {
@@ -320,8 +364,9 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 14px;
             margin-top: 10px;
+            border: 1px solid #2f3640;
         }
 
         .video-container iframe {
@@ -333,15 +378,57 @@
             border: none;
         }
 
+        /* Quiz / Modal */
+        .quiz-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
+        }
+
+        .quiz-option {
+            background: #151821;
+            border: 1px solid #2f3640;
+            color: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+            text-align: right;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: #252a38;
+        }
+
         .popup {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: white;
-            border: 3px solid #ff4757;
-            border-radius: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
             padding: 15px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: none;
             align-items: center;
             gap: 12px;
@@ -353,17 +440,17 @@
 <body>
 
     <div class="header-bar">
-        <h2>✨ הלו"ז, הכושר והסטייל שלי</h2>
-        <div class="time-badge" id="timeBadge">⏰ בודק שעה...</div>
+        <h2>✨ המרכז של לילי</h2>
+        <div class="time-badge" id="timeBadge">⏰ מחרזת שעה...</div>
         <div class="coin-display">🪙 <span id="coinCount">12</span> מטבעות</div>
     </div>
 
     <div class="main-layout">
         
-        <!-- Companion (Lily Realistic SVG) -->
+        <!-- Companion (Lily - Stylish & Sharp) -->
         <div class="companion-card">
             <div class="speech-bubble" id="companionBubble">
-                טוען הודעה...
+                טוענת חוכמות...
             </div>
 
             <div class="avatar-container">
@@ -374,90 +461,90 @@
                     
                     <!-- Back Hair -->
                     <g id="backHairLayer">
-                        <path d="M 30,30 C 25,50 25,80 32,85 C 38,85 36,50 35,30 Z" fill="#3a220f"/>
-                        <path d="M 70,30 C 75,50 75,80 68,85 C 62,85 64,50 65,30 Z" fill="#3a220f"/>
+                        <path d="M 28,25 C 22,50 22,85 30,90 C 38,90 36,50 35,25 Z" fill="#2d1a0e"/>
+                        <path d="M 72,25 C 78,50 78,85 70,90 C 62,90 64,50 65,25 Z" fill="#2d1a0e"/>
                     </g>
 
                     <!-- Realistic Head & Neck -->
                     <rect x="46" y="44" width="8" height="9" fill="#f8d0b0" rx="2"/>
-                    <ellipse cx="50" cy="30" rx="17" ry="19" fill="#f8d0b0"/>
+                    <ellipse cx="50" cy="30" rx="18" ry="20" fill="#f8d0b0"/>
 
-                    <!-- Realistic Eyes -->
-                    <!-- Eye Whites -->
-                    <ellipse cx="43" cy="29" rx="3.5" ry="2.2" fill="#ffffff"/>
-                    <ellipse cx="57" cy="29" rx="3.5" ry="2.2" fill="#ffffff"/>
-                    <!-- Blue Iris -->
-                    <circle cx="43" cy="29" r="1.8" fill="#0097e6"/>
-                    <circle cx="57" cy="29" r="1.8" fill="#0097e6"/>
+                    <!-- Big Glossy Eyes -->
+                    <ellipse cx="42" cy="29" rx="4" ry="2.8" fill="#ffffff"/>
+                    <ellipse cx="58" cy="29" rx="4" ry="2.8" fill="#ffffff"/>
+                    <!-- Iris -->
+                    <circle cx="42" cy="29" r="2" fill="#70a1ff"/>
+                    <circle cx="58" cy="29" r="2" fill="#70a1ff"/>
                     <!-- Pupil -->
-                    <circle cx="43" cy="29" r="0.9" fill="#111111"/>
-                    <circle cx="57" cy="29" r="0.9" fill="#111111"/>
-                    <!-- Eye Highlight -->
-                    <circle cx="43.6" cy="28.4" r="0.5" fill="#ffffff"/>
-                    <circle cx="57.6" cy="28.4" r="0.5" fill="#ffffff"/>
-                    <!-- Eyelashes & Eyebrows -->
-                    <path d="M 39,26 Q 43,24 47,26" stroke="#2c1a0e" stroke-width="0.8" fill="none"/>
-                    <path d="M 53,26 Q 57,24 61,26" stroke="#2c1a0e" stroke-width="0.8" fill="none"/>
-                    <path d="M 39,22 Q 43,20 47,22" stroke="#3a220f" stroke-width="1" fill="none"/>
-                    <path d="M 53,22 Q 57,20 61,22" stroke="#3a220f" stroke-width="1" fill="none"/>
+                    <circle cx="42" cy="29" r="1" fill="#111111"/>
+                    <circle cx="58" cy="29" r="1" fill="#111111"/>
+                    <!-- Highlights -->
+                    <circle cx="42.8" cy="28.2" r="0.6" fill="#ffffff"/>
+                    <circle cx="58.8" cy="28.2" r="0.6" fill="#ffffff"/>
 
-                    <!-- Realistic Nose -->
-                    <g id="noseLayer">
-                        <path d="M 50,29 Q 49,34 51,34" stroke="#e0a880" stroke-width="0.8" fill="none"/>
-                    </g>
+                    <!-- Eyebrows & Lashes -->
+                    <path d="M 37,25 Q 42,23 46,25" stroke="#1d1109" stroke-width="1.2" fill="none"/>
+                    <path d="M 54,25 Q 58,23 63,25" stroke="#1d1109" stroke-width="1.2" fill="none"/>
+                    <path d="M 37,21 Q 42,19 46,21" stroke="#2d1a0e" stroke-width="1" fill="none"/>
+                    <path d="M 54,21 Q 58,19 63,21" stroke="#2d1a0e" stroke-width="1" fill="none"/>
 
-                    <!-- Realistic Mouth/Lips -->
-                    <g id="mouthLayer">
-                        <path d="M 44,39 Q 50,44 56,39" fill="#e84118" opacity="0.7"/>
-                        <path d="M 44,39 Q 50,42 56,39" stroke="#c23616" stroke-width="0.8" fill="none"/>
-                    </g>
+                    <!-- Nose -->
+                    <path d="M 50,29 Q 49,34 51,34" stroke="#e0a880" stroke-width="0.8" fill="none"/>
 
-                    <!-- Front Hair (Bangs & Framing) -->
+                    <!-- Glossy Lips -->
+                    <path d="M 44,39 Q 50,44 56,39 Q 50,41 44,39 Z" fill="#ff4757"/>
+
+                    <!-- Front Hair Framing -->
                     <g id="hairLayer">
-                        <path d="M 33,26 C 33,10 67,10 67,26 C 62,15 38,15 33,26 Z" fill="#4a2c11"/>
-                        <path d="M 33,20 C 30,30 32,50 34,60 C 36,40 37,25 35,18 Z" fill="#4a2c11"/>
-                        <path d="M 67,20 C 70,30 68,50 66,60 C 64,40 63,25 65,18 Z" fill="#4a2c11"/>
+                        <path d="M 32,24 C 32,8 68,8 68,24 C 62,14 38,14 32,24 Z" fill="#3a220f"/>
+                        <path d="M 32,18 C 28,30 30,55 33,65 C 36,45 37,25 35,16 Z" fill="#3a220f"/>
+                        <path d="M 68,18 C 72,30 70,55 67,65 C 64,45 63,25 65,16 Z" fill="#3a220f"/>
                     </g>
 
-                    <!-- Accessories (Glasses/Hats) -->
+                    <!-- Accessories -->
                     <g id="accessoryLayer"></g>
 
-                    <!-- Dynamic Top Sweater -->
+                    <!-- Dynamic Top -->
                     <g id="topLayer">
-                        <path d="M 35,52 L 65,52 L 62,88 L 38,88 Z" fill="#ff78ae"/>
-                        <path d="M 42,48 Q 50,53 58,48 L 57,52 Q 50,55 43,52 Z" fill="#e84393"/>
-                        <path d="M 35,52 L 25,70 L 29,72 L 37,58 Z" fill="#ff78ae"/>
-                        <path d="M 65,52 L 75,70 L 71,72 L 63,58 Z" fill="#ff78ae"/>
+                        <path d="M 34,52 L 66,52 L 63,88 L 37,88 Z" fill="#ff3366"/>
+                        <path d="M 42,48 Q 50,54 58,48 L 57,52 Q 50,56 43,52 Z" fill="#d63031"/>
+                        <path d="M 34,52 L 24,70 L 28,72 L 36,58 Z" fill="#ff3366"/>
+                        <path d="M 66,52 L 76,70 L 72,72 L 64,58 Z" fill="#ff3366"/>
                     </g>
 
                     <!-- Skirt -->
                     <g id="skirtLayer">
-                        <path d="M 37,86 L 63,86 L 70,102 L 30,102 Z" fill="#2e86de"/>
+                        <path d="M 36,86 L 64,86 L 71,102 L 29,102 Z" fill="#70a1ff"/>
                     </g>
 
-                    <!-- Classic Black All-Star Shoes -->
+                    <!-- Black Converse All-Star -->
                     <g id="shoesLayer">
                         <!-- Left Shoe -->
                         <path d="M 33,124 L 46,124 C 47,128 46,133 46,134 L 33,134 Z" fill="#111111"/>
                         <path d="M 43,124 L 46,124 L 46,134 L 43,134 Z" fill="#ffffff"/>
                         <rect x="32" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="32" y1="133.5" x2="47" y2="133.5" stroke="#111" stroke-width="0.4"/>
+                        <line x1="32" y1="133.5" x2="47" y2="133.5" stroke="#111" stroke-width="0.5"/>
                         <!-- Right Shoe -->
                         <path d="M 54,124 L 67,124 L 67,134 L 54,134 Z" fill="#111111"/>
                         <path d="M 54,124 L 57,124 L 57,134 L 54,134 Z" fill="#ffffff"/>
                         <rect x="53" y="132" width="15" height="3" fill="#ffffff" rx="1"/>
-                        <line x1="53" y1="133.5" x2="68" y2="133.5" stroke="#111" stroke-width="0.4"/>
+                        <line x1="53" y1="133.5" x2="68" y2="133.5" stroke="#111" stroke-width="0.5"/>
                     </g>
                 </svg>
             </div>
 
-            <!-- Wardrobe Shop -->
+            <!-- Smart Witty Question Button -->
+            <button onclick="askWittyQuestion()" style="background:#70a1ff; color:white; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:bold; font-size:12px; margin-bottom:10px; width:100%;">
+                💡 שאלי את לילי שאלה שנונה
+            </button>
+
+            <!-- Wardrobe Shop (Always Active) -->
             <div class="shop-box">
-                <div style="font-weight:bold; font-size:13px; text-align:center; margin-bottom:5px;">🛍️ הארון של לילי</div>
+                <div style="font-weight:bold; font-size:13px; text-align:center; color:white; margin-bottom:4px;">🛍️ ארון הסטייל (פתוח תמיד!)</div>
                 
-                <div class="shop-category-title">🧥 סריגים ובגדים</div>
+                <div class="shop-category-title">🧥 סריגים וחולצות</div>
                 <div class="shop-grid">
-                    <button class="shop-item-btn" onclick="buyItem('top', '#ff78ae', 0)"><span>סריג ורוד</span> <span>חינם</span></button>
+                    <button class="shop-item-btn" onclick="buyItem('top', '#ff3366', 0)"><span>סריג פופ</span> <span>חינם</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#70a1ff', 15)"><span>סריג תכלת</span> <span>15🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#a29bfe', 18)"><span>סריג סגול</span> <span>18🪙</span></button>
                     <button class="shop-item-btn" onclick="buyItem('top', '#2ed573', 20)"><span>סריג ניאון</span> <span>20🪙</span></button>
@@ -471,7 +558,7 @@
                     <button class="shop-item-btn" onclick="buyItem('acc', 'none', 0)"><span>ללא</span> <span>0🪙</span></button>
                 </div>
 
-                <div class="shop-category-title">👟 נעליים</div>
+                <div class="shop-category-title">👟 נעלי אולסטאר</div>
                 <div class="shop-grid">
                     <button class="shop-item-btn" onclick="buyItem('shoes', '#111111', 0)"><span>אולסטאר שחור</span> <span>חינם</span></button>
                     <button class="shop-item-btn" onclick="buyItem('shoes', '#ffffff', 8)"><span>אולסטאר לבן</span> <span>8🪙</span></button>
@@ -485,37 +572,43 @@
             <!-- Monthly Calendar Card -->
             <div class="card">
                 <div class="calendar-header">
-                    <h3 style="margin:0;">📅 לו"ז חודשי אישי</h3>
-                    <span id="calendarMonthName" style="font-weight:bold; color:#ff6b81;">ספטמבר 2026</span>
+                    <h3>📅 לו"ז חודשי אישי</h3>
+                    <span id="calendarMonthName" style="font-weight:bold; color:var(--primary);">ספטמבר 2026</span>
                 </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Days loaded dynamically -->
-                </div>
-                <div id="selectedDayInfo" style="margin-top:12px; font-size:13px; background:#f1f2f6; padding:10px; border-radius:10px; display:none;">
-                    <strong id="selectedDayTitle"></strong>
-                    <div id="selectedDayTasks" style="margin-top:4px;"></div>
-                    <button onclick="addCalendarEventPrompt()" style="margin-top:6px; background:#ff6b81; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:11px;">+ הוסף אירוע ליום זה</button>
+                <div class="calendar-grid" id="calendarGrid"></div>
+                <div id="selectedDayInfo" style="margin-top:12px; font-size:13px; background:#151821; padding:12px; border-radius:12px; display:none; border:1px solid #2f3640;">
+                    <strong id="selectedDayTitle" style="color:var(--accent);"></strong>
+                    <div id="selectedDayTasks" style="margin-top:6px; color:#ddd;"></div>
+                    <button onclick="addCalendarEventPrompt()" style="margin-top:8px; background:var(--primary); color:white; border:none; padding:6px 10px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:bold;">+ הוסף אירוע/משימה</button>
                 </div>
             </div>
 
-            <!-- Daily Progress Map -->
+            <!-- Progress Map Card -->
             <div class="card map-card">
-                <h3 style="margin:0;">🗺️ מפת ההתקדמות היומית</h3>
-                <p style="font-size: 12px; color: #555; margin:3px 0 0 0;">לחצי על תחנה כדי לסמן שהשלמת אותה!</p>
+                <h3>🗺️ מפת ההתקדמות היומית שלי</h3>
+                <p style="font-size: 12px; color: var(--text-sub); margin:3px 0 0 0;">לחצי על התחנות כדי לסמן שהשלמת עוד שלב במסלול!</p>
                 <div class="map-path">
                     <div class="map-line"></div>
-                    <div class="map-node completed" id="node1" onclick="toggleNode(1)">🏫</div>
-                    <div class="map-node" id="node2" onclick="toggleNode(2)">☀️</div>
-                    <div class="map-node" id="node3" onclick="toggleNode(3)">💥</div>
-                    <div class="map-node" id="node4" onclick="toggleNode(4)">🌙</div>
+                    <div class="map-node completed" id="node1" onclick="toggleNode(1)" title="בית ספר">🏫</div>
+                    <div class="map-node" id="node2" onclick="toggleNode(2)" title="אימון צהריים">☀️</div>
+                    <div class="map-node" id="node3" onclick="toggleNode(3)" title="אימון ערב">💥</div>
+                    <div class="map-node" id="node4" onclick="toggleNode(4)" title="מנוחת לילה">🌙</div>
                 </div>
             </div>
 
             <!-- Afternoon Workout Card -->
             <div class="card">
                 <h3>☀️ אימון צהריים מרוקן אנרגיות (~15 דקות)</h3>
-                <p style="font-size: 13px; color: #555;">הסרטון מתחלף אוטומטית בכל יום בשבוע למניעת שעמום!</p>
                 
+                <div class="workout-guide">
+                    <strong>📋 הסבר בכתב לאימון הצהריים:</strong>
+                    <ul>
+                        <li><strong>חימום (2 דק'):</strong> סיבובי זרועות וקפיצות קלות במקום.</li>
+                        <li><strong>חלק מרכזי (11 דק'):</strong> 3 סבבים של סקואטים, לאנצ'ים וסקוואט פולס (30 שניות עבודה, 15 שניות מנוחה).</li>
+                        <li><strong>שחרור (2 דק'):</strong> מתיחות רגליים ונשימות עמוקות.</li>
+                    </ul>
+                </div>
+
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
                     <div class="timer-display" id="timerDisplay1">00:00</div>
@@ -528,13 +621,21 @@
                     <iframe id="afternoonIframe" src="" allowfullscreen></iframe>
                 </div>
 
-                <button class="btn-main" id="btnTask1" onclick="finishTask(1)">סיימתי את אימון הצהריים! (+3 🪙)</button>
+                <button class="btn-main" id="btnTask1" onclick="openQuiz(1)">סיימתי את האימון! למשוב קצר (+3 🪙)</button>
             </div>
 
             <!-- Evening Workout Card -->
-            <div class="card" id="eveningCard">
+            <div class="card">
                 <h3>💥 אימון ערב קפיצי ומעורר (~15 דקות)</h3>
-                <p style="font-size: 13px; color: #555;">קליסטניקס ואירובי אנרגטי - קצר, מקפיץ ומעורר!</p>
+
+                <div class="workout-guide">
+                    <strong>📋 הסבר בכתב לאימון הערב:</strong>
+                    <ul>
+                        <li><strong>חימום (2 דק'):</strong> ג'מפינג ג'קס ומתיחות דינמיות.</li>
+                        <li><strong>חלק מרכזי (11 דק'):</strong> קליסטניקס ואירובי - פלאנק, טיפוס הרים, סקואט קפיצה (45 שניות עבודה, 15 שניות מנוחה).</li>
+                        <li><strong>שחרור (2 דק'):</strong> מתיחות גב והרפיית שרירים.</li>
+                    </ul>
+                </div>
 
                 <div class="timer-box">
                     <span>⏱️ סטופר לתרגילים:</span>
@@ -548,84 +649,99 @@
                     <iframe id="eveningIframe" src="" allowfullscreen></iframe>
                 </div>
 
-                <button class="btn-main" id="btnTask2" onclick="finishTask(2)">סיימתי את אימון הערב! (+4 🪙)</button>
+                <button class="btn-main" id="btnTask2" onclick="openQuiz(2)">סיימתי את האימון! למשוב קצר (+4 🪙)</button>
             </div>
 
         </div>
 
     </div>
 
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-card">
+            <h3 style="color:var(--primary); margin-top:0;" id="quizTitle">📝 משוב התקדמות שנון מלילי</h3>
+            <p id="quizQuestion" style="font-size:14px; color:#fff;"></p>
+            <div id="quizOptions"></div>
+        </div>
+    </div>
+
     <!-- Floating Popup -->
     <div class="popup" id="reminderPopup">
-        <span style="font-size:30px;">💖</span>
+        <span style="font-size:28px;">💖</span>
         <div>
             <strong id="popupTitle">תזכורת מלילי!</strong>
-            <p id="popupText" style="margin:3px 0 0 0; font-size:13px;"></p>
+            <p id="popupText" style="margin:3px 0 0 0; font-size:12px; color:var(--text-sub);"></p>
         </div>
-        <button onclick="closePopup()" style="border:none; background:none; cursor:pointer; font-weight:bold; font-size:16px;">✕</button>
+        <button onclick="closePopup()" style="border:none; background:none; color:white; cursor:pointer; font-weight:bold; font-size:16px;">✕</button>
     </div>
 
     <script>
         let coins = 12;
         let timerIntervals = {};
         let selectedDayNumber = null;
+        let activeWorkoutForQuiz = null;
+
         let calendarEvents = {
             15: ['מבחן באנגלית'],
             23: ['אימון כושר אישי'],
-            28: ['ערב סרט עם חברות 🎬']
+            28: ['ערב סרט 🎬']
         };
 
-        // Playlist of varied 15-minute workouts (rotates daily)
         const afternoonVideos = [
             "https://www.youtube.com/embed/UoC_O3HzsH0",
             "https://www.youtube.com/embed/gC_L9qAHVJ8",
-            "https://www.youtube.com/embed/ml6cT4AZdqI",
-            "https://www.youtube.com/embed/d3LPrhI0v-w"
+            "https://www.youtube.com/embed/ml6cT4AZdqI"
         ];
 
         const eveningVideos = [
             "https://www.youtube.com/embed/gC_L9qAHVJ8",
-            "https://www.youtube.com/embed/UoC_O3HzsH0",
             "https://www.youtube.com/embed/50kH47ZztHs",
-            "https://www.youtube.com/embed/ml6cT4AZdqI"
+            "https://www.youtube.com/embed/UoC_O3HzsH0"
         ];
+
+        const wittyQuestions = [
+            "אם שיעור מתמטיקה היה ספורט אולימפי, איזה מדליה היית מקבלת על הברזות?",
+            "בסולם של 1 עד 10, כמה היית רוצה להחליף את המערכת של בית ספר בשיעורי כושר ופופ?",
+            "מה הסיכוי ששיעורי בית נכתבו רק כדי לבדוק את סבלנות האנושות?",
+            "איזה שיר היית שמה ברקע כשאת נכנסת לבית ספר ברוקסטאר סטייל?"
+        ];
+
+        function askWittyQuestion() {
+            const randomQ = wittyQuestions[Math.floor(Math.random() * wittyQuestions.length)];
+            document.getElementById('companionBubble').innerText = randomQ;
+        }
 
         function initDailyVideos() {
             const dayOfWeek = new Date().getDay();
-            const aftUrl = afternoonVideos[dayOfWeek % afternoonVideos.length];
-            const eveUrl = eveningVideos[(dayOfWeek + 1) % eveningVideos.length];
-
-            document.getElementById('afternoonIframe').src = aftUrl;
-            document.getElementById('eveningIframe').src = eveUrl;
+            document.getElementById('afternoonIframe').src = afternoonVideos[dayOfWeek % afternoonVideos.length];
+            document.getElementById('eveningIframe').src = eveningVideos[(dayOfWeek + 1) % eveningVideos.length];
         }
 
         function updateTime() {
-            const now = new Date();
-            const hours = now.getHours();
+            const hours = new Date().getHours();
             const badge = document.getElementById('timeBadge');
             const bubble = document.getElementById('companionBubble');
 
             if (hours >= 6 && hours < 12) {
                 badge.innerText = '🌅 בוקר טוב';
-                bubble.innerText = 'בוקר אור! שותים מים ומוכנות ליום מעולה! ☀️';
+                bubble.innerText = 'בוקר אור! שותים מים, שמים סניקרס ומוכנות ליום אלופות! ☀️';
             } else if (hours >= 12 && hours < 18) {
                 badge.innerText = '☀️ צהריים';
-                bubble.innerText = 'חזרת מבית הספר? בואי נתפרק באימון קצר ונתרענן! 💪';
-            } else if (hours >= 18 && hours < 21) {
+                bubble.innerText = 'חזרת? בואי נתפרק באימון הצהריים ונשרוף את העייפות! 💪';
+            } else if (hours >= 18 && hours < 22) {
                 badge.innerText = '🌆 ערב';
-                bubble.innerText = 'זמן מעולה לאימון הערב המקפיץ שלנו! 💥';
+                bubble.innerText = 'זמן מעולה לאימון הערב הקפיצי והמטורף שלנו! 💥';
             } else {
-                badge.innerText = '🌙 לילה טוב';
-                bubble.innerText = 'זמן להירגע, לשים מסכת פנים וללכת לישון מוקדם 😴';
+                badge.innerText = '🌙 לילה מאוחר';
+                bubble.innerText = 'שעה מאוחרת! החנות והכל פתוחים, אבל אל תשכחי גם לישון קצת 😴';
             }
         }
 
-        // Monthly Calendar Generator
         function generateCalendar() {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
-
             const dayNames = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
+            
             dayNames.forEach(name => {
                 const label = document.createElement('div');
                 label.className = 'calendar-day-label';
@@ -666,7 +782,7 @@
 
         function addCalendarEventPrompt() {
             if (!selectedDayNumber) return;
-            const eventName = prompt(`הכניסי אירוע חדש ליום ${selectedDayNumber}:`);
+            const eventName = prompt(`הכניסי אירוע/משימה ליום ${selectedDayNumber}:`);
             if (eventName) {
                 if (!calendarEvents[selectedDayNumber]) calendarEvents[selectedDayNumber] = [];
                 calendarEvents[selectedDayNumber].push(eventName);
@@ -698,31 +814,75 @@
             document.getElementById(displayId).textContent = "00:00";
         }
 
-        function finishTask(taskId) {
-            const btn = document.getElementById(`btnTask${taskId}`);
-            if (taskId === 1) {
+        // Workout Quiz System
+        function openQuiz(workoutId) {
+            activeWorkoutForQuiz = workoutId;
+            const modal = document.getElementById('quizModal');
+            const qText = document.getElementById('quizQuestion');
+            const optionsDiv = document.getElementById('quizOptions');
+
+            modal.style.display = 'flex';
+            optionsDiv.innerHTML = '';
+
+            if (workoutId === 1) {
+                qText.innerText = "איך הרגשת במהלך הסקואטים והלאנצ'ים באימון הצהריים?";
+                const opts = [
+                    "🚀 קטן עלי, הרגשתי כמו אשת ברזל!",
+                    "🔥 השרירים שרפו בדיוק במידה הנכונה!",
+                    "😅 היה מאתגר, אבל לא ויתרתי אפילו לשניה!"
+                ];
+                opts.forEach(opt => {
+                    const btn = document.createElement('div');
+                    btn.className = 'quiz-option';
+                    btn.innerText = opt;
+                    btn.onclick = finishQuiz;
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                qText.innerText = "איך היה הקצב של הפלאנק וקפיצות הראלי באימון הערב?";
+                const opts = [
+                    "⚡ קצב מטורף, עפתי באוויר!",
+                    "💥 התאמצתי טיפה בסט השני, אבל ניצחתי אותו!",
+                    "🏆 הרגשתי שיפור אדיר לעומת שבוע שעבר!"
+                ];
+                opts.forEach(opt => {
+                    const btn = document.createElement('div');
+                    btn.className = 'quiz-option';
+                    btn.innerText = opt;
+                    btn.onclick = finishQuiz;
+                    optionsDiv.appendChild(btn);
+                });
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+            if (activeWorkoutForQuiz === 1) {
                 coins += 3;
-                btn.innerText = "סומן כהושלם! ✨ (+3 🪙)";
+                const btn = document.getElementById('btnTask1');
+                btn.innerText = "הושלם בהצלחה! ✨ (+3 🪙)";
+                btn.disabled = true;
+                btn.style.background = "#3d4457";
                 document.getElementById('node2').classList.add('completed');
-            } else if (taskId === 2) {
+            } else if (activeWorkoutForQuiz === 2) {
                 coins += 4;
-                btn.innerText = "סומן כהושלם! ✨ (+4 🪙)";
+                const btn = document.getElementById('btnTask2');
+                btn.innerText = "הושלם בהצלחה! ✨ (+4 🪙)";
+                btn.disabled = true;
+                btn.style.background = "#3d4457";
                 document.getElementById('node3').classList.add('completed');
             }
-            btn.style.background = "#a4b0be";
-            btn.disabled = true;
             document.getElementById('coinCount').innerText = coins;
-            showPopup("כל הכבוד!", "המטבעות תופחו לארנק שלך!");
+            showPopup("המשוב התקבל!", "המטבעות התווספו לארנק שלך!");
         }
 
         function toggleNode(nodeId) {
-            const node = document.getElementById(`node${nodeId}`);
-            node.classList.toggle('completed');
+            document.getElementById(`node${nodeId}`).classList.toggle('completed');
         }
 
         function buyItem(type, val, cost) {
             if (coins < cost) {
-                showPopup("אין מספיק מטבעות!", "תשלימי אימונים כדי להרוויח עוד מטבעות 🪙");
+                showPopup("אין מספיק מטבעות!", "תשלימי אימונים ומשובים כדי להרוויח עוד מטבעות 🪙");
                 return;
             }
             coins -= cost;
@@ -738,9 +898,9 @@
                 if (val === 'sunglasses') {
                     accGroup.innerHTML = '<rect x="36" y="26" width="12" height="7" rx="2" fill="#111"/><rect x="52" y="26" width="12" height="7" rx="2" fill="#111"/><line x1="48" y1="29" x2="52" y2="29" stroke="#111" stroke-width="2"/>';
                 } else if (val === 'glasses') {
-                    accGroup.innerHTML = '<circle cx="43" cy="29" r="4.5" stroke="#111" stroke-width="1" fill="none"/><circle cx="57" cy="29" r="4.5" stroke="#111" stroke-width="1" fill="none"/><line x1="47.5" y1="29" x2="52.5" y2="29" stroke="#111" stroke-width="1"/>';
+                    accGroup.innerHTML = '<circle cx="42" cy="29" r="4.5" stroke="#fff" stroke-width="1" fill="none"/><circle cx="58" cy="29" r="4.5" stroke="#fff" stroke-width="1" fill="none"/><line x1="46.5" y1="29" x2="53.5" y2="29" stroke="#fff" stroke-width="1"/>';
                 } else if (val === 'cap') {
-                    accGroup.innerHTML = '<path d="M 33,22 C 33,12 67,12 67,22 Z" fill="#ff4757"/><path d="M 30,22 Q 50,18 70,22" stroke="#ff4757" stroke-width="3" fill="none"/>';
+                    accGroup.innerHTML = '<path d="M 33,22 C 33,10 67,10 67,22 Z" fill="#ff3366"/><path d="M 30,22 Q 50,18 70,22" stroke="#ff3366" stroke-width="3" fill="none"/>';
                 } else {
                     accGroup.innerHTML = '';
                 }
@@ -749,7 +909,7 @@
                 shoePaths[0].setAttribute('fill', val);
                 shoePaths[4].setAttribute('fill', val);
             }
-            showPopup("תתחדשי!", "הפריט הולבש בהצלחה!");
+            showPopup("תתחדשי!", "ה פריט הולבש בהצלחה!");
         }
 
         function showPopup(title, text) {
@@ -763,7 +923,7 @@
             document.getElementById('reminderPopup').style.display = 'none';
         }
 
-        // Initialize On Load
+        // Init
         updateTime();
         generateCalendar();
         initDailyVideos();
