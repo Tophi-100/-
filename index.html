@@ -25,12 +25,53 @@
       padding-top: 70px;
     }
 
+    /* מודאל חוסם למצב רוח בכניסה */
+    #mood-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .mood-modal {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 3px solid var(--accent);
+    }
+
+    .mood-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #f1f2f6;
+      border: 2px solid var(--primary-light);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .mood-btn:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
     /* סרגל ניווט עליון קבוע */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 60px;
       background-color: var(--primary);
       color: white;
@@ -69,7 +110,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 20px auto;
       padding: 0 15px;
     }
@@ -104,25 +145,25 @@
     /* תצוגת דמות וחנות */
     .closet-layout {
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: 20px;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       .closet-layout { grid-template-columns: 1fr; }
     }
 
     .avatar-card {
-      background: #f1f2f6;
-      border-radius: 12px;
+      background: linear-gradient(180deg, #ffeaa7 0%, #fab1a0 100%);
+      border-radius: 16px;
       padding: 20px;
       text-align: center;
-      border: 2px dashed var(--accent);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
 
     .lily-svg {
-      width: 180px;
-      height: 320px;
+      width: 200px;
+      height: 350px;
       margin: 0 auto;
     }
 
@@ -130,21 +171,24 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 12px;
-      max-height: 400px;
+      max-height: 450px;
       overflow-y: auto;
       padding-left: 5px;
     }
 
     .item-card {
       border: 1px solid #dfe4ea;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 10px;
       text-align: center;
       background: white;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .item-card:hover { transform: translateY(-3px); }
+    .item-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
     .item-card .icon { font-size: 32px; display: block; margin-bottom: 5px; }
     .item-card .price { font-weight: bold; color: #e17055; margin: 5px 0; }
@@ -160,7 +204,6 @@
 
     .btn-buy { background: #00b894; color: white; }
     .btn-wear { background: var(--primary); color: white; }
-    .btn-owned { background: #b2bec3; color: white; cursor: default; }
 
     /* טבלאות */
     table {
@@ -192,19 +235,19 @@
       background: #e17055;
       color: white;
       border: none;
-      padding: 6px 12px;
+      padding: 8px 14px;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 5px;
+      margin-top: 8px;
+      font-weight: bold;
     }
 
-    /* הערות לילי */
     .lily-comment {
       background: #ffeaa7;
       border-right: 4px solid #fdcb6e;
-      padding: 10px 15px;
+      padding: 12px 15px;
       margin-top: 15px;
-      border-radius: 4px;
+      border-radius: 6px;
       font-weight: 500;
     }
 
@@ -247,6 +290,16 @@
 </head>
 <body>
 
+  <!-- חלון מצב רוח בכניסה -->
+  <div id="mood-modal-overlay">
+    <div class="mood-modal">
+      <h2 id="mood-title">✨ שאלון מצב רוח יומי ✨</h2>
+      <p id="mood-subtitle">רוצים להיכנס לאתר? ענו על 3 שאלות קצרות!</p>
+      <h3 id="mood-q" style="color: var(--primary);">שאלה 1/3...</h3>
+      <div id="mood-opts"></div>
+    </div>
+  </div>
+
   <!-- סרגל עליון -->
   <header>
     <div class="logo">🍭 טופי 100</div>
@@ -257,7 +310,7 @@
       <a href="#daily-sec">📅 לו"ז יומי</a>
       <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
       <a href="#recipes-sec">🍓 מתכונים</a>
-      <a href="#quiz-sec">📝 חידון ה-20</a>
+      <a href="#quiz-sec">📝 חידון ה-10</a>
     </nav>
   </header>
 
@@ -271,38 +324,47 @@
 
     <!-- 1. הארון והחנות של לילי -->
     <div id="closet-sec" class="card">
-      <h2>👗 הארון והחנות של לילי</h2>
-      <p>צברי מטבעות בחידון, קני בגדים ואולסטאר בחנות והלבישי את לילי!</p>
+      <h2>👗 הארון המפוצץ של לילי</h2>
+      <p>צברי מטבעות בחידון, קני בגדים, סריגים ואולסטאר בחנות והלבישי את לילי!</p>
 
       <div class="closet-layout">
         <!-- תצוגת הדמות -->
         <div class="avatar-card">
           <svg class="lily-svg" viewBox="0 0 100 200">
+            <!-- צל -->
+            <ellipse cx="50" cy="192" rx="25" ry="5" fill="rgba(0,0,0,0.15)"/>
             <!-- גוף ובסיס -->
-            <circle cx="50" cy="35" r="18" fill="#ffe0bd"/>
-            <path d="M 40 50 Q 50 55 60 50 L 58 120 L 42 120 Z" fill="#fff"/>
-            <rect x="42" y="120" width="6" height="50" fill="#ffe0bd"/>
-            <rect x="52" y="120" width="6" height="50" fill="#ffe0bd"/>
-            
-            <!-- שיער -->
-            <path d="M 32 35 Q 50 10 68 35 Q 65 60 62 65 Q 50 45 38 65 Z" fill="#8d5524"/>
+            <path d="M 44 120 L 44 180 Q 44 185 40 185 L 40 187 L 47 187 L 48 120 Z" fill="#f5c6a5"/>
+            <path d="M 56 120 L 56 180 Q 56 185 60 185 L 60 187 L 53 187 L 52 120 Z" fill="#f5c6a5"/>
+            <!-- שמלת בסיס/גוף -->
+            <path d="M 40 50 Q 50 55 60 50 L 62 120 L 38 120 Z" fill="#a29bfe"/>
+            <!-- צוואר וראש -->
+            <rect x="46" y="42" width="8" height="12" fill="#f5c6a5" rx="3"/>
+            <circle cx="50" cy="30" r="16" fill="#f5c6a5"/>
+            <!-- שיער רך וזורם -->
+            <path d="M 32 30 Q 50 5 68 30 Q 72 60 65 75 Q 50 50 35 75 Q 28 60 32 30 Z" fill="#4a2e12"/>
+            <path d="M 36 22 Q 50 10 64 22 Q 62 35 50 25 Q 38 35 36 22 Z" fill="#5c3a17"/>
+            <!-- תווי פנים עדינים -->
+            <circle cx="43" cy="28" r="1.8" fill="#2d3436"/>
+            <circle cx="57" cy="28" r="1.8" fill="#2d3436"/>
+            <path d="M 42 24 Q 44 22 46 24" stroke="#2d3436" stroke-width="0.8" fill="none"/>
+            <path d="M 54 24 Q 56 22 58 24" stroke="#2d3436" stroke-width="0.8" fill="none"/>
+            <path d="M 46 35 Q 50 38 54 35" stroke="#e17055" stroke-width="1.2" fill="none"/>
+            <circle cx="40" cy="32" r="2.5" fill="#ff7675" opacity="0.4"/>
+            <circle cx="60" cy="32" r="2.5" fill="#ff7675" opacity="0.4"/>
 
-            <!-- פנים -->
-            <circle cx="44" cy="35" r="2" fill="#2d3436"/>
-            <circle cx="56" cy="35" r="2" fill="#2d3436"/>
-            <path d="M 46 43 Q 50 47 54 43" stroke="#e17055" stroke-width="1.5" fill="none"/>
-
-            <!-- פריטים לבישים -->
-            <g id="svg-top"></g>
+            <!-- שכבות הלבשה -->
             <g id="svg-bottom"></g>
+            <g id="svg-top"></g>
             <g id="svg-shoes"></g>
+            <g id="svg-hat"></g>
           </svg>
-          <div id="current-look" style="font-weight: bold; margin-top: 10px; color: var(--primary);">לוק בסיסי</div>
+          <div id="current-look" style="font-weight: bold; margin-top: 10px; color: var(--primary);">לוק: בסיסי</div>
         </div>
 
         <!-- החנות -->
         <div>
-          <h3>🛍️ חנות הבגדים (עולה מטבעות!)</h3>
+          <h3>🛍️ חנות הבגדים והאקססוריז</h3>
           <div class="store-grid" id="store-items"></div>
         </div>
       </div>
@@ -355,7 +417,7 @@
 
     <!-- 5. לו"ז חודשי בטבלה -->
     <div id="monthly-sec" class="card">
-      <h2>🗓️ לו"ז חודשי</h2>
+      <h2>🗓️ לו"ז חודשי בטבלה מסודרת</h2>
       <table>
         <thead>
           <tr>
@@ -394,10 +456,10 @@
       </ul>
     </div>
 
-    <!-- 7. חידון ה-20 בסוף הדף -->
+    <!-- 7. חידון ה-10 בסוף הדף -->
     <div id="quiz-sec" class="card">
-      <h2>📝 חידון ה-20 (מרוויחים 1 ₪ בסיום כל החידון!)</h2>
-      <p>כל התשובות נכונות! עני על כל השאלות כדי לקבל את הפרס ליתרה.</p>
+      <h2>📝 חידון ה-10 (מרוויחים 1 ₪ בסיום כל החידון!)</h2>
+      <p>כל התשובות נכונות! עני על כל 10 השאלות כדי לקבל את הפרס ליתרה.</p>
 
       <div id="quiz-box">
         <h3 id="quiz-q">טוען שאלה...</h3>
@@ -412,17 +474,27 @@
   <script>
     let money = 0;
 
-    // מאגר פריטים בחנות
+    // מאגר חנות מפוצץ
     const store = [
       { id: 'converse_black', name: 'אולסטאר שחור', price: 10, type: 'shoes', icon: '👟', color: '#2d3436', owned: false },
       { id: 'converse_red', name: 'אולסטאר אדום', price: 15, type: 'shoes', icon: '👟', color: '#d63031', owned: false },
       { id: 'converse_white', name: 'אולסטאר לבן', price: 12, type: 'shoes', icon: '👟', color: '#ffffff', owned: false },
       { id: 'converse_green', name: 'אולסטאר ירוק', price: 18, type: 'shoes', icon: '👟', color: '#00b894', owned: false },
+      { id: 'converse_purple', name: 'אולסטאר סגול', price: 20, type: 'shoes', icon: '👟', color: '#6c5ce7', owned: false },
+      { id: 'converse_pink', name: 'אולסטאר ורוד', price: 22, type: 'shoes', icon: '👟', color: '#fd79a8', owned: false },
+      
       { id: 'sweater_cozy', name: 'סריג אוברסייז', price: 20, type: 'top', icon: '🧥', color: '#a29bfe', owned: false },
-      { id: 'sweater_pink', name: 'סוודר ורוד מתוק', price: 25, type: 'top', icon: '👚', color: '#fd79a8', owned: false },
+      { id: 'sweater_pink', name: 'סוודר ורוד', price: 25, type: 'top', icon: '👚', color: '#fd79a8', owned: false },
+      { id: 'sweater_stripes', name: 'סוודר פסים', price: 28, type: 'top', icon: '🧥', color: '#fdcb6e', owned: false },
+      { id: 'crop_sweater', name: 'סריג קרופ שיק', price: 30, type: 'top', icon: '👚', color: '#e17055', owned: false },
+      
       { id: 'skirt_jeans', name: 'חצאית ג\'ינס', price: 22, type: 'bottom', icon: '👗', color: '#0984e3', owned: false },
       { id: 'skirt_pleated', name: 'חצאית קפלים', price: 30, type: 'bottom', icon: '👗', color: '#6c5ce7', owned: false },
-      { id: 'dress_fancy', name: 'שמלת ערב נוצצת', price: 50, type: 'top', icon: '👗', color: '#e17055', owned: false }
+      { id: 'skirt_maxi', name: 'חצאית מקסי', price: 35, type: 'bottom', icon: '👗', color: '#00b894', owned: false },
+      { id: 'skirt_mini', name: 'חצאית מיני', price: 25, type: 'bottom', icon: '👗', color: '#e84393', owned: false },
+
+      { id: 'dress_fancy', name: 'שמלת ערב', price: 50, type: 'top', icon: '👗', color: '#e17055', owned: false },
+      { id: 'hat_crown', name: 'כתר מלכותי', price: 40, type: 'hat', icon: '👑', color: '#ffeaa7', owned: false }
     ];
 
     function renderStore() {
@@ -433,12 +505,9 @@
         const card = document.createElement('div');
         card.className = 'item-card';
 
-        let btnHTML = '';
-        if (item.owned) {
-          btnHTML = `<button class="btn-wear" onclick="wearItem(${index})">לבשי</button>`;
-        } else {
-          btnHTML = `<button class="btn-buy" onclick="buyItem(${index})">קני (${item.price} ₪)</button>`;
-        }
+        let btnHTML = item.owned 
+          ? `<button class="btn-wear" onclick="wearItem(${index})">לבשי</button>`
+          : `<button class="btn-buy" onclick="buyItem(${index})">קני (${item.price} ₪)</button>`;
 
         card.innerHTML = `
           <span class="icon">${item.icon}</span>
@@ -460,24 +529,96 @@
         wearItem(index);
         alert(`תתחדשי! קנית ${item.name}!`);
       } else {
-        alert('אין לך מספיק מטבעות! עני על חידון ה-20 כדי להרוויח עוד.');
+        alert('אין לך מספיק מטבעות! עני על חידון ה-10 כדי להרוויח עוד.');
       }
     }
 
     function wearItem(index) {
       const item = store[index];
       if (item.type === 'shoes') {
-        document.getElementById('svg-shoes').innerHTML = `<rect x="38" y="165" width="12" height="10" fill="${item.color}" rx="2"/><rect x="50" y="165" width="12" height="10" fill="${item.color}" rx="2"/>`;
+        document.getElementById('svg-shoes').innerHTML = `
+          <rect x="36" y="180" width="12" height="7" fill="${item.color}" rx="2"/>
+          <rect x="52" y="180" width="12" height="7" fill="${item.color}" rx="2"/>
+        `;
       } else if (item.type === 'top') {
-        document.getElementById('svg-top').innerHTML = `<path d="M 38 52 Q 50 56 62 52 L 62 90 L 38 90 Z" fill="${item.color}"/>`;
+        document.getElementById('svg-top').innerHTML = `
+          <path d="M 38 52 Q 50 56 62 52 L 62 90 L 38 90 Z" fill="${item.color}"/>
+        `;
       } else if (item.type === 'bottom') {
-        document.getElementById('svg-bottom').innerHTML = `<path d="M 38 90 L 62 90 L 68 125 L 32 125 Z" fill="${item.color}"/>`;
+        document.getElementById('svg-bottom').innerHTML = `
+          <path d="M 38 90 L 62 90 L 68 125 L 32 125 Z" fill="${item.color}"/>
+        `;
+      } else if (item.type === 'hat') {
+        document.getElementById('svg-hat').innerHTML = `
+          <path d="M 38 18 L 42 10 L 50 16 L 58 10 L 62 18 Z" fill="${item.color}" stroke="#d63031" stroke-width="1"/>
+        `;
       }
       document.getElementById('current-look').innerText = `לוק: ${item.name}`;
     }
 
     function updateBalanceDisplay() {
       document.getElementById('balance').innerText = money + ' ₪';
+    }
+
+    // מנגנון שאלון מצב רוח בכניסה
+    const moodQuestionsPool = [
+      [
+        { q: "איך קמת הבוקר?", opts: ["כמו מלכה 👑", "אני צריכה עוד 5 דקות 😴", "מוכנה לכבוש את העולם ⚡"] },
+        { q: "מה הרמה של האנרגיה שלך כרגע?", opts: ["100% טורבו! 🔥", "ככה ככה, רגועה ☕", "במצב סוללה חלשה 🔋"] },
+        { q: "מה הדבר שהכי בא לך לעשות עכשיו?", opts: ["לקנות בגדים חדשים 🛍️", "אימון כושר מטורף 🏋️‍♀️", "לאכול משהו טעים 🍕"] }
+      ],
+      [
+        { q: "מה הוויב שלך היום?", opts: ["אופנתי ושיק 💅", "ספורטיבי ופעיל 🏃‍♀️", "רביצה על הספה 🛋️"] },
+        { q: "איך המזג אוויר משפיע עלייך?", opts: ["עושה לי חשק לצאת ☀️", "בא לי להתכרבל בסוודר ❄️", "לא מעניין, אני באתר! 🍭"] },
+        { q: "כמה את מוכנה לאתגרים היום?", opts: ["תביאו הכל! 💪", "רק דברים קלים 🐣", "תנו לי לישון 💤"] }
+      ]
+    ];
+
+    let currentMoodBank = moodQuestionsPool[Math.floor(Math.random() * moodQuestionsPool.length)];
+    let moodStep = 0;
+    let userMoodScore = "";
+
+    function loadMoodQ() {
+      if (moodStep >= currentMoodBank.length) {
+        document.getElementById('mood-title').innerText = "✨ הפידבק של לילי ✨";
+        document.getElementById('mood-subtitle').innerText = "תודה שזנית!";
+        document.getElementById('mood-q').innerText = "לילי אומרת: " + getLilyMoodFeedback();
+        document.getElementById('mood-opts').innerHTML = `
+          <button class="mood-btn" style="background: var(--primary); color: white;" onclick="closeMoodModal()">להיכנס לאתר! 🚀</button>
+        `;
+        return;
+      }
+
+      const qObj = currentMoodBank[moodStep];
+      document.getElementById('mood-q').innerText = `שאלה ${moodStep + 1}/3: ${qObj.q}`;
+      const optsBox = document.getElementById('mood-opts');
+      optsBox.innerHTML = '';
+
+      qObj.opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'mood-btn';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          userMoodScore += opt + " ";
+          moodStep++;
+          loadMoodQ();
+        };
+        optsBox.appendChild(btn);
+      });
+    }
+
+    function getLilyMoodFeedback() {
+      if (userMoodScore.includes("טורבו") || userMoodScore.includes("כבוש") || userMoodScore.includes("תביאו")) {
+        return "ואו! את מלאה באנרגיה חיובית היום! האתר הזה קטן עלייך, לכי תקרעי את האימון!";
+      } else if (userMoodScore.includes("דקות") || userMoodScore.includes("סוללה") || userMoodScore.includes("לישון")) {
+        return "נראה שאת צריכה קצת זמן להירגע. תפסי ספה נוחה, תעשי חידון בכיף ותתפנקי בחנות!";
+      } else {
+        return "מצב רוח מושלם! בדיוק הזמן לשדרג את הלוק שלי בחנות ולעשות קצת כושר!";
+      }
+    }
+
+    function closeMoodModal() {
+      document.getElementById('mood-modal-overlay').style.display = 'none';
     }
 
     // טיימר
@@ -514,24 +655,31 @@
       note.innerHTML = '💬 <strong>לילי מעירה:</strong> "סדר יום מתוכנן היטב, יפה מאוד!"';
     }
 
-    // חידון ה-20
-    const questions = [
-      { q: "מה עושים כשקמים בבוקר?", opts: ["בוהים בתקרה", "ממשיכים לישון", "בודקים את הטלפון"], fb: "נכון מאוד! קלאסי ביותר." },
-      { q: "איפה נמצאות הגרביים שנעלמות בכביסה?", opts: ["בממד מקביל", "הן ברחו", "מישהו לקח אותן"], fb: "ברור! תמיד יש גרב אחת בודדת." },
-      { q: "מה אומר המשפט 'אני בדרך'?", opts: ["עוד לא יצאתי", "אני מחפש מפתחות", "אני בפיג'מה"], fb: "מדויק! 'אני בדרך' = עוד לא התחלתי להתארגן." }
+    // חידון ה-10 (שום שאלה לא חוזרת!)
+    const tenUniqueQuestions = [
+      { q: "1. מה עושים כשקמים בבוקר?", opts: ["בוהים בתקרה 10 דקות", "ממשיכים לישון", "בודקים הודעות"], fb: "נכון מאוד! קלאסי ביותר." },
+      { q: "2. איפה נמצאות הגרביים שנעלמות בכביסה?", opts: ["בממד מקביל", "הן ברחו מהבית", "מישהו לקח אותן"], fb: "ברור! תמיד יש גרב בודדת." },
+      { q: "3. מה אומר המשפט 'אני בדרך'?", opts: ["עוד לא יצאתי", "אני מחפשת מפתחות", "אני בפיג'מה"], fb: "מדויק! 'אני בדרך' = עוד לא התחלתי להתארגן." },
+      { q: "4. מה קורה כשמנסים להוציא רק צ'יפס אחד?", opts: ["אוכלים את כל החבילה", "מצליחים (בחלום)", "לוקחים חצי חבילה"], fb: "אין דבר כזה צ'יפס אחד!" },
+      { q: "5. איפה תמיד נמצא הטלפון כשמחפשים אותו?", opts: ["ביד שלך", "מתחת לספה", "על השקט בחדר השני"], fb: "תמיד ביד! תודו שזה קרה לכן." },
+      { q: "6. מה השיעור הכי חשוב בחיים?", opts: ["שוקולד פותר הכל", "לישון 8 שעות", "לנעול אולסטאר תואמות"], fb: "שוקולד ואולסטאר - השילוב המנצח." },
+      { q: "7. מה עושים כשרואים שלולית גדולה?", opts: ["קופצים פנימה!", "עוקפים בזהירות", "רץ למדוד עומק"], fb: "קפיצה ישר פנימה, ברור!" },
+      { q: "8. מה התגובה הכי טובה לכלב חמוד ברחוב?", opts: ["לצעוק 'איזה חמודדד'", "ללכת ללטף", "לצלם אותו"], fb: "כל התשובות נכונות לחלוטין!" },
+      { q: "9. מה המאכל הכי טוב כשמשעמם?", opts: ["חטיף מלוח", "עוגיה מתוקה", "פותחים את המקרר ובוהים"], fb: "לבהות במקרר זה תחביב לאומי." },
+      { q: "10. מה הסוד להצלחה באימון כושר?", opts: ["מוזיקה טובה", "ללבוש בגדים יפים", "לסיים אותו ולשתות ברד אבטיח"], fb: "ברד אבטיח בסוף זה הפרס המושלם!" }
     ];
 
     let qIdx = 0;
 
     function loadQ() {
-      if (qIdx >= questions.length) {
-        document.getElementById('quiz-box').innerHTML = '<h3>🎉 סיימת את החידון! הרווחת 1 ₪ למאזן!</h3>';
+      if (qIdx >= tenUniqueQuestions.length) {
+        document.getElementById('quiz-box').innerHTML = '<h3>🎉 מדהים! סיימת את כל 10 השאלות! הרווחת 1 ₪ למאזן!</h3>';
         money += 1;
         updateBalanceDisplay();
         return;
       }
 
-      const q = questions[qIdx];
+      const q = tenUniqueQuestions[qIdx];
       document.getElementById('quiz-q').innerText = q.q;
       document.getElementById('quiz-fb').innerText = '';
       document.getElementById('quiz-next-btn').style.display = 'none';
@@ -558,6 +706,7 @@
     }
 
     // טעינה ראשונית
+    loadMoodQ();
     renderStore();
     loadQ();
   </script>
