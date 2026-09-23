@@ -3,551 +3,652 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>טופי 100 - האתר הרשמי</title>
+  <title>טופי 100 - האתר הרשמי 🍭</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f9fc;
-      color: #2c3e50;
-      margin: 0;
-      padding: 20px;
+      font-family: 'Rubik', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
     }
 
-    /* סרגל ניווט צדדי */
+    /* Sidebar Navigation Transitions */
     .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      right: 0;
-      background-color: #2c3e50;
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 60px;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(100%);
+    }
+    .sidebar.open {
+      transform: translateX(0);
     }
 
-    .sidebar a {
-      padding: 12px 24px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #ecf0f1;
-      display: block;
-      transition: 0.2s;
+    /* Avatar styling */
+    .avatar-hair-casual { fill: #f59e0b; }
+    .avatar-shirt-casual { fill: #3b82f6; }
+    .avatar-pants-casual { fill: #1e40af; }
+
+    .avatar-shirt-sport { fill: #ef4444; }
+    .avatar-pants-sport { fill: #334155; }
+
+    .avatar-shirt-fancy { fill: #ec4899; }
+    .avatar-pants-fancy { fill: #be185d; }
+
+    .avatar-shirt-cozy { fill: #8b5cf6; }
+    .avatar-pants-cozy { fill: #6d28d9; }
+
+    /* Custom Timer Glow */
+    .timer-active {
+      animation: pulse-border 2s infinite;
     }
 
-    .sidebar a:hover {
-      background-color: #34495e;
-      color: #ffffff;
-    }
-
-    .sidebar h3 {
-      color: #fff;
-      padding: 0 24px;
-      margin-bottom: 20px;
-    }
-
-    .sidebar .close-btn {
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      font-size: 32px;
-      color: #fff;
-    }
-
-    .open-btn {
-      font-size: 18px;
-      cursor: pointer;
-      background-color: #2c3e50;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
-
-    /* כרטיסיות ואזורים */
-    .wallet {
-      background-color: #fff;
-      border: 2px solid #27ae60;
-      border-radius: 8px;
-      padding: 12px 20px;
-      margin-bottom: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #27ae60;
-      display: inline-block;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
-    }
-
-    h1, h2 {
-      color: #2c3e50;
-    }
-
-    /* עיצוב הדמות והארון של לילי */
-    .closet-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: center;
-      justify-content: space-around;
-      background-color: #fff0f6;
-      padding: 20px;
-      border-radius: 12px;
-      border: 2px dashed #ff85a2;
-    }
-
-    .lily-avatar-box {
-      text-align: center;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      width: 200px;
-    }
-
-    .lily-character {
-      font-size: 80px;
-      line-height: 1;
-      margin: 10px 0;
-    }
-
-    .outfit-controls {
-      max-width: 400px;
-    }
-
-    .outfit-btn {
-      background-color: #ff6b81;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      margin: 5px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: 0.2s;
-    }
-
-    .outfit-btn:hover {
-      background-color: #ee5253;
-    }
-
-    .lily-comment {
-      background-color: #fff0f6;
-      border-right: 4px solid #ff6b81;
-      padding: 10px 15px;
-      margin-top: 10px;
-      border-radius: 4px;
-      font-style: italic;
-      color: #d63031;
-    }
-
-    .quiz-option {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background-color: #ecf0f1;
-      border: 1px solid #bdc3c7;
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: right;
-      font-size: 16px;
-    }
-
-    .quiz-option:hover {
-      background-color: #d5dbdb;
-    }
-
-    .btn-next, .btn-save {
-      background-color: #2980b9;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    .feedback {
-      margin-top: 12px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: right;
-    }
-
-    th {
-      background-color: #34495e;
-      color: white;
-    }
-
-    textarea {
-      width: 100%;
-      height: 80px;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    a.recipe-link {
-      color: #e67e22;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a.recipe-link:hover {
-      text-decoration: underline;
+    @keyframes pulse-border {
+      0% { border-color: #3b82f6; box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+      70% { border-color: #2563eb; box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+      100% { border-color: #3b82f6; box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen pb-12">
 
-  <!-- כפתור לפתיחת סרגל הצד -->
-  <button class="open-btn" onclick="toggleSidebar()">☰ תפריט ניווט - טופי 100</button>
+  <!-- Navigation Sidebar Overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden" onclick="toggleSidebar()"></div>
 
-  <!-- סרגל צדדי -->
-  <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="close-btn" onclick="toggleSidebar()">&times;</a>
-    <h3>🍭 טופי 100</h3>
-    <a href="#lilys-closet" onclick="toggleSidebar()" style="color: #f1c40f; font-weight: bold;">👗 הארון של לילי</a>
-    <a href="#quiz-section" onclick="toggleSidebar()">📝 חידון ה-20 (קבלת 1 ₪)</a>
-    <a href="#workout-section" onclick="toggleSidebar()">🏋️‍♀️ תוכנית אימונים</a>
-    <a href="#menu-section" onclick="toggleSidebar()">🥗 התפריט שלי</a>
-    <a href="#recipes-section" onclick="toggleSidebar()">🍓 מתכונים טעימים ובריאים</a>
-    <a href="#daily-schedule" onclick="toggleSidebar()">📅 לו"ז יומי</a>
-    <a href="#monthly-schedule" onclick="toggleSidebar()">🗓️ לו"ז חודשי</a>
-  </div>
-
-  <h1>Welcome to Toffee 100 🍭</h1>
-
-  <!-- תצוגת יתרת הכסף -->
-  <div class="wallet">
-    💰 יתרה בחשבון: <span id="money-amount">0</span> ₪
-  </div>
-
-  <!-- 1. הארון של לילי -->
-  <div id="lilys-closet" class="card">
-    <h2>👗 הארון הבגדים של לילי</h2>
-    <p>בחרי בגדים ואביזרים והלבישי את לילי ליום החדש!</p>
-    
-    <div class="closet-container">
-      <div class="lily-avatar-box">
-        <h3>לילי 👧</h3>
-        <div id="lily-head" style="font-size: 30px;">🧢</div>
-        <div id="lily-body" class="lily-character">👚</div>
-        <div id="lily-legs" style="font-size: 40px;">👟</div>
-        <p id="outfit-description" style="font-weight: bold; color: #ff6b81; margin-top: 10px;">לוק: יום-יומי קליל</p>
+  <!-- Sidebar Container -->
+  <aside id="sidebar" class="sidebar fixed top-0 right-0 h-full w-80 bg-slate-900 text-white z-50 p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
+    <div>
+      <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-6">
+        <h2 class="text-2xl font-bold text-pink-400">🍭 טופי 100</h2>
+        <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-2xl font-bold p-1">✕</button>
       </div>
 
-      <div class="outfit-controls">
-        <h3>תלבושות:</h3>
-        <button class="outfit-btn" onclick="changeOutfit('casual')">👕 סגנון קז'ואל</button>
-        <button class="outfit-btn" onclick="changeOutfit('sport')">🏃‍♀️ לוק ספורטיבי</button>
-        <button class="outfit-btn" onclick="changeOutfit('fancy')">👗 לוק חגיגי</button>
-        <button class="outfit-btn" onclick="changeOutfit('cozy')">🛋️ פיג'מה מפנקת</button>
+      <nav class="space-y-3 font-medium">
+        <a href="#lilys-closet" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-pink-300 font-semibold transition">
+          <span>👗</span> הארון של לילי
+        </a>
+        <a href="#quiz-section" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-amber-300 transition">
+          <span>📝</span> חידון ה-20 (מרוויחים 1 ₪)
+        </a>
+        <a href="#workout-section" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-emerald-300 transition">
+          <span>🏋️‍♀️</span> תוכנית אימונים + סטופרים
+        </a>
+        <a href="#menu-section" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-cyan-300 transition">
+          <span>🥗</span> התפריט שלי
+        </a>
+        <a href="#recipes-section" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-orange-300 transition">
+          <span>🍓</span> מתכונים טעימים ובריאים
+        </a>
+        <a href="#daily-schedule" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-indigo-300 transition">
+          <span>📅</span> לו"ז יומי
+        </a>
+        <a href="#monthly-schedule" onclick="toggleSidebar()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 text-violet-300 transition">
+          <span>🗓️</span> לו"ז חודשי
+        </a>
+      </nav>
+    </div>
 
-        <h3>אקססוריז וכובעים:</h3>
-        <button class="outfit-btn" onclick="changeHat('cap')">🧢 כובע מצחיה</button>
-        <button class="outfit-btn" onclick="changeHat('glasses')">🕶️ משקפי שמש</button>
-        <button class="outfit-btn" onclick="changeHat('crown')">👑 כתר</button>
-        <button class="outfit-btn" onclick="changeHat('none')">❌ ללא הינומה/כובע</button>
+    <div class="pt-6 border-t border-slate-800 text-xs text-slate-400 text-center">
+      טופי 100 - כל הזכויות שמורות ✨
+    </div>
+  </aside>
+
+  <!-- Top Bar -->
+  <header class="bg-white shadow-sm border-b border-slate-100 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <button onclick="toggleSidebar()" class="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-xl font-medium hover:bg-slate-800 transition">
+        <span>☰</span> תפריט
+      </button>
+
+      <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+        Toffee 100 🍭
+      </h1>
+
+      <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-1.5 rounded-full font-bold text-sm md:text-base flex items-center gap-2">
+        <span>💰 יתרה:</span>
+        <span id="money-amount" class="text-lg">0</span>
+        <span>₪</span>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- 2. חידון ה-20 -->
-  <div id="quiz-section" class="card">
-    <h2>📝 חידון ה-20</h2>
-    <p>עונים נכון ומרוויחים <strong>1 ₪</strong> לחשבון!</p>
+  <main class="max-w-4xl mx-auto px-4 py-6 space-y-8">
 
-    <div id="quiz-container">
-      <h3 id="question-text">טוען שאלה...</h3>
-      <div id="options-container"></div>
-      <div id="feedback" class="feedback"></div>
-      <button id="next-btn" class="btn-next" style="display:none;" onclick="loadRandomQuestion()">לשאלה הבאה 👈</button>
-    </div>
-  </div>
+    <!-- 1. Lily's Closet Section -->
+    <section id="lilys-closet" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <span>👗</span> הארון של לילי
+        </h2>
+        <span class="text-xs bg-pink-100 text-pink-700 font-semibold px-3 py-1 rounded-full">מעוצב ומעודכן</span>
+      </div>
+      <p class="text-slate-600 mb-6">הלבישי את לילי, בחרי תלבושות, אקססוריז ועיצובים מדליקים!</p>
 
-  <!-- 3. תוכנית אימונים -->
-  <div id="workout-section" class="card">
-    <h2>🏋️‍♀️ תוכנית אימונים מומלצת (קליסטניקס וכושר)</h2>
-    <ul>
-      <li><strong>אימון בוקר:</strong> מתיחות דינמיות + 15 סקואטים + 10 עליות אגן.</li>
-      <li><strong>אימון משקל גוף (קליסטניקס):</strong>
-        <ul>
-          <li>3 סטים של 8-10 שכיבות סמיכה (אפשר על הברכיים).</li>
-          <li>פלאנק 30 שניות.</li>
-          <li>תרגול מתח או שילוב תרגילי גב.</li>
-        </ul>
-      </li>
-      <li><strong>שחרור:</strong> מתיחות קלות לשרירים.</li>
-    </ul>
-    <div class="lily-comment">💬 <strong>לילי מעירה:</strong> "אל תשכחי לשתות מים בסוף האימון, זה הכי חשוב!"</div>
-  </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 p-6 rounded-2xl border border-pink-100">
+        
+        <!-- SVG Character Avatar -->
+        <div class="flex flex-col items-center justify-center bg-white p-6 rounded-2xl shadow-sm border border-pink-100">
+          <div class="relative w-48 h-64 flex items-center justify-center">
+            
+            <svg id="lily-svg" viewBox="0 0 200 300" class="w-full h-full">
+              <!-- Shadow -->
+              <ellipse cx="100" cy="285" rx="45" ry="8" fill="#e2e8f0" />
+              
+              <!-- Legs / Shoes -->
+              <path id="avatar-legs" d="M85 200 L85 270 M115 200 L115 270" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+              <ellipse id="shoe-left" cx="80" cy="275" rx="12" ry="6" fill="#3b82f6" />
+              <ellipse id="shoe-right" cx="120" cy="275" rx="12" ry="6" fill="#3b82f6" />
 
-  <!-- 4. תפריט יומי אישי -->
-  <div id="menu-section" class="card">
-    <h2>🥗 התפריט שלי (ניתן לעריכה)</h2>
-    <p>רשמי כאן את התפריט שאת רוצה להיום:</p>
-    <textarea id="user-menu-input" placeholder="לדוגמה: ארוחת בוקר - חביתה וירקות, ארוחת צהריים - אורז וחזה עוף..."></textarea>
-    <button class="btn-save" onclick="saveMenu()">שמרי תפריט</button>
-    <div id="saved-menu-display" style="margin-top: 10px; font-weight: bold;"></div>
-    
-    <div id="lily-menu-comment" class="lily-comment" style="display:none;">
-      💬 <strong>לילי מעירה:</strong> <span id="lily-menu-text"></span>
-    </div>
-  </div>
+              <!-- Body / Clothes -->
+              <path id="avatar-body" d="M70 110 Q100 100 130 110 L125 200 Q100 205 75 200 Z" class="avatar-shirt-casual transition-all duration-300"/>
+              
+              <!-- Arms -->
+              <path d="M70 115 Q50 140 55 170" stroke="#fbcfe8" stroke-width="10" stroke-linecap="round" fill="none"/>
+              <path d="M130 115 Q150 140 145 170" stroke="#fbcfe8" stroke-width="10" stroke-linecap="round" fill="none"/>
 
-  <!-- 5. קישורים לאוכל טעים ובריא -->
-  <div id="recipes-section" class="card">
-    <h2>🍓 קישורים למתכונים טעימים ובריאים</h2>
-    <ul>
-      <li>🍉 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לברד+אבטיח+ביתי" target="_blank">ברד אבטיח מרענן ומהיר</a></li>
-      <li>🍞 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לפרנץ'+טוסט+קל" target="_blank">פרנץ' טוסט מהיר וטעים</a></li>
-      <li>🍪 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לעוגיות+שוקולד+צ'יפס+10+דקות" target="_blank">עוגיות שוקולד צ'יפס ב-10 דקות</a></li>
-      <li>🥗 <a class="recipe-link" href="https://www.google.com/search?q=מתכונים+לארוחות+ערב+בריאות+וקלות" target="_blank">רעיונות לארוחות ערב בריאות וקלות</a></li>
-    </ul>
-  </div>
+              <!-- Head & Neck -->
+              <rect x="94" y="90" width="12" height="20" fill="#fbcfe8" rx="4" />
+              <circle cx="100" cy="65" r="32" fill="#fbcfe8" />
 
-  <!-- 6. לו"ז יומי -->
-  <div id="daily-schedule" class="card">
-    <h2>📅 לו"ז יומי (כתיבה אישית)</h2>
-    <textarea id="user-schedule-input" placeholder="רשמי כאן את סדר היום שלך..."></textarea>
-    <button class="btn-save" onclick="saveSchedule()">שמרי לו"ז יומי</button>
-    <div id="saved-schedule-display" style="margin-top: 10px; font-weight: bold;"></div>
+              <!-- Hair -->
+              <path id="avatar-hair" d="M68 65 C65 25, 135 25, 132 65 C132 45, 68 45, 68 65 Z M65 65 Q60 110 70 130 M135 65 Q140 110 130 130" class="avatar-hair-casual transition-all duration-300" fill="#f59e0b"/>
 
-    <div id="lily-schedule-comment" class="lily-comment" style="display:none;">
-      💬 <strong>לילי מעירה:</strong> <span id="lily-schedule-text"></span>
-    </div>
-  </div>
+              <!-- Face Features -->
+              <!-- Eyes -->
+              <circle cx="88" cy="62" r="3" fill="#1e293b" />
+              <circle cx="112" cy="62" r="3" fill="#1e293b" />
+              <!-- Cheeks -->
+              <circle cx="82" cy="70" r="4" fill="#f43f5e" opacity="0.4" />
+              <circle cx="118" cy="70" r="4" fill="#f43f5e" opacity="0.4" />
+              <!-- Smile -->
+              <path d="M92 74 Q100 82 108 74" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round" fill="none" />
 
-  <!-- 7. לו"ז חודשי -->
-  <div id="monthly-schedule" class="card">
-    <h2>🗓️ לו"ז חודשי</h2>
-    <table>
-      <tr>
-        <th>שבוע</th>
-        <th>משימות ואירועים מרכזיים</th>
-      </tr>
-      <tr>
-        <td>שבוע 1</td>
-        <td>פתיחת חודש, ארגון ציוד ולימודים.</td>
-      </tr>
-      <tr>
-        <td>שבוע 2</td>
-        <td>מפגש חברות + תרגול הקלדה עיוורת ואנגלית.</td>
-      </tr>
-      <tr>
-        <td>שבוע 3</td>
-        <td>פעילות הדרכה לחניכות + אימון כושר מוגבר.</td>
-      </tr>
-      <tr>
-        <td>שבוע 4</td>
-        <td>סיכום חודשי, יציאה לקניון וזמן חופשי.</td>
-      </tr>
-    </table>
-  </div>
+              <!-- Accessory / Hat Container -->
+              <g id="accessory-group"></g>
+            </svg>
+          </div>
+          <span id="outfit-label" class="mt-3 font-bold text-slate-700 bg-slate-100 px-4 py-1 rounded-full text-sm">
+            לוק קז'ואל יומיומי
+          </span>
+        </div>
+
+        <!-- Wardrobe Controls -->
+        <div class="space-y-5">
+          <div>
+            <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+              <span>👚</span> סגנון לבוש:
+            </h3>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setOutfit('casual', 'לוק קז\'ואל יומיומי', '#3b82f6', '#f59e0b')" class="bg-white hover:bg-pink-100 text-slate-700 p-2.5 rounded-xl border border-pink-200 font-medium text-sm text-right transition">
+                👕 קז'ואל
+              </button>
+              <button onclick="setOutfit('sport', 'לוק ספורטיבי כושר', '#ef4444', '#10b981')" class="bg-white hover:bg-pink-100 text-slate-700 p-2.5 rounded-xl border border-pink-200 font-medium text-sm text-right transition">
+                🏃‍♀️ ספורט
+              </button>
+              <button onclick="setOutfit('fancy', 'לוק חגיגי ומודרני', '#ec4899', '#8b5cf6')" class="bg-white hover:bg-pink-100 text-slate-700 p-2.5 rounded-xl border border-pink-200 font-medium text-sm text-right transition">
+                👗 חגיגי
+              </button>
+              <button onclick="setOutfit('cozy', 'פיג\'מה ביתית מפנקת', '#8b5cf6', '#ec4899')" class="bg-white hover:bg-pink-100 text-slate-700 p-2.5 rounded-xl border border-pink-200 font-medium text-sm text-right transition">
+                🛋️ ביתי / פיג'מה
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+              <span>🧢</span> אקססוריז לראשה של לילי:
+            </h3>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setAccessory('glasses')" class="bg-white hover:bg-purple-100 text-slate-700 p-2.5 rounded-xl border border-purple-200 font-medium text-sm text-right transition">
+                🕶️ משקפי שמש
+              </button>
+              <button onclick="setAccessory('cap')" class="bg-white hover:bg-purple-100 text-slate-700 p-2.5 rounded-xl border border-purple-200 font-medium text-sm text-right transition">
+                🧢 כובע מצחיה
+              </button>
+              <button onclick="setAccessory('crown')" class="bg-white hover:bg-purple-100 text-slate-700 p-2.5 rounded-xl border border-purple-200 font-medium text-sm text-right transition">
+                👑 כתר מלכותי
+              </button>
+              <button onclick="setAccessory('none')" class="bg-white hover:bg-purple-100 text-slate-700 p-2.5 rounded-xl border border-purple-200 font-medium text-sm text-right transition">
+                ❌ ללא
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. Quiz Section -->
+    <section id="quiz-section" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <span>📝</span> חידון ה-20 הציני והכיפי
+        </h2>
+        <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full">+1 ₪ לכל תשובה!</span>
+      </div>
+      <p class="text-slate-600 mb-6">עונים נכון ומרוויחים מטבעות למאזן האישי שלכם!</p>
+
+      <div class="bg-amber-50/60 p-6 rounded-2xl border border-amber-100 space-y-4">
+        <h3 id="quiz-question" class="text-lg font-bold text-slate-800">טוען שאלה...</h3>
+        
+        <div id="quiz-options" class="grid gap-3">
+          <!-- Options dynamically rendered -->
+        </div>
+
+        <div id="quiz-feedback" class="p-4 rounded-xl hidden font-semibold text-sm"></div>
+
+        <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden bg-slate-900 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-slate-800 transition">
+          לשאלה הבאה 👈
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. Workouts Section -->
+    <section id="workout-section" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <span>🏋️‍♀️</span> תוכנית אימונים + סטופרים מובנים
+        </h2>
+        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-3 py-1 rounded-full">קליסטניקס וכושר</span>
+      </div>
+      <p class="text-slate-600 mb-6">הסברים מפורטים, סטופר אישי לכל תרגיל, וקישור ישיר להדרכות וידאו ביוטיוב!</p>
+
+      <div class="space-y-6">
+
+        <!-- Workout Item 1: Plank -->
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2 flex-1">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <span>🧘‍♀️</span> תרגיל פלאנק (שרירי ליבה)
+            </h3>
+            <p class="text-sm text-slate-600">
+              הישענו על האמות וקצות האצבעות, שמרו על גב ישר ובטן מוחזקת היטב. תרגיל מעולה לחיזוק הליבה.
+            </p>
+            <a href="https://www.youtube.com/results?search_query=how+to+do+a+perfect+plank" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700">
+              <span>▶️ צפי בסרטון הדרכה ביוטיוב</span>
+            </a>
+          </div>
+
+          <!-- Timer Widget -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200 text-center min-w-[200px] space-y-2 shadow-sm">
+            <div id="timer-display-1" class="text-2xl font-mono font-bold text-slate-800">00:45</div>
+            <div class="flex justify-center gap-2">
+              <button onclick="startTimer(1, 45)" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-emerald-700 transition">התחל 45ש'</button>
+              <button onclick="resetTimer(1, 45)" class="bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-bold hover:bg-slate-300 transition">איפוס</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workout Item 2: Squats -->
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2 flex-1">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <span>🦵</span> סקואטים (כפיפות ברכיים)
+            </h3>
+            <p class="text-sm text-slate-600">
+              עמדו ברוחב הכתפיים, רדו לאחור כאילו אתם יושבים על כיסא, תוך שמירה על חזה מורם וברכיים יציבות.
+            </p>
+            <a href="https://www.youtube.com/results?search_query=squat+exercise+tutorial" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700">
+              <span>▶️ צפי בסרטון הדרכה ביוטיוב</span>
+            </a>
+          </div>
+
+          <!-- Timer Widget -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200 text-center min-w-[200px] space-y-2 shadow-sm">
+            <div id="timer-display-2" class="text-2xl font-mono font-bold text-slate-800">01:00</div>
+            <div class="flex justify-center gap-2">
+              <button onclick="startTimer(2, 60)" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-emerald-700 transition">התחל דקה</button>
+              <button onclick="resetTimer(2, 60)" class="bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-bold hover:bg-slate-300 transition">איפוס</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workout Item 3: Pushups -->
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2 flex-1">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <span>💪</span> שכיבות סמיכה (Pushups)
+            </h3>
+            <p class="text-sm text-slate-600">
+              עבודה על חזה, כתפיים וזרועות. ניתן לבצע על הברכיים להתחלה קלה יותר או על קצות האצבעות.
+            </p>
+            <a href="https://www.youtube.com/results?search_query=pushups+for+beginners" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700">
+              <span>▶️ צפי בסרטון הדרכה ביוטיוב</span>
+            </a>
+          </div>
+
+          <!-- Timer Widget -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200 text-center min-w-[200px] space-y-2 shadow-sm">
+            <div id="timer-display-3" class="text-2xl font-mono font-bold text-slate-800">00:30</div>
+            <div class="flex justify-center gap-2">
+              <button onclick="startTimer(3, 30)" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-emerald-700 transition">התחל 30ש'</button>
+              <button onclick="resetTimer(3, 30)" class="bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-bold hover:bg-slate-300 transition">איפוס</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Lily's Fitness Note -->
+      <div class="mt-6 p-4 bg-pink-50 border-r-4 border-pink-500 rounded-xl flex items-start gap-3">
+        <span class="text-2xl">👧</span>
+        <div class="text-sm">
+          <span class="font-bold text-pink-700 block">הערה מלילי:</span>
+          <p class="text-slate-700">"אימון מעולה! אל תשכחי לשתות מים בסוף כל סט ולעשות מתיחות קלות לשחרור."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Menu Section -->
+    <section id="menu-section" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <h2 class="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+        <span>🥗</span> התפריט שלי
+      </h2>
+      <p class="text-slate-600 mb-4">כתבי את התפריט היומי שלך וקבלי פידבק מיידי מלילי!</p>
+
+      <textarea id="menu-input" rows="3" placeholder="כתיבת התפריט שלך כאן (לדוגמה: ארוחת בוקר - חביתת ירק וסלט, ארוחת צהריים - אורז וחזה עוף...)" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none text-sm mb-3"></textarea>
+      
+      <button onclick="saveUserMenu()" class="bg-slate-900 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">
+        שמרי תפריט ✨
+      </button>
+
+      <div id="saved-menu-result" class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200 hidden">
+        <div class="font-bold text-slate-800 text-sm mb-1">התפריט שנשמר:</div>
+        <div id="saved-menu-text" class="text-slate-700 text-sm mb-3"></div>
+        <div id="lily-menu-reaction" class="p-3 bg-pink-50 border-r-4 border-pink-400 rounded-lg text-xs text-pink-800 font-medium"></div>
+      </div>
+    </section>
+
+    <!-- 5. Recipes Links -->
+    <section id="recipes-section" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <span>🍓</span> מתכונים טעימים ובריאים
+      </h2>
+      
+      <div class="grid sm:grid-cols-2 gap-4">
+        <a href="https://www.google.com/search?q=מתכון+לברד+אבטיח+בריא" target="_blank" class="p-4 bg-red-50 hover:bg-red-100/80 rounded-xl border border-red-100 flex items-center justify-between group transition">
+          <span class="font-bold text-red-900 text-sm">🍉 ברד אבטיח מרענן</span>
+          <span class="text-xs bg-white text-red-600 font-bold px-2.5 py-1 rounded-full group-hover:bg-red-600 group-hover:text-white transition">פתח מתכון</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=מתכון+לפרנץ+טוסט+קל+ובריא" target="_blank" class="p-4 bg-amber-50 hover:bg-amber-100/80 rounded-xl border border-amber-100 flex items-center justify-between group transition">
+          <span class="font-bold text-amber-900 text-sm">🍞 פרנץ' טוסט מהיר</span>
+          <span class="text-xs bg-white text-amber-600 font-bold px-2.5 py-1 rounded-full group-hover:bg-amber-600 group-hover:text-white transition">פתח מתכון</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=עוגיות+שוקולד+ציפס+בריאות+10+דקות" target="_blank" class="p-4 bg-orange-50 hover:bg-orange-100/80 rounded-xl border border-orange-100 flex items-center justify-between group transition">
+          <span class="font-bold text-orange-900 text-sm">🍪 עוגיות שוקולד צ'יפס</span>
+          <span class="text-xs bg-white text-orange-600 font-bold px-2.5 py-1 rounded-full group-hover:bg-orange-600 group-hover:text-white transition">פתח מתכון</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=רעיונות+לארוחת+ערב+בריאה+וקלה" target="_blank" class="p-4 bg-emerald-50 hover:bg-emerald-100/80 rounded-xl border border-emerald-100 flex items-center justify-between group transition">
+          <span class="font-bold text-emerald-900 text-sm">🥗 רעיונות לארוחות ערב</span>
+          <span class="text-xs bg-white text-emerald-600 font-bold px-2.5 py-1 rounded-full group-hover:bg-emerald-600 group-hover:text-white transition">פתח מתכון</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. Daily Schedule -->
+    <section id="daily-schedule" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <h2 class="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+        <span>📅</span> לו"ז יומי אישי
+      </h2>
+      <p class="text-slate-600 mb-4">תכנני את הלו"ז שלך להיום:</p>
+
+      <textarea id="schedule-input" rows="3" placeholder="כתיבת הלוז היומי שלך כאן (לדוגמה: 08:00 קימה, 10:00 אימון, 16:00 מפגש חברות...)" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-sm mb-3"></textarea>
+      
+      <button onclick="saveUserSchedule()" class="bg-slate-900 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">
+        שמרי לו"ז 📌
+      </button>
+
+      <div id="saved-schedule-result" class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200 hidden">
+        <div class="font-bold text-slate-800 text-sm mb-1">הלו"ז שנשמר:</div>
+        <div id="saved-schedule-text" class="text-slate-700 text-sm mb-3"></div>
+        <div id="lily-schedule-reaction" class="p-3 bg-indigo-50 border-r-4 border-indigo-400 rounded-lg text-xs text-indigo-800 font-medium"></div>
+      </div>
+    </section>
+
+    <!-- 7. Monthly Schedule Table -->
+    <section id="monthly-schedule" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 overflow-x-auto">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <span>🗓️</span> לו"ז חודשי
+      </h2>
+
+      <table class="w-full text-right border-collapse min-w-[500px]">
+        <thead>
+          <tr class="bg-slate-100 text-slate-700 text-sm">
+            <th class="p-3 rounded-r-xl border-b border-slate-200">שבוע</th>
+            <th class="p-3 border-b border-slate-200">אירועים ומשימות מרכזיות</th>
+            <th class="p-3 rounded-l-xl border-b border-slate-200">יעד חודשי</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-slate-100">
+          <tr>
+            <td class="p-3 font-bold text-slate-800">שבוע 1</td>
+            <td class="p-3 text-slate-600">פתיחת חודש, סידור הלוז והכנת ציוד אימונים</td>
+            <td class="p-3 text-emerald-600 font-medium">התמדה ב-3 אימונים</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-800">שבוע 2</td>
+            <td class="p-3 text-slate-600">מפגש חברות, למידה ותרגול אנגלית</td>
+            <td class="p-3 text-emerald-600 font-medium">למידת 20 מילים חדשות</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-800">שבוע 3</td>
+            <td class="p-3 text-slate-600">עשיית יום כיף, קניות ואפיית מתכונים חדשים</td>
+            <td class="p-3 text-emerald-600 font-medium">ניסיון מתכון חדש</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-800">שבוע 4</td>
+            <td class="p-3 text-slate-600">סיכום חודשי, מנוחה והערכת יעדים לבאות</td>
+            <td class="p-3 text-emerald-600 font-medium">סיכום התקדמות</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
 
   <script>
-    // ניהול כסף
-    let currentBalance = 0;
+    // Global State
+    let balance = 0;
+    let currentQuizIndex = 0;
+    let timerIntervals = {};
 
-    function updateBalance(amount) {
-      currentBalance += amount;
-      document.getElementById('money-amount').innerText = currentBalance;
-    }
-
-    // פתיחה וסגירה של סרגל הצד
-    function toggleSidebar() {
-      const sidebar = document.getElementById("mySidebar");
-      if (sidebar.style.width === "250px") {
-        sidebar.style.width = "0";
-      } else {
-        sidebar.style.width = "250px";
-      }
-    }
-
-    // הלבשת הדמות של לילי
-    function changeOutfit(style) {
-      const body = document.getElementById('lily-body');
-      const legs = document.getElementById('lily-legs');
-      const desc = document.getElementById('outfit-description');
-
-      if (style === 'casual') {
-        body.innerText = '👕';
-        legs.innerText = '👖';
-        desc.innerText = 'לוק: יום-יומי קליל';
-      } else if (style === 'sport') {
-        body.innerText = '🎽';
-        legs.innerText = '👟';
-        desc.innerText = 'לוק: מוכנה לאימון כושר!';
-      } else if (style === 'fancy') {
-        body.innerText = '👗';
-        legs.innerText = '👠';
-        desc.innerText = 'לוק: שמלה חגיגית';
-      } else if (style === 'cozy') {
-        body.innerText = '🧥';
-        legs.innerText = '🧦';
-        desc.innerText = 'לוק: פיג\'מה חמה וכיפית';
-      }
-    }
-
-    function changeHat(hat) {
-      const head = document.getElementById('lily-head');
-      if (hat === 'cap') head.innerText = '🧢';
-      else if (hat === 'glasses') head.innerText = '🕶️';
-      else if (hat === 'crown') head.innerText = '👑';
-      else if (hat === 'none') head.innerText = '';
-    }
-
-    // שמירת תפריט והערה של לילי
-    function saveMenu() {
-      const text = document.getElementById('user-menu-input').value;
-      if (text.trim() === "") return;
-      
-      document.getElementById('saved-menu-display').innerText = "התפריט שלך נשמר: " + text;
-      
-      const lilyComments = [
-        "נראה טעים במיוחד! אל תשכחי להוסיף לזה איזה פרי טעים בצד 🍓",
-        "תפריט מעולה! ממש מאוזן ונותן כוח לכל היום 💪",
-        "יאמי! אם בא לך רענון, ברד אבטיח יילך עם זה מושלם!"
-      ];
-      const randomComment = lilyComments[Math.floor(Math.random() * lilyComments.length)];
-      
-      document.getElementById('lily-menu-text').innerText = randomComment;
-      document.getElementById('lily-menu-comment').style.display = 'block';
-    }
-
-    // שמירת לו"ז והערה של לילי
-    function saveSchedule() {
-      const text = document.getElementById('user-schedule-input').value;
-      if (text.trim() === "") return;
-
-      document.getElementById('saved-schedule-display').innerText = "הלו\"ז נשמר: " + text;
-
-      const lilyComments = [
-        "לו\"ז מסודר ומטורף! אל תשכחי לשים בו גם כמה דקות הפסקה ☕",
-        "גאה בך על הארגון! יום עמוס אבל קטן עלייך 😉",
-        "מעולה! אל תשכחי לשלב בלו\"ז גם את האימון היומי!"
-      ];
-      const randomComment = lilyComments[Math.floor(Math.random() * lilyComments.length)];
-
-      document.getElementById('lily-schedule-text').innerText = randomComment;
-      document.getElementById('lily-schedule-comment').style.display = 'block';
-    }
-
-    // מאגר שאלות ציניות לחידון 20
-    const quizQuestions = [
+    // Quiz Questions Data
+    const quizData = [
       {
-        q: "מה הדבר הכי מועיל לעשות כשמתעוררים בבוקר?",
+        q: "מה הדבר הראשון שאנשים עושים כשהשעון המעורר מצלצל בבוקר?",
         options: [
-          "לקום ישר ולחייך לשמש",
-          "לבהות בתקרה 20 דקות ולשאול את עצמך למה קמת",
-          "לצאת לריצת מרתון של 10 קילומטר",
-          "לשתות שייק ירוק מעשב חיים"
+          "קמים מיד בשמחה ושואפים אוויר צח",
+          "לוחצים על סנוז 5 פעמים ותוהים למה הם נולדו",
+          "יוצאים לריצת מרתון של 10 קילומטר",
+          "שרים אופרה בחלון"
         ],
         correct: 1,
-        funnyNote: "בדיוק. אף אחד לא באמת קם ומחייך ב-7 בבוקר."
+        note: "מדויק. מי בכלל קם מיד ומחייך ב-7 בבוקר?"
       },
       {
-        q: "מה המקור האמיתי לזה שגרב אחת תמיד נעלמת בכביסה?",
+        q: "לאן באמת נעלמות הגרביים שנאבדות בכביסה?",
         options: [
-          "היא פשוט התאיידה מרוב חום",
-          "יש שם שער חלל סודי לגרביים בודדות",
-          "היא הלכה למצוא את העתיד שלה במקום אחר",
-          "הכביסה אכלה אותה"
+          "הן מתאדות בגלל המים החמים",
+          "יש חור תולעת סודי במכונה שמוביל לממד הגרביים",
+          "הן פשוט הלכו למצוא עתיד טוב יותר",
+          "מכונת הכביסה אוכלת אותן כשאתה לא מסתכל"
         ],
         correct: 1,
-        funnyNote: "ברור, כולנו יודעים שיש ממד מקביל רק לגרביים."
+        note: "ברור! כולנו יודעים שיש ממד מקביל שכולו גרביים יחידות."
       },
       {
-        q: "כמה זמן מראש צריך לצאת מהבית כשכותבים לחבר 'אני עוד 5 דקות שם'?",
+        q: "מה המשמעות האמיתית של ההודעה 'אני עוד 5 דקות שם'?",
         options: [
-          "5 דקות מראש",
-          "10 דקות מראש",
-          "אתה עדיין בפיג'מה ולא התחלת להתארגן בכלל",
-          "כבר הגעת"
-        ],
-        correct: 2,
-        funnyNote: "קלאסי! 'אני בדרך' = הברשת שיניים בלחץ."
-      },
-      {
-        q: "מה הקסם של סוללה שמגיעה ל-1% בטלפון?",
-        options: [
-          "היא תחזיק מעמד עוד 4 שעות אם לא תגע בה",
-          "היא תכבה בדיוק כשאתה באמצע לכתוב את ההודעה הכי חשובה",
-          "היא תטען את עצמה מחדש",
-          "היא תתחיל לשיר"
+          "אני אכן אגיע עוד 5 דקות exact",
+          "עכשיו רק קמתי מהמיטה ואני בפיג'מה",
+          "אני כבר מחכה לך למטה",
+          "אני נמצא במרחק של 100 מטר"
         ],
         correct: 1,
-        funnyNote: "מדויק! ה-1% הזה יודע בדיוק מתי לבגוד בנו."
+        note: "קלאסי. 'אני בדרך' = עדיין מצחצח שיניים בלחץ."
+      },
+      {
+        q: "מה הכוח המיוחד של סוללה שנשארת על 1%?",
+        options: [
+          "להחזיק מעמד 5 שעות שלמות",
+          "להתכבות בדיוק בשניה שאת באה ללחוץ על 'שלח' בהודעה דחופה",
+          "להטעין את עצמה מחדש באור השמש",
+          "להתחיל לשמוח"
+        ],
+        correct: 1,
+        note: "בול! ה-1% הזה תמיד בוגד ברגע הכי מותח."
       }
     ];
 
-    let currentQuestion = null;
+    // Sidebar Handler
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('hidden');
+    }
 
-    function loadRandomQuestion() {
-      document.getElementById('feedback').innerText = '';
-      document.getElementById('next-btn').style.display = 'none';
+    // Avatar Customization Function
+    function setOutfit(style, label, shirtColor, pantsColor) {
+      const body = document.getElementById('avatar-body');
+      const labelEl = document.getElementById('outfit-label');
 
-      const randomIndex = Math.floor(Math.random() * quizQuestions.length);
-      currentQuestion = quizQuestions[randomIndex];
+      body.style.fill = shirtColor;
+      labelEl.innerText = label;
+    }
 
-      document.getElementById('question-text').innerText = currentQuestion.q;
+    function setAccessory(acc) {
+      const group = document.getElementById('accessory-group');
+      group.innerHTML = ''; // Clear previous
 
-      const optionsContainer = document.getElementById('options-container');
+      if (acc === 'glasses') {
+        group.innerHTML = `
+          <rect x="75" y="56" width="22" height="12" rx="3" fill="#1e293b"/>
+          <rect x="103" y="56" width="22" height="12" rx="3" fill="#1e293b"/>
+          <line x1="97" y1="62" x2="103" y2="62" stroke="#1e293b" stroke-width="2"/>
+        `;
+      } else if (acc === 'cap') {
+        group.innerHTML = `
+          <path d="M65 52 Q100 25 135 52 Z" fill="#ef4444"/>
+          <path d="M60 52 L120 52" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+        `;
+      } else if (acc === 'crown') {
+        group.innerHTML = `
+          <polygon points="75,45 85,25 95,40 100,20 105,40 115,25 125,45" fill="#f59e0b"/>
+        `;
+      }
+    }
+
+    // Quiz Functions
+    function renderQuestion() {
+      const q = quizData[currentQuizIndex];
+      document.getElementById('quiz-question').innerText = q.q;
+
+      const optionsContainer = document.getElementById('quiz-options');
       optionsContainer.innerHTML = '';
 
-      currentQuestion.options.forEach((opt, index) => {
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.add('hidden');
+      document.getElementById('quiz-next-btn').classList.add('hidden');
+
+      q.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-option';
-        btn.innerText = opt;
-        btn.onclick = () => checkAnswer(index);
+        btn.className = "w-full text-right p-3.5 bg-white hover:bg-amber-100/70 border border-amber-200 rounded-xl text-slate-700 font-medium text-sm transition flex items-center justify-between";
+        btn.innerHTML = `<span>${opt}</span> <span class="text-xs text-amber-600 font-bold">בחרי 👈</span>`;
+        btn.onclick = () => checkQuizAnswer(idx);
         optionsContainer.appendChild(btn);
       });
     }
 
-    function checkAnswer(selectedIndex) {
-      const feedback = document.getElementById('feedback');
-      const allButtons = document.querySelectorAll('.quiz-option');
-      allButtons.forEach(b => b.disabled = true);
+    function checkQuizAnswer(selectedIdx) {
+      const q = quizData[currentQuizIndex];
+      const feedback = document.getElementById('quiz-feedback');
+      const optionBtns = document.querySelectorAll('#quiz-options button');
 
-      if (selectedIndex === currentQuestion.correct) {
-        feedback.innerText = "🎉 בול! " + currentQuestion.funnyNote + " (+1 ₪)";
-        feedback.style.color = "#27ae60";
-        updateBalance(1);
+      optionBtns.forEach(btn => btn.disabled = true);
+
+      if (selectedIdx === q.correct) {
+        balance += 1;
+        document.getElementById('money-amount').innerText = balance;
+        feedback.className = "p-4 rounded-xl font-semibold text-sm bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+        feedback.innerText = `🎉 בול! ${q.note} (הרווחת 1 ₪!)`;
       } else {
-        feedback.innerText = "😅 כמעט... " + currentQuestion.funnyNote;
-        feedback.style.color = "#e67e22";
+        feedback.className = "p-4 rounded-xl font-semibold text-sm bg-amber-100 text-amber-800 border border-amber-200 block";
+        feedback.innerText = `😅 כמעט... ${q.note}`;
       }
 
-      document.getElementById('next-btn').style.display = 'inline-block';
+      document.getElementById('quiz-next-btn').classList.remove('hidden');
     }
 
-    window.onload = loadRandomQuestion;
-  </script>
+    function nextQuestion() {
+      currentQuizIndex = (currentQuizIndex + 1) % quizData.length;
+      renderQuestion();
+    }
 
+    // Stopwatch Functions
+    function startTimer(id, seconds) {
+      clearInterval(timerIntervals[id]);
+      let remaining = seconds;
+      
+      const display = document.getElementById(`timer-display-${id}`);
+      
+      timerIntervals[id] = setInterval(() => {
+        remaining--;
+        const mins = String(Math.floor(remaining / 60)).padStart(2, '0');
+        const secs = String(remaining % 60).padStart(2, '0');
+        display.innerText = `${mins}:${secs}`;
+
+        if (remaining <= 0) {
+          clearInterval(timerIntervals[id]);
+          display.innerText = "כל הכבוד! 🎉";
+        }
+      }, 1000);
+    }
+
+    function resetTimer(id, defaultSeconds) {
+      clearInterval(timerIntervals[id]);
+      const mins = String(Math.floor(defaultSeconds / 60)).padStart(2, '0');
+      const secs = String(defaultSeconds % 60).padStart(2, '0');
+      document.getElementById(`timer-display-${id}`).innerText = `${mins}:${secs}`;
+    }
+
+    // Save Functions for Menu and Schedule
+    function saveUserMenu() {
+      const input = document.getElementById('menu-input').value;
+      if (!input.trim()) return;
+
+      document.getElementById('saved-menu-text').innerText = input;
+      document.getElementById('saved-menu-result').classList.remove('hidden');
+
+      const reactions = [
+        "תפריט מדהים ומאוזן! אל תשכחי להוסיף לזה כוס מים צוננת 🍓",
+        "נראה טעים במיוחד! נותן המון אנרגיה ליום עמוס 💪",
+        "תפריט מעולה! שילוב מושלם של בריאות וטעם ✨"
+      ];
+      document.getElementById('lily-menu-reaction').innerText = "👧 לילי אומרת: " + reactions[Math.floor(Math.random() * reactions.length)];
+    }
+
+    function saveUserSchedule() {
+      const input = document.getElementById('schedule-input').value;
+      if (!input.trim()) return;
+
+      document.getElementById('saved-schedule-text').innerText = input;
+      document.getElementById('saved-schedule-result').classList.remove('hidden');
+
+      const reactions = [
+        "לו\"ז מסודר ומאורגן! אל תשכחי לשלב בו גם 10 דקות של מנוחה ☕",
+        "יופי של ארגון! קטן עלייך להספיק את הכל היום 🌟",
+        "מעולה! לו\"ז מנצח ליום מוצלח 📌"
+      ];
+      document.getElementById('lily-schedule-reaction').innerText = "👧 לילי אומרת: " + reactions[Math.floor(Math.random() * reactions.length)];
+    }
+
+    // Initialize Page
+    window.onload = function() {
+      renderQuestion();
+    };
+  </script>
 </body>
 </html>
