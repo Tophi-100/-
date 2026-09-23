@@ -25,50 +25,7 @@
       padding-top: 70px;
     }
 
-    /* מודאל חוסם למצב רוח בכניסה */
-    #mood-modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(5px);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .mood-modal {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      border: 3px solid var(--accent);
-    }
-
-    .mood-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      background: #f1f2f6;
-      border: 2px solid var(--primary-light);
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      transition: all 0.2s;
-    }
-
-    .mood-btn:hover {
-      background: var(--primary-light);
-      color: white;
-    }
-
-    /* סרגל ניווט עליון קבוע */
+    /* סרגל עליון */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -102,7 +59,6 @@
       white-space: nowrap;
       padding: 6px 12px;
       border-radius: 20px;
-      transition: background 0.2s;
     }
 
     nav a:hover {
@@ -113,20 +69,6 @@
       max-width: 950px;
       margin: 20px auto;
       padding: 0 15px;
-    }
-
-    .wallet {
-      background: linear-gradient(135deg, #00b894, #00cec9);
-      color: white;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-size: 22px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 10px rgba(0,184,148,0.2);
     }
 
     .card {
@@ -142,573 +84,277 @@
       margin-top: 0;
     }
 
-    /* תצוגת דמות וחנות */
-    .closet-layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 750px) {
-      .closet-layout { grid-template-columns: 1fr; }
-    }
-
-    .avatar-card {
-      background: linear-gradient(180deg, #ffeaa7 0%, #fab1a0 100%);
-      border-radius: 16px;
-      padding: 20px;
+    /* דמות של לילי */
+    .lily-box {
       text-align: center;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      background: #ffeaa7;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
     }
 
     .lily-svg {
-      width: 200px;
-      height: 350px;
-      margin: 0 auto;
+      width: 180px;
+      height: 320px;
     }
 
-    .store-grid {
+    /* טבלת לו"ז חודשי אינטראקטיבית */
+    .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
-      max-height: 450px;
-      overflow-y: auto;
-      padding-left: 5px;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 15px;
     }
 
-    .item-card {
-      border: 1px solid #dfe4ea;
-      border-radius: 10px;
-      padding: 10px;
+    .calendar-day-header {
+      background: var(--primary);
+      color: white;
       text-align: center;
-      background: white;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .item-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .item-card .icon { font-size: 32px; display: block; margin-bottom: 5px; }
-    .item-card .price { font-weight: bold; color: #e17055; margin: 5px 0; }
-
-    .btn-buy, .btn-wear {
-      width: 100%;
-      border: none;
-      padding: 6px;
-      border-radius: 6px;
-      cursor: pointer;
+      padding: 8px;
       font-weight: bold;
+      border-radius: 6px;
     }
 
-    .btn-buy { background: #00b894; color: white; }
-    .btn-wear { background: var(--primary); color: white; }
-
-    /* טבלאות */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    th, td {
+    .calendar-day {
+      background: #f1f2f6;
       border: 1px solid #dfe4ea;
-      padding: 12px;
-      text-align: right;
-    }
-
-    th {
-      background-color: var(--primary);
-      color: white;
-    }
-
-    /* אימונים */
-    .exercise-item {
-      border-bottom: 1px solid #eee;
-      padding: 15px 0;
-    }
-
-    .exercise-item:last-child { border-bottom: none; }
-
-    .timer-btn {
-      background: #e17055;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    .lily-comment {
-      background: #ffeaa7;
-      border-right: 4px solid #fdcb6e;
-      padding: 12px 15px;
-      margin-top: 15px;
-      border-radius: 6px;
-      font-weight: 500;
-    }
-
-    textarea {
-      width: 100%;
-      height: 90px;
-      padding: 10px;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: inherit;
+      min-height: 90px;
+      padding: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .calendar-day:hover {
+      background: #e4e7eb;
+    }
+
+    .day-number {
+      font-weight: bold;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .day-event {
+      font-size: 11px;
+      background: #ffffff;
+      padding: 3px 5px;
+      border-radius: 4px;
+      margin-top: 4px;
+      border-right: 3px solid var(--accent);
+      word-break: break-word;
+    }
+
+    .workout-tag {
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    .workout-yes { background: #55efc4; color: #00b894; }
+    .workout-no { background: #ff7675; color: white; }
+
+    /* מודאל לעדכון יום */
+    #day-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
     }
 
     .btn-action {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
+      padding: 10px 15px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      margin-top: 8px;
-    }
-
-    /* חידון */
-    .quiz-opt {
-      display: block;
       width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background: #f1f2f6;
-      border: 1px solid #c8d6e5;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: right;
-      font-size: 16px;
+      margin-top: 10px;
     }
-
-    .quiz-opt:hover { background: #dfe4ea; }
   </style>
 </head>
 <body>
 
-  <!-- חלון מצב רוח בכניסה -->
-  <div id="mood-modal-overlay">
-    <div class="mood-modal">
-      <h2 id="mood-title">✨ שאלון מצב רוח יומי ✨</h2>
-      <p id="mood-subtitle">רוצים להיכנס לאתר? ענו על 3 שאלות קצרות!</p>
-      <h3 id="mood-q" style="color: var(--primary);">שאלה 1/3...</h3>
-      <div id="mood-opts"></div>
-    </div>
-  </div>
-
-  <!-- סרגל עליון -->
   <header>
     <div class="logo">🍭 טופי 100</div>
     <nav>
-      <a href="#closet-sec">👗 הארון של לילי</a>
-      <a href="#workout-sec">🏋️‍♀️ אימונים</a>
-      <a href="#menu-sec">🥗 התפריט שלי</a>
-      <a href="#daily-sec">📅 לו"ז יומי</a>
-      <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
-      <a href="#recipes-sec">🍓 מתכונים</a>
-      <a href="#quiz-sec">📝 חידון ה-10</a>
+      <a href="#lily-sec">👗 לילי</a>
+      <a href="#monthly-sec">🗓️ לו"ז חודשי בטבלה</a>
     </nav>
   </header>
 
   <div class="container">
 
-    <!-- ארנק -->
-    <div class="wallet">
-      <span>💰 יתרה בחשבון:</span>
-      <span id="balance">0 ₪</span>
+    <!-- דמות של לילי - מעוצבת מחדש -->
+    <div id="lily-sec" class="card lily-box">
+      <h2>👗 לילי החדשה</h2>
+      <p>מעוצבת, ללא זקן, עם צבע עור טבעי ורגליים!</p>
+      
+      <svg class="lily-svg" viewBox="0 0 100 200">
+        <!-- צל בתחתית -->
+        <ellipse cx="50" cy="195" rx="20" ry="4" fill="#dcdde1"/>
+        
+        <!-- נעליים -->
+        <rect x="38" y="180" width="10" height="12" rx="3" fill="#fd79a8"/>
+        <rect x="52" y="180" width="10" height="12" rx="3" fill="#fd79a8"/>
+        
+        <!-- רגליים -->
+        <rect x="40" y="120" width="6" height="62" fill="#ffe0bd"/>
+        <rect x="54" y="120" width="6" height="62" fill="#ffe0bd"/>
+        
+        <!-- חצאית/חולצה -->
+        <path d="M 35 60 L 65 60 L 70 120 L 30 120 Z" fill="#6c5ce7"/>
+        <path d="M 38 45 L 62 45 L 65 60 L 35 60 Z" fill="#a29bfe"/>
+        
+        <!-- זרועות -->
+        <rect x="28" y="48" width="8" height="40" rx="4" fill="#ffe0bd"/>
+        <rect x="64" y="48" width="8" height="40" rx="4" fill="#ffe0bd"/>
+
+        <!-- צוואר וראש -->
+        <rect x="46" y="36" width="8" height="10" fill="#ffe0bd"/>
+        <circle cx="50" cy="26" r="15" fill="#ffe0bd"/>
+
+        <!-- שיער חום רך -->
+        <path d="M 35 25 C 35 10, 65 10, 65 25 C 68 35, 68 50, 65 55 C 60 40, 40 40, 35 55 Z" fill="#6c5ce7" opacity="0.1"/>
+        <path d="M 33 26 C 33 8, 67 8, 67 26 C 70 42, 63 58, 63 58 C 55 45, 45 45, 37 58 Z" fill="#5c3d2e"/>
+
+        <!-- תווי פנים עדינים ומתוקים (ללא זקן!) -->
+        <circle cx="44" cy="24" r="1.5" fill="#2d3436"/>
+        <circle cx="56" cy="24" r="1.5" fill="#2d3436"/>
+        <!-- חיוך -->
+        <path d="M 46 30 Q 50 33 54 30" stroke="#e17055" stroke-width="1.2" fill="none"/>
+        <!-- סומק בלחיים -->
+        <circle cx="41" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
+        <circle cx="59" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
+      </svg>
     </div>
 
-    <!-- 1. הארון והחנות של לילי -->
-    <div id="closet-sec" class="card">
-      <h2>👗 הארון המפוצץ של לילי</h2>
-      <p>צברי מטבעות בחידון, קני בגדים, סריגים ואולסטאר בחנות והלבישי את לילי!</p>
-
-      <div class="closet-layout">
-        <!-- תצוגת הדמות -->
-        <div class="avatar-card">
-          <svg class="lily-svg" viewBox="0 0 100 200">
-            <!-- צל -->
-            <ellipse cx="50" cy="192" rx="25" ry="5" fill="rgba(0,0,0,0.15)"/>
-            <!-- גוף ובסיס -->
-            <path d="M 44 120 L 44 180 Q 44 185 40 185 L 40 187 L 47 187 L 48 120 Z" fill="#f5c6a5"/>
-            <path d="M 56 120 L 56 180 Q 56 185 60 185 L 60 187 L 53 187 L 52 120 Z" fill="#f5c6a5"/>
-            <!-- שמלת בסיס/גוף -->
-            <path d="M 40 50 Q 50 55 60 50 L 62 120 L 38 120 Z" fill="#a29bfe"/>
-            <!-- צוואר וראש -->
-            <rect x="46" y="42" width="8" height="12" fill="#f5c6a5" rx="3"/>
-            <circle cx="50" cy="30" r="16" fill="#f5c6a5"/>
-            <!-- שיער רך וזורם -->
-            <path d="M 32 30 Q 50 5 68 30 Q 72 60 65 75 Q 50 50 35 75 Q 28 60 32 30 Z" fill="#4a2e12"/>
-            <path d="M 36 22 Q 50 10 64 22 Q 62 35 50 25 Q 38 35 36 22 Z" fill="#5c3a17"/>
-            <!-- תווי פנים עדינים -->
-            <circle cx="43" cy="28" r="1.8" fill="#2d3436"/>
-            <circle cx="57" cy="28" r="1.8" fill="#2d3436"/>
-            <path d="M 42 24 Q 44 22 46 24" stroke="#2d3436" stroke-width="0.8" fill="none"/>
-            <path d="M 54 24 Q 56 22 58 24" stroke="#2d3436" stroke-width="0.8" fill="none"/>
-            <path d="M 46 35 Q 50 38 54 35" stroke="#e17055" stroke-width="1.2" fill="none"/>
-            <circle cx="40" cy="32" r="2.5" fill="#ff7675" opacity="0.4"/>
-            <circle cx="60" cy="32" r="2.5" fill="#ff7675" opacity="0.4"/>
-
-            <!-- שכבות הלבשה -->
-            <g id="svg-bottom"></g>
-            <g id="svg-top"></g>
-            <g id="svg-shoes"></g>
-            <g id="svg-hat"></g>
-          </svg>
-          <div id="current-look" style="font-weight: bold; margin-top: 10px; color: var(--primary);">לוק: בסיסי</div>
-        </div>
-
-        <!-- החנות -->
-        <div>
-          <h3>🛍️ חנות הבגדים והאקססוריז</h3>
-          <div class="store-grid" id="store-items"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. תוכנית אימונים -->
-    <div id="workout-sec" class="card">
-      <h2>🏋️‍♀️ תוכנית אימונים וכושר</h2>
-
-      <div class="exercise-item">
-        <h3>1. פלאנק יציב (30 שניות)</h3>
-        <p>תרגיל מטורף לחיזוק שרירי הליבה והבטן. שומרים על גב ישר!</p>
-        <button class="timer-btn" onclick="startTimer(30, this)">⏱️ הפעל טיימר ל-30 שניות</button>
-        <br><a href="https://www.youtube.com/results?search_query=how+to+do+a+plank" target="_blank">📺 צפי בסרטון הדרכה ביוטיוב</a>
-      </div>
-
-      <div class="exercise-item">
-        <h3>2. סקואטים (15 חזרות)</h3>
-        <p>עומדים ברוחב הכתפיים, יורדים כאילו יושבים על כיסא וקמים.</p>
-        <br><a href="https://www.youtube.com/results?search_query=how+to+do+squats" target="_blank">📺 צפי בסרטון הדרכה ביוטיוב</a>
-      </div>
-
-      <div class="exercise-item">
-        <h3>3. שכיבות סמיכה / מותאמות (10 חזרות)</h3>
-        <p>חיזוק זרועות וחזה (אפשר לבצע כשהברכיים נוגעות ברצפה).</p>
-        <br><a href="https://www.youtube.com/results?search_query=pushups+for+beginners" target="_blank">📺 צפי בסרטון הדרכה ביוטיוב</a>
-      </div>
-
-      <div class="lily-comment">💬 <strong>לילי מעירה:</strong> "אימון מעולה! אל תשכחי לשתות מים בסיום."</div>
-    </div>
-
-    <!-- 3. התפריט שלי -->
-    <div id="menu-sec" class="card">
-      <h2>🥗 התפריט שלי</h2>
-      <p>רשמי כאן את התפריט היומי שלך:</p>
-      <textarea id="menu-input" placeholder="לדוגמה: ארוחת בוקר - חביתה וירקות..."></textarea>
-      <button class="btn-action" onclick="saveMenu()">שמרי תפריט</button>
-      <div id="menu-saved" style="margin-top: 10px; font-weight: bold;"></div>
-      <div id="lily-menu-note" class="lily-comment" style="display:none;"></div>
-    </div>
-
-    <!-- 4. לו"ז יומי -->
-    <div id="daily-sec" class="card">
-      <h2>📅 לו"ז יומי</h2>
-      <textarea id="daily-input" placeholder="רשמי את תכנון היום שלך..."></textarea>
-      <button class="btn-action" onclick="saveDaily()">שמרי לו"ז</button>
-      <div id="daily-saved" style="margin-top: 10px; font-weight: bold;"></div>
-      <div id="lily-daily-note" class="lily-comment" style="display:none;"></div>
-    </div>
-
-    <!-- 5. לו"ז חודשי בטבלה -->
+    <!-- לו"ז חודשי אינטראקטיבי -->
     <div id="monthly-sec" class="card">
-      <h2>🗓️ לו"ז חודשי בטבלה מסודרת</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>שבוע</th>
-            <th>משימות ואירועים מרכזיים</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>שבוע 1</td>
-            <td>פתיחת חודש, ארגון הציוד, סידור החדר והכנה ללימודים.</td>
-          </tr>
-          <tr>
-            <td>שבוע 2</td>
-            <td>מפגש חברות, תרגול הקלדה עיוורת ואנגלית.</td>
-          </tr>
-          <tr>
-            <td>שבוע 3</td>
-            <td>פעילות הדרכה לחניכות + אימון קליסטניקס מוגבר.</td>
-          </tr>
-          <tr>
-            <td>שבוע 4</td>
-            <td>סיכום חודשי, יום כיף וקניות בקניון!</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <h2>🗓️ לו"ז חודשי בטבלה</h2>
+      <p>לחצי על כל יום בטבלה כדי לשבץ אירוע ולסמן אם מתאים לך להתאמן!</p>
 
-    <!-- 6. מתכונים -->
-    <div id="recipes-sec" class="card">
-      <h2>🍓 מתכונים טעימים ובריאים</h2>
-      <ul>
-        <li>🍉 <a href="https://www.google.com/search?q=מתכון+לברד+אבטיח+ביתי" target="_blank">ברד אבטיח ביתי מרענן</a></li>
-        <li>🍞 <a href="https://www.google.com/search?q=מתכון+לפרנץ'+טוסט+קל" target="_blank">פרנץ' טוסט מהיר</a></li>
-        <li>🍪 <a href="https://www.google.com/search?q=עוגיות+שוקולד+צ'יפס+10+דקות" target="_blank">עוגיות שוקולד צ'יפס ב-10 דקות</a></li>
-      </ul>
-    </div>
+      <div class="calendar-grid">
+        <div class="calendar-day-header">א'</div>
+        <div class="calendar-day-header">ב'</div>
+        <div class="calendar-day-header">ג'</div>
+        <div class="calendar-day-header">ד'</div>
+        <div class="calendar-day-header">ה'</div>
+        <div class="calendar-day-header">ו'</div>
+        <div class="calendar-day-header">ש'</div>
+      </div>
 
-    <!-- 7. חידון ה-10 בסוף הדף -->
-    <div id="quiz-sec" class="card">
-      <h2>📝 חידון ה-10 (מרוויחים 1 ₪ בסיום כל החידון!)</h2>
-      <p>כל התשובות נכונות! עני על כל 10 השאלות כדי לקבל את הפרס ליתרה.</p>
-
-      <div id="quiz-box">
-        <h3 id="quiz-q">טוען שאלה...</h3>
-        <div id="quiz-opts"></div>
-        <div id="quiz-fb" style="margin-top:10px; font-weight:bold; color:var(--primary);"></div>
-        <button id="quiz-next-btn" class="btn-action" style="display:none;" onclick="nextQuizQ()">לשאלה הבאה 👈</button>
+      <div class="calendar-grid" id="calendar-days">
+        <!-- ימים יווצרו דרך ה-JavaScript -->
       </div>
     </div>
 
   </div>
 
+  <!-- חלון לעריכת יום -->
+  <div id="day-modal">
+    <div class="modal-content">
+      <h3 id="modal-day-title">עריכת יום</h3>
+      
+      <label style="display:block; margin-bottom:5px; font-weight:bold;">אירוע/משימה ליום זה:</label>
+      <input type="text" id="event-input" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px;" placeholder="למשל: אימון קליסטניקס / לימודים">
+
+      <label style="display:block; margin-bottom:5px; font-weight:bold;">האם מתאים להתאמן היום?</label>
+      <select id="workout-select" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px;">
+        <option value="">-- לבחירה --</option>
+        <option value="yes">כן, מתאים להתאמן! 💪</option>
+        <option value="no">לא, יום מנוחה 😴</option>
+      </select>
+
+      <button class="btn-action" onclick="saveDayData()">שמירה</button>
+      <button class="btn-action" style="background:#b2bec3;" onclick="closeModal()">ביטול</button>
+    </div>
+  </div>
+
   <script>
-    let money = 0;
+    const daysData = {};
+    let selectedDay = null;
 
-    // מאגר חנות מפוצץ
-    const store = [
-      { id: 'converse_black', name: 'אולסטאר שחור', price: 10, type: 'shoes', icon: '👟', color: '#2d3436', owned: false },
-      { id: 'converse_red', name: 'אולסטאר אדום', price: 15, type: 'shoes', icon: '👟', color: '#d63031', owned: false },
-      { id: 'converse_white', name: 'אולסטאר לבן', price: 12, type: 'shoes', icon: '👟', color: '#ffffff', owned: false },
-      { id: 'converse_green', name: 'אולסטאר ירוק', price: 18, type: 'shoes', icon: '👟', color: '#00b894', owned: false },
-      { id: 'converse_purple', name: 'אולסטאר סגול', price: 20, type: 'shoes', icon: '👟', color: '#6c5ce7', owned: false },
-      { id: 'converse_pink', name: 'אולסטאר ורוד', price: 22, type: 'shoes', icon: '👟', color: '#fd79a8', owned: false },
-      
-      { id: 'sweater_cozy', name: 'סריג אוברסייז', price: 20, type: 'top', icon: '🧥', color: '#a29bfe', owned: false },
-      { id: 'sweater_pink', name: 'סוודר ורוד', price: 25, type: 'top', icon: '👚', color: '#fd79a8', owned: false },
-      { id: 'sweater_stripes', name: 'סוודר פסים', price: 28, type: 'top', icon: '🧥', color: '#fdcb6e', owned: false },
-      { id: 'crop_sweater', name: 'סריג קרופ שיק', price: 30, type: 'top', icon: '👚', color: '#e17055', owned: false },
-      
-      { id: 'skirt_jeans', name: 'חצאית ג\'ינס', price: 22, type: 'bottom', icon: '👗', color: '#0984e3', owned: false },
-      { id: 'skirt_pleated', name: 'חצאית קפלים', price: 30, type: 'bottom', icon: '👗', color: '#6c5ce7', owned: false },
-      { id: 'skirt_maxi', name: 'חצאית מקסי', price: 35, type: 'bottom', icon: '👗', color: '#00b894', owned: false },
-      { id: 'skirt_mini', name: 'חצאית מיני', price: 25, type: 'bottom', icon: '👗', color: '#e84393', owned: false },
-
-      { id: 'dress_fancy', name: 'שמלת ערב', price: 50, type: 'top', icon: '👗', color: '#e17055', owned: false },
-      { id: 'hat_crown', name: 'כתר מלכותי', price: 40, type: 'hat', icon: '👑', color: '#ffeaa7', owned: false }
-    ];
-
-    function renderStore() {
-      const container = document.getElementById('store-items');
+    function renderCalendar() {
+      const container = document.getElementById('calendar-days');
       container.innerHTML = '';
 
-      store.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
+      for (let i = 1; i <= 30; i++) {
+        const dayBox = document.createElement('div');
+        dayBox.className = 'calendar-day';
+        dayBox.onclick = () => openModal(i);
 
-        let btnHTML = item.owned 
-          ? `<button class="btn-wear" onclick="wearItem(${index})">לבשי</button>`
-          : `<button class="btn-buy" onclick="buyItem(${index})">קני (${item.price} ₪)</button>`;
+        const data = daysData[i] || {};
 
-        card.innerHTML = `
-          <span class="icon">${item.icon}</span>
-          <div style="font-weight:bold; font-size:14px;">${item.name}</div>
-          <div class="price">${item.price} ₪</div>
-          ${btnHTML}
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function buyItem(index) {
-      const item = store[index];
-      if (money >= item.price) {
-        money -= item.price;
-        item.owned = true;
-        updateBalanceDisplay();
-        renderStore();
-        wearItem(index);
-        alert(`תתחדשי! קנית ${item.name}!`);
-      } else {
-        alert('אין לך מספיק מטבעות! עני על חידון ה-10 כדי להרוויח עוד.');
-      }
-    }
-
-    function wearItem(index) {
-      const item = store[index];
-      if (item.type === 'shoes') {
-        document.getElementById('svg-shoes').innerHTML = `
-          <rect x="36" y="180" width="12" height="7" fill="${item.color}" rx="2"/>
-          <rect x="52" y="180" width="12" height="7" fill="${item.color}" rx="2"/>
-        `;
-      } else if (item.type === 'top') {
-        document.getElementById('svg-top').innerHTML = `
-          <path d="M 38 52 Q 50 56 62 52 L 62 90 L 38 90 Z" fill="${item.color}"/>
-        `;
-      } else if (item.type === 'bottom') {
-        document.getElementById('svg-bottom').innerHTML = `
-          <path d="M 38 90 L 62 90 L 68 125 L 32 125 Z" fill="${item.color}"/>
-        `;
-      } else if (item.type === 'hat') {
-        document.getElementById('svg-hat').innerHTML = `
-          <path d="M 38 18 L 42 10 L 50 16 L 58 10 L 62 18 Z" fill="${item.color}" stroke="#d63031" stroke-width="1"/>
-        `;
-      }
-      document.getElementById('current-look').innerText = `לוק: ${item.name}`;
-    }
-
-    function updateBalanceDisplay() {
-      document.getElementById('balance').innerText = money + ' ₪';
-    }
-
-    // מנגנון שאלון מצב רוח בכניסה
-    const moodQuestionsPool = [
-      [
-        { q: "איך קמת הבוקר?", opts: ["כמו מלכה 👑", "אני צריכה עוד 5 דקות 😴", "מוכנה לכבוש את העולם ⚡"] },
-        { q: "מה הרמה של האנרגיה שלך כרגע?", opts: ["100% טורבו! 🔥", "ככה ככה, רגועה ☕", "במצב סוללה חלשה 🔋"] },
-        { q: "מה הדבר שהכי בא לך לעשות עכשיו?", opts: ["לקנות בגדים חדשים 🛍️", "אימון כושר מטורף 🏋️‍♀️", "לאכול משהו טעים 🍕"] }
-      ],
-      [
-        { q: "מה הוויב שלך היום?", opts: ["אופנתי ושיק 💅", "ספורטיבי ופעיל 🏃‍♀️", "רביצה על הספה 🛋️"] },
-        { q: "איך המזג אוויר משפיע עלייך?", opts: ["עושה לי חשק לצאת ☀️", "בא לי להתכרבל בסוודר ❄️", "לא מעניין, אני באתר! 🍭"] },
-        { q: "כמה את מוכנה לאתגרים היום?", opts: ["תביאו הכל! 💪", "רק דברים קלים 🐣", "תנו לי לישון 💤"] }
-      ]
-    ];
-
-    let currentMoodBank = moodQuestionsPool[Math.floor(Math.random() * moodQuestionsPool.length)];
-    let moodStep = 0;
-    let userMoodScore = "";
-
-    function loadMoodQ() {
-      if (moodStep >= currentMoodBank.length) {
-        document.getElementById('mood-title').innerText = "✨ הפידבק של לילי ✨";
-        document.getElementById('mood-subtitle').innerText = "תודה שזנית!";
-        document.getElementById('mood-q').innerText = "לילי אומרת: " + getLilyMoodFeedback();
-        document.getElementById('mood-opts').innerHTML = `
-          <button class="mood-btn" style="background: var(--primary); color: white;" onclick="closeMoodModal()">להיכנס לאתר! 🚀</button>
-        `;
-        return;
-      }
-
-      const qObj = currentMoodBank[moodStep];
-      document.getElementById('mood-q').innerText = `שאלה ${moodStep + 1}/3: ${qObj.q}`;
-      const optsBox = document.getElementById('mood-opts');
-      optsBox.innerHTML = '';
-
-      qObj.opts.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'mood-btn';
-        btn.innerText = opt;
-        btn.onclick = () => {
-          userMoodScore += opt + " ";
-          moodStep++;
-          loadMoodQ();
-        };
-        optsBox.appendChild(btn);
-      });
-    }
-
-    function getLilyMoodFeedback() {
-      if (userMoodScore.includes("טורבו") || userMoodScore.includes("כבוש") || userMoodScore.includes("תביאו")) {
-        return "ואו! את מלאה באנרגיה חיובית היום! האתר הזה קטן עלייך, לכי תקרעי את האימון!";
-      } else if (userMoodScore.includes("דקות") || userMoodScore.includes("סוללה") || userMoodScore.includes("לישון")) {
-        return "נראה שאת צריכה קצת זמן להירגע. תפסי ספה נוחה, תעשי חידון בכיף ותתפנקי בחנות!";
-      } else {
-        return "מצב רוח מושלם! בדיוק הזמן לשדרג את הלוק שלי בחנות ולעשות קצת כושר!";
-      }
-    }
-
-    function closeMoodModal() {
-      document.getElementById('mood-modal-overlay').style.display = 'none';
-    }
-
-    // טיימר
-    function startTimer(sec, btn) {
-      let left = sec;
-      btn.disabled = true;
-      const interval = setInterval(() => {
-        btn.innerText = `⏱️ נותרו ${left} שניות`;
-        left--;
-        if (left < 0) {
-          clearInterval(interval);
-          btn.innerText = '✅ כל הכבוד! האימון הושלם!';
-          btn.disabled = false;
+        let eventHTML = data.event ? `<div class="day-event">${data.event}</div>` : '';
+        let workoutHTML = '';
+        
+        if (data.workout === 'yes') {
+          workoutHTML = `<div class="workout-tag workout-yes">אימון 👍</div>`;
+        } else if (data.workout === 'no') {
+          workoutHTML = `<div class="workout-tag workout-no">מנוחה 💤</div>`;
         }
-      }, 1000);
-    }
 
-    // שמירות
-    function saveMenu() {
-      const txt = document.getElementById('menu-input').value;
-      if (!txt) return;
-      document.getElementById('menu-saved').innerText = 'נשמר: ' + txt;
-      const note = document.getElementById('lily-menu-note');
-      note.style.display = 'block';
-      note.innerHTML = '💬 <strong>לילי מעירה:</strong> "תפריט מעולה ומאוזן!"';
-    }
+        dayBox.innerHTML = `
+          <div class="day-number">${i}</div>
+          <div>${eventHTML}</div>
+          <div>${workoutHTML}</div>
+        `;
 
-    function saveDaily() {
-      const txt = document.getElementById('daily-input').value;
-      if (!txt) return;
-      document.getElementById('daily-saved').innerText = 'נשמר: ' + txt;
-      const note = document.getElementById('lily-daily-note');
-      note.style.display = 'block';
-      note.innerHTML = '💬 <strong>לילי מעירה:</strong> "סדר יום מתוכנן היטב, יפה מאוד!"';
-    }
-
-    // חידון ה-10 (שום שאלה לא חוזרת!)
-    const tenUniqueQuestions = [
-      { q: "1. מה עושים כשקמים בבוקר?", opts: ["בוהים בתקרה 10 דקות", "ממשיכים לישון", "בודקים הודעות"], fb: "נכון מאוד! קלאסי ביותר." },
-      { q: "2. איפה נמצאות הגרביים שנעלמות בכביסה?", opts: ["בממד מקביל", "הן ברחו מהבית", "מישהו לקח אותן"], fb: "ברור! תמיד יש גרב בודדת." },
-      { q: "3. מה אומר המשפט 'אני בדרך'?", opts: ["עוד לא יצאתי", "אני מחפשת מפתחות", "אני בפיג'מה"], fb: "מדויק! 'אני בדרך' = עוד לא התחלתי להתארגן." },
-      { q: "4. מה קורה כשמנסים להוציא רק צ'יפס אחד?", opts: ["אוכלים את כל החבילה", "מצליחים (בחלום)", "לוקחים חצי חבילה"], fb: "אין דבר כזה צ'יפס אחד!" },
-      { q: "5. איפה תמיד נמצא הטלפון כשמחפשים אותו?", opts: ["ביד שלך", "מתחת לספה", "על השקט בחדר השני"], fb: "תמיד ביד! תודו שזה קרה לכן." },
-      { q: "6. מה השיעור הכי חשוב בחיים?", opts: ["שוקולד פותר הכל", "לישון 8 שעות", "לנעול אולסטאר תואמות"], fb: "שוקולד ואולסטאר - השילוב המנצח." },
-      { q: "7. מה עושים כשרואים שלולית גדולה?", opts: ["קופצים פנימה!", "עוקפים בזהירות", "רץ למדוד עומק"], fb: "קפיצה ישר פנימה, ברור!" },
-      { q: "8. מה התגובה הכי טובה לכלב חמוד ברחוב?", opts: ["לצעוק 'איזה חמודדד'", "ללכת ללטף", "לצלם אותו"], fb: "כל התשובות נכונות לחלוטין!" },
-      { q: "9. מה המאכל הכי טוב כשמשעמם?", opts: ["חטיף מלוח", "עוגיה מתוקה", "פותחים את המקרר ובוהים"], fb: "לבהות במקרר זה תחביב לאומי." },
-      { q: "10. מה הסוד להצלחה באימון כושר?", opts: ["מוזיקה טובה", "ללבוש בגדים יפים", "לסיים אותו ולשתות ברד אבטיח"], fb: "ברד אבטיח בסוף זה הפרס המושלם!" }
-    ];
-
-    let qIdx = 0;
-
-    function loadQ() {
-      if (qIdx >= tenUniqueQuestions.length) {
-        document.getElementById('quiz-box').innerHTML = '<h3>🎉 מדהים! סיימת את כל 10 השאלות! הרווחת 1 ₪ למאזן!</h3>';
-        money += 1;
-        updateBalanceDisplay();
-        return;
+        container.appendChild(dayBox);
       }
-
-      const q = tenUniqueQuestions[qIdx];
-      document.getElementById('quiz-q').innerText = q.q;
-      document.getElementById('quiz-fb').innerText = '';
-      document.getElementById('quiz-next-btn').style.display = 'none';
-
-      const optsBox = document.getElementById('quiz-opts');
-      optsBox.innerHTML = '';
-
-      q.opts.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'quiz-opt';
-        btn.innerText = opt;
-        btn.onclick = () => {
-          document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
-          document.getElementById('quiz-fb').innerText = q.fb;
-          document.getElementById('quiz-next-btn').style.display = 'inline-block';
-        };
-        optsBox.appendChild(btn);
-      });
     }
 
-    function nextQuizQ() {
-      qIdx++;
-      loadQ();
+    function openModal(dayNum) {
+      selectedDay = dayNum;
+      document.getElementById('modal-day-title').innerText = `עריכת יום ${dayNum}`;
+      
+      const current = daysData[dayNum] || {};
+      document.getElementById('event-input').value = current.event || '';
+      document.getElementById('workout-select').value = current.workout || '';
+
+      document.getElementById('day-modal').style.display = 'flex';
     }
 
-    // טעינה ראשונית
-    loadMoodQ();
-    renderStore();
-    loadQ();
+    function closeModal() {
+      document.getElementById('day-modal').style.display = 'none';
+    }
+
+    function saveDayData() {
+      if (!selectedDay) return;
+
+      const eventVal = document.getElementById('event-input').value;
+      const workoutVal = document.getElementById('workout-select').value;
+
+      daysData[selectedDay] = {
+        event: eventVal,
+        workout: workoutVal
+      };
+
+      closeModal();
+      renderCalendar();
+    }
+
+    renderCalendar();
   </script>
 </body>
 </html>
