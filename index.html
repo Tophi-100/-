@@ -3,445 +3,871 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>לילי - מעצבת הדמויות האישית 👗</title>
+  <title>🍭 טופי 100 - אימונים, מתכונים ולילי המשודרגת</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts: Assistant & Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS for specialized effects & animations -->
   <style>
     body {
       font-family: 'Assistant', sans-serif;
-      background: linear-gradient(135deg, #f0f3ff 0%, #fef3f8 100%);
-      min-height: 100vh;
+      background: linear-gradient(135deg, #f8f9ff 0%, #fff0f5 50%, #f3e8ff 100%);
+      color: #2d3436;
+      scroll-behavior: smooth;
     }
-    
+
+    h1, h2, h3, .font-heading {
+      font-family: 'Rubik', sans-serif;
+    }
+
+    /* Glassmorphism Card Style */
     .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 20px 40px rgba(108, 92, 231, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 16px 36px rgba(108, 92, 231, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .custom-shadow {
-      filter: drop-shadow(0px 10px 15px rgba(108, 92, 231, 0.15));
+    .glass-card:hover {
+      box-shadow: 0 20px 40px rgba(108, 92, 231, 0.12);
     }
 
-    /* Interactive animations */
-    .color-swatch {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .color-swatch:hover {
-      transform: scale(1.15);
-    }
-    .color-swatch.active {
-      transform: scale(1.2);
-      box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px #6c5ce7;
+    /* Glow Effect for Character Showcase */
+    .lily-glow {
+      animation: gentlePulse 4s infinite ease-in-out;
     }
 
-    /* Pulse animation for character base glow */
-    @keyframes subtleGlow {
-      0%, 100% { filter: drop-shadow(0 15px 25px rgba(253, 121, 168, 0.25)); }
-      50% { filter: drop-shadow(0 20px 30px rgba(108, 92, 231, 0.35)); }
+    @keyframes gentlePulse {
+      0%, 100% { filter: drop-shadow(0 10px 20px rgba(253, 121, 168, 0.3)); }
+      50% { filter: drop-shadow(0 15px 30px rgba(108, 92, 231, 0.45)); }
     }
-    .character-glow {
-      animation: subtleGlow 4s infinite ease-in-out;
+
+    /* Gradient Buttons */
+    .btn-gradient {
+      background: linear-gradient(135deg, #6c5ce7 0%, #fd79a8 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(253, 121, 168, 0.45);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+      color: #2d3436;
+    }
+
+    /* Timer Text Style */
+    .timer-display {
+      font-family: monospace;
+      letter-spacing: -1px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c7ceea;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b5ead7;
     }
   </style>
 </head>
-<body class="text-slate-800 p-4 md:p-8 flex flex-col justify-between min-h-screen">
+<body class="pt-24 min-h-screen flex flex-col justify-between selection:bg-pink-300 selection:text-purple-900">
 
-  <header class="max-w-5xl mx-auto w-full mb-6">
-    <div class="glass-card rounded-2xl p-4 md:p-6 flex flex-wrap items-center justify-between gap-4">
+  <header class="fixed top-0 right-0 left-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-200">
-          👗
-        </div>
-        <div>
-          <h1 class="text-2xl md:text-3xl font-extrabold text-indigo-900">לילי (Lily) - סטודיו עיצוב</h1>
-          <p class="text-xs md:text-sm text-slate-500 font-medium">דמות וקטורית מתוקה, נקייה ומושלמת בלחיצת כפתור</p>
-        </div>
+        <span class="text-3xl animate-bounce">🍭</span>
+        <span class="text-2xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 bg-clip-text text-transparent font-heading">
+          טופי 100
+        </span>
       </div>
-      
-      <div class="flex items-center gap-2">
-        <button onclick="resetCharacter()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2">
-          <span>🔄</span> איפוס מראה
-        </button>
-        <button onclick="randomizeCharacter()" class="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-md shadow-pink-200 transition transform hover:-translate-y-0.5">
-          ✨ האופנה האקראית
-        </button>
-      </div>
+
+      <nav class="hidden md:flex items-center gap-6 font-bold text-sm text-slate-700">
+        <a href="#workouts-section" class="hover:text-purple-600 transition flex items-center gap-1">💪 <span>אימונים</span></a>
+        <a href="#lily-section" class="hover:text-purple-600 transition flex items-center gap-1">👗 <span>לילי המשודרגת</span></a>
+        <a href="#recipes-section" class="hover:text-purple-600 transition flex items-center gap-1">🍧 <span>מתכונים</span></a>
+        <a href="#calendar-section" class="hover:text-purple-600 transition flex items-center gap-1">🗓️ <span>לו"ז חודשי</span></a>
+        <a href="#quiz-section" class="hover:text-purple-600 transition flex items-center gap-1">❓ <span>10 שאלות</span></a>
+      </nav>
+
+      <a href="#workouts-section" class="btn-gradient text-white text-xs md:text-sm font-extrabold px-5 py-2.5 rounded-full shadow-lg">
+        התחל אימון 🚀
+      </a>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-grow">
-    
-    <!-- Character Canvas Card -->
-    <div class="lg:col-span-5 glass-card rounded-3xl p-6 flex flex-col items-center justify-center relative overflow-hidden">
-      <!-- Background Decorative Aura -->
-      <div class="absolute -top-12 -right-12 w-48 h-48 bg-pink-200 rounded-full blur-3xl opacity-60"></div>
-      <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-200 rounded-full blur-3xl opacity-60"></div>
+  <main class="max-w-5xl mx-auto px-4 py-6 w-full space-y-14">
 
-      <div class="relative z-10 w-full flex flex-col items-center">
-        <!-- SVG Character Wrapper -->
-        <div class="w-64 h-96 character-glow flex items-center justify-center my-2">
-          <svg id="lily-svg" viewBox="0 0 200 320" class="w-full h-full">
-            <defs>
-              <!-- Drop Shadow for Accessories -->
-              <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.15" />
-              </filter>
-            </defs>
+    <section id="workouts-section" class="space-y-8">
+      <div class="text-center space-y-3">
+        <span class="bg-purple-100 text-purple-800 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+          תוכנית יומית מומלצת
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-purple-950 font-heading">
+          💪 תוכנית אימונים יומיים
+        </h2>
+        <p class="text-slate-600 text-sm md:text-base max-w-xl mx-auto">
+          התחילי עם אימון הצהריים לרענון ואנרגיה, ועברי לאימון הערב להרפיה וחיזוק הליבה. לכל אימון יש סטופר אינטראקטיבי וקישור ישיר להדגמה!
+        </p>
+      </div>
 
+      <!-- Workout 1: אימון צהריים (Displays FIRST) -->
+      <div class="glass-card rounded-3xl p-6 md:p-8 border-r-8 border-r-amber-400">
+        <div class="flex flex-col lg:flex-row gap-8 items-stretch justify-between">
+          
+          <!-- Text Explanation & Instructions -->
+          <div class="space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-4xl">☀️</span>
+                <div>
+                  <h3 class="text-2xl font-black text-amber-600 font-heading">1. אימון צהריים - אנרגיה, חיטוב וקליסטניקס</h3>
+                  <span class="text-xs text-slate-500 font-bold bg-amber-100/80 text-amber-900 px-2.5 py-1 rounded-md inline-block mt-1">
+                    משך מומלץ: 15-20 דקות
+                  </span>
+                </div>
+              </div>
+
+              <div class="bg-amber-50/80 p-5 rounded-2xl border border-amber-200/60 text-slate-700 text-sm leading-relaxed space-y-3">
+                <p class="font-bold text-amber-950 text-base border-b border-amber-200/80 pb-1">📋 הנחיות ושלבי האימון:</p>
+                <ul class="list-disc list-inside space-y-2 text-slate-800">
+                  <li><strong>חימום מפרקים קל (2 דקות):</strong> סיבובי אגן, מתיחות זרועות וקפיצות במקום להמרצת מחזור הדם.</li>
+                  <li><strong>סקוואט קלאסי:</strong> 3 סטים של 15 חזרות. דגש על גב ישר וברכיים לכיוון אצבעות הרגליים.</li>
+                  <li><strong>לאנג'ים סטטיים:</strong> 3 סטים של 10 חזרות לכל רגל לחיזוק הארבע ראשי והישבן.</li>
+                  <li><strong>החזקת פלאנק (Plank Holding):</strong> 3 סטים של 45 שניות מול הסטופר הדיגיטלי למטה!</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- YouTube Video Search Link -->
+            <div class="pt-2">
+              <a href="https://www.youtube.com/results?search_query=quick+15+min+afternoon+calisthenics+workout" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs md:text-sm px-5 py-3 rounded-2xl shadow-md transition-all hover:scale-105">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>צפי באימון הדגמה ב-YouTube 🎥</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Stopwatch for Noon Workout -->
+          <div class="w-full lg:w-72 bg-gradient-to-b from-slate-900 via-slate-850 to-slate-800 text-white rounded-3xl p-6 shadow-xl flex flex-col items-center justify-between border border-slate-700">
+            <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+              ⏱️ סטופר אימון צהריים
+            </span>
+            <div id="noon-timer-display" class="timer-display text-4xl md:text-5xl font-extrabold my-6 tracking-wider text-amber-300 drop-shadow">
+              00:00.0
+            </div>
+            <div class="grid grid-cols-3 gap-2 w-full">
+              <button onclick="startTimer('noon')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">התחל</button>
+              <button onclick="pauseTimer('noon')" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">השהה</button>
+              <button onclick="resetTimer('noon')" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">איפוס</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Workout 2: אימון ערב (Displays Directly Below) -->
+      <div class="glass-card rounded-3xl p-6 md:p-8 border-r-8 border-r-indigo-500">
+        <div class="flex flex-col lg:flex-row gap-8 items-stretch justify-between">
+          
+          <!-- Text Explanation & Instructions -->
+          <div class="space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-4xl">🌙</span>
+                <div>
+                  <h3 class="text-2xl font-black text-indigo-950 font-heading">2. אימון ערב - מתיחות, בטן והרפיה</h3>
+                  <span class="text-xs text-slate-500 font-bold bg-indigo-100/80 text-indigo-900 px-2.5 py-1 rounded-md inline-block mt-1">
+                    משך מומלץ: 10-15 דקות
+                  </span>
+                </div>
+              </div>
+
+              <div class="bg-indigo-50/80 p-5 rounded-2xl border border-indigo-200/60 text-slate-700 text-sm leading-relaxed space-y-3">
+                <p class="font-bold text-indigo-950 text-base border-b border-indigo-200/80 pb-1">📋 הנחיות ושלבי האימון:</p>
+                <ul class="list-disc list-inside space-y-2 text-slate-800">
+                  <li><strong>כפיפות בטן איטיות ומבוקרות:</strong> 3 סטים של 20 חזרות לעבודה ממוקדת על שרירי הליבה.</li>
+                  <li><strong>הרמת אגן (Glute Bridges):</strong> 3 סטים של 15 חזרות עם השהייה של 2 שניות בשיא הגובה.</li>
+                  <li><strong>מתיחת יוגה "חתול-פרה":</strong> 1-2 דקות לנשימה עמוקה ושחרור הלחץ מעמוד השדרה.</li>
+                  <li><strong>הרפיה ומתיחת המסטרינג:</strong> החזקת מתיחה עדינה בכל רגל למשך 30 שניות.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- YouTube Video Search Link -->
+            <div class="pt-2">
+              <a href="https://www.youtube.com/results?search_query=evening+relaxing+core+stretch+workout" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs md:text-sm px-5 py-3 rounded-2xl shadow-md transition-all hover:scale-105">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>צפי באימון הדגמה ב-YouTube 🎥</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Stopwatch for Evening Workout -->
+          <div class="w-full lg:w-72 bg-gradient-to-b from-slate-900 via-slate-850 to-slate-800 text-white rounded-3xl p-6 shadow-xl flex flex-col items-center justify-between border border-slate-700">
+            <span class="text-xs font-bold text-pink-300 bg-pink-400/10 px-3 py-1 rounded-full border border-pink-400/20">
+              ⏱️ סטופר אימון ערב
+            </span>
+            <div id="evening-timer-display" class="timer-display text-4xl md:text-5xl font-extrabold my-6 tracking-wider text-pink-300 drop-shadow">
+              00:00.0
+            </div>
+            <div class="grid grid-cols-3 gap-2 w-full">
+              <button onclick="startTimer('evening')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">התחל</button>
+              <button onclick="pauseTimer('evening')" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">השהה</button>
+              <button onclick="resetTimer('evening')" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition active:scale-95">איפוס</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="lily-section" class="glass-card rounded-3xl p-6 md:p-10 space-y-6">
+      <div class="text-center space-y-2 mb-4">
+        <span class="bg-pink-100 text-pink-700 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+          ארון הבגדים האינטראקטיבי
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-purple-950 font-heading">
+          👗 לילי המשודרגת (Lily Studio)
+        </h2>
+        <p class="text-slate-600 text-sm md:text-base max-w-lg mx-auto">
+          הכירי את לילי! שחקי עם הסטייל שלה, החליפי תסרוקות, שמלות, אקססוריז ונעליים בלחיצת כפתור!
+        </p>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
+        
+        <!-- Enhanced Vector SVG Graphic for Lily -->
+        <div class="w-64 h-96 lily-glow flex items-center justify-center bg-gradient-to-b from-pink-50 to-purple-50 rounded-3xl p-4 border-2 border-pink-100/80 shadow-inner relative overflow-hidden">
+          
+          <!-- Background Deco Sparkles -->
+          <span class="absolute top-4 right-4 text-xl opacity-60">✨</span>
+          <span class="absolute bottom-6 left-4 text-xl opacity-60">🎀</span>
+
+          <svg id="lily-character-svg" viewBox="0 0 200 340" class="w-full h-full drop-shadow-md">
             <!-- Ground Shadow -->
-            <ellipse cx="100" cy="305" rx="42" ry="7" fill="#cbd5e1" opacity="0.6"/>
+            <ellipse cx="100" cy="325" rx="46" ry="7" fill="#cbd5e1" opacity="0.6"/>
 
-            <!-- Shoes / Footwear -->
-            <g id="shoes-group">
-              <!-- Left Shoe -->
-              <path id="shoe-left" d="M 76 288 Q 70 288 68 296 Q 68 304 84 304 C 88 304 90 298 90 292 L 76 288 Z" fill="#fd79a8" filter="url(#soft-shadow)"/>
-              <ellipse cx="80" cy="292" rx="4" ry="2" fill="#ffffff" opacity="0.4"/>
-              
-              <!-- Right Shoe -->
-              <path id="shoe-right" d="M 124 288 Q 130 288 132 296 Q 132 304 116 304 C 112 304 110 298 110 292 L 124 288 Z" fill="#fd79a8" filter="url(#soft-shadow)"/>
-              <ellipse cx="120" cy="292" rx="4" ry="2" fill="#ffffff" opacity="0.4"/>
+            <!-- Shoes (Shoes Left / Right) -->
+            <g id="lily-shoes">
+              <path d="M 72 308 Q 66 308 64 316 Q 64 324 82 324 C 86 324 88 318 88 312 Z" fill="#fd79a8"/>
+              <path d="M 128 308 Q 134 308 136 316 Q 136 324 118 324 C 114 324 112 318 112 312 Z" fill="#fd79a8"/>
+              <!-- Shoe Ribbons -->
+              <circle cx="76" cy="312" r="2.5" fill="#ffffff"/>
+              <circle cx="124" cy="312" r="2.5" fill="#ffffff"/>
             </g>
 
-            <!-- Natural Visible Legs -->
-            <g id="legs-group">
-              <rect x="76" y="195" width="12" height="98" rx="6" fill="#ffe0bd"/>
-              <rect x="112" y="195" width="12" height="98" rx="6" fill="#ffe0bd"/>
-              <!-- Knee Subtle Highlights -->
-              <ellipse cx="82" cy="240" rx="3" ry="1.5" fill="#fcd5b5"/>
-              <ellipse cx="118" cy="240" rx="3" ry="1.5" fill="#fcd5b5"/>
-            </g>
+            <!-- Legs -->
+            <rect x="74" y="210" width="13" height="102" rx="6.5" fill="#ffe0bd"/>
+            <rect x="113" y="210" width="13" height="102" rx="6.5" fill="#ffe0bd"/>
 
-            <!-- Outfit: Skirt -->
-            <path id="skirt" d="M 68 140 L 132 140 L 146 202 C 146 206, 138 210, 100 210 C 62 210, 54 206, 54 202 Z" fill="#6c5ce7" filter="url(#soft-shadow)"/>
-            <!-- Skirt Fold Accents -->
-            <path d="M 85 140 L 80 206" stroke="#ffffff" stroke-width="1.5" opacity="0.2"/>
-            <path d="M 115 140 L 120 206" stroke="#ffffff" stroke-width="1.5" opacity="0.2"/>
+            <!-- Bottom / Skirt Layer -->
+            <path id="lily-skirt" d="M 66 148 L 134 148 L 150 216 C 150 220, 140 226, 100 226 C 60 226, 50 220, 50 216 Z" fill="#6c5ce7"/>
+
+            <!-- Upper Body / Shirt Layer -->
+            <path id="lily-top" d="M 66 100 Q 100 110 134 100 L 137 150 L 63 150 Z" fill="#a29bfe"/>
+            <!-- Shirt Neckline Detail -->
+            <path d="M 84 101 Q 100 114 116 101" fill="none" stroke="#ffe0bd" stroke-width="4.5" stroke-linecap="round"/>
 
             <!-- Arms -->
-            <g id="arms-group">
-              <path d="M 62 100 Q 48 135 52 160 C 53 164 58 164 61 160 Q 68 135 70 105 Z" fill="#ffe0bd"/>
-              <path d="M 138 100 Q 152 135 148 160 C 147 164 142 164 139 160 Q 132 135 130 105 Z" fill="#ffe0bd"/>
+            <path d="M 60 106 Q 44 142 48 168 C 49 172 55 172 58 168 Q 66 142 68 111 Z" fill="#ffe0bd"/>
+            <path d="M 140 106 Q 156 142 152 168 C 151 172 145 172 142 168 Q 134 142 132 111 Z" fill="#ffe0bd"/>
+
+            <!-- Neck & Head -->
+            <rect x="91" y="82" width="18" height="22" rx="5" fill="#ffe0bd"/>
+            <circle cx="100" cy="62" r="30" fill="#ffe0bd"/>
+
+            <!-- Facial Details -->
+            <!-- Blush -->
+            <ellipse cx="80" cy="68" rx="6" ry="3.5" fill="#fd79a8" opacity="0.6"/>
+            <ellipse cx="120" cy="68" rx="6" ry="3.5" fill="#fd79a8" opacity="0.6"/>
+            <!-- Eyes -->
+            <circle cx="85" cy="58" r="4" fill="#2d3436"/>
+            <circle cx="115" cy="58" r="4" fill="#2d3436"/>
+            <circle cx="83.5" cy="56" r="1.5" fill="#ffffff"/>
+            <circle cx="113.5" cy="56" r="1.5" fill="#ffffff"/>
+            <!-- Eyelashes -->
+            <path d="M 80 53 Q 85 50 88 53" stroke="#2d3436" stroke-width="1.2" fill="none"/>
+            <path d="M 112 53 Q 115 50 120 53" stroke="#2d3436" stroke-width="1.2" fill="none"/>
+            <!-- Smile -->
+            <path d="M 91 71 Q 100 79 109 71" stroke="#e17055" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+            <!-- Accessory: Glasses / Ribbon (Toggleable via script) -->
+            <g id="lily-accessory" opacity="0">
+              <!-- Cute Pink Glasses -->
+              <circle cx="85" cy="58" r="9" fill="none" stroke="#e84393" stroke-width="2"/>
+              <circle cx="115" cy="58" r="9" fill="none" stroke="#e84393" stroke-width="2"/>
+              <line x1="94" y1="58" x2="106" y2="58" stroke="#e84393" stroke-width="2"/>
             </g>
 
-            <!-- Outfit: Top / Blouse -->
-            <path id="top-shirt" d="M 68 95 Q 100 105 132 95 L 135 142 L 65 142 Z" fill="#a29bfe"/>
-            <!-- Collar / Neckline -->
-            <path d="M 85 96 Q 100 110 115 96" fill="none" stroke="#ffe0bd" stroke-width="4" stroke-linecap="round"/>
-
-            <!-- Neck -->
-            <rect x="92" y="78" width="16" height="20" rx="4" fill="#ffe0bd"/>
-            <ellipse cx="100" cy="94" rx="8" ry="3" fill="#fcd5b5" opacity="0.7"/>
-
-            <!-- Head Base -->
-            <circle id="head" cx="100" cy="60" r="28" fill="#ffe0bd"/>
-
-            <!-- Facial Expressions Group -->
-            <g id="facial-features">
-              <!-- Blush Cheeks -->
-              <ellipse cx="82" cy="65" rx="5" ry="3" fill="#fd79a8" opacity="0.55"/>
-              <ellipse cx="118" cy="65" rx="5" ry="3" fill="#fd79a8" opacity="0.55"/>
-
-              <!-- Eyes Dynamic Container -->
-              <g id="expression-eyes">
-                <!-- Happy / Standard Eyes -->
-                <circle cx="86" cy="56" r="3.5" fill="#2d3436"/>
-                <circle cx="114" cy="56" r="3.5" fill="#2d3436"/>
-                <!-- Eye catchlights -->
-                <circle cx="85" cy="54.5" r="1.2" fill="#ffffff"/>
-                <circle cx="113" cy="54.5" r="1.2" fill="#ffffff"/>
-              </g>
-
-              <!-- Mouth Dynamic Container -->
-              <g id="expression-mouth">
-                <!-- Cute Smile -->
-                <path d="M 92 68 Q 100 75 108 68" stroke="#e17055" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-              </g>
+            <!-- Hair Layers (Back, Main, Bangs) -->
+            <g id="lily-hair">
+              <path id="lily-hair-back" d="M 68 50 C 62 90, 58 118, 70 145 C 74 128, 74 85, 74 62 Z M 132 50 C 138 90, 142 118, 130 145 C 126 128, 126 85, 126 62 Z" fill="#5c3d2e"/>
+              <path id="lily-hair-main" d="M 66 60 C 62 22, 138 22, 134 60 C 142 32, 132 16, 100 16 C 68 16, 58 32, 66 60 Z" fill="#5c3d2e"/>
+              <path id="lily-hair-bangs" d="M 70 50 Q 88 62 100 50 Q 112 62 130 50 Q 116 34 100 35 Q 84 34 70 50 Z" fill="#5c3d2e"/>
             </g>
 
-            <!-- Hair Structure -->
-            <g id="hair-group">
-              <!-- Back Hair extension -->
-              <path id="hair-back" d="M 70 50 C 65 85, 60 110, 72 135 C 75 120, 75 80, 75 60 Z M 130 50 C 135 85, 140 110, 128 135 C 125 120, 125 80, 125 60 Z" fill="#5c3d2e"/>
-              <!-- Main Front Hair Cut -->
-              <path id="hair-main" d="M 68 58 C 65 25, 135 25, 132 58 C 138 32, 130 18, 100 18 C 70 18, 62 32, 68 58 Z" fill="#5c3d2e"/>
-              <!-- Bangs / Front Locks -->
-              <path id="hair-bangs" d="M 72 48 Q 88 58 100 48 Q 112 58 128 48 Q 115 35 100 36 Q 85 35 72 48 Z" fill="#5c3d2e"/>
-            </g>
-
-            <!-- Glasses (Optional) -->
-            <g id="accessory-glasses" style="display: none;">
-              <circle cx="85" cy="56" r="9" fill="none" stroke="#2d3436" stroke-width="2"/>
-              <circle cx="115" cy="56" r="9" fill="none" stroke="#2d3436" stroke-width="2"/>
-              <line x1="94" y1="56" x2="106" y2="56" stroke="#2d3436" stroke-width="2"/>
-              <line x1="76" y1="56" x2="68" y2="52" stroke="#2d3436" stroke-width="1.5"/>
-              <line x1="124" y1="56" x2="132" y2="52" stroke="#2d3436" stroke-width="1.5"/>
-            </g>
-
-            <!-- Hair Bow / Flower Accessory (Optional) -->
-            <g id="accessory-bow" style="display: none;" transform="translate(118, 25)">
-              <path d="M -8 -4 Q 0 0 -8 4 Z" fill="#fd79a8"/>
-              <path d="M 8 -4 Q 0 0 8 4 Z" fill="#fd79a8"/>
-              <circle cx="0" cy="0" r="3" fill="#ffeaa7"/>
-            </g>
+            <!-- Bow Headband Accessory -->
+            <path id="lily-bow" d="M 88 22 Q 100 28 100 20 Q 100 28 112 22 Q 100 12 88 22 Z" fill="#fd79a8"/>
           </svg>
         </div>
 
-        <div class="mt-4 text-center">
-          <span class="inline-block bg-purple-100 text-purple-700 font-extrabold text-xs px-3 py-1 rounded-full mb-1">תצוגה מקדימה פעילה</span>
-          <h2 class="text-xl font-bold text-slate-800">לילי 🌟</h2>
-        </div>
-      </div>
-    </div>
+        <!-- Interactive Outfits & Customization Buttons -->
+        <div class="flex-1 space-y-5">
+          <div class="space-y-1">
+            <h3 class="text-xl font-extrabold text-purple-900 font-heading">סטודיו התלבושות והסטייל</h3>
+            <p class="text-xs md:text-sm text-slate-500">בחרי קולקציה מוקפדת או ערבבי אלמנטים למראה הייחודי שלך:</p>
+          </div>
 
-    <!-- Customization Control Panel -->
-    <div class="lg:col-span-7 space-y-5">
-      
-      <!-- Option Tabs / Color Selection Sections -->
-      <div class="glass-card rounded-3xl p-5 md:p-6 space-y-6">
+          <!-- Color Presets -->
+          <div class="space-y-2">
+            <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">🎨 קולקציות מוכנות:</span>
+            <div class="flex flex-wrap gap-2.5">
+              <button onclick="changeLilyStyle('#6c5ce7', '#a29bfe', '#5c3d2e', '#fd79a8')" class="px-3.5 py-2 bg-purple-100 hover:bg-purple-200 text-purple-900 rounded-xl text-xs font-bold transition shadow-sm">
+                מראה קלאסי סגול 💜
+              </button>
+              <button onclick="changeLilyStyle('#e84393', '#fd79a8', '#ffeaa7', '#e84393')" class="px-3.5 py-2 bg-pink-100 hover:bg-pink-200 text-pink-900 rounded-xl text-xs font-bold transition shadow-sm">
+                וורוד בלונד פלמינגו 🎀
+              </button>
+              <button onclick="changeLilyStyle('#00b894', '#55efc4', '#2d3436', '#ffeaa7')" class="px-3.5 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-xl text-xs font-bold transition shadow-sm">
+                אופנת מנטה רעננה 🌿
+              </button>
+              <button onclick="changeLilyStyle('#d63031', '#ff7675', '#e17055', '#d63031')" class="px-3.5 py-2 bg-red-100 hover:bg-red-200 text-red-900 rounded-xl text-xs font-bold transition shadow-sm">
+                שיק אלגנטי אדום 🔥
+              </button>
+            </div>
+          </div>
+
+          <!-- Hair Style Controls -->
+          <div class="space-y-2 pt-1 border-t border-slate-100">
+            <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">💇‍♀️ צבע שיער:</span>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="changeLilyHair('#5c3d2e')" class="px-3 py-1.5 bg-amber-900 text-white rounded-lg text-xs font-bold shadow-sm">חום קלאסי</button>
+              <button onclick="changeLilyHair('#ffeaa7')" class="px-3 py-1.5 bg-amber-200 text-amber-950 rounded-lg text-xs font-bold shadow-sm">בלונד זוהר</button>
+              <button onclick="changeLilyHair('#2d3436')" class="px-3 py-1.5 bg-slate-800 text-white rounded-lg text-xs font-bold shadow-sm">שחור פחם</button>
+              <button onclick="changeLilyHair('#e17055')" class="px-3 py-1.5 bg-orange-500 text-white rounded-lg text-xs font-bold shadow-sm">ג'ינג'י אש</button>
+            </div>
+          </div>
+
+          <!-- Accessories Toggle -->
+          <div class="space-y-2 pt-1 border-t border-slate-100">
+            <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">👓 אקססוריז ותוספות:</span>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="toggleGlasses()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition">
+                תוספת משקפיים 👓
+              </button>
+              <button onclick="toggleBow()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition">
+                פפיון לשיער 🎀
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="recipes-section" class="space-y-6">
+      <div class="text-center space-y-2">
+        <span class="bg-pink-100 text-pink-700 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+          פינוק מתוק ומהיר
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-purple-950 font-heading">
+          🍧 המתכונים הכי מושחתים וטעימים ברשת
+        </h2>
+        <p class="text-slate-600 text-sm md:text-base max-w-lg mx-auto">
+          כרטיסיות מעוצבות ונקיות ללא סרבול! לחצי על כל מתכון כדי לפתוח את הוראות ההכנה המלאות ברשת:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        <!-- Hair Customization -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2 flex items-center justify-between">
-            <span>💇‍♀️ צבע שיער:</span>
-            <span id="hair-label" class="text-xs text-purple-600 font-semibold">חום קלאסי</span>
-          </label>
-          <div class="flex flex-wrap gap-3">
-            <button onclick="setHair('#5c3d2e', 'חום קלאסי', this)" class="color-swatch active w-9 h-9 rounded-full bg-[#5c3d2e] border-2 border-white shadow-sm"></button>
-            <button onclick="setHair('#2d3436', 'שחור פחם', this)" class="color-swatch w-9 h-9 rounded-full bg-[#2d3436] border-2 border-white shadow-sm"></button>
-            <button onclick="setHair('#e17055', 'ג'ינג'י זוהר', this)" class="color-swatch w-9 h-9 rounded-full bg-[#e17055] border-2 border-white shadow-sm"></button>
-            <button onclick="setHair('#ffeaa7', 'בלונד זהוב', this)" class="color-swatch w-9 h-9 rounded-full bg-[#ffeaa7] border-2 border-white shadow-sm"></button>
-            <button onclick="setHair('#a29bfe', 'סגול פסטל', this)" class="color-swatch w-9 h-9 rounded-full bg-[#a29bfe] border-2 border-white shadow-sm"></button>
-            <button onclick="setHair('#fd79a8', 'וורוד מתיקות', this)" class="color-swatch w-9 h-9 rounded-full bg-[#fd79a8] border-2 border-white shadow-sm"></button>
+        <!-- Recipe Card 1 -->
+        <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" rel="noopener" class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-pink-300 group hover:-translate-y-2 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="text-5xl group-hover:scale-110 transition duration-300">🍉</div>
+            <h3 class="text-lg font-black text-slate-800 group-hover:text-pink-600 transition font-heading">
+              ברד אבטיח-לימון גן עדן
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              משקה קפוא, מרענן ודל קלוריות שמתאים בדיוק אחרי אימון צהריים!
+            </p>
           </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-pink-500 group-hover:text-pink-600">
+            <span>לצפייה במתכון</span>
+            <span class="group-hover:translate-x-[-4px] transition">🔍 🔗</span>
+          </div>
+        </a>
+
+        <!-- Recipe Card 2 -->
+        <a href="https://www.google.com/search?q=פרנץ+טוסט+מושלם+וזהוב" target="_blank" rel="noopener" class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-amber-300 group hover:-translate-y-2 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="text-5xl group-hover:scale-110 transition duration-300">🍞</div>
+            <h3 class="text-lg font-black text-slate-800 group-hover:text-amber-600 transition font-heading">
+              פרנץ' טוסט פריך וזהוב
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              חלה עסיסית בבלילת וניל וקינמון עם מייפל טבעי ותותים טריים.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-amber-600">
+            <span>לצפייה במתכון</span>
+            <span class="group-hover:translate-x-[-4px] transition">🔍 🔗</span>
+          </div>
+        </a>
+
+        <!-- Recipe Card 3 -->
+        <a href="https://www.google.com/search?q=עוגיות+שוקולד+ציפס+רכות+10+דקות" target="_blank" rel="noopener" class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-purple-300 group hover:-translate-y-2 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="text-5xl group-hover:scale-110 transition duration-300">🍪</div>
+            <h3 class="text-lg font-black text-slate-800 group-hover:text-purple-600 transition font-heading">
+              עוגיות שוקולד צ'יפס 10 דקות
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              עוגיות נימוחות ונמסות מבפנים עם שוקולד מריר איכותי ומעט מלח גס.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-purple-600">
+            <span>לצפייה במתכון</span>
+            <span class="group-hover:translate-x-[-4px] transition">🔍 🔗</span>
+          </div>
+        </a>
+
+        <!-- Recipe Card 4 -->
+        <a href="https://www.google.com/search?q=פנקייק+אוורירי+כמו+ענן+מתכון" target="_blank" rel="noopener" class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-yellow-300 group hover:-translate-y-2 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="text-5xl group-hover:scale-110 transition duration-300">🥞</div>
+            <h3 class="text-lg font-black text-slate-800 group-hover:text-yellow-600 transition font-heading">
+              פנקייק אוורירי כמו ענן
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              מגדל פנקייקים גבוהים, רכים וקלים במיוחד לארוחת בוקר מפנקת!
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-yellow-600">
+            <span>לצפייה במתכון</span>
+            <span class="group-hover:translate-x-[-4px] transition">🔍 🔗</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <section id="calendar-section" class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div>
+          <span class="bg-purple-100 text-purple-800 font-extrabold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider">
+            ארגון ומעקב
+          </span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-purple-950 font-heading mt-1">
+            🗓️ לו"ז חודשי אינטראקטיבי
+          </h2>
+        </div>
+        <div class="text-xs md:text-sm font-extrabold text-slate-500 bg-white/80 px-4 py-2 rounded-xl shadow-sm border border-slate-100 inline-block">
+          ספטמבר 2026 📅
+        </div>
+      </div>
+
+      <p class="text-xs md:text-sm text-slate-500">
+        לחצי על כל יום בלו"ז כדי לשבץ אירוע/משימה ולעדכן אם מדובר ביום אימון פעיל או יום מנוחה:
+      </p>
+
+      <!-- Calendar Header Days -->
+      <div class="grid grid-cols-7 gap-2 text-center text-xs font-extrabold text-slate-600">
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">א'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ב'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ג'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ד'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ה'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ו'</div>
+        <div class="py-2.5 bg-purple-100/70 text-purple-900 rounded-xl">ש'</div>
+      </div>
+
+      <!-- Calendar Days Grid -->
+      <div id="calendar-days-grid" class="grid grid-cols-7 gap-2">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <section id="quiz-section" class="glass-card rounded-3xl p-6 md:p-10 space-y-6 border-2 border-purple-200/80 shadow-xl">
+      <div class="text-center space-y-2">
+        <span class="bg-amber-100 text-amber-900 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+          אתגר סוף העמוד
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-purple-950 font-heading">
+          ❓ 10 שאלות אמריקאיות בכרטיסיות
+        </h2>
+        <p class="text-xs md:text-sm text-slate-500 max-w-lg mx-auto">
+          עני על השאלות בכרטיסיות, לחצי על אחת האפשרויות וגלי תשובות מפורטות ומלאות בהומור ציני!
+        </p>
+      </div>
+
+      <!-- Interactive Question Flashcard -->
+      <div class="bg-gradient-to-br from-purple-50/90 via-pink-50/70 to-white border border-purple-100 rounded-3xl p-6 md:p-8 relative shadow-sm">
+        
+        <!-- Header / Progress Bar -->
+        <div class="flex items-center justify-between mb-6 pb-3 border-b border-purple-100/80">
+          <span id="quiz-progress" class="text-xs font-extrabold text-purple-700 bg-white px-3.5 py-1.5 rounded-full shadow-sm border border-purple-100">
+            שאלה 1 מתוך 10
+          </span>
+          <span class="text-2xl animate-pulse">💡</span>
         </div>
 
-        <hr class="border-slate-200 opacity-60">
+        <!-- Question Title -->
+        <h3 id="quiz-question-text" class="text-xl md:text-2xl font-black text-slate-800 mb-6 font-heading leading-snug">
+          טוען שאלה...
+        </h3>
 
-        <!-- Outfit Colors -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2 flex items-center justify-between">
-            <span>👗 צבעי חליפה ושמלה:</span>
-            <span id="outfit-label" class="text-xs text-purple-600 font-semibold">סגול מודרני</span>
-          </label>
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="setOutfit('#6c5ce7', '#a29bfe', 'סגול מודרני')" class="flex items-center gap-2 p-2 bg-slate-50 hover:bg-purple-50 rounded-xl border border-slate-200 transition text-right">
-              <span class="w-6 h-6 rounded-full bg-[#6c5ce7] border border-white inline-block"></span>
-              <span class="text-xs font-semibold">סגול קלאסי</span>
-            </button>
-            <button onclick="setOutfit('#e84393', '#fd79a8', 'ורוד פלמינגו')" class="flex items-center gap-2 p-2 bg-slate-50 hover:bg-pink-50 rounded-xl border border-slate-200 transition text-right">
-              <span class="w-6 h-6 rounded-full bg-[#e84393] border border-white inline-block"></span>
-              <span class="text-xs font-semibold">ורוד מתוק</span>
-            </button>
-            <button onclick="setOutfit('#0984e3', '#74b9ff', 'כחול שמיים')" class="flex items-center gap-2 p-2 bg-slate-50 hover:bg-blue-50 rounded-xl border border-slate-200 transition text-right">
-              <span class="w-6 h-6 rounded-full bg-[#0984e3] border border-white inline-block"></span>
-              <span class="text-xs font-semibold">כחול מלכותי</span>
-            </button>
-            <button onclick="setOutfit('#00b894', '#55efc4', 'ירוק מנטה')" class="flex items-center gap-2 p-2 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-200 transition text-right">
-              <span class="w-6 h-6 rounded-full bg-[#00b894] border border-white inline-block"></span>
-              <span class="text-xs font-semibold">ירוק מנטה</span>
-            </button>
-          </div>
+        <!-- Options Container -->
+        <div id="quiz-options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+          <!-- Options dynamically rendered here -->
         </div>
 
-        <hr class="border-slate-200 opacity-60">
-
-        <!-- Expression Switcher -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">😊 הבעת פנים:</label>
-          <div class="grid grid-cols-3 gap-2">
-            <button onclick="setExpression('happy')" class="p-2 bg-white hover:bg-purple-50 rounded-xl border border-slate-200 font-semibold text-xs text-center transition">
-              😄 שמחה
-            </button>
-            <button onclick="setExpression('wink')" class="p-2 bg-white hover:bg-purple-50 rounded-xl border border-slate-200 font-semibold text-xs text-center transition">
-              😜 קריצה
-            </button>
-            <button onclick="setExpression('cool')" class="p-2 bg-white hover:bg-purple-50 rounded-xl border border-slate-200 font-semibold text-xs text-center transition">
-              😎 חיוך רחב
-            </button>
-          </div>
+        <!-- Revealed Answer Box -->
+        <div id="quiz-answer-box" class="hidden p-5 rounded-2xl bg-amber-100/90 border-r-4 border-amber-500 text-amber-950 text-sm leading-relaxed mb-6 shadow-sm">
+          <p id="quiz-answer-text" class="font-bold"></p>
         </div>
 
-        <hr class="border-slate-200 opacity-60">
-
-        <!-- Accessories -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">👓 אקססוריז ותוספות:</label>
-          <div class="flex flex-wrap gap-3">
-            <label class="flex items-center gap-2 cursor-pointer bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold hover:bg-slate-100 transition">
-              <input type="checkbox" id="toggle-glasses" onchange="toggleGlasses(this.checked)" class="accent-purple-600 rounded">
-              <span>משקפיים אופנתיים 👓</span>
-            </label>
-            
-            <label class="flex items-center gap-2 cursor-pointer bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold hover:bg-slate-100 transition">
-              <input type="checkbox" id="toggle-bow" onchange="toggleBow(this.checked)" class="accent-pink-500 rounded">
-              <span>פפיון/פרח לשיער 🎀</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Footwear Customization -->
-        <hr class="border-slate-200 opacity-60">
-
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">👟 צבע נעליים:</label>
-          <div class="flex gap-3">
-            <button onclick="setShoes('#fd79a8')" class="w-8 h-8 rounded-full bg-[#fd79a8] border-2 border-white shadow-sm"></button>
-            <button onclick="setShoes('#6c5ce7')" class="w-8 h-8 rounded-full bg-[#6c5ce7] border-2 border-white shadow-sm"></button>
-            <button onclick="setShoes('#2d3436')" class="w-8 h-8 rounded-full bg-[#2d3436] border-2 border-white shadow-sm"></button>
-            <button onclick="setShoes('#ffffff')" class="w-8 h-8 rounded-full bg-[#ffffff] border-2 border-slate-300 shadow-sm"></button>
-          </div>
+        <!-- Navigation Buttons -->
+        <div class="flex items-center justify-between pt-3 border-t border-purple-100/60">
+          <button onclick="prevQuestion()" id="quiz-prev-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-extrabold text-xs md:text-sm px-5 py-2.5 rounded-xl transition active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+            ⬅️ הקודם
+          </button>
+          <button onclick="nextQuestion()" id="quiz-next-btn" class="btn-gradient text-white font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-xl transition active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+            הבא ➡️
+          </button>
         </div>
 
       </div>
-    </div>
+    </section>
+
   </main>
 
-  <footer class="max-w-5xl mx-auto w-full mt-8 text-center text-xs text-slate-500">
-    <p>לילי - דמות וקטורית נקייה, מודרנית ואיכותית SVG | נוצרה באהבה 💖</p>
+  <!-- Modal for Editing Calendar Day Events -->
+  <div id="day-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full space-y-5 shadow-2xl border border-purple-100">
+      <div class="flex items-center justify-between">
+        <h3 id="modal-day-title" class="text-xl font-black text-purple-900 font-heading">עריכת יום</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs md:text-sm">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">אירוע / משימה ליום זה:</label>
+          <input type="text" id="event-input" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-purple-500 text-slate-800 font-semibold" placeholder="למשל: אימון קליסטניקס צהריים">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">האם מתאים להתאמן היום?</label>
+          <select id="workout-select" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-purple-500 text-slate-800 font-semibold">
+            <option value="">-- לבחירה --</option>
+            <option value="yes">כן, מתאים להתאמן! 💪</option>
+            <option value="no">לא, יום מנוחה ☕</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="saveDayData()" class="btn-gradient flex-1 text-white font-bold text-xs md:text-sm py-2.5 rounded-xl shadow">
+          שמירה
+        </button>
+        <button onclick="closeModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs md:text-sm px-4 py-2.5 rounded-xl">
+          ביטול
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-16 bg-white border-t border-pink-100 py-8 text-center text-xs font-semibold text-slate-400 space-y-2">
+    <div class="flex items-center justify-center gap-2 text-slate-600 text-sm font-bold">
+      <span>🍭 טופי 100</span> • <span>אימונים, מתכונים ולילי</span>
+    </div>
+    <p>כל הזכויות שמורות © 2026</p>
   </footer>
 
   <script>
-    // State management for Lily's appearance
-    const state = {
-      hairColor: '#5c3d2e',
-      skirtColor: '#6c5ce7',
-      topColor: '#a29bfe',
-      shoeColor: '#fd79a8',
-      expression: 'happy',
-      glasses: false,
-      bow: false
+    /* ==========================================================================
+       1. STOPWATCH LOGIC FOR NOON & EVENING WORKOUTS
+       ========================================================================== */
+    const timers = {
+      noon: { time: 0, interval: null, running: false },
+      evening: { time: 0, interval: null, running: false }
     };
 
-    function setHair(color, label, element) {
-      state.hairColor = color;
-      document.getElementById('hair-main').setAttribute('fill', color);
-      document.getElementById('hair-back').setAttribute('fill', color);
-      document.getElementById('hair-bangs').setAttribute('fill', color);
-      document.getElementById('hair-label').innerText = label;
+    function formatTime(ms) {
+      const totalDeci = Math.floor(ms / 100);
+      const seconds = Math.floor(totalDeci / 10) % 60;
+      const minutes = Math.floor(totalDeci / 600);
+      const deci = totalDeci % 10;
+      
+      const mStr = String(minutes).padStart(2, '0');
+      const sStr = String(seconds).padStart(2, '0');
+      return `${mStr}:${sStr}.${deci}`;
+    }
 
-      if (element) {
-        document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
+    function startTimer(key) {
+      if (timers[key].running) return;
+      timers[key].running = true;
+      const startTime = Date.now() - timers[key].time;
+      
+      timers[key].interval = setInterval(() => {
+        timers[key].time = Date.now() - startTime;
+        document.getElementById(`${key}-timer-display`).innerText = formatTime(timers[key].time);
+      }, 100);
+    }
+
+    function pauseTimer(key) {
+      if (!timers[key].running) return;
+      timers[key].running = false;
+      clearInterval(timers[key].interval);
+    }
+
+    function resetTimer(key) {
+      pauseTimer(key);
+      timers[key].time = 0;
+      document.getElementById(`${key}-timer-display`).innerText = "00:00.0";
+    }
+
+    /* ==========================================================================
+       2. LILY CHARACTER DRESS-UP STUDIO CONTROLLER
+       ========================================================================== */
+    function changeLilyStyle(skirtColor, topColor, hairColor, shoeColor) {
+      document.getElementById('lily-skirt').setAttribute('fill', skirtColor);
+      document.getElementById('lily-top').setAttribute('fill', topColor);
+      document.getElementById('lily-hair-main').setAttribute('fill', hairColor);
+      document.getElementById('lily-hair-back').setAttribute('fill', hairColor);
+      document.getElementById('lily-hair-bangs').setAttribute('fill', hairColor);
+      
+      const shoes = document.querySelectorAll('#lily-shoes path');
+      shoes.forEach(shoe => shoe.setAttribute('fill', shoeColor));
+    }
+
+    function changeLilyHair(hairColor) {
+      document.getElementById('lily-hair-main').setAttribute('fill', hairColor);
+      document.getElementById('lily-hair-back').setAttribute('fill', hairColor);
+      document.getElementById('lily-hair-bangs').setAttribute('fill', hairColor);
+    }
+
+    let glassesVisible = false;
+    function toggleGlasses() {
+      glassesVisible = !glassesVisible;
+      document.getElementById('lily-accessory').setAttribute('opacity', glassesVisible ? '1' : '0');
+    }
+
+    let bowVisible = true;
+    function toggleBow() {
+      bowVisible = !bowVisible;
+      document.getElementById('lily-bow').setAttribute('opacity', bowVisible ? '1' : '0');
+    }
+
+    /* ==========================================================================
+       3. INTERACTIVE MONTHLY CALENDAR LOGIC
+       ========================================================================== */
+    const daysData = {};
+    let selectedDay = null;
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendar-days-grid');
+      grid.innerHTML = '';
+      
+      for (let i = 1; i <= 30; i++) {
+        const data = daysData[i] || {};
+        const isWorkoutDay = data.workout === 'yes' || (!data.workout && i % 2 === 0);
+        
+        const dayCard = document.createElement('div');
+        dayCard.className = `p-2.5 rounded-2xl border text-center transition-all cursor-pointer flex flex-col justify-between min-h-[75px] hover:shadow-md ${
+          isWorkoutDay ? 'bg-pink-50/80 border-pink-200' : 'bg-white border-slate-100'
+        }`;
+        dayCard.onclick = () => openModal(i);
+        
+        let eventBadge = data.event ? `<span class="text-[10px] bg-purple-100 text-purple-900 px-1.5 py-0.5 rounded font-bold truncate max-w-full block">${data.event}</span>` : '';
+        let iconBadge = isWorkoutDay ? '<span class="text-xs">💪</span>' : '<span class="text-xs text-slate-300">☕</span>';
+        if (data.workout === 'no') iconBadge = '<span class="text-xs">😴</span>';
+
+        dayCard.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-slate-700">${i}</span>
+            ${iconBadge}
+          </div>
+          <div class="mt-1">${eventBadge}</div>
+        `;
+        grid.appendChild(dayCard);
       }
     }
 
-    function setOutfit(skirtColor, topColor, label) {
-      state.skirtColor = skirtColor;
-      state.topColor = topColor;
-      document.getElementById('skirt').setAttribute('fill', skirtColor);
-      document.getElementById('top-shirt').setAttribute('fill', topColor);
-      document.getElementById('outfit-label').innerText = label;
+    function openModal(dayNum) {
+      selectedDay = dayNum;
+      document.getElementById('modal-day-title').innerText = `עריכת יום ${dayNum}`;
+      
+      const current = daysData[dayNum] || {};
+      document.getElementById('event-input').value = current.event || '';
+      document.getElementById('workout-select').value = current.workout || (dayNum % 2 === 0 ? 'yes' : 'no');
+
+      const modal = document.getElementById('day-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
 
-    function setShoes(color) {
-      state.shoeColor = color;
-      document.getElementById('shoe-left').setAttribute('fill', color);
-      document.getElementById('shoe-right').setAttribute('fill', color);
+    function closeModal() {
+      const modal = document.getElementById('day-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
 
-    function setExpression(exp) {
-      state.expression = exp;
-      const eyesGroup = document.getElementById('expression-eyes');
-      const mouthGroup = document.getElementById('expression-mouth');
+    function saveDayData() {
+      if (!selectedDay) return;
 
-      if (exp === 'happy') {
-        eyesGroup.innerHTML = `
-          <circle cx="86" cy="56" r="3.5" fill="#2d3436"/>
-          <circle cx="114" cy="56" r="3.5" fill="#2d3436"/>
-          <circle cx="85" cy="54.5" r="1.2" fill="#ffffff"/>
-          <circle cx="113" cy="54.5" r="1.2" fill="#ffffff"/>
-        `;
-        mouthGroup.innerHTML = `
-          <path d="M 92 68 Q 100 75 108 68" stroke="#e17055" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        `;
-      } else if (exp === 'wink') {
-        eyesGroup.innerHTML = `
-          <!-- Left Winking Eye -->
-          <path d="M 81 56 Q 86 51 91 56" stroke="#2d3436" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <!-- Right Normal Eye -->
-          <circle cx="114" cy="56" r="3.5" fill="#2d3436"/>
-          <circle cx="113" cy="54.5" r="1.2" fill="#ffffff"/>
-        `;
-        mouthGroup.innerHTML = `
-          <path d="M 93 67 Q 100 76 107 67 Z" fill="#e17055"/>
-        `;
-      } else if (exp === 'cool') {
-        eyesGroup.innerHTML = `
-          <circle cx="86" cy="56" r="4" fill="#2d3436"/>
-          <circle cx="114" cy="56" r="4" fill="#2d3436"/>
-          <circle cx="84.5" cy="54" r="1.5" fill="#ffffff"/>
-          <circle cx="112.5" cy="54" r="1.5" fill="#ffffff"/>
-        `;
-        mouthGroup.innerHTML = `
-          <path d="M 90 66 Q 100 78 110 66" stroke="#e17055" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        `;
+      const eventVal = document.getElementById('event-input').value.trim();
+      const workoutVal = document.getElementById('workout-select').value;
+
+      daysData[selectedDay] = {
+        event: eventVal,
+        workout: workoutVal
+      };
+
+      closeModal();
+      renderCalendar();
+    }
+
+    /* ==========================================================================
+       4. 10 MULTIPLE-CHOICE TRIVIA CAROUSEL LOGIC
+       ========================================================================== */
+    const quizQuestions = [
+      {
+        q: "1. מהי הדרך היעילה ביותר להתאושש ולהחזיר אנרגיה אחרי אימון צהריים?",
+        options: ["שתיית מים ומתיחות קלות", "שכיבה על הספה במשך 6 שעות", "אכילת 3 מגשי פיצה", "כתיבת פוסט מתלונן ברשת"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: מים ומתיחות קלות! למרות ששכיבה על הספה נשמעת מפתה בטירוף, הגוף שלך יודה לך על כמה שלוקים של מים ושחרור השרירים."
+      },
+      {
+        q: "2. כמה דקות מומלץ לבצע את אימון הערב להרפיה וחיזוק הליבה?",
+        options: ["10-15 דקות", "4 שעות ברציפות", "30 שניות בדיוק", "אפס דקות"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: 10-15 דקות. מספיק בדיוק כדי לשחרר את הגב ולהישאר ערניים מספיק כדי להגיע למיטה במצב רוח מעולה!"
+      },
+      {
+        q: "3. מה מייחד את לילי (Lily) בסטודיו האופנה של האתר?",
+        options: ["היא דמות וקטורית אופנתית שניתן להלביש", "היא אלופת העולם באגרוף", "היא שחקנית כדורגל מקצועית", "היא רובוט משנות ה-80"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: לילי היא הדמות האופנתית שמלווה אותך בסטייל וניתן להחליף לה בגדים, אקססוריז ותסרוקות!"
+      },
+      {
+        q: "4. איזה מתכון קיצי מופיע בכרטיסיות המתכונים הנקיות?",
+        options: ["ברד אבטיח-לימון גן עדן", "מרק חם ומהביל", "תה קמומיל", "שוקו חם עם קצפת"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: ברד אבטיח ולימון! כי אין דבר יותר הגיוני ומרענן מאבטיח קפוא כשבחוץ חם."
+      },
+      {
+        q: "5. מה התפקיד של הסטופר האינטראקטיבי ליד אימון הצהריים?",
+        options: ["למדוד זמני מנוחה ופלאנק מדויקים", "למדוד כמה זמן לוקח להכין קפה", "לספור עד מיליון", "סתם לעשות רעש"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: למדוד זמנים מדויקים לפלאנק ולסטים. בלי תירוצים ובלי לעגל פינות!"
+      },
+      {
+        q: "6. איזה מאכל מתאים לפינוק מתוק בסוף השבוע?",
+        options: ["פרנץ' טוסט פריך וזהוב", "אורז יבש בלי מלח", "קוביית קרח", "עלים ירוקים בלבד"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: פרנץ' טוסט! כי מגיע לך פינוק אמיתי אחרי שסיימת את כל האימונים השבועיים."
+      },
+      {
+        q: "7. מה מומלץ לעשות ממש לפני תחילת אימון הצהריים?",
+        options: ["חימום מפרקים קל וסיבובי אגן", "ריצת מרתון של 42 ק\"מ", "שינה עמוקה של 3 שעות", "אכילת ארוחה כבדה"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: חימום מפרקים קל! מכין את השרירים, מעלה את טמפרטורת הגוף ומונע פציעות."
+      },
+      {
+        q: "8. מה החשיבות של לו\"ז אימונים חודשי בטבלה?",
+        options: ["לעקוב בהתמדה אחרי היעדים", "לקשט את המסך בצבעים", "לשכוח מתי התאמנת", "לבלבל את ימי השבוע"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: מעקב בהתמדה! כשרואים את הסימון בטבלה, המוטיבציה רק עולה מיום ליום."
+      },
+      {
+        q: "9. איזה תרגיל יוגה מופיע באימון הערב להרפיית הגב?",
+        options: ["מתיחת חתול-פרה", "קפיצה לגובה 2 מטר", "הרמת משקולות כבדות", "ריצה במדרגות"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: מתיחת חתול-פרה! מעולה לשחרור עמוד השדרה ולהרגעת המתח שנצבר מול מסכים."
+      },
+      {
+        q: "10. איפה ממוקמות 10 השאלות האמריקאיות באתר טופי 100?",
+        options: ["בסוף העמוד בדיוק!", "בראש העמוד", "באמצע המתכונים", "הן מוחבאות"],
+        correct: 0,
+        funnyAnswer: "תשובה נכונה: בסוף העמוד בדיוק! כפי שביקשת, זה האתגר המסכם שמחכה בתחתית העמוד!"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    function renderQuestion() {
+      const qData = quizQuestions[currentQuestionIndex];
+      document.getElementById('quiz-progress').innerText = `שאלה ${currentQuestionIndex + 1} מתוך 10`;
+      document.getElementById('quiz-question-text').innerText = qData.q;
+      
+      const optionsContainer = document.getElementById('quiz-options-container');
+      optionsContainer.innerHTML = '';
+
+      qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "p-3.5 bg-white hover:bg-purple-100/80 rounded-2xl border border-slate-200 font-bold text-xs md:text-sm text-slate-800 text-right transition shadow-sm active:scale-98 hover:border-purple-300";
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+      });
+
+      document.getElementById('quiz-answer-box').classList.add('hidden');
+      
+      document.getElementById('quiz-prev-btn').disabled = (currentQuestionIndex === 0);
+      document.getElementById('quiz-next-btn').disabled = (currentQuestionIndex === quizQuestions.length - 1);
+    }
+
+    function selectOption(index, clickedBtn) {
+      const qData = quizQuestions[currentQuestionIndex];
+      const answerBox = document.getElementById('quiz-answer-box');
+      const answerText = document.getElementById('quiz-answer-text');
+
+      const allBtns = document.querySelectorAll('#quiz-options-container button');
+      allBtns.forEach(b => b.classList.remove('bg-purple-200', 'border-purple-500'));
+
+      clickedBtn.classList.add('bg-purple-200', 'border-purple-500');
+
+      answerText.innerText = qData.funnyAnswer;
+      answerBox.classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
       }
     }
 
-    function toggleGlasses(show) {
-      state.glasses = show;
-      document.getElementById('accessory-glasses').style.display = show ? 'block' : 'none';
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
     }
 
-    function toggleBow(show) {
-      state.bow = show;
-      document.getElementById('accessory-bow').style.display = show ? 'block' : 'none';
-    }
-
-    function resetCharacter() {
-      setHair('#5c3d2e', 'חום קלאסי');
-      setOutfit('#6c5ce7', '#a29bfe', 'סגול מודרני');
-      setShoes('#fd79a8');
-      setExpression('happy');
-      
-      document.getElementById('toggle-glasses').checked = false;
-      toggleGlasses(false);
-      
-      document.getElementById('toggle-bow').checked = false;
-      toggleBow(false);
-    }
-
-    function randomizeCharacter() {
-      const hairColors = [
-        { c: '#5c3d2e', l: 'חום קלאסי' },
-        { c: '#2d3436', l: 'שחור פחם' },
-        { c: '#e17055', l: 'ג'ינג'י זוהר' },
-        { c: '#ffeaa7', l: 'בלונד זהוב' },
-        { c: '#a29bfe', l: 'סגול פסטל' },
-        { c: '#fd79a8', l: 'וורוד מתיקות' }
-      ];
-      
-      const outfits = [
-        { s: '#6c5ce7', t: '#a29bfe', l: 'סגול קלאסי' },
-        { s: '#e84393', t: '#fd79a8', l: 'ורוד מתוק' },
-        { s: '#0984e3', t: '#74b9ff', l: 'כחול מלכותי' },
-        { s: '#00b894', t: '#55efc4', l: 'ירוק מנטה' }
-      ];
-
-      const shoeColors = ['#fd79a8', '#6c5ce7', '#2d3436', '#ffffff'];
-      const expressions = ['happy', 'wink', 'cool'];
-
-      const randomHair = hairColors[Math.floor(Math.random() * hairColors.length)];
-      const randomOutfit = outfits[Math.floor(Math.random() * outfits.length)];
-      const randomShoe = shoeColors[Math.floor(Math.random() * shoeColors.length)];
-      const randomExp = expressions[Math.floor(Math.random() * expressions.length)];
-
-      setHair(randomHair.c, randomHair.l);
-      setOutfit(randomOutfit.s, randomOutfit.t, randomOutfit.l);
-      setShoes(randomShoe);
-      setExpression(randomExp);
-
-      const randomGlasses = Math.random() > 0.5;
-      const randomBow = Math.random() > 0.5;
-
-      document.getElementById('toggle-glasses').checked = randomGlasses;
-      toggleGlasses(randomGlasses);
-
-      document.getElementById('toggle-bow').checked = randomBow;
-      toggleBow(randomBow);
-    }
+    // Initialize application on window load
+    window.onload = function() {
+      renderCalendar();
+      renderQuestion();
+    };
   </script>
 </body>
 </html>
