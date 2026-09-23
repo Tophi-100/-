@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>העולם של לילי ✨</title>
+  <title>העולם המשודרג של לילי ✨</title>
   <style>
     :root {
       --primary-color: #ff85a2;
@@ -121,9 +121,9 @@
       border: 1px solid #ffe066;
     }
 
-    /* עיצוב לילי - דמות נקייה ומתוקה */
+    /* עיצוב לילי האהובה והמתוקה */
     .character-section {
-      background: white;
+      background: #ffe3e8;
       border-radius: 20px;
       padding: 20px;
       text-align: center;
@@ -132,27 +132,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: background 0.5s ease;
+      position: relative;
     }
 
     .lily-avatar-card {
-      width: 130px;
-      height: 130px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: #ffe3e8;
+      background: white;
       border: 4px solid var(--primary-color);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 15px;
-      position: relative;
       box-shadow: 0 6px 15px rgba(255, 133, 162, 0.3);
-      transition: 0.3s;
+      overflow: hidden;
     }
 
     .lily-avatar-card img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
@@ -165,6 +165,18 @@
       color: #d6336c;
       font-size: 15px;
       line-height: 1.4;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .daily-quote-card {
+      background: #e7f5ff;
+      border-right: 4px solid #4ea8de;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #1864ab;
       width: 100%;
       box-sizing: border-box;
     }
@@ -198,6 +210,49 @@
 
     button.opt-btn:hover {
       background: #ffd1dc;
+    }
+
+    /* מד מים יומי */
+    .water-tracker {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    .water-glass {
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: 0.2s;
+    }
+
+    .water-glass.active {
+      opacity: 1.0;
+      transform: scale(1.1);
+    }
+
+    /* צ'ק-ליסט משימות */
+    .task-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .task-item input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
     }
 
     /* מפת התקדמות */
@@ -242,7 +297,7 @@
       color: white;
     }
 
-    /* אימונים, סטופר וסרטונים */
+    /* אימונים וסטופרים */
     .workout-item {
       background: #fff0f3;
       border-right: 4px solid var(--primary-color);
@@ -309,11 +364,27 @@
       border-radius: 8px;
       font-weight: bold;
     }
+
+    /* קונפטי */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      z-index: 2000;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- מודאל כניסה: שאלון להתעניינות בשלומך -->
+  <!-- מודאל כניסה -->
   <div id="welcome-modal">
     <div class="modal-content">
       <h2>היי אהובה! ברוכה הבאה 💖</h2>
@@ -337,7 +408,7 @@
       <div class="question-group">
         <label for="q3">3. מה בא לך לעשות כרגע?</label>
         <select id="q3">
-          <option value="לנוח מחופשת סוכות">לנוח ולבלות בכיף 🌴</option>
+          <option value="לנוח ולבלות">לנוח ולבלות בכיף 🌴</option>
           <option value="להתאמן ולעשות ספורט">אימון כיפי / ריצת ערב 🏃‍♀️</option>
           <option value="להכין מתכון טעים">להכין מתכון טעים ומחטב 🥞</option>
         </select>
@@ -347,50 +418,69 @@
     </div>
   </div>
 
-  <!-- התוכן הראשי של האתר -->
+  <!-- התוכן הראשי -->
   <div id="app">
     <header>
       <h1>העולם של לילי 👑</h1>
       <div class="coin-badge">💰 מטבעות בחלל: <span id="money-display">0</span> ₪</div>
+      <button onclick="resetData()" style="margin-top:5px; background:none; border:none; color:#888; text-decoration:underline; cursor:pointer; font-size:11px;">איפוס מלא של האתר</button>
     </header>
 
-    <!-- הצגת לילי המתוקה -->
-    <div class="character-section">
-      <div class="lily-avatar-card" id="lily-card">
-        <img id="lily-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lily&hairColor=2c1b18&skinColor=f8d25c&top=longHair&eyes=default" alt="לילי">
+    <!-- דמות לילי המתוקה -->
+    <div class="character-section" id="room-bg">
+      <div class="lily-avatar-card">
+        <img id="lily-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="לילי">
       </div>
       
       <div class="speech-bubble" id="lily-speech">
         טוענת את התגובה של לילי...
       </div>
+
+      <div class="daily-quote-card" id="daily-quote">
+        💡 <strong>טיפ יומי מלילי:</strong> "צעד קטן בכל יום מוביל לתוצאות ענקיות! את מסוגלת להכל ✨"
+      </div>
     </div>
 
-    <!-- הארון והחנות של לילי -->
+    <!-- מד מים יומי -->
     <div class="section-card">
-      <h3>הארון והחנות של לילי 👗✨</h3>
-      <p style="font-size:13px; color:#666;">שני את העיצוב של לילי – שיער, תסרוקות, עיניים וסטייל (חלק נפתחים בקנייה עם מטבעות):</p>
+      <h3>💧 מד שתיית מים יומי</h3>
+      <p style="font-size:12px; color:#666;">לחצי על כוס מים בכל פעם שאת שותה. כל 2 כוסות מעניקות לך 5 מטבעות!</p>
+      <div class="water-tracker">
+        <span class="water-glass" onclick="toggleWater(1)">🥛</span>
+        <span class="water-glass" onclick="toggleWater(2)">🥛</span>
+        <span class="water-glass" onclick="toggleWater(3)">🥛</span>
+        <span class="water-glass" onclick="toggleWater(4)">🥛</span>
+        <span class="water-glass" onclick="toggleWater(5)">🥛</span>
+        <span class="water-glass" onclick="toggleWater(6)">🥛</span>
+      </div>
+    </div>
+
+    <!-- צ'ק-ליסט משימות -->
+    <div class="section-card">
+      <h3>✅ משימות היום שלי</h3>
+      <ul class="task-list">
+        <li class="task-item"><input type="checkbox" id="task1" onchange="toggleTask('task1', 5)"> <label for="task1">סידור החדר והמיטה (5 ₪)</label></li>
+        <li class="task-item"><input type="checkbox" id="task2" onchange="toggleTask('task2', 10)"> <label for="task2">אימון 15 דקות או ריצת ערב (10 ₪)</label></li>
+        <li class="task-item"><input type="checkbox" id="task3" onchange="toggleTask('task3', 5)"> <label for="task3">שתיית 6 כוסות מים (5 ₪)</label></li>
+      </ul>
+    </div>
+
+    <!-- החנות והסטייל של לילי -->
+    <div class="section-card">
+      <h3>הלוק והחנות של לילי 👗✨</h3>
+      <p style="font-size:13px; color:#666;">בחרי סטייל ורקע לחדר של לילי (חלק נפתחים בקנייה עם מטבעות):</p>
       
       <div class="controls-grid">
-        <!-- תסרוקות ושיער -->
-        <button class="opt-btn" onclick="updateLily('hairColor=2c1b18&top=longHair')">שיער חום גלי</button>
-        <button class="opt-btn" onclick="updateLily('hairColor=000000&top=straight01')">שיער שחור חלק</button>
-        <button class="opt-btn" onclick="updateLily('hairColor=f5a524&top=longHairBigHair')">בלונד גלי</button>
-        <button class="opt-btn" onclick="updateLily('hairColor=b1320f&top=bun')">גולגול ג'ינג'י</button>
+        <!-- לוקים של לילי -->
+        <button class="opt-btn" onclick="setLilyStyle('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80')">לוק קלאסי</button>
+        <button class="opt-btn" onclick="setLilyStyle('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80')">לוק מחויך</button>
+        <button class="opt-btn" id="buy-look-sport" onclick="buyLook('look-sport', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', 15)">לוק ספורטיבי (15 ₪)</button>
+        <button class="opt-btn" id="buy-look-chic" onclick="buyLook('look-chic', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', 25)">לוק שיק וחורפי (25 ₪)</button>
 
-        <!-- עיניים -->
-        <button class="opt-btn" onclick="updateLily('eyes=default')">עיניים חומות</button>
-        <button class="opt-btn" onclick="updateLily('eyes=happy')">עיניים שמחות</button>
-        <button class="opt-btn" onclick="updateLily('eyes=wink')">עין קורצת</button>
-
-        <!-- בגדים וסריגים -->
-        <button class="opt-btn" onclick="updateLily('clothes=sweater&clothesColor=ff85a2')">סריג ורוד</button>
-        <button class="opt-btn" onclick="updateLily('clothes=sweater&clothesColor=51cf66')">סריג ירוק</button>
-        <button class="opt-btn" id="buy-sweater-purple" onclick="buyItem('sweater-purple', 'clothes=sweater&clothesColor=845ef7', 20)">סריג סגול (20 ₪)</button>
-        <button class="opt-btn" id="buy-sweater-yellow" onclick="buyItem('sweater-yellow', 'clothes=sweater&clothesColor=fcc419', 25)">סריג צהוב (25 ₪)</button>
-
-        <!-- נעליים וסטיילינג -->
-        <button class="opt-btn" onclick="updateLily('accessories=kurt')">משקפי אופנה</button>
-        <button class="opt-btn" id="buy-allstar-red" onclick="buyItem('shoes-red', 'accessories=sunglasses', 30)">משקפי שמש קוליות (30 ₪)</button>
+        <!-- רקעים לחדר -->
+        <button class="opt-btn" onclick="setRoomBg('#ffe3e8')">חדר ורוד</button>
+        <button class="opt-btn" id="buy-bg-park" onclick="buyRoomBg('bg-park', '#d4edda', 15)">פארק ירוק 🌳 (15 ₪)</button>
+        <button class="opt-btn" id="buy-bg-sea" onclick="buyRoomBg('bg-sea', '#ffe8cc', 20)">שקיעה בים 🌅 (20 ₪)</button>
       </div>
     </div>
 
@@ -412,7 +502,7 @@
       <button class="btn-submit" style="margin-top:15px; width:100%;" onclick="advanceStep()">השלמתי אימון! עלי שלב ותרוויחי 10 ₪ 💰</button>
     </div>
 
-    <!-- תוכנית אימונים מפורטת עם סרטונים וסטופר -->
+    <!-- אימונים וטיימרים -->
     <div class="section-card">
       <h3>📋 תוכנית אימונים, סרטונים וסטופרים</h3>
 
@@ -446,7 +536,7 @@
       </div>
     </div>
 
-    <!-- עריכת התפריט היומי -->
+    <!-- תפריט אוכל -->
     <div class="section-card">
       <h3>עדכון התפריט היומי שלי 🥗</h3>
       <p style="font-size:13px; color:#666;">עדכני מה אכלת היום ולילי תגיב לך:</p>
@@ -465,12 +555,13 @@
         <input type="text" id="input-dinner" value="טוסט גבינה צהובה וסלט">
       </div>
 
-      <button class="btn-submit" style="width:100%;" onclick="updateUserFood()">עדכני תפריט וקבלי חוות דעת מלילי ✨</button>
+      <button class="btn-submit" style="width:100%; margin-bottom:10px;" onclick="updateUserFood()">עדכני תפריט וקבלי חוות דעת מלילי ✨</button>
+      <button class="opt-btn" style="width:100%; background:#e7f5ff; border-color:#74c0fc;" onclick="showRecipeModal()">🥞 לחצי כאן למתכון בריא ומהיר מומלץ מלילי!</button>
     </div>
 
   </div>
 
-  <!-- תפריט אוכל קבוע למטה -->
+  <!-- תפריט אוכל קבוע בתחתית -->
   <div class="food-menu-bar">
     <strong>התפריט היומי שלי 🥗</strong>
     <div class="food-items">
@@ -484,76 +575,226 @@
   <script>
     let money = 0;
     let currentStep = 1;
+    let waterCount = 0;
     let activeTimers = {};
-    let currentParams = 'hairColor=2c1b18&skinColor=f8d25c&top=longHair&eyes=default';
 
-    // חנות פריטים שנרכשו
-    const ownedItems = {
-      'sweater-purple': false,
-      'sweater-yellow': false,
-      'shoes-red': false
+    let ownedItems = {
+      'look-sport': false,
+      'look-chic': false,
+      'bg-park': false,
+      'bg-sea': false
     };
+
+    let completedTasks = {
+      task1: false,
+      task2: false,
+      task3: false
+    };
+
+    function loadSavedData() {
+      const savedMoney = localStorage.getItem('lily_money');
+      const savedStep = localStorage.getItem('lily_step');
+      const savedOwned = localStorage.getItem('lily_owned');
+      const savedTasks = localStorage.getItem('lily_tasks');
+
+      if (savedMoney !== null) money = parseInt(savedMoney);
+      if (savedStep !== null) currentStep = parseInt(savedStep);
+      if (savedOwned !== null) ownedItems = JSON.parse(savedOwned);
+      if (savedTasks !== null) completedTasks = JSON.parse(savedTasks);
+
+      updateUI();
+    }
+
+    function saveData() {
+      localStorage.setItem('lily_money', money);
+      localStorage.setItem('lily_step', currentStep);
+      localStorage.setItem('lily_owned', JSON.stringify(ownedItems));
+      localStorage.setItem('lily_tasks', JSON.stringify(completedTasks));
+    }
+
+    function resetData() {
+      if (confirm("האם את בטוחה שאת רוצה לאפס את כל המטבעות, הרכישות וההתקדמות באתר?")) {
+        localStorage.clear();
+        money = 0;
+        currentStep = 1;
+        ownedItems = { 'look-sport': false, 'look-chic': false, 'bg-park': false, 'bg-sea': false };
+        completedTasks = { task1: false, task2: false, task3: false };
+        location.reload();
+      }
+    }
+
+    function updateUI() {
+      document.getElementById('money-display').innerText = money;
+      document.getElementById('current-step-num').innerText = currentStep;
+
+      for (let i = 1; i <= 10; i++) {
+        const node = document.getElementById(`node-${i}`);
+        if (i <= currentStep) {
+          node.classList.add('active');
+        } else {
+          node.classList.remove('active');
+        }
+      }
+
+      for (let key in ownedItems) {
+        if (ownedItems[key]) {
+          const btn = document.getElementById(`buy-${key}`);
+          if (btn) btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+        }
+      }
+
+      for (let key in completedTasks) {
+        const check = document.getElementById(key);
+        if (check) check.checked = completedTasks[key];
+      }
+    }
 
     function submitQuiz() {
       const mood = document.getElementById('q1').value;
       document.getElementById('welcome-modal').style.display = 'none';
       document.getElementById('app').style.display = 'block';
 
+      loadSavedData();
+
       const speech = document.getElementById('lily-speech');
-      let response = `איזה כיף שבאות! סוכות ושמחת תורה כאן ואין לימודים עד יום ראשון הבא! 🎉<br>`;
-      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נהנה מהחופש הזה ביחד!`;
+      let response = `איזה כיף שבאות! שמחה לראות אותך! 🎉<br>`;
+      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נבלה ביחד!`;
 
       speech.innerHTML = response;
+      playSound('pop');
     }
 
-    // עדכון המראה של לילי בצורה נקייה ומהירה
-    function updateLily(extraParam) {
-      currentParams += '&' + extraParam;
-      const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=Lily&${currentParams}`;
-      document.getElementById('lily-img').src = url;
+    function playSound(type) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'coin') {
+          osc.frequency.value = 800;
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.15);
+        } else if (type === 'pop') {
+          osc.frequency.value = 400;
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.1);
+        }
+      } catch(e){}
     }
 
-    // קניית פריטים בחנות
-    function buyItem(itemId, styleParam, price) {
-      if (ownedItems[itemId]) {
-        updateLily(styleParam);
+    function setLilyStyle(imgUrl) {
+      document.getElementById('lily-img').src = imgUrl;
+    }
+
+    function buyLook(lookId, imgUrl, price) {
+      if (ownedItems[lookId]) {
+        setLilyStyle(imgUrl);
         return;
       }
 
       if (money >= price) {
         money -= price;
-        ownedItems[itemId] = true;
-        document.getElementById('money-display').innerText = money;
-
-        const btn = document.getElementById(`buy-${itemId}`);
-        updateLily(styleParam);
-        btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
-        
-        alert("תתחדשי! הקנייה בוצעה בהצלחה! 🎉");
+        ownedItems[lookId] = true;
+        setLilyStyle(imgUrl);
+        saveData();
+        updateUI();
+        playSound('coin');
+        alert("תתחדשי! הלוק החדש נפתח בהצלחה! 🎉");
       } else {
-        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪. השלימי אימונים במפה כדי להרוויח!`);
+        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪.`);
       }
     }
 
-    // התקדמות בשלבים
+    function setRoomBg(color) {
+      document.getElementById('room-bg').style.backgroundColor = color;
+    }
+
+    function buyRoomBg(bgId, color, price) {
+      if (ownedItems[bgId]) {
+        setRoomBg(color);
+        return;
+      }
+
+      if (money >= price) {
+        money -= price;
+        ownedItems[bgId] = true;
+        setRoomBg(color);
+        saveData();
+        updateUI();
+        playSound('coin');
+        alert("תתחדשי על הרקע החדש לחדר! 🎨");
+      } else {
+        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪.`);
+      }
+    }
+
+    function toggleWater(index) {
+      const glasses = document.querySelectorAll('.water-glass');
+      glasses.forEach((g, idx) => {
+        if (idx < index) {
+          g.classList.add('active');
+        } else {
+          g.classList.remove('active');
+        }
+      });
+
+      if (index > waterCount && index % 2 === 0) {
+        money += 5;
+        saveData();
+        updateUI();
+        playSound('coin');
+        alert("כל הכבוד על שתיית המים! הרווחת 5 מטבעות! 💧💰");
+      }
+      waterCount = index;
+    }
+
+    function toggleTask(taskId, reward) {
+      const check = document.getElementById(taskId);
+      if (check.checked) {
+        if (!completedTasks[taskId]) {
+          money += reward;
+          completedTasks[taskId] = true;
+          playSound('coin');
+          alert(`משימה הושלמה! הרווחת ${reward} ₪! 🎉`);
+        }
+      } else {
+        completedTasks[taskId] = false;
+      }
+      saveData();
+      updateUI();
+    }
+
     function advanceStep() {
       if (currentStep < 10) {
         currentStep++;
         money += 10;
-        document.getElementById('money-display').innerText = money;
-        document.getElementById('current-step-num').innerText = currentStep;
-        document.getElementById(`node-${currentStep}`).classList.add('active');
+        saveData();
+        updateUI();
+        playSound('coin');
         alert(`כל הכבוד! עלית לשלב ${currentStep} והרווחת 10 ₪! 💰`);
       } else {
+        triggerConfetti();
         alert("וואו!! הגעת לשלב 10! את אלופה אמיתית! 🏆👑");
       }
     }
 
-    // סטופר/טיימר מותאם
-    function startTimer(timerId, seconds) {
-      if (activeTimers[timerId]) {
-        clearInterval(activeTimers[timerId]);
+    function triggerConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.backgroundColor = ['#ff85a2', '#ffd166', '#06d6a0', '#118ab2'][Math.floor(Math.random()*4)];
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
       }
+    }
+
+    function startTimer(timerId, seconds) {
+      if (activeTimers[timerId]) clearInterval(activeTimers[timerId]);
 
       let timeLeft = seconds;
       const display = document.getElementById(timerId);
@@ -566,25 +807,23 @@
         if (timeLeft <= 0) {
           clearInterval(activeTimers[timerId]);
           display.innerText = "00:00 - סיימת!";
+          playSound('coin');
           alert("אלופה!! הזמן נגמר, עבודה מצוינת! 💪✨");
         }
       }, 1000);
     }
 
-    // עדכון תפריט האוכל והערות מלילי
     function updateUserFood() {
       const b = document.getElementById('input-breakfast').value;
       const l = document.getElementById('input-lunch').value;
       const s = document.getElementById('input-snack').value;
       const d = document.getElementById('input-dinner').value;
 
-      // עדכון התפריט הקבוע בתחתית המסך
       document.getElementById('bar-breakfast').innerText = `🌅 בוקר: ${b}`;
       document.getElementById('bar-lunch').innerText = `☀️ צהריים: ${l}`;
       document.getElementById('bar-snack').innerText = `🍎 ביניים: ${s}`;
       document.getElementById('bar-dinner').innerText = `🌙 ערב: ${d}`;
 
-      // בדיקת מילים קיצוניות בלבד (ממתקים/חטיפים/ג'אנק)
       const allFood = (b + l + s + d).toLowerCase();
       const speech = document.getElementById('lily-speech');
 
@@ -595,6 +834,10 @@
       }
 
       alert("התפריט עודכן בהצלחה!");
+    }
+
+    function showRecipeModal() {
+      alert("🥞 מתכון מהיר מלילי: פנקייק שיבולת שועל בריא!\n\nרכיבים:\n• 1 ביצה\n• 3 כפות שיבולת שועל\n• 2 כפות חלב\n• חצי בננה מעוכה\n\nהכנה: מערבבים הכל בקערית ומטגנים 2 דקות מכל צד במחבת משומנת קל. בתיאבון! 😋");
     }
   </script>
 </body>
