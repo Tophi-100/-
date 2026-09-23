@@ -4,31 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>טופי 100 - האתר הרשמי</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
     :root {
       --primary: #6c5ce7;
       --primary-light: #a29bfe;
       --accent: #fd79a8;
+      --gold: #fdcb6e;
       --bg: #f8f9fa;
       --card-bg: #ffffff;
       --text: #2d3436;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Rubik', sans-serif;
+    }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
+      background-color: #f3f0ff;
       color: var(--text);
       margin: 0;
       padding: 0;
+      min-height: 100vh;
     }
 
-    /* מסך פתיחה / שאלות כניסה */
+    /* Custom Scrollbar for Wardrobe */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f2f6;
+      border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: var(--primary-light);
+      border-radius: 10px;
+    }
+
+    /* Gate Screen Overlay */
     #gate-screen {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, #a29bfe, #fd79a8);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -36,470 +57,77 @@
       padding: 20px;
     }
 
-    .gate-card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 450px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    .gate-card h2 {
-      color: var(--primary);
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .gate-step {
-      display: none;
-    }
-
-    .gate-step.active {
-      display: block;
-    }
-
-    .gate-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .gate-btn {
-      background: #f1f2f6;
-      border: 2px solid var(--primary-light);
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .gate-btn:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    /* תוכן האתר הראשי */
+    /* Main Application Container */
     #main-content {
-      display: none; /* יופיע רק לאחר סיום 3 שאלות הפתיחה */
-      padding-top: 70px;
+      display: none;
+      padding-top: 80px;
     }
 
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 60px;
-      background-color: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #ffeaa7;
-    }
-
-    nav {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;
-      padding: 6px 12px;
-      border-radius: 20px;
-      transition: background 0.2s;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .container {
-      max-width: 950px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
-    }
-
-    h1, h2, h3 {
-      color: var(--primary);
-      margin-top: 0;
-    }
-
-    /* אימונים בראש הדף */
-    .workout-box {
-      background: #f1f2f6;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-right: 5px solid var(--primary);
-    }
-
-    .workout-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .youtube-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ff0000;
-      color: white;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .timer-container {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      padding: 10px 15px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .timer-display {
-      font-size: 20px;
-      font-weight: bold;
-      font-family: monospace;
-      color: var(--primary);
-    }
-
-    .btn-timer {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    /* דמות של לילי + מלבוש */
-    .lily-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #ffeaa7;
-      padding: 20px;
-      border-radius: 16px;
-    }
-
+    /* SVG Character Styling */
     .lily-svg {
-      width: 200px;
-      height: 320px;
-    }
-
-    .dress-up-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
-    }
-
-    .dress-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    .dress-btn:hover {
-      background: var(--accent);
-    }
-
-    /* מתכונים כקישורים */
-    .recipe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 15px;
-    }
-
-    .recipe-link-card {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      border-radius: 14px;
-      padding: 18px;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
-
-    .recipe-link-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 15px rgba(108, 92, 231, 0.2);
-      border-color: var(--accent);
-    }
-
-    .recipe-link-card h3 {
-      color: var(--primary);
-      margin-bottom: 6px;
-      font-size: 18px;
-    }
-
-    .recipe-link-card p {
-      margin: 0 0 12px 0;
-      color: #636e72;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .recipe-btn-text {
-      color: var(--accent);
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    /* טבלת לו"ז חודשי */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .calendar-day-header {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 8px;
-      font-weight: bold;
-      border-radius: 6px;
-    }
-
-    .calendar-day {
-      background: #f1f2f6;
-      border: 1px solid #dfe4ea;
-      border-radius: 8px;
-      min-height: 90px;
-      padding: 6px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .day-number {
-      font-weight: bold;
-      font-size: 14px;
-      color: var(--primary);
-    }
-
-    .day-event {
-      font-size: 11px;
-      background: #ffffff;
-      padding: 3px 5px;
-      border-radius: 4px;
-      margin-top: 4px;
-      border-right: 3px solid var(--accent);
-      word-break: break-word;
-    }
-
-    .workout-tag {
-      font-size: 10px;
-      font-weight: bold;
-      padding: 2px 4px;
-      border-radius: 4px;
-      margin-top: 4px;
-      text-align: center;
-    }
-
-    .workout-yes { background: #55efc4; color: #00b894; }
-    .workout-no { background: #ff7675; color: white; }
-
-    /* כרטיסיות שאלות ותשובות בסוף הדף */
-    .faq-card-wrapper {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      border-radius: 16px;
-      padding: 25px;
-      text-align: center;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .faq-counter {
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .faq-question-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
-
-    .faq-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .faq-option-btn {
-      background: #f1f2f6;
-      border: 2px solid #dfe4ea;
-      padding: 10px 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-      text-align: right;
-    }
-
-    .faq-option-btn.selected {
-      background: var(--primary-light);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .faq-answer-box {
-      display: none;
-      background: #ffeaa7;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 10px;
-      font-weight: 500;
-      color: #2d3436;
-      border-right: 4px solid var(--accent);
-    }
-
-    .carousel-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 15px;
-    }
-
-    .nav-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .nav-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    /* מודאל */
-    #day-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .btn-action {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
       width: 100%;
-      margin-top: 10px;
+      max-width: 280px;
+      height: auto;
+      filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.12));
     }
   </style>
 </head>
-<body>
+<body class="bg-purple-50">
 
-  <!-- מסך שאלות הפתיחה (שער הכניסה) -->
+  <!-- 1. מסך שאלות הפתיחה (שער הכניסה) -->
   <div id="gate-screen">
-    <div class="gate-card">
+    <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-4 border-purple-200 transform transition-all">
+      <div class="text-4xl mb-3">🍬</div>
+      <h1 class="text-3xl font-extrabold text-purple-700 mb-2">טופי 100</h1>
+      <p class="text-gray-500 font-medium mb-6">אימות כניסה לקהילת הסטייל והלייף סטייל</p>
 
       <!-- שאלה 1 -->
-      <div class="gate-step active" id="gate-step-1">
-        <h2>🔒 בדיקת כניסה (1/3)</h2>
-        <p>מה המאכל הלאומי המועדף באתר?</p>
-        <div class="gate-options">
-          <button class="gate-btn" onclick="nextGateStep(2)">🍫 שוקולד ועוגיות</button>
-          <button class="gate-btn" onclick="nextGateStep(2)">🍉 ברד אבטיח מרענן</button>
-          <button class="gate-btn" onclick="nextGateStep(2)">🥞 פנקייק אוורירי</button>
+      <div id="gate-step-1" class="gate-step">
+        <div class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold mb-3">שאלה 1 מתוך 3</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-4">מה הדרך הכי טובה להתחיל אימון צהריים?</h3>
+        <div class="space-y-2">
+          <button onclick="nextGateStep(2)" class="w-full py-3 px-4 bg-gray-50 hover:bg-purple-600 hover:text-white text-gray-700 font-semibold rounded-xl border border-purple-200 transition-all text-right flex items-center justify-between">
+            <span>🥤 לשתות מים ולשים מוזיקה בווליום</span>
+            <span>←</span>
+          </button>
+          <button onclick="nextGateStep(2)" class="w-full py-3 px-4 bg-gray-50 hover:bg-purple-600 hover:text-white text-gray-700 font-semibold rounded-xl border border-purple-200 transition-all text-right flex items-center justify-between">
+            <span>😴 לבהות בטלפון 40 דקות ואז להתחיל</span>
+            <span>←</span>
+          </button>
+          <button onclick="nextGateStep(2)" class="w-full py-3 px-4 bg-gray-50 hover:bg-purple-600 hover:text-white text-gray-700 font-semibold rounded-xl border border-purple-200 transition-all text-right flex items-center justify-between">
+            <span>👗 לבחור תלבושת לארונות של לילי לפני</span>
+            <span>←</span>
+          </button>
         </div>
       </div>
 
       <!-- שאלה 2 -->
-      <div class="gate-step" id="gate-step-2">
-        <h2>🔒 בדיקת כניסה (2/3)</h2>
-        <p>מה לעשות אם אין כוח להתאמן היום?</p>
-        <div class="gate-options">
-          <button class="gate-btn" onclick="nextGateStep(3)">💪 עושים אימון צהריים קל</button>
-          <button class="gate-btn" onclick="nextGateStep(3)">😴 מעבירים ליום מנוחה בלו"ז</button>
-          <button class="gate-btn" onclick="nextGateStep(3)">👗 מלבישים את לילי בסטייל</button>
+      <div id="gate-step-2" class="gate-step hidden">
+        <div class="inline-block bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-bold mb-3">שאלה 2 מתוך 3</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-4">איזה קינוח הכי שווה להכין בסוף השבוע?</h3>
+        <div class="space-y-2">
+          <button onclick="nextGateStep(3)" class="w-full py-3 px-4 bg-gray-50 hover:bg-pink-500 hover:text-white text-gray-700 font-semibold rounded-xl border border-pink-200 transition-all text-right flex items-center justify-between">
+            <span>🍉 ברד אבטיח-לימון קפוא</span>
+            <span>←</span>
+          </button>
+          <button onclick="nextGateStep(3)" class="w-full py-3 px-4 bg-gray-50 hover:bg-pink-500 hover:text-white text-gray-700 font-semibold rounded-xl border border-pink-200 transition-all text-right flex items-center justify-between">
+            <span>🥞 פנקייקים אווריריים כמו ענן</span>
+            <span>←</span>
+          </button>
+          <button onclick="nextGateStep(3)" class="w-full py-3 px-4 bg-gray-50 hover:bg-pink-500 hover:text-white text-gray-700 font-semibold rounded-xl border border-pink-200 transition-all text-right flex items-center justify-between">
+            <span>🍪 עוגיות שוקולד צ'יפס חמות</span>
+            <span>←</span>
+          </button>
         </div>
       </div>
 
       <!-- שאלה 3 -->
-      <div class="gate-step" id="gate-step-3">
-        <h2>🔒 בדיקת כניסה (3/3)</h2>
-        <p>מוכנה להיכנס לאתר "טופי 100"?</p>
-        <div class="gate-options">
-          <button class="gate-btn" style="background: var(--accent); color:white;" onclick="enterSite()">🚀 כן, כנסי אותי עכשיו!</button>
-        </div>
+      <div id="gate-step-3" class="gate-step hidden">
+        <div class="inline-block bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3">שאלה 3 מתוך 3</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-4">מוכנה לאסוף מטבעות ולהלביש את לילי באופנה יוקרתית?</h3>
+        <button onclick="enterSite()" class="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-extrabold rounded-2xl shadow-lg transform hover:-translate-y-0.5 transition-all text-lg flex items-center justify-center gap-2">
+          <span>🚀 בטח! כנסי אותי עכשיו</span>
+        </button>
       </div>
 
     </div>
@@ -508,366 +136,907 @@
   <!-- התוכן המלא של האתר -->
   <div id="main-content">
 
-    <!-- סרגל עליון -->
-    <header>
-      <div class="logo">🍭 טופי 100</div>
-      <nav>
-        <a href="#workout-sec">💪 אימונים</a>
-        <a href="#lily-sec">👗 לילי</a>
-        <a href="#recipes-sec">🍧 מתכונים</a>
-        <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
-        <a href="#faq-sec">❓ שאלות ותשובות</a>
-      </nav>
+    <!-- סרגל עליון קבוע -->
+    <header class="fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md shadow-sm border-b border-purple-100 flex items-center justify-between px-4 md:px-8 z-50">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🍬</span>
+        <span class="text-xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">טופי 100</span>
+      </div>
+      
+      <!-- סכום מטבעות בסרגל -->
+      <div class="flex items-center gap-4">
+        <div class="bg-amber-100 border border-amber-300 px-3 py-1.5 rounded-full flex items-center gap-1.5 font-bold text-amber-800 shadow-sm text-sm">
+          <span>🪙</span>
+          <span id="nav-coins-display">2,500</span>
+          <span class="text-xs text-amber-600">מטבעות</span>
+        </div>
+        
+        <nav class="hidden md:flex gap-1">
+          <a href="#workout-sec" class="px-3 py-1.5 rounded-xl text-gray-700 hover:bg-purple-100 hover:text-purple-700 text-sm font-semibold transition-all">💪 אימונים</a>
+          <a href="#lily-sec" class="px-3 py-1.5 rounded-xl text-purple-700 bg-purple-100 font-bold text-sm transition-all">👗 הבוטיק של לילי</a>
+          <a href="#recipes-sec" class="px-3 py-1.5 rounded-xl text-gray-700 hover:bg-purple-100 hover:text-purple-700 text-sm font-semibold transition-all">🍧 מתכונים</a>
+          <a href="#monthly-sec" class="px-3 py-1.5 rounded-xl text-gray-700 hover:bg-purple-100 hover:text-purple-700 text-sm font-semibold transition-all">🗓️ לו"ז</a>
+          <a href="#faq-sec" class="px-3 py-1.5 rounded-xl text-gray-700 hover:bg-purple-100 hover:text-purple-700 text-sm font-semibold transition-all">❓ שאלות</a>
+        </nav>
+      </div>
     </header>
 
-    <div class="container">
+    <div class="max-w-5xl mx-auto px-4 py-4 space-y-8">
 
-      <!-- 1. אימונים בראש הדף -->
-      <div id="workout-sec" class="card">
-        <h2>💪 תוכנית אימונים יומית</h2>
-
-        <!-- אימון צהריים (מוצג ראשון) -->
-        <div class="workout-box">
-          <div class="workout-header">
-            <h3>☀️ אימון צהריים - חיזוק ואנרגיה</h3>
-            <a href="https://www.youtube.com/results?search_query=calisthenics+workout+for+beginners" target="_blank" class="youtube-link">
-              ▶️ לצפייה באימון ב-YouTube
-            </a>
-          </div>
-          <p><strong>הסבר:</strong> אימון קליסטניקס ממוקד לפלג גוף תחתון ואירובי קל להעלאת הדופק. בצעי 3 סטים של סקוואטים (15 חזרות) ולאנג'ים (12 לכל רגל).</p>
-
-          <div class="timer-container">
-            <span>⏱️ סטופר לצהריים:</span>
-            <div class="timer-display" id="timer-noon">00:00</div>
-            <button class="btn-timer" onclick="startTimer('noon')">התחל</button>
-            <button class="btn-timer" style="background:#ff7675;" onclick="stopTimer('noon')">עצור</button>
-            <button class="btn-timer" style="background:#b2bec3;" onclick="resetTimer('noon')">איפוס</button>
-          </div>
-        </div>
-
-        <!-- אימון ערב -->
-        <div class="workout-box" style="border-right-color: var(--accent);">
-          <div class="workout-header">
-            <h3>🌙 אימון ערב - ליבה ויציבות</h3>
-            <a href="https://www.youtube.com/results?search_query=core+plank+workout" target="_blank" class="youtube-link">
-              ▶️ לצפייה באימון ב-YouTube
-            </a>
-          </div>
-          <p><strong>הסבר:</strong> אימון רגוע יותר לחיזוק שרירי הליבה והבטן. כולל 3 סטים של פלאנק (30 שניות) ושכיבות סמיכה (8-10 חזרות).</p>
-
-          <div class="timer-container">
-            <span>⏱️ סטופר לערב:</span>
-            <div class="timer-display" id="timer-eve">00:00</div>
-            <button class="btn-timer" onclick="startTimer('eve')">התחל</button>
-            <button class="btn-timer" style="background:#ff7675;" onclick="stopTimer('eve')">עצור</button>
-            <button class="btn-timer" style="background:#b2bec3;" onclick="resetTimer('eve')">איפוס</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. לילי המשודרגת עם ארון בגדים -->
-      <div id="lily-sec" class="card">
-        <h2>👗 לילי - ארון הבגדים והאופנה</h2>
-        <p style="text-align:center; color:#636e72;">בחרי תלבושת ללילי והחליפי את הסטייל שלה בלחיצת כפתור!</p>
-
-        <div class="lily-container">
-          <svg class="lily-svg" viewBox="0 0 100 200">
-            <ellipse cx="50" cy="195" rx="20" ry="4" fill="#dcdde1"/>
-            <!-- נעליים -->
-            <rect id="shoe1" x="38" y="180" width="10" height="12" rx="3" fill="#fd79a8"/>
-            <rect id="shoe2" x="52" y="180" width="10" height="12" rx="3" fill="#fd79a8"/>
-            <!-- רגליים -->
-            <rect x="40" y="120" width="6" height="62" fill="#ffe0bd"/>
-            <rect x="54" y="120" width="6" height="62" fill="#ffe0bd"/>
-            <!-- תלבושת/חצאית וחולצה -->
-            <path id="skirt" d="M 35 60 L 65 60 L 70 120 L 30 120 Z" fill="#6c5ce7"/>
-            <path id="top" d="M 38 45 L 62 45 L 65 60 L 35 60 Z" fill="#a29bfe"/>
-            <!-- זרועות -->
-            <rect x="28" y="48" width="8" height="40" rx="4" fill="#ffe0bd"/>
-            <rect x="64" y="48" width="8" height="40" rx="4" fill="#ffe0bd"/>
-            <!-- ראש -->
-            <rect x="46" y="36" width="8" height="10" fill="#ffe0bd"/>
-            <circle cx="50" cy="26" r="15" fill="#ffe0bd"/>
-            <!-- שיער -->
-            <path id="hair" d="M 33 26 C 33 8, 67 8, 67 26 C 70 42, 63 58, 63 58 C 55 45, 45 45, 37 58 Z" fill="#5c3d2e"/>
-            <!-- תווי פנים -->
-            <circle cx="44" cy="24" r="1.5" fill="#2d3436"/>
-            <circle cx="56" cy="24" r="1.5" fill="#2d3436"/>
-            <path d="M 46 30 Q 50 33 54 30" stroke="#e17055" stroke-width="1.2" fill="none"/>
-            <circle cx="41" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
-            <circle cx="59" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
-          </svg>
-
-          <div class="dress-up-controls">
-            <button class="dress-btn" onclick="changeOutfit('#6c5ce7', '#a29bfe', '#fd79a8')">🌸 שמלת סגול-ורוד</button>
-            <button class="dress-btn" onclick="changeOutfit('#00b894', '#55efc4', '#ffeaa7')">🌿 שמלת טורקיז-קיץ</button>
-            <button class="dress-btn" onclick="changeOutfit('#e17055', '#fab1a0', '#2d3436')">🔥 סט אופנתי שחור-כתום</button>
-            <button class="dress-btn" onclick="changeOutfit('#0984e3', '#74b9ff', '#fd79a8')">💙 ספורט כחול-תכלת</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. מתכונים -->
-      <div id="recipes-sec" class="card">
-        <h2>🍧 המתכונים הכי מושחתים וטעימים ברשת</h2>
-        <p style="margin-bottom: 20px; color: #636e72;">לחצי על המתכון כדי להגיע ישר למדריך המלא:</p>
-
-        <div class="recipe-grid">
-          <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" class="recipe-link-card">
-            <div>
-              <h3>🍉 ברד אבטיח-לימון גן עדן</h3>
-              <p>משקה הקיץ האולטימטיבי – מתוק, חמוץ, קפוא וממכר ברמות.</p>
-            </div>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=פרנץ+טוסט+מושלם+מתכון" target="_blank" class="recipe-link-card">
-            <div>
-              <h3>🍞 פרנץ' טוסט פריך וזהוב</h3>
-              <p>חמציצי, נימוח מבפנים וקראנצ'י מבחוץ עם ניחוח קינמון וסירופ מייפל.</p>
-            </div>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=עוגיות+שוקולד+צ'יפס+10+דקות" target="_blank" class="recipe-link-card">
-            <div>
-              <h3>🍪 עוגיות שוקולד צ'יפס מטורפות ב-10 דק'</h3>
-              <p>שוקולד נמס במרכז, מרקם רך כמו ענן וחיוך ענקי תוך רבע שעה.</p>
-            </div>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=פנקייק+אורירי+ומתוחכם+מתכון" target="_blank" class="recipe-link-card">
-            <div>
-              <h3>🥞 פנקייקים אווריריים כמו עננים</h3>
-              <p>מגדל פנקייקים גבוהים, רכים ונמסים בפה.</p>
-            </div>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4. לו"ז חודשי אינטראקטיבי -->
-      <div id="monthly-sec" class="card">
-        <h2>🗓️ לו"ז חודשי בטבלה</h2>
-        <p>לחצי על כל יום בטבלה כדי לשבץ אירוע ולסמן אם מתאים לך להתאמן!</p>
-
-        <div class="calendar-grid">
-          <div class="calendar-day-header">א'</div>
-          <div class="calendar-day-header">ב'</div>
-          <div class="calendar-day-header">ג'</div>
-          <div class="calendar-day-header">ד'</div>
-          <div class="calendar-day-header">ה'</div>
-          <div class="calendar-day-header">ו'</div>
-          <div class="calendar-day-header">ש'</div>
-        </div>
-
-        <div class="calendar-grid" id="calendar-days"></div>
-      </div>
-
-      <!-- 5. 10 שאלות ותשובות בסוף הדף -->
-      <div id="faq-sec" class="card">
-        <h2>❓ 10 שאלות ותשובות בכרטיסיות</h2>
-        <p style="color:#636e72; margin-bottom:15px;">לחצי על אחת התשובות כדי לגלות את האמת הצינית!</p>
-
-        <div class="faq-card-wrapper">
+      <!-- 2. אימונים בראש הדף -->
+      <section id="workout-sec" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-purple-100">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">💪</span>
           <div>
-            <div class="faq-counter" id="faq-counter">שאלה 1 מתוך 10</div>
-            <div class="faq-question-title" id="faq-question">טוען שאלה...</div>
-            <div class="faq-options" id="faq-options"></div>
-            <div class="faq-answer-box" id="faq-answer"></div>
-          </div>
-
-          <div class="carousel-nav">
-            <button class="nav-btn" id="prev-btn" onclick="changeCard(-1)">➡️ הקודם</button>
-            <button class="nav-btn" id="next-btn" onclick="changeCard(1)">הבא ⬅️</button>
+            <h2 class="text-2xl font-extrabold text-purple-900">תוכנית אימונים יומית</h2>
+            <p class="text-gray-500 text-sm">בחרי אימון, הפעילי את הסטופר והתחילי לזוז!</p>
           </div>
         </div>
-      </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- אימון צהריים (מוצג ראשון) -->
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border-2 border-amber-200 flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 left-0 bg-amber-400 text-amber-950 text-xs font-bold px-3 py-1 rounded-br-xl">מומלץ לצהריים</div>
+            <div>
+              <div class="flex justify-between items-start mb-3 pt-2">
+                <h3 class="text-xl font-bold text-amber-900">☀️ אימון צהריים - חיזוק ואנרגיה</h3>
+              </div>
+              <p class="text-sm text-gray-700 mb-4 leading-relaxed">
+                אימון קליסטניקס ממוקד לפלג גוף תחתון ואירובי קל להעלאת הדופק. כולל 3 סטים של סקוואטים (15 חזרות), לאנג'ים (12 לכל רגל) וקפיצות בחבל.
+              </p>
+            </div>
+
+            <div>
+              <a href="https://www.youtube.com/results?search_query=calisthenics+workout+for+beginners" target="_blank" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-md mb-4">
+                <span>▶️ לצפייה באימון ב-YouTube</span>
+              </a>
+
+              <!-- סטופר צהריים -->
+              <div class="bg-white rounded-xl p-3 border border-amber-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-500 text-xs font-bold">⏱️ טיימר:</span>
+                  <span id="timer-noon" class="font-mono text-2xl font-extrabold text-amber-600">00:00</span>
+                </div>
+                <div class="flex gap-1">
+                  <button onclick="startTimer('noon')" class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all">התחל</button>
+                  <button onclick="stopTimer('noon')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all">עצור</button>
+                  <button onclick="resetTimer('noon')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all">איפוס</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- אימון ערב -->
+          <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200 flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 left-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-br-xl">מומלץ לערב</div>
+            <div>
+              <div class="flex justify-between items-start mb-3 pt-2">
+                <h3 class="text-xl font-bold text-indigo-950">🌙 אימון ערב - ליבה ויציבות</h3>
+              </div>
+              <p class="text-sm text-gray-700 mb-4 leading-relaxed">
+                אימון רגוע יותר לחיזוק שרירי הליבה, הבטן והגב התחתון. כולל 3 סטים של פלאנק סטטי (40 שניות), שכיבות סמיכה (8-10 חזרות) ומתיחות יוגה.
+              </p>
+            </div>
+
+            <div>
+              <a href="https://www.youtube.com/results?search_query=core+plank+workout" target="_blank" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-md mb-4">
+                <span>▶️ לצפייה באימון ב-YouTube</span>
+              </a>
+
+              <!-- סטופר ערב -->
+              <div class="bg-white rounded-xl p-3 border border-indigo-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-500 text-xs font-bold">⏱️ טיימר:</span>
+                  <span id="timer-eve" class="font-mono text-2xl font-extrabold text-indigo-600">00:00</span>
+                </div>
+                <div class="flex gap-1">
+                  <button onclick="startTimer('eve')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all">התחל</button>
+                  <button onclick="stopTimer('eve')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all">עצור</button>
+                  <button onclick="resetTimer('eve')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all">איפוס</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ארון הבגדים והבוטיק הענק של לילי -->
+      <section id="lily-sec" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-purple-100">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-purple-100 pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-3xl">👗</span>
+              <h2 class="text-2xl font-extrabold text-purple-900">ארון הבגדים והבוטיק הענק של לילי</h2>
+            </div>
+            <p class="text-gray-500 text-sm">בחרי פריטים יוקרתיים, קני במטבעות והלבישי את לילי בזמן אמת!</p>
+          </div>
+
+          <!-- בנק מטבעות וכפתור להורדת עוד מטבעות -->
+          <div class="bg-gradient-to-r from-amber-100 to-yellow-200 border-2 border-amber-300 p-3 rounded-2xl flex items-center justify-between gap-4 shadow-sm">
+            <div>
+              <div class="text-xs font-bold text-amber-800">הארנק שלך:</div>
+              <div class="text-xl font-black text-amber-950 flex items-center gap-1">
+                <span>🪙</span>
+                <span id="user-coins">2,500</span>
+              </div>
+            </div>
+            <button onclick="addBonusCoins()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs px-3 py-2 rounded-xl transition-all shadow shadow-amber-300">
+              ⚡ קבלי +500 מטבעות
+            </button>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+          <!-- תצוגת הבובה של לילי (SVG) -->
+          <div class="lg:col-span-4 bg-gradient-to-b from-purple-100 via-pink-50 to-amber-50 rounded-3xl p-6 flex flex-col items-center justify-center border-2 border-purple-200 relative min-h-[460px]">
+            <div id="outfit-toast" class="absolute top-3 bg-purple-900 text-white text-xs px-3 py-1.5 rounded-full shadow-lg opacity-0 transition-all duration-300 pointer-events-none">
+              תלבושת עודכנה! ✨
+            </div>
+
+            <!-- בובת SVG מתקדמת -->
+            <svg class="lily-svg" viewBox="0 0 120 230">
+              <!-- צל רצפה -->
+              <ellipse cx="60" cy="218" rx="35" ry="6" fill="#000000" opacity="0.12"/>
+
+              <!-- נעליים / אולסטאר -->
+              <g id="shoe-layer">
+                <!-- נעל שמאל -->
+                <rect id="shoe-L-base" x="43" y="198" width="14" height="15" rx="4" fill="#333333"/>
+                <path id="shoe-L-toe" d="M 43 207 Q 43 213 49 213 L 57 213 L 57 207 Z" fill="#ffffff"/>
+                <!-- נעל ימין -->
+                <rect id="shoe-R-base" x="63" y="198" width="14" height="15" rx="4" fill="#333333"/>
+                <path id="shoe-R-toe" d="M 63 207 Q 63 213 69 213 L 77 213 L 77 207 Z" fill="#ffffff"/>
+                <!-- שרוכים/עיטור -->
+                <line x1="47" y1="202" x2="53" y2="202" stroke="#ffffff" stroke-width="1.5"/>
+                <line x1="67" y1="202" x2="73" y2="202" stroke="#ffffff" stroke-width="1.5"/>
+              </g>
+
+              <!-- רגליים -->
+              <rect x="46" y="130" width="8" height="72" rx="3" fill="#ffd8b8"/>
+              <rect x="66" y="130" width="8" height="72" rx="3" fill="#ffd8b8"/>
+
+              <!-- חצאית / מכנסיים (חלק תחתון) -->
+              <g id="bottom-layer">
+                <!-- מחדל: מכנס ג'ינס קלאסי -->
+                <path id="bottom-shape" d="M 42 85 L 78 85 L 76 140 L 63 140 L 60 100 L 57 140 L 44 140 Z" fill="#2b5278"/>
+              </g>
+
+              <!-- חולצה / סריג (חלק עליון) -->
+              <g id="top-layer">
+                <!-- מחדל: סריג סגול שיק -->
+                <path id="top-shape" d="M 40 55 L 80 55 L 82 88 L 38 88 Z" fill="#8c7ae6"/>
+                <!-- צווארון -->
+                <path d="M 52 55 Q 60 62 68 55 Z" fill="#ffd8b8"/>
+              </g>
+
+              <!-- זרועות -->
+              <rect x="30" y="58" width="9" height="50" rx="4.5" fill="#ffd8b8"/>
+              <rect x="81" y="58" width="9" height="50" rx="4.5" fill="#ffd8b8"/>
+
+              <!-- צוואר -->
+              <rect x="55" y="44" width="10" height="14" fill="#ffd8b8"/>
+
+              <!-- ראש -->
+              <circle cx="60" cy="32" r="17" fill="#ffd8b8"/>
+
+              <!-- שיער -->
+              <path d="M 41 32 C 40 10, 80 10, 79 32 C 83 50, 76 68, 76 68 C 66 54, 54 54, 44 68 C 44 68, 38 50, 41 32 Z" fill="#4a2c11"/>
+
+              <!-- תווי פנים -->
+              <circle cx="53" cy="30" r="1.8" fill="#2d3436"/>
+              <circle cx="67" cy="30" r="1.8" fill="#2d3436"/>
+              <circle cx="54" cy="29" r="0.6" fill="#ffffff"/>
+              <circle cx="68" cy="29" r="0.6" fill="#ffffff"/>
+              <!-- חיוך -->
+              <path d="M 55 37 Q 60 41 65 37" stroke="#e17055" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- סומק -->
+              <circle cx="49" cy="35" r="2.5" fill="#fd79a8" opacity="0.4"/>
+              <circle cx="71" cy="35" r="2.5" fill="#fd79a8" opacity="0.4"/>
+            </svg>
+
+            <div class="mt-4 text-center">
+              <span class="inline-block bg-white text-purple-900 font-extrabold text-xs px-3 py-1 rounded-full shadow border border-purple-200">
+                לילי - הסטייל הנוכחי
+              </span>
+              <p id="current-outfit-desc" class="text-xs text-gray-600 mt-1 font-medium">סריג סגול + ג'ינס קלאסי + אולסטאר שחור</p>
+            </div>
+          </div>
+
+          <!-- קטלוג הבחירה (לשוניות לפי קטגוריה) -->
+          <div class="lg:col-span-8 space-y-4">
+
+            <!-- לשוניות קטגוריה -->
+            <div class="flex flex-wrap gap-2 border-b border-purple-100 pb-3">
+              <button onclick="switchWardrobeTab('tops')" id="tab-btn-tops" class="tab-btn px-4 py-2 rounded-xl font-bold text-sm bg-purple-600 text-white shadow-md">
+                👕 חולצות וסריגים (30)
+              </button>
+              <button onclick="switchWardrobeTab('skirts')" id="tab-btn-skirts" class="tab-btn px-4 py-2 rounded-xl font-bold text-sm bg-gray-100 text-gray-700 hover:bg-purple-100">
+                👗 חצאיות (20)
+              </button>
+              <button onclick="switchWardrobeTab('pants')" id="tab-btn-pants" class="tab-btn px-4 py-2 rounded-xl font-bold text-sm bg-gray-100 text-gray-700 hover:bg-purple-100">
+                👖 מכנסיים (20)
+              </button>
+              <button onclick="switchWardrobeTab('shoes')" id="tab-btn-shoes" class="tab-btn px-4 py-2 rounded-xl font-bold text-sm bg-gray-100 text-gray-700 hover:bg-purple-100">
+                👟 אולסטאר ונעליים (30)
+              </button>
+            </div>
+
+            <!-- רשת הפריטים בחנות -->
+            <div id="wardrobe-items-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[480px] overflow-y-auto p-1 custom-scroll">
+              <!-- יטען דינמית ב-JS -->
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. כרטיסיות קישור למתכונים -->
+      <section id="recipes-sec" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-purple-100">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🍧</span>
+          <div>
+            <h2 class="text-2xl font-extrabold text-purple-900">מתכונים מושחתים וטעימים</h2>
+            <p class="text-gray-500 text-sm">קישורים ישירים למתכונים הכי טעימים ברשת:</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- מתכון 1 -->
+          <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" class="group bg-gradient-to-br from-pink-50 to-red-50 p-5 rounded-2xl border border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all flex flex-col justify-between">
+            <div>
+              <div class="text-3xl mb-2">🍉</div>
+              <h3 class="font-bold text-gray-900 group-hover:text-pink-600 transition-colors">ברד אבטיח-לימון</h3>
+              <p class="text-xs text-gray-500 mt-1 leading-relaxed">משקה קיצי קפוא, מרענן וממכר ב-3 דקות עבודה.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-bold text-pink-600">
+              <span>לצפייה במתכון</span>
+              <span>🔗</span>
+            </div>
+          </a>
+
+          <!-- מתכון 2 -->
+          <a href="https://www.google.com/search?q=פרנץ+טוסט+מושלם+מתכון" target="_blank" class="group bg-gradient-to-br from-amber-50 to-yellow-50 p-5 rounded-2xl border border-amber-200 hover:border-amber-400 hover:shadow-lg transition-all flex flex-col justify-between">
+            <div>
+              <div class="text-3xl mb-2">🍞</div>
+              <h3 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors">פרנץ' טוסט זהוב</h3>
+              <p class="text-xs text-gray-500 mt-1 leading-relaxed">פריך מבחוץ, נימוח מבפנים עם ניחוח קינמון ומייפל.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-bold text-amber-600">
+              <span>לצפייה במתכון</span>
+              <span>🔗</span>
+            </div>
+          </a>
+
+          <!-- מתכון 3 -->
+          <a href="https://www.google.com/search?q=עוגיות+שוקולד+צ'יפס+10+דקות" target="_blank" class="group bg-gradient-to-br from-orange-50 to-amber-50 p-5 rounded-2xl border border-orange-200 hover:border-orange-400 hover:shadow-lg transition-all flex flex-col justify-between">
+            <div>
+              <div class="text-3xl mb-2">🍪</div>
+              <h3 class="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">עוגיות שוקולד צ'יפס</h3>
+              <p class="text-xs text-gray-500 mt-1 leading-relaxed">עוגיות חמות עם מרכז נמס ב-10 דקות בלבד.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-bold text-orange-600">
+              <span>לצפייה במתכון</span>
+              <span>🔗</span>
+            </div>
+          </a>
+
+          <!-- מתכון 4 -->
+          <a href="https://www.google.com/search?q=פנקייק+אורירי+ומתוחכם+מתכון" target="_blank" class="group bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-2xl border border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all flex flex-col justify-between">
+            <div>
+              <div class="text-3xl mb-2">🥞</div>
+              <h3 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors">פנקייק עננים</h3>
+              <p class="text-xs text-gray-500 mt-1 leading-relaxed">מגדל פנקייקים אווריריים ורכים כמו ענן קצפת.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-bold text-purple-600">
+              <span>לצפייה במתכון</span>
+              <span>🔗</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 5. לו"ז חודשי אינטראקטיבי -->
+      <section id="monthly-sec" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-purple-100">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🗓️</span>
+          <div>
+            <h2 class="text-2xl font-extrabold text-purple-900">לו"ז חודשי אינטראקטיבי</h2>
+            <p class="text-gray-500 text-sm">לחצי על כל יום כדי לשבץ משימה ולסמן ימי אימון או מנוחה:</p>
+          </div>
+        </div>
+
+        <!-- כותרות ימי השבוע -->
+        <div class="grid grid-cols-7 gap-1.5 md:gap-2 mb-2 text-center text-xs font-bold text-purple-700">
+          <div class="bg-purple-100 py-2 rounded-xl">ראשון</div>
+          <div class="bg-purple-100 py-2 rounded-xl">שני</div>
+          <div class="bg-purple-100 py-2 rounded-xl">שלישי</div>
+          <div class="bg-purple-100 py-2 rounded-xl">רביעי</div>
+          <div class="bg-purple-100 py-2 rounded-xl">חמישי</div>
+          <div class="bg-purple-100 py-2 rounded-xl">שישי</div>
+          <div class="bg-purple-100 py-2 rounded-xl">שבת</div>
+        </div>
+
+        <!-- גריד הימים -->
+        <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 md:gap-2">
+          <!-- יטען ב-JS -->
+        </div>
+      </section>
+
+      <!-- 6. 10 שאלות ותשובות בסוף הדף בלבד -->
+      <section id="faq-sec" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-purple-100">
+        <div class="flex items-center gap-3 mb-6 border-b border-purple-100 pb-4">
+          <span class="text-3xl">❓</span>
+          <div>
+            <h2 class="text-2xl font-extrabold text-purple-900">10 שאלות טריוויה וסגנון חיים</h2>
+            <p class="text-gray-500 text-sm">כרטיסיות אינטראקטיביות בסוף הדף - עני על השאלות וגלי את התשובה:</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 via-pink-50 to-amber-50 rounded-2xl p-6 border border-purple-200 max-w-2xl mx-auto flex flex-col justify-between min-h-[320px]">
+          <div>
+            <!-- מונה שאלות -->
+            <div class="flex justify-between items-center mb-4">
+              <span id="faq-counter" class="bg-purple-200 text-purple-800 text-xs font-bold px-3 py-1 rounded-full">שאלה 1 מתוך 10</span>
+              <span class="text-xs text-gray-500 font-semibold">טריוויה טופי 100 🍬</span>
+            </div>
+
+            <!-- כותרת השאלה -->
+            <h3 id="faq-question" class="text-xl font-bold text-gray-900 mb-5 leading-snug">טוען שאלה...</h3>
+
+            <!-- 4 אפשרויות לבחירה (א, ב, ג, ד) -->
+            <div id="faq-options" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
+              <!-- יטען ב-JS -->
+            </div>
+
+            <!-- חלונית התשובה/הסבר -->
+            <div id="faq-answer-box" class="hidden bg-amber-100 border-r-4 border-amber-500 p-4 rounded-xl text-amber-950 font-medium text-sm leading-relaxed mb-4">
+              <!-- יתמלא ב-JS -->
+            </div>
+          </div>
+
+          <!-- כפתורי ניווט בין כרטיסיות -->
+          <div class="flex items-center justify-between pt-4 border-t border-purple-100">
+            <button id="prev-btn" onclick="changeFaqCard(-1)" class="bg-purple-600 hover:bg-purple-700 disabled:opacity-30 disabled:hover:bg-purple-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow">
+              ➡️ השאלה הקודמת
+            </button>
+            <button id="next-btn" onclick="changeFaqCard(1)" class="bg-purple-600 hover:bg-purple-700 disabled:opacity-30 disabled:hover:bg-purple-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow">
+              השאלה הבאה ⬅️
+            </button>
+          </div>
+        </div>
+      </section>
 
     </div>
   </div>
 
-  <!-- חלון לעריכת יום -->
-  <div id="day-modal">
-    <div class="modal-content">
-      <h3 id="modal-day-title">עריכת יום</h3>
+  <!-- מודאל לעריכת יום בלו"ז -->
+  <div id="day-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border-2 border-purple-200 transform transition-all">
+      <h3 id="modal-day-title" class="text-xl font-bold text-purple-900 mb-4">עריכת יום בלו"ז</h3>
       
-      <label style="display:block; margin-bottom:5px; font-weight:bold;">אירוע/משימה ליום זה:</label>
-      <input type="text" id="event-input" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px;" placeholder="למשל: אימון קליסטניקס / לימודים">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">משימה / אירוע יום:</label>
+          <input type="text" id="event-input" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-purple-500" placeholder="למשל: אימון צהריים + יציאה עם חברות">
+        </div>
 
-      <label style="display:block; margin-bottom:5px; font-weight:bold;">האם מתאים להתאמן היום?</label>
-      <select id="workout-select" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px;">
-        <option value="">-- לבחירה --</option>
-        <option value="yes">כן, מתאים להתאמן! 💪</option>
-        <option value="no">לא, יום מנוחה 😴</option>
-      </select>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">סטטוס אימון:</label>
+          <select id="workout-select" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-purple-500">
+            <option value="">-- ללא סימון --</option>
+            <option value="yes">💪 יום אימון (מתוכנן)</option>
+            <option value="no">😴 יום מנוחה</option>
+          </select>
+        </div>
+      </div>
 
-      <button class="btn-action" onclick="saveDayData()">שמירה</button>
-      <button class="btn-action" style="background:#b2bec3;" onclick="closeModal()">ביטול</button>
+      <div class="flex gap-2 mt-6">
+        <button onclick="saveDayData()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl text-sm transition-all shadow">שמירה</button>
+        <button onclick="closeModal()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2.5 rounded-xl text-sm transition-all">ביטול</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ניהול שאלות הפתיחה (מסך הכניסה)
+    /* ==========================================
+       1. ניהול מסך הכניסה (Gate Screen)
+    ========================================== */
     function nextGateStep(step) {
-      document.querySelectorAll('.gate-step').forEach(el => el.classList.remove('active'));
-      document.getElementById(`gate-step-${step}`).classList.add('active');
+      document.querySelectorAll('.gate-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`gate-step-${step}`).classList.remove('hidden');
     }
 
     function enterSite() {
       document.getElementById('gate-screen').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
+      initWardrobe();
     }
 
-    // ניהול הסטופרים
-    let timers = { noon: { sec: 0, interval: null }, eve: { sec: 0, interval: null } };
+    /* ==========================================
+       2. ניהול הסטופרים (Timers)
+    ========================================== */
+    let timerState = {
+      noon: { sec: 0, interval: null },
+      eve: { sec: 0, interval: null }
+    };
 
     function startTimer(type) {
-      if (timers[type].interval) return;
-      timers[type].interval = setInterval(() => {
-        timers[type].sec++;
-        let m = String(Math.floor(timers[type].sec / 60)).padStart(2, '0');
-        let s = String(timers[type].sec % 60).padStart(2, '0');
+      if (timerState[type].interval) return;
+      timerState[type].interval = setInterval(() => {
+        timerState[type].sec++;
+        let m = String(Math.floor(timerState[type].sec / 60)).padStart(2, '0');
+        let s = String(timerState[type].sec % 60).padStart(2, '0');
         document.getElementById(`timer-${type}`).innerText = `${m}:${s}`;
       }, 1000);
     }
 
     function stopTimer(type) {
-      clearInterval(timers[type].interval);
-      timers[type].interval = null;
+      clearInterval(timerState[type].interval);
+      timerState[type].interval = null;
     }
 
     function resetTimer(type) {
       stopTimer(type);
-      timers[type].sec = 0;
+      timerState[type].sec = 0;
       document.getElementById(`timer-${type}`).innerText = "00:00";
     }
 
-    // החלפת תלבושות ללילי
-    function changeOutfit(skirtColor, topColor, shoeColor) {
-      document.getElementById('skirt').setAttribute('fill', skirtColor);
-      document.getElementById('top').setAttribute('fill', topColor);
-      document.getElementById('shoe1').setAttribute('fill', shoeColor);
-      document.getElementById('shoe2').setAttribute('fill', shoeColor);
-    }
+    /* ==========================================
+       3. מערכת הארון הענק של לילי + מטבעות
+    ========================================== */
+    let userCoins = 2500;
+    let purchasedItems = new Set(['top_1', 'skirt_1', 'pants_1', 'shoe_1']);
+    let currentEquipped = {
+      top: 'top_1',
+      bottomType: 'pants', // 'skirt' or 'pants'
+      bottom: 'pants_1',
+      shoe: 'shoe_1'
+    };
 
-    // שאלות אמריקאיות בכרטיסיות (10 שאלות מלאות)
-    const faqData = [
-      { q: "האם שיעורי בית באמת עוזרים בחיים?", options: ["א. מפתחים את המוח", "ב. מפתחים בעיקר יכולת להמציא תירוצים", "ג. עוזרים למורים לישון", "ד. שום דבר"], a: "ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון." },
-      { q: "למה צריך לקום מוקדם בבוקר?", options: ["א. להספיק להתארגן בכיף", "ב. לבהות בקיר 20 דקות במיטה", "ג. לראות זריחה", "ד. ככה אמרו"], a: "כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה." },
-      { q: "איך יודעים אם מישהו באמת חבר אמת?", options: ["א. מספר סודות", "ב. עוזר בשיעורים", "ג. חולק מעטפת של אוזניות בלי לבקש בחזרה", "ד. שולח לייקים"], a: "אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה." },
-      { q: "מה הסוד להצליח במבחן באנגלית?", options: ["א. ללמוד חודש מראש", "ב. להוסיף s בסוף כל מילה ולרשום Past Simple", "ג. לקרוא מילון", "ד. להתפלל לנס"], a: "להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד." },
-      { q: "מה הדרך הכי טובה לנקות נעלי אולסטאר?", options: ["א. מברשת שיניים וסבון", "ב. ללכת איתן בגשם ולקוות שהטבע יעשה את שלו", "ג. לקנות חדשות", "ד. מכונה"], a: "ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך." },
-      { q: "למה השעון המעורר מנגן באמצע החלום הכי טוב?", options: ["א. מקריות", "ב. מנגנון רשעות מובנה", "ג. שעון מקולקל", "ד. ככה זה"], a: "כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד." },
-      { q: "מה עושים כשהאינטרנט מנתק באמצע סרטון?", options: ["א. קוראים ספר", "ב. לוחצים על הראוטר בטירוף", "ג. הולכים לישון", "ד. מחכים"], a: "נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה." },
-      { q: "איך לומדים להקליד עיוור בשיא המהירות?", options: ["א. קורס הקלדה", "ב. מקלידים כל כך מהר שהמקלדת מנחשת", "ג. לא לומדים", "ד. מסתכלים על המקשים"], a: "פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב." },
-      { q: "איזה אוכל הכי בריא בעולם?", options: ["א. סלט ירוק", "ב. מה שנאכל מול סדרה בלי לשטוף צלחת", "ג. תפוח", "ד. שייק"], a: "זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת." },
-      { q: "מה העצה הכי טובה לחיים?", options: ["א. לעבוד קשה", "ב. אם משהו קשה – להגיד 'אני אעשה את זה מחר'", "ג. לקום ב-5", "ד. לוותר"], a: "אם משהו קשה מדי – תמיד אפשר להגיד 'אני אעשה את זה מחר'. מחר זה יום חדש!" }
+    // 30 חולצות וסריגים
+    const topsData = [
+      { id: 'top_1', name: 'סריג סגול שיק', price: 0, color: '#8c7ae6', desc: 'סריג קלאסי נעים' },
+      { id: 'top_2', name: 'קרופ-טופ ורוד פסטל', price: 150, color: '#fd79a8', desc: 'קליל ומגניב לקיץ' },
+      { id: 'top_3', name: 'הודי אוברסייז תכלת', price: 300, color: '#74b9ff', desc: 'רך ומפנק לערב' },
+      { id: 'top_4', name: 'חולצת פסים ספורטיבית', price: 200, color: '#0984e3', desc: 'סטייל אופנתי לכל יום' },
+      { id: 'top_5', name: 'סריג גולף שמנת יוקרתי', price: 450, color: '#ffeaa7', desc: 'מראה נקי ואלגנטי' },
+      { id: 'top_6', name: 'טופ ירוק מנטה', price: 180, color: '#55efc4', desc: 'רענן וצבעוני' },
+      { id: 'top_7', name: 'גופיית סאטן שחורה', price: 500, color: '#2d3436', desc: 'מראה ערב נוצץ' },
+      { id: 'top_8', name: 'סריג קרדיגן צהוב לימון', price: 350, color: '#fdcb6e', desc: 'חם ומשמח' },
+      { id: 'top_9', name: 'חולצת גרפיקה אדומה', price: 280, color: '#d63031', desc: 'אורבני וצעיר' },
+      { id: 'top_10', name: 'קרופ צמוד סגול כהה', price: 400, color: '#6c5ce7', desc: 'אידיאלי לאימונים' },
+      { id: 'top_11', name: 'סריג פופקורן ורוד עתיק', price: 600, color: '#e84393', desc: 'טקסטורה עשירה' },
+      { id: 'top_12', name: 'בלייזר יוקרתי לבן', price: 1200, color: '#ffffff', desc: 'מראה מנכ"לית' },
+      { id: 'top_13', name: 'גופיית קולר כתומה', price: 220, color: '#e17055', desc: 'סטייל קיצי לוהט' },
+      { id: 'top_14', name: 'סריג אוברסייז טורקיז', price: 480, color: '#00cec9', desc: 'נעים וכיפי' },
+      { id: 'top_15', name: 'חולצת תחרה אלגנטית', price: 850, color: '#f5cd79', desc: 'יוקרתי לאירועים' },
+      { id: 'top_16', name: 'טופ ניאון זוהר', price: 700, color: '#00ff87', desc: 'מושך מבטים' },
+      { id: 'top_17', name: 'סריג צמות אפור מלנג\'', price: 390, color: '#b2bec3', desc: 'קלאסיקה חורפית' },
+      { id: 'top_18', name: 'חולצת משי סגולה', price: 950, color: '#a29bfe', desc: 'משי טהור ורך' },
+      { id: 'top_19', name: 'קרופ-טופ זהב נוצץ', price: 1500, color: '#f1c40f', desc: 'מהדורה מוגבלת!' },
+      { id: 'top_20', name: 'סריג וינטג\' חרדל', price: 520, color: '#cd6133', desc: 'שיק רטרו' },
+      { id: 'top_21', name: 'גופיית פילאטיס ורודה', price: 250, color: '#ff9ff3', desc: 'גמישה ונושמת' },
+      { id: 'top_22', name: 'חולצת פלנל משובצת', price: 340, color: '#b33939', desc: 'סטייל כפרי מגניב' },
+      { id: 'top_23', name: 'סריג קשמיר ירוק זית', price: 1100, color: '#33d9b2', desc: 'איכות ללא פשרות' },
+      { id: 'top_24', name: 'טופ מסיבות יהלומים', price: 2200, color: '#f8a5c2', desc: 'מלא באבני חן' },
+      { id: 'top_25', name: 'חולצת בסיס לבנה נקייה', price: 100, color: '#f5f6fa', desc: 'פריט חובה בכל ארון' },
+      { id: 'top_26', name: 'סריג קוביות פסטל', price: 650, color: '#c8d6e5', desc: 'טרנד אינסטגרם' },
+      { id: 'top_27', name: 'גופיית ריב חומה', price: 290, color: '#84817a', desc: 'חמימה וניטרלית' },
+      { id: 'top_28', name: 'טופ אסימטרי שחור', price: 780, color: '#1e272e', desc: 'גזרה אופנתית' },
+      { id: 'top_29', name: 'סריג סוויטשירט בורדו', price: 420, color: '#821752', desc: 'עמוק ועשיר' },
+      { id: 'top_30', name: 'טופ זהב הוט-קותור', price: 3500, color: '#ffd700', desc: 'הפריט הכי יקר בבוטיק!' }
     ];
 
-    let currentCardIndex = 0;
+    // 20 חצאיות
+    const skirtsData = [
+      { id: 'skirt_1', name: 'חצאית מיני סגולה', price: 0, color: '#6c5ce7', desc: 'גזרה ישרה ומחמיאה' },
+      { id: 'skirt_2', name: 'חצאית קפלים ורודה', price: 200, color: '#fd79a8', desc: 'סגנון טניס מתוק' },
+      { id: 'skirt_3', name: 'חצאית ג\'ינס קלאסית', price: 350, color: '#0984e3', desc: 'מתאימה לכל חולצה' },
+      { id: 'skirt_4', name: 'חצאית מקסי שחורה', price: 450, color: '#2d3436', desc: 'מראה אלגנטי וארוך' },
+      { id: 'skirt_5', name: 'חצאית פליסה זהובה', price: 800, color: '#fdcb6e', desc: 'תנועה קלילה וזוהרת' },
+      { id: 'skirt_6', name: 'חצאית מעטפה ירוקה', price: 280, color: '#55efc4', desc: 'שיק קיצי' },
+      { id: 'skirt_7', name: 'חצאית עור אדומה', price: 950, color: '#d63031', desc: 'נועזת ואופנתית' },
+      { id: 'skirt_8', name: 'חצאית משובצת סקוטית', price: 320, color: '#e17055', desc: 'סטייל קולג\'' },
+      { id: 'skirt_9', name: 'חצאית טול ורודה פיה', price: 600, color: '#ff9ff3', desc: 'כמו נפח של ענן' },
+      { id: 'skirt_10', name: 'חצאית מיני לבנה', price: 250, color: '#ffffff', desc: 'נקייה וספורטיבית' },
+      { id: 'skirt_11', name: 'חצאית משי סגולה עמוקה', price: 1100, color: '#3c40c6', desc: 'יוקרה טהורה' },
+      { id: 'skirt_12', name: 'חצאית סריג אפורה', price: 380, color: '#d2dae2', desc: 'נוחה ומלטפת' },
+      { id: 'skirt_13', name: 'חצאית ניאון צהובה', price: 500, color: '#cf6a87', desc: 'מסיבות קיץ' },
+      { id: 'skirt_14', name: 'חצאית כפתורים חרדל', price: 420, color: '#f5cd79', desc: 'וינטג\' מקסים' },
+      { id: 'skirt_15', name: 'חצאית פייטים נוצצת', price: 1400, color: '#f8a5c2', desc: 'זוהרת באור' },
+      { id: 'skirt_16', name: 'חצאית קורדרוי חומה', price: 360, color: '#574b90', desc: 'חמימה ואיכותית' },
+      { id: 'skirt_17', name: 'חצאית פרחונית קלילה', price: 290, color: '#78e08f', desc: 'אווירת אביב' },
+      { id: 'skirt_18', name: 'חצאית שסע סגולה', price: 750, color: '#a29bfe', desc: 'גזרה סקסית' },
+      { id: 'skirt_19', name: 'חצאית נפח נסיכות', price: 2000, color: '#f3a683', desc: 'מראה נסיכותי' },
+      { id: 'skirt_20', name: 'חצאית זהב הוט-קותור', price: 3200, color: '#ffd700', desc: 'עיצוב מסלול מילאנו!' }
+    ];
 
-    function renderFaqCard() {
-      const card = faqData[currentCardIndex];
-      document.getElementById('faq-counter').innerText = `שאלה ${currentCardIndex + 1} מתוך ${faqData.length}`;
-      document.getElementById('faq-question').innerText = card.q;
-      
-      const optionsContainer = document.getElementById('faq-options');
-      optionsContainer.innerHTML = '';
-      
-      const answerBox = document.getElementById('faq-answer');
-      answerBox.style.display = 'none';
+    // 20 מכנסיים
+    const pantsData = [
+      { id: 'pants_1', name: 'ג\'ינס כחול קלאסי', price: 0, color: '#2b5278', desc: 'גזרה ישרה יומיומית' },
+      { id: 'pants_2', name: 'מכנס טרנינג אפור', price: 180, color: '#b2bec3', desc: 'רך ונוח בטירוף' },
+      { id: 'pants_3', name: 'מכנס דגמ"ח ירוק זית', price: 350, color: '#10ac84', desc: 'כיסים גדולים וסטייל' },
+      { id: 'pants_4', name: 'מכנס מחויט שחור', price: 600, color: '#2d3436', desc: 'מראה רציני ואלגנטי' },
+      { id: 'pants_5', name: 'טייץ יוגה ורוד', price: 220, color: '#fd79a8', desc: 'גמיש ומתוח' },
+      { id: 'pants_6', name: 'ג\'ינס קרעים בהיר', price: 400, color: '#74b9ff', desc: 'אורבני וצעיר' },
+      { id: 'pants_7', name: 'מכנס עור חום שוקולד', price: 900, color: '#5f27cd', desc: 'יוקרתי ומחמם' },
+      { id: 'pants_8', name: 'מכנס רחב שמנת', price: 520, color: '#ffeaa7', desc: 'זרימה אוורירית' },
+      { id: 'pants_9', name: 'טייץ ספורט כחול נייבי', price: 260, color: '#0984e3', desc: 'לביצועי שיא' },
+      { id: 'pants_10', name: 'ג\'ינס שחור צמוד', price: 380, color: '#1e272e', desc: 'קלאסיקה על זמנית' },
+      { id: 'pants_11', name: 'מכנס פשתן לבן קיצי', price: 480, color: '#ffffff', desc: 'קליל למזג אוויר חם' },
+      { id: 'pants_12', name: 'טרנינג סגול פסטל', price: 300, color: '#a29bfe', desc: 'מתאים לסריגים' },
+      { id: 'pants_13', name: 'מכנס קטיפה אדום עמוק', price: 850, color: '#b33939', desc: 'מרקם עשיר' },
+      { id: 'pants_14', name: 'דגמ"ח אוברסייז כתום', price: 420, color: '#e17055', desc: 'היפ-הופ שיק' },
+      { id: 'pants_15', name: 'ג\'ינס רחב שנות ה-90', price: 550, color: '#54a0ff', desc: 'טרנד הרחוב הכי חם' },
+      { id: 'pants_16', name: 'מכנס משובץ אלגנטי', price: 620, color: '#84817a', desc: 'סטייל אירופאי' },
+      { id: 'pants_17', name: 'טייץ מבריק כסף', price: 700, color: '#c8d6e5', desc: 'מראה עתידני' },
+      { id: 'pants_18', name: 'מכנס פליסה סגול', price: 680, color: '#6c5ce7', desc: 'נוחות פרימיום' },
+      { id: 'pants_19', name: 'ג\'ינס מודפס כוכבים', price: 1100, color: '#33d9b2', desc: 'מהדורה ייחודית' },
+      { id: 'pants_20', name: 'מכנס זהב טהור', price: 3000, color: '#ffd700', desc: 'יוקרה בלתי מתפשרת!' }
+    ];
 
-      card.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.className = 'faq-option-btn';
-        btn.innerText = opt;
-        btn.onclick = () => {
-          document.querySelectorAll('.faq-option-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          answerBox.innerText = `💡 תשובת המומחה: ${card.a}`;
-          answerBox.style.display = 'block';
-        };
-        optionsContainer.appendChild(btn);
+    // 30 נעליים ואולסטאר
+    const shoesData = [
+      { id: 'shoe_1', name: 'אולסטאר שחור קלאסי', price: 0, color: '#333333', desc: 'הנעל האהובה מכולן' },
+      { id: 'shoe_2', name: 'אולסטאר אדום לוהט', price: 250, color: '#d63031', desc: 'זריקת צבע מושלמת' },
+      { id: 'shoe_3', name: 'אולסטאר לבן נקי', price: 280, color: '#f5f6fa', desc: 'משתלב עם כל לוק' },
+      { id: 'shoe_4', name: 'אולסטאר ורוד פסטל', price: 300, color: '#fd79a8', desc: 'מתוק ועדין' },
+      { id: 'shoe_5', name: 'אולסטאר פלטפורמה גבוה', price: 450, color: '#6c5ce7', desc: 'מוסיף גובה וסטייל' },
+      { id: 'shoe_6', name: 'סניקרס ניאון ירוק', price: 400, color: '#00b894', desc: 'זוהר למרחקים' },
+      { id: 'shoe_7', name: 'אולסטאר תכלת בייבי', price: 320, color: '#74b9ff', desc: 'רגוע ונעים' },
+      { id: 'shoe_8', name: 'נעלי ספורט סגולות', price: 380, color: '#8c7ae6', desc: 'תמיכה מלאה ברגל' },
+      { id: 'shoe_9', name: 'אולסטאר צהוב שמש', price: 310, color: '#fdcb6e', desc: 'אנרגיה חיובית' },
+      { id: 'shoe_10', name: 'נעלי עקב שחורות', price: 750, color: '#2d3436', desc: 'אלגנטיות לערב' },
+      { id: 'shoe_11', name: 'אולסטאר נצנצים כסף', price: 600, color: '#b2bec3', desc: 'נוצץ בכל צעד' },
+      { id: 'shoe_12', name: 'סניקרס גראנג\' אפור', price: 350, color: '#636e72', desc: 'סטייל רחוב מחוספס' },
+      { id: 'shoe_13', name: 'אולסטאר בורדו עמוק', price: 340, color: '#6d214f', desc: 'צבע חורפי עשיר' },
+      { id: 'shoe_14', name: 'סנדלי עקב זהב', price: 850, color: '#e1b12c', desc: 'מיועד לאירועים' },
+      { id: 'shoe_15', name: 'אולסטאר כחול ג\'ינס', price: 330, color: '#22a6b3', desc: 'בד ג\'ינס איכותי' },
+      { id: 'shoe_16', name: 'נעלי ריצה כתומיות', price: 420, color: '#e17055', desc: 'קלילות לאימון' },
+      { id: 'shoe_17', name: 'אולסטאר הדפס מנומר', price: 550, color: '#cd6133', desc: 'שיק פראי' },
+      { id: 'shoe_18', name: 'מגפוני עור שחורים', price: 900, color: '#1e272e', desc: 'עמידים ואיכותיים' },
+      { id: 'shoe_19', name: 'אולסטאר סגול עתיק', price: 360, color: '#a29bfe', desc: 'מראה רטרו' },
+      { id: 'shoe_20', name: 'נעלי בלרינה ורודות', price: 290, color: '#ff9ff3', desc: 'עדינות ונשיות' },
+      { id: 'shoe_21', name: 'אולסטאר טורקיז זוהר', price: 480, color: '#00cec9', desc: 'לוק קיצי מנצח' },
+      { id: 'shoe_22', name: 'סניקרס אבא לבנות (Dad Shoes)', price: 520, color: '#dcdde1', desc: 'נפח אופנתי' },
+      { id: 'shoe_23', name: 'אולסטאר זהב נוצץ', price: 1200, color: '#f1c40f', desc: 'מהדורה מוגבלת' },
+      { id: 'shoe_24', name: 'נעלי עין-החתול סגולות', price: 980, color: '#3c40c6', desc: 'עיצוב עתידני' },
+      { id: 'shoe_25', name: 'אולסטאר קורל כתמתם', price: 310, color: '#e84118', desc: 'חם ומשמח' },
+      { id: 'shoe_26', name: 'מגפי שלג פרוותיים', price: 650, color: '#f5cd79', desc: 'חימום מקסימלי' },
+      { id: 'shoe_27', name: 'אולסטאר שקוף עתידני', price: 1100, color: '#81ecec', desc: 'חומרים חדישים' },
+      { id: 'shoe_28', name: 'סניקרס יהלומים', price: 2100, color: '#f8a5c2', desc: 'משובצות קריסטלים' },
+      { id: 'shoe_29', name: 'אולסטאר סגול מטלי', price: 820, color: '#6c5ce7', desc: 'ברק מתכתי' },
+      { id: 'shoe_30', name: 'אולסטאר זהב הוט-קותור', price: 4000, color: '#ffd700', desc: 'הנעל היקרה ביותר בתבל!' }
+    ];
+
+    let activeCategory = 'tops';
+
+    function switchWardrobeTab(category) {
+      activeCategory = category;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white', 'shadow-md');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
       });
 
-      document.getElementById('prev-btn').disabled = currentCardIndex === 0;
-      document.getElementById('next-btn').disabled = currentCardIndex === faqData.length - 1;
+      const activeBtn = document.getElementById(`tab-btn-${category}`);
+      activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+      activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-md');
+
+      renderWardrobeItems();
     }
 
-    function changeCard(direction) {
-      currentCardIndex += direction;
-      renderFaqCard();
+    function renderWardrobeItems() {
+      const container = document.getElementById('wardrobe-items-container');
+      container.innerHTML = '';
+
+      let itemsList = [];
+      if (activeCategory === 'tops') itemsList = topsData;
+      else if (activeCategory === 'skirts') itemsList = skirtsData;
+      else if (activeCategory === 'pants') itemsList = pantsData;
+      else if (activeCategory === 'shoes') itemsList = shoesData;
+
+      itemsList.forEach(item => {
+        const isPurchased = purchasedItems.has(item.id);
+        const isEquipped = (
+          (activeCategory === 'tops' && currentEquipped.top === item.id) ||
+          (activeCategory === 'skirts' && currentEquipped.bottomType === 'skirt' && currentEquipped.bottom === item.id) ||
+          (activeCategory === 'pants' && currentEquipped.bottomType === 'pants' && currentEquipped.bottom === item.id) ||
+          (activeCategory === 'shoes' && currentEquipped.shoe === item.id)
+        );
+
+        const card = document.createElement('div');
+        card.className = `p-3 rounded-2xl border-2 transition-all flex flex-col justify-between relative bg-white ${
+          isEquipped ? 'border-purple-600 ring-2 ring-purple-300 shadow-md' : 'border-gray-200 hover:border-purple-300'
+        }`;
+
+        card.innerHTML = `
+          <div>
+            <!-- תצוגת צבע קטנה -->
+            <div class="h-12 w-full rounded-xl mb-2 flex items-center justify-center shadow-inner relative" style="background-color: ${item.color}">
+              ${isEquipped ? '<span class="bg-purple-900 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">לובשת</span>' : ''}
+            </div>
+            <h4 class="font-bold text-xs text-gray-900 line-clamp-1">${item.name}</h4>
+            <p class="text-[10px] text-gray-500 line-clamp-1">${item.desc}</p>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs font-black text-amber-700 flex items-center gap-0.5">
+              ${item.price === 0 ? 'חינם' : `🪙 ${item.price.toLocaleString()}`}
+            </span>
+
+            <button onclick="handleItemClick('${activeCategory}', '${item.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+              isEquipped 
+                ? 'bg-purple-100 text-purple-700 cursor-default'
+                : isPurchased 
+                  ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                  : 'bg-amber-500 hover:bg-amber-600 text-white shadow-sm'
+            }">
+              ${isEquipped ? 'לבושה' : isPurchased ? 'לבשי' : 'קני'}
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
     }
 
-    // ניהול הלו"ז החודשי
-    const daysData = {};
-    let selectedDay = null;
+    function handleItemClick(category, itemId) {
+      let item = [...topsData, ...skirtsData, ...pantsData, ...shoesData].find(i => i.id === itemId);
+      if (!item) return;
+
+      // אם לא נרכש עדיין - קנייה
+      if (!purchasedItems.has(itemId)) {
+        if (userCoins < item.price) {
+          alert(`אין לך מספיק מטבעות! הפריט עולה 🪙 ${item.price.toLocaleString()} מטבעות. לחצי על "+500 מטבעות" כדי להרוויח עוד!`);
+          return;
+        }
+        userCoins -= item.price;
+        purchasedItems.add(itemId);
+        updateCoinsDisplay();
+      }
+
+      // הלבשה
+      if (category === 'tops') {
+        currentEquipped.top = itemId;
+      } else if (category === 'skirts') {
+        currentEquipped.bottomType = 'skirt';
+        currentEquipped.bottom = itemId;
+      } else if (category === 'pants') {
+        currentEquipped.bottomType = 'pants';
+        currentEquipped.bottom = itemId;
+      } else if (category === 'shoes') {
+        currentEquipped.shoe = itemId;
+      }
+
+      updateLilySVG();
+      renderWardrobeItems();
+
+      // הצגת הודעת עדכון
+      const toast = document.getElementById('outfit-toast');
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 1500);
+    }
+
+    function addBonusCoins() {
+      userCoins += 500;
+      updateCoinsDisplay();
+    }
+
+    function updateCoinsDisplay() {
+      document.getElementById('user-coins').innerText = userCoins.toLocaleString();
+      document.getElementById('nav-coins-display').innerText = userCoins.toLocaleString();
+    }
+
+    function updateLilySVG() {
+      // עדכון חולצה
+      const topObj = topsData.find(t => t.id === currentEquipped.top);
+      if (topObj) {
+        document.getElementById('top-shape').setAttribute('fill', topObj.color);
+      }
+
+      // עדכון חלק תחתון (חצאית / מכנסיים)
+      const bottomLayer = document.getElementById('bottom-layer');
+      if (currentEquipped.bottomType === 'skirt') {
+        const skirtObj = skirtsData.find(s => s.id === currentEquipped.bottom);
+        const col = skirtObj ? skirtObj.color : '#6c5ce7';
+        bottomLayer.innerHTML = `<path id="bottom-shape" d="M 38 85 L 82 85 L 88 135 L 32 135 Z" fill="${col}"/>`;
+      } else {
+        const pantsObj = pantsData.find(p => p.id === currentEquipped.bottom);
+        const col = pantsObj ? pantsObj.color : '#2b5278';
+        bottomLayer.innerHTML = `<path id="bottom-shape" d="M 42 85 L 78 85 L 76 195 L 63 195 L 60 110 L 57 195 L 44 195 Z" fill="${col}"/>`;
+      }
+
+      // עדכון נעליים / אולסטאר
+      const shoeObj = shoesData.find(s => s.id === currentEquipped.shoe);
+      if (shoeObj) {
+        document.getElementById('shoe-L-base').setAttribute('fill', shoeObj.color);
+        document.getElementById('shoe-R-base').setAttribute('fill', shoeObj.color);
+      }
+
+      // תיאור
+      const topName = topObj ? topObj.name : '';
+      const botObj = currentEquipped.bottomType === 'skirt' 
+        ? skirtsData.find(s => s.id === currentEquipped.bottom) 
+        : pantsData.find(p => p.id === currentEquipped.bottom);
+      const botName = botObj ? botObj.name : '';
+      const shoeName = shoeObj ? shoeObj.name : '';
+
+      document.getElementById('current-outfit-desc').innerText = `${topName} + ${botName} + ${shoeName}`;
+    }
+
+    function initWardrobe() {
+      updateCoinsDisplay();
+      switchWardrobeTab('tops');
+      updateLilySVG();
+    }
+
+    /* ==========================================
+       4. לו"ז חודשי (30 ימים)
+    ========================================== */
+    const calendarData = {};
+    let activeDay = null;
 
     function renderCalendar() {
-      const container = document.getElementById('calendar-days');
-      container.innerHTML = '';
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
 
       for (let i = 1; i <= 30; i++) {
         const dayBox = document.createElement('div');
-        dayBox.className = 'calendar-day';
         dayBox.onclick = () => openModal(i);
+        dayBox.className = "bg-gray-50 border border-gray-200 rounded-xl p-2 min-h-[75px] md:min-h-[85px] cursor-pointer hover:border-purple-400 transition-all flex flex-col justify-between";
 
-        const data = daysData[i] || {};
+        const data = calendarData[i] || {};
 
-        let eventHTML = data.event ? `<div class="day-event">${data.event}</div>` : '';
-        let workoutHTML = '';
-        
+        let eventTag = data.event ? `<div class="text-[10px] bg-purple-100 text-purple-800 p-1 rounded-md line-clamp-1 font-medium mt-1">${data.event}</div>` : '';
+        let workoutTag = '';
         if (data.workout === 'yes') {
-          workoutHTML = `<div class="workout-tag workout-yes">אימון 👍</div>`;
+          workoutTag = `<div class="text-[9px] bg-emerald-100 text-emerald-700 font-bold px-1.5 py-0.5 rounded text-center">אימון 💪</div>`;
         } else if (data.workout === 'no') {
-          workoutHTML = `<div class="workout-tag workout-no">מנוחה 💤</div>`;
+          workoutTag = `<div class="text-[9px] bg-rose-100 text-rose-700 font-bold px-1.5 py-0.5 rounded text-center">מנוחה 💤</div>`;
         }
 
         dayBox.innerHTML = `
-          <div class="day-number">${i}</div>
-          <div>${eventHTML}</div>
-          <div>${workoutHTML}</div>
+          <div>
+            <span class="text-xs font-bold text-purple-900">${i}</span>
+            ${eventTag}
+          </div>
+          <div>${workoutTag}</div>
         `;
 
-        container.appendChild(dayBox);
+        grid.appendChild(dayBox);
       }
     }
 
-    function openModal(dayNum) {
-      selectedDay = dayNum;
-      document.getElementById('modal-day-title').innerText = `עריכת יום ${dayNum}`;
-      
-      const current = daysData[dayNum] || {};
-      document.getElementById('event-input').value = current.event || '';
-      document.getElementById('workout-select').value = current.workout || '';
-
-      document.getElementById('day-modal').style.display = 'flex';
+    function openModal(day) {
+      activeDay = day;
+      document.getElementById('modal-day-title').innerText = `עריכת יום ${day}`;
+      const data = calendarData[day] || {};
+      document.getElementById('event-input').value = data.event || '';
+      document.getElementById('workout-select').value = data.workout || '';
+      document.getElementById('day-modal').classList.remove('hidden');
     }
 
     function closeModal() {
-      document.getElementById('day-modal').style.display = 'none';
+      document.getElementById('day-modal').classList.add('hidden');
     }
 
     function saveDayData() {
-      if (!selectedDay) return;
-
-      const eventVal = document.getElementById('event-input').value;
-      const workoutVal = document.getElementById('workout-select').value;
-
-      daysData[selectedDay] = {
-        event: eventVal,
-        workout: workoutVal
+      if (!activeDay) return;
+      calendarData[activeDay] = {
+        event: document.getElementById('event-input').value,
+        workout: document.getElementById('workout-select').value
       };
-
       closeModal();
       renderCalendar();
     }
 
-    // הפעלה בטעינה
-    renderFaqCard();
-    renderCalendar();
+    /* ==========================================
+       5. 10 שאלות ותשובות בסוף הדף
+    ========================================== */
+    const faqData = [
+      { 
+        q: "1. מה לעשות אם מגיעים לצהריים ואין כוח להתאמן?", 
+        options: ["א. ללבוש את האולסטאר הניאון הזוהר למוטיבציה", "ב. לעבור ליום מנוחה בלו"ז ולהתפנק", "ג. לעשות אימון קליל של 5 דקות", "ד. לאכול עוגיית שוקולד צ'יפס ולהחליט אחר כך"], 
+        a: "כל התשובות נכונות! העיקר שתשמרי על מצב רוח טוב וטבעי לחלוטין לחדש אנרגיות." 
+      },
+      { 
+        q: "2. מה המאכל הכי מומלץ לאכול אחרי אימון?", 
+        options: ["א. ברד אבטיח-לימון מרענן", "ב. שייק חלבון עשיר", "ג. פנקייק אוורירי כמו ענן", "ד. סנדוויץ' פרנץ' טוסט מפנק"], 
+        a: "אחרי אימון הגוף צריך חלבונים ונוזלים - שייק חלבון או ברד אבטיח קפוא יעשו עבודה נפלאה!" 
+      },
+      { 
+        q: "3. איך צוברים הכי הרבה מטבעות בבוטיק של לילי?", 
+        options: ["א. לוחצים על כפתור הבונוס +500", "ב. מסיימים את כל הימים בלו"ז", "ג. מבצעים אימוני ערב באופן קבוע", "ד. עונים נכון על השאלות באתר"], 
+        a: "לחיצה על כפתור הבונוס מעניקה 500 מטבעות מיידית, אבל שמירה על לו"ז אימונים מעניקה סיפוק אמיתי!" 
+      },
+      { 
+        q: "4. כמה אופציות של אולסטאר ונעליים יש בארון של לילי?", 
+        options: ["א. 10 זוגות", "ב. 20 זוגות", "ג. 30 זוגות כולל אולסטאר זהב הוט-קותור!", "ד. 5 זוגות בלבד"], 
+        a: "בדיוק 30 זוגות נעליים ואולסטאר מכל הסגנונות, החל מקלאסי ועד מהדורות זהב יוקרתיות!" 
+      },
+      { 
+        q: "5. מה היתרון של אימון הקליסטניקס בצהריים?", 
+        options: ["א. עובד על משקל הגוף ללא ציוד", "ב. מעלה את האנרגיה להמשך היום", "ג. מחזק את הרגליים והליבה", "ד. כל התשובות נכונות"], 
+        a: "נכון מאוד! אימון קליסטניקס מחזק את הגוף בצורה טבעית וממלא באנרגיה מטורפת." 
+      },
+      { 
+        q: "6. מה הסוד לפנקייק אוורירי במיוחד?", 
+        options: ["א. להפריד ביצים להקצפה", "ב. לא לערבב יותר מדי את הבלילה", "ג. להשתמש בחלב חם", "ד. לתת לבלילה לנוח 10 דקות"], 
+        a: "הסוד הוא ערבוב קל בלבד ומנוחה קצרה לבלילה לפני הטיגון – כך הבועות נשארות פנימה!" 
+      },
+      { 
+        q: "7. מה מיוחד בסטופר הדיגיטלי באימונים באתר?", 
+        options: ["א. מודד שניות ודקות בלייב", "ב. מאפשר התחלה, עצירה ואיפוס", "ג. עוזר לעמוד בזמני הסטים", "ד. כל התשובות נכונות"], 
+        a: "הסטופר מלווה אותך בזמן אמת כדי שתוכלי למדוד את הסטים של הסקוואטים והפלאנק בדייקנות." 
+      },
+      { 
+        q: "8. איזה פריט לבוש הוא היקר ביותר בבוטיק של לילי?", 
+        options: ["א. אולסטאר זהב הוט-קותור (4,000 מטבעות)", "ב. טופ זהב הוט-קותור (3,500 מטבעות)", "ג. חצאית זהב הוט-קותור (3,200 מטבעות)", "ד. בלייזר לבן (1,200 מטבעות)"], 
+        a: "אולסטאר זהב הוט-קותור ב-4,000 מטבעות הוא הפריט היוקרתי והנדיר ביותר באוסף!" 
+      },
+      { 
+        q: "9. מה מומלץ לעשות באימון ערב?", 
+        options: ["א. תרגילי ליבה, פלאנק ומתיחות", "ב. ריצת מרתון מהירה", "ג. הרמת משקלים כבדים מאוד", "ד. שתיית קפה חזק"], 
+        a: "בערב מומלץ להתרכז בתרגילי ליבה, פלאנק ומתיחות להרגעת הגוף והכנה לשינה איכותית." 
+      },
+      { 
+        q: "10. מה המטרה המרכזית של אתר 'טופי 100'?", 
+        options: ["א. לשלב כושר, סטייל ואורח חיים כיפי", "ב. להלביש את לילי בסטייל המגניב ברשת", "ג. לנהל לו"ז חודשי מסודר", "ד. כל התשובות נכונות!"], 
+        a: "ברור שכל התשובות נכונות! טופי 100 הוא הבית שלכן לכושר, אופנה, מתכונים וכיף 🍭" 
+      }
+    ];
+
+    let currentFaqIndex = 0;
+
+    function renderFaqCard() {
+      const card = faqData[currentFaqIndex];
+      document.getElementById('faq-counter').innerText = `שאלה ${currentFaqIndex + 1} מתוך 10`;
+      document.getElementById('faq-question').innerText = card.q;
+
+      const optionsContainer = document.getElementById('faq-options');
+      optionsContainer.innerHTML = '';
+
+      const answerBox = document.getElementById('faq-answer-box');
+      answerBox.classList.add('hidden');
+
+      card.options.forEach((optText) => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-right p-3 bg-white hover:bg-purple-100 border border-purple-200 rounded-xl text-xs md:text-sm font-semibold text-gray-800 transition-all shadow-sm";
+        btn.innerText = optText;
+
+        btn.onclick = () => {
+          document.querySelectorAll('#faq-options button').forEach(b => {
+            b.classList.remove('bg-purple-600', 'text-white', 'border-purple-600');
+            b.classList.add('bg-white', 'text-gray-800');
+          });
+          btn.classList.remove('bg-white', 'text-gray-800');
+          btn.classList.add('bg-purple-600', 'text-white', 'border-purple-600');
+
+          answerBox.innerHTML = `💡 <strong>הסבר ותשובה:</strong> ${card.a}`;
+          answerBox.classList.remove('hidden');
+        };
+
+        optionsContainer.appendChild(btn);
+      });
+
+      document.getElementById('prev-btn').disabled = (currentFaqIndex === 0);
+      document.getElementById('next-btn').disabled = (currentFaqIndex === faqData.length - 1);
+    }
+
+    function changeFaqCard(dir) {
+      currentFaqIndex += dir;
+      renderFaqCard();
+    }
+
+    /* ==========================================
+       6. הפעלה בטעינת הדף
+    ========================================== */
+    window.onload = function() {
+      renderCalendar();
+      renderFaqCard();
+    };
   </script>
 </body>
 </html>
