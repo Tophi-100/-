@@ -95,7 +95,7 @@
       flex: 1;
       padding: 20px;
       padding-bottom: 190px;
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto;
       width: 100%;
       box-sizing: border-box;
@@ -110,6 +110,13 @@
       margin-bottom: 20px;
     }
 
+    .time-greeting {
+      font-size: 14px;
+      color: #777;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
     .coin-badge {
       background: #fff3bf;
       color: #f59f00;
@@ -117,80 +124,89 @@
       border-radius: 20px;
       font-weight: bold;
       display: inline-block;
-      margin-top: 5px;
+      margin-top: 8px;
       border: 1px solid #ffe066;
     }
 
-    /* עיצוב לילי */
+    /* עיצוב לילי המתקדם - גזרות, אקססוריז וצורות */
     .character-section {
       background: white;
       border-radius: 20px;
-      padding: 20px;
+      padding: 25px;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       margin-bottom: 20px;
     }
 
-    .lily-container {
+    .lily-stage {
+      position: relative;
+      width: 220px;
+      height: 250px;
+      margin: 0 auto 15px auto;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 15px;
-      position: relative;
+      justify-content: center;
+      align-items: flex-end;
     }
 
-    .lily-head {
-      position: relative;
-      width: 90px;
-      height: 90px;
-    }
-
-    /* שיער ותסרוקות */
-    .lily-hair {
+    /* אקססוריז רקע/גוף */
+    .accessory-bag {
       position: absolute;
-      top: -5px;
-      left: -8px;
-      width: 106px;
-      height: 110px;
-      background: #5c3a21;
-      border-radius: 50px 50px 20px 20px;
-      z-index: 1;
-      transition: 0.3s;
+      width: 22px;
+      height: 20px;
+      background: #a855f7;
+      border-radius: 5px;
+      bottom: 75px;
+      right: 68px;
+      z-index: 6;
+      border: 1px solid #7e22ce;
+      display: none;
+    }
+    .accessory-bag::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: -15px;
+      width: 30px;
+      height: 18px;
+      border: 2px solid #7e22ce;
+      border-bottom: none;
+      border-radius: 15px 15px 0 0;
     }
 
-    .lily-hair.ponytail {
-      border-radius: 50px 50px 0 0;
-    }
-
-    .lily-hair.braids {
-      border-radius: 40px 40px 10px 10px;
+    /* ראש ופנים */
+    .lily-head-wrapper {
+      position: absolute;
+      top: 20px;
+      width: 100px;
+      height: 100px;
+      z-index: 4;
     }
 
     .lily-face {
       position: absolute;
-      top: 10px;
-      left: 5px;
+      top: 15px;
+      left: 10px;
       width: 80px;
       height: 80px;
       background: #ffe0bd;
       border-radius: 50%;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: 0.3s;
     }
 
     .eyes {
       display: flex;
-      gap: 18px;
-      margin-top: 5px;
+      gap: 20px;
+      margin-top: 8px;
+      position: relative;
     }
 
     .eye {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       background: #2b1d0c;
       border-radius: 50%;
       transition: 0.3s;
@@ -198,9 +214,9 @@
 
     .cheeks {
       display: flex;
-      gap: 30px;
+      gap: 32px;
       position: absolute;
-      top: 42px;
+      top: 45px;
     }
 
     .cheek {
@@ -212,63 +228,341 @@
     }
 
     .smile {
-      width: 16px;
+      width: 18px;
       height: 8px;
       border-bottom: 3px solid #b5425b;
       border-radius: 0 0 10px 10px;
       margin-top: 8px;
     }
 
-    /* סריגים */
-    .lily-body {
-      width: 54px;
-      height: 65px;
-      background: #ff85a2;
-      border-radius: 12px 12px 5px 5px;
+    /* אקססוריז פנים/ראש */
+    .accessory-earrings {
+      position: absolute;
+      top: 48px;
+      width: 76px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 4;
+      display: none;
+    }
+    .earring {
+      width: 6px;
+      height: 6px;
+      background: #ffd700;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #e6c200;
+    }
+
+    .accessory-necklace {
+      position: absolute;
+      bottom: -6px;
+      left: 32px;
+      width: 36px;
+      height: 12px;
+      border-bottom: 3px solid #ffd700;
+      border-radius: 0 0 20px 20px;
+      z-index: 5;
+      display: none;
+    }
+
+    .accessory-glasses {
+      position: absolute;
+      top: 36px;
+      left: 18px;
+      width: 64px;
+      height: 18px;
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+      display: none;
+    }
+    .glass-lens {
+      width: 28px;
+      height: 18px;
+      background: rgba(30, 30, 30, 0.85);
+      border-radius: 4px;
+      border: 2px solid #333;
+    }
+
+    .accessory-hat {
+      position: absolute;
+      top: 0px;
+      left: 5px;
+      width: 90px;
+      height: 25px;
+      background: #ff477e;
+      border-radius: 20px 20px 0 0;
+      z-index: 6;
+      display: none;
+    }
+    .accessory-hat::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: -15px;
+      width: 45px;
+      height: 6px;
+      background: #ff477e;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .accessory-headband {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+      width: 80px;
+      height: 8px;
+      background: #4cc9f0;
+      border-radius: 10px;
+      z-index: 5;
+      display: none;
+    }
+
+    /* שיער - צורות וגזרות */
+    .hair-style {
+      position: absolute;
+      background: #5c3a21;
+      transition: all 0.3s;
       z-index: 2;
-      margin-top: -5px;
-      transition: 0.3s;
+    }
+
+    /* גזרה 1: פזור ארוך */
+    .hair-long {
+      top: 2px;
+      left: 2px;
+      width: 96px;
+      height: 130px;
+      border-radius: 45px 45px 25px 25px;
+    }
+
+    /* גזרה 2: קוקו גבוה */
+    .hair-ponytail {
+      top: 5px;
+      left: 8px;
+      width: 84px;
+      height: 80px;
+      border-radius: 45px 45px 10px 10px;
+    }
+    .hair-ponytail::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 32px;
+      width: 22px;
+      height: 45px;
+      background: inherit;
+      border-radius: 15px 15px 5px 25px;
+    }
+
+    /* גזרה 3: שתי צמות */
+    .hair-braids {
+      top: 5px;
+      left: 8px;
+      width: 84px;
+      height: 75px;
+      border-radius: 40px 40px 10px 10px;
+    }
+    .hair-braids::before, .hair-braids::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      width: 14px;
+      height: 50px;
+      background: inherit;
+      border-radius: 8px;
+    }
+    .hair-braids::before { left: 2px; }
+    .hair-braids::after { right: 2px; }
+
+    /* גזרה 4: קארה קצוץ */
+    .hair-bob {
+      top: 5px;
+      left: 5px;
+      width: 90px;
+      height: 80px;
+      border-radius: 45px 45px 5px 5px;
+    }
+
+    /* גזרה 5: גולגול Messy Bun */
+    .hair-bun {
+      top: 10px;
+      left: 8px;
+      width: 84px;
+      height: 75px;
+      border-radius: 40px 40px 15px 15px;
+    }
+    .hair-bun::before {
+      content: '';
+      position: absolute;
+      top: -22px;
+      left: 27px;
+      width: 30px;
+      height: 30px;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    /* גוף ובגדים - גזרות שונות */
+    .lily-body-wrapper {
+      position: absolute;
+      bottom: 38px;
+      width: 80px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .outfit-cut {
+      width: 58px;
+      transition: all 0.3s;
       position: relative;
     }
 
-    /* רגליים ואולסטאר */
-    .lily-legs {
+    /* 1. סריג אוברסייז */
+    .outfit-oversize {
+      height: 72px;
+      background: #ff85a2;
+      border-radius: 15px 15px 12px 12px;
+      width: 68px;
+    }
+
+    /* 2. גופיית ספורט */
+    .outfit-top {
+      height: 48px;
+      background: #3a86ff;
+      border-radius: 12px 12px 4px 4px;
+      width: 52px;
+    }
+
+    /* 3. שמלת קיץ */
+    .outfit-dress {
+      height: 88px;
+      background: #ffb703;
+      border-radius: 15px 15px 25px 25px;
+      width: 64px;
+    }
+
+    /* 4. סווטשירט קפוצ'ון Hoodie */
+    .outfit-hoodie {
+      height: 75px;
+      background: #8338ec;
+      border-radius: 18px 18px 8px 8px;
+      width: 70px;
+    }
+    .outfit-hoodie::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 20px;
+      width: 30px;
+      height: 22px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px 5px 12px 12px;
+    }
+
+    /* 5. ג'קט מעוצב */
+    .outfit-jacket {
+      height: 70px;
+      background: #2a9d8f;
+      border-radius: 10px;
+      width: 66px;
+      border-left: 5px solid #1d3557;
+      border-right: 5px solid #1d3557;
+    }
+
+    /* רגליים ונעליים */
+    .lily-legs-wrapper {
+      position: absolute;
+      bottom: 0px;
+      width: 60px;
+      height: 45px;
       display: flex;
-      gap: 12px;
-      margin-top: -2px;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .legs {
+      display: flex;
+      gap: 14px;
     }
 
     .leg {
       width: 10px;
-      height: 35px;
+      height: 30px;
       background: #ffe0bd;
     }
 
-    .shoes {
+    .shoes-container {
       display: flex;
-      gap: 8px;
-      margin-top: -5px;
+      gap: 10px;
+      margin-top: -8px;
     }
 
-    .allstar-shoe {
+    .shoe {
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    /* גזרות נעליים */
+    /* אולסטאר גבוהות */
+    .shoe-allstar-high {
+      width: 24px;
+      height: 18px;
+      background: #333;
+      border-radius: 4px 6px 2px 2px;
+      border-bottom: 4px solid white;
+      margin-top: -6px;
+    }
+    .shoe-allstar-high::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    /* אולסטאר נמוכות */
+    .shoe-allstar-low {
       width: 24px;
       height: 12px;
-      background: #333333;
-      border-radius: 4px 8px 2px 2px;
+      background: #e63946;
+      border-radius: 3px 6px 2px 2px;
       border-bottom: 3px solid white;
-      position: relative;
-      transition: 0.3s;
+    }
+
+    /* סניקרס ספורט */
+    .shoe-sneakers {
+      width: 26px;
+      height: 14px;
+      background: #ffb703;
+      border-radius: 6px 10px 4px 4px;
+      border-bottom: 4px solid #f1f1f1;
+    }
+
+    /* סנדלים */
+    .shoe-sandals {
+      width: 22px;
+      height: 7px;
+      background: #8d6e63;
+      border-radius: 2px;
+      border-top: 2px solid #5d4037;
     }
 
     .speech-bubble {
       background: #fff0f3;
       border: 2px solid var(--primary-color);
-      border-radius: 15px;
-      padding: 15px;
+      border-radius: 18px;
+      padding: 15px 20px;
       font-weight: bold;
       color: #d6336c;
       font-size: 15px;
-      line-height: 1.4;
+      line-height: 1.5;
+      margin-top: 10px;
     }
 
     /* כרטיסים וקטעים */
@@ -280,11 +574,22 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
+    .wardrobe-category {
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #ffd1dc;
+      padding-bottom: 12px;
+    }
+
+    .wardrobe-category h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary-color);
+      font-size: 15px;
+    }
+
     .controls-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+      gap: 8px;
     }
 
     button.opt-btn {
@@ -294,7 +599,7 @@
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 12px;
       transition: 0.2s;
     }
 
@@ -302,10 +607,10 @@
       background: #ffd1dc;
     }
 
-    button.opt-btn.locked {
-      background: #f1f1f1;
-      border-color: #ccc;
-      color: #888;
+    button.opt-btn.shop-item {
+      background: #fff3bf;
+      border-color: #ffe066;
+      color: #d9480f;
     }
 
     /* מפת התקדמות */
@@ -428,7 +733,7 @@
       <p>כדי שלילי תדע איך לעזור לך היום, עני על השאלות הקצרות:</p>
       
       <div class="question-group">
-        <label for="q1">1. איך הרגשתך היום?</label>
+        <label for="q1">1. איך הרגשתך ברגע זה?</label>
         <select id="q1">
           <option value="מעולה ושמחה">מעולה ושמחה! 😄</option>
           <option value="רגיל">בסדר, יום רגיל 🙂</option>
@@ -443,15 +748,15 @@
       </div>
 
       <div class="question-group">
-        <label for="q3">3. מה בא לך לעשות כרגע?</label>
+        <label for="q3">3. מה הכי בא לך לעשות כרגע?</label>
         <select id="q3">
-          <option value="לנוח מחופשת סוכות">לנוח ולבלות בכיף 🌴</option>
-          <option value="להתאמן ולעשות ספורט">אימון כיפי / ריצת ערב 🏃‍♀️</option>
-          <option value="להכין מתכון טעים">להכין מתכון טעים ומחטב 🥞</option>
+          <option value="לנוח בכיף">לנוח ולבלות בכיף 🌴</option>
+          <option value="להתאמן ולעשות ספורט">אימון כיפי / אירובי 🏃‍♀️</option>
+          <option value="להכין מתכון טעים">להכין מתכון בריא ומפנק 🥞</option>
         </select>
       </div>
 
-      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר ✨</button>
+      <button class="btn-submit" onclick="submitQuiz()">היכנסי לעולם של לילי ✨</button>
     </div>
   </div>
 
@@ -459,28 +764,54 @@
   <div id="app">
     <header>
       <h1>העולם של לילי 👑</h1>
+      <div class="time-greeting" id="time-greeting-text">טוען את זמן היום...</div>
       <div class="coin-badge">💰 מטבעות בחלל: <span id="money-display">0</span> ₪</div>
     </header>
 
-    <!-- הצגת לילי -->
+    <!-- הצגת לילי (הבמה והדמות) -->
     <div class="character-section">
-      <div class="lily-container">
-        <div class="lily-head">
-          <div class="lily-hair" id="lily-hair"></div>
-          <div class="lily-face" id="lily-face">
+      <div class="lily-stage">
+        <!-- אקססורי תיק -->
+        <div class="accessory-bag" id="acc-bag"></div>
+
+        <!-- ראש ושיער -->
+        <div class="lily-head-wrapper">
+          <div class="hair-style hair-long" id="lily-hair"></div>
+          <div class="accessory-hat" id="acc-hat"></div>
+          <div class="accessory-headband" id="acc-headband"></div>
+
+          <div class="lily-face">
             <div class="eyes">
               <div class="eye" id="eye-left"></div>
               <div class="eye" id="eye-right"></div>
             </div>
             <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
             <div class="smile"></div>
+            <div class="accessory-glasses" id="acc-glasses">
+              <div class="glass-lens"></div>
+              <div class="glass-lens"></div>
+            </div>
           </div>
+
+          <div class="accessory-earrings" id="acc-earrings">
+            <div class="earring"></div>
+            <div class="earring"></div>
+          </div>
+          <div class="accessory-necklace" id="acc-necklace"></div>
         </div>
-        <div class="lily-body" id="lily-outfit"></div>
-        <div class="lily-legs"><div class="leg"></div><div class="leg"></div></div>
-        <div class="shoes">
-          <div class="allstar-shoe" id="shoe-left"></div>
-          <div class="allstar-shoe" id="shoe-right"></div>
+
+        <!-- גוף ובגדים -->
+        <div class="lily-body-wrapper">
+          <div class="outfit-cut outfit-oversize" id="lily-outfit"></div>
+        </div>
+
+        <!-- רגליים ונעליים -->
+        <div class="lily-legs-wrapper">
+          <div class="legs"><div class="leg"></div><div class="leg"></div></div>
+          <div class="shoes-container">
+            <div class="shoe shoe-allstar-low" id="shoe-left"></div>
+            <div class="shoe shoe-allstar-low" id="shoe-right"></div>
+          </div>
         </div>
       </div>
       
@@ -489,38 +820,89 @@
       </div>
     </div>
 
-    <!-- הארון והחנות של לילי -->
+    <!-- הארון הענק והחנות של לילי -->
     <div class="section-card">
-      <h3>הארון והחנות של לילי 👗✨</h3>
-      <p style="font-size:13px; color:#666;">בחרי עיצוב לשיער, עיניים, סריגים ואולסטאר! (חלק נפתחים בקנייה עם מטבעות):</p>
+      <h3>הארון והחנות הענקית של לילי 👗✨</h3>
+      <p style="font-size:13px; color:#666;">עצבי את לילי עם גזרות, תסרוקות ואקססוריז! (פריטים מוזהבים ניתן לקנות בחנות):</p>
       
-      <div class="controls-grid">
-        <!-- שיער ותסרוקות -->
-        <button class="opt-btn" onclick="setHair('#5c3a21', 'normal')">שיער חום גלי</button>
-        <button class="opt-btn" onclick="setHair('#222222', 'ponytail')">קוקו שחור</button>
-        <button class="opt-btn" onclick="setHair('#e6b800', 'normal')">בלונד גלי</button>
-        <button class="opt-btn" onclick="setHair('#b33b00', 'braids')">צמות ג'ינג'יות</button>
-        
-        <!-- עיניים -->
-        <button class="opt-btn" onclick="setEyes('#2b1d0c')">עיניים חומות</button>
-        <button class="opt-btn" onclick="setEyes('#2b6cb0')">עיניים כחולות</button>
-        <button class="opt-btn" onclick="setEyes('#2f855a')">עיניים ירוקות</button>
-        <button class="opt-btn" onclick="setEyes('#6b46c1')">עיניים סגולות</button>
-
-        <!-- סריגים -->
-        <button class="opt-btn" onclick="setOutfit('#ff85a2')">סריג ורוד</button>
-        <button class="opt-btn" onclick="setOutfit('#4ea8de')">סריג תכלת</button>
-        <button class="opt-btn" onclick="setOutfit('#a8e6cf')">סריג ירוק פסטל</button>
-        <button class="opt-btn" id="buy-sweater-purple" onclick="buyItem('sweater-purple', '#9c36b5', 20)">סריג סגול (20 ₪)</button>
-        <button class="opt-btn" id="buy-sweater-yellow" onclick="buyItem('sweater-yellow', '#ffd166', 25)">סריג צהוב (25 ₪)</button>
-
-        <!-- נעלי אולסטאר -->
-        <button class="opt-btn" onclick="setShoes('#333333')">אולסטאר שחור</button>
-        <button class="opt-btn" onclick="setShoes('#ffffff')">אולסטאר לבן</button>
-        <button class="opt-btn" onclick="setShoes('#ff85a2')">אולסטאר ורוד</button>
-        <button class="opt-btn" id="buy-allstar-red" onclick="buyItem('shoes-red', '#e63946', 30)">אולסטאר אדום (30 ₪)</button>
-        <button class="opt-btn" id="buy-allstar-teal" onclick="buyItem('shoes-teal', '#00b4d8', 35)">אולסטאר טורקיז (35 ₪)</button>
+      <!-- קטגוריית שיער ותסרוקות -->
+      <div class="wardrobe-category">
+        <h4>💇‍♀️ גזרות שיער ותסרוקות:</h4>
+        <div class="controls-grid">
+          <button class="opt-btn" onclick="setHairCut('hair-long')">פזור ארוך</button>
+          <button class="opt-btn" onclick="setHairCut('hair-ponytail')">קוקו גבוה</button>
+          <button class="opt-btn" onclick="setHairCut('hair-braids')">שתי צמות</button>
+          <button class="opt-btn" onclick="setHairCut('hair-bob')">קארה קצוץ</button>
+          <button class="opt-btn" onclick="setHairCut('hair-bun')">גולגול Messy</button>
+        </div>
+        <div class="controls-grid" style="margin-top:5px;">
+          <button class="opt-btn" onclick="setHairColor('#5c3a21')">צבע חום</button>
+          <button class="opt-btn" onclick="setHairColor('#222222')">צבע שחור</button>
+          <button class="opt-btn" onclick="setHairColor('#e6b800')">צבע בלונד</button>
+          <button class="opt-btn" onclick="setHairColor('#b33b00')">צבע ג'ינג'י</button>
+        </div>
       </div>
+
+      <!-- קטגוריית גזרות בגדים -->
+      <div class="wardrobe-category">
+        <h4>👗 גזרות בגדים:</h4>
+        <div class="controls-grid">
+          <button class="opt-btn" onclick="setOutfitCut('outfit-oversize')">סריג אוברסייז</button>
+          <button class="opt-btn" onclick="setOutfitCut('outfit-top')">גופיית ספורט</button>
+          <button class="opt-btn" onclick="setOutfitCut('outfit-jacket')">ג'קט אופנתי</button>
+          <button class="opt-btn shop-item" id="buy-dress" onclick="buyOrEquip('dress', 'outfitCut', 'outfit-dress', 25)">שמלת קיץ (25 ₪)</button>
+          <button class="opt-btn shop-item" id="buy-hoodie" onclick="buyOrEquip('hoodie', 'outfitCut', 'outfit-hoodie', 30)">סווטשירט קפוצ'ון (30 ₪)</button>
+        </div>
+        <div class="controls-grid" style="margin-top:5px;">
+          <button class="opt-btn" onclick="setOutfitColor('#ff85a2')">ורוד</button>
+          <button class="opt-btn" onclick="setOutfitColor('#4ea8de')">תכלת</button>
+          <button class="opt-btn" onclick="setOutfitColor('#a8e6cf')">ירוק פסטל</button>
+          <button class="opt-btn" onclick="setOutfitColor('#ffd166')">צהוב</button>
+          <button class="opt-btn" onclick="setOutfitColor('#9c36b5')">סגול</button>
+        </div>
+      </div>
+
+      <!-- קטגוריית נעליים -->
+      <div class="wardrobe-category">
+        <h4>👟 נעליים וגזרות:</h4>
+        <div class="controls-grid">
+          <button class="opt-btn" onclick="setShoeCut('shoe-allstar-low')">אולסטאר נמוכות</button>
+          <button class="opt-btn" onclick="setShoeCut('shoe-sneakers')">סניקרס ספורט</button>
+          <button class="opt-btn" onclick="setShoeCut('shoe-sandals')">סנדלי קיץ</button>
+          <button class="opt-btn shop-item" id="buy-allstar-high" onclick="buyOrEquip('allstarHigh', 'shoeCut', 'shoe-allstar-high', 20)">אולסטאר גבוהות (20 ₪)</button>
+        </div>
+        <div class="controls-grid" style="margin-top:5px;">
+          <button class="opt-btn" onclick="setShoeColor('#333333')">נעליים שחורות</button>
+          <button class="opt-btn" onclick="setShoeColor('#ffffff')">נעליים לבנות</button>
+          <button class="opt-btn" onclick="setShoeColor('#e63946')">נעליים אדומות</button>
+          <button class="opt-btn" onclick="setShoeColor('#00b4d8')">נעליים טורקיז</button>
+        </div>
+      </div>
+
+      <!-- קטגוריית אקססוריז -->
+      <div class="wardrobe-category">
+        <h4>🕶️ אקססוריז ותוספות:</h4>
+        <div class="controls-grid">
+          <button class="opt-btn" onclick="toggleAccessory('acc-headband')">סרט לשיער</button>
+          <button class="opt-btn" onclick="toggleAccessory('acc-earrings')">עגילים</button>
+          <button class="opt-btn" onclick="toggleAccessory('acc-necklace')">שרשת</button>
+          <button class="opt-btn shop-item" id="buy-glasses" onclick="buyOrEquip('glasses', 'accessory', 'acc-glasses', 15)">משקפי שמש (15 ₪)</button>
+          <button class="opt-btn shop-item" id="buy-hat" onclick="buyOrEquip('hat', 'accessory', 'acc-hat', 20)">כובע מצחיה (20 ₪)</button>
+          <button class="opt-btn shop-item" id="buy-bag" onclick="buyOrEquip('bag', 'accessory', 'acc-bag', 25)">תיק צד (25 ₪)</button>
+        </div>
+      </div>
+
+      <!-- קטגוריית עיניים -->
+      <div class="wardrobe-category" style="border-bottom:none;">
+        <h4>👁️ צבע עיניים:</h4>
+        <div class="controls-grid">
+          <button class="opt-btn" onclick="setEyes('#2b1d0c')">חום</button>
+          <button class="opt-btn" onclick="setEyes('#2b6cb0')">כחול</button>
+          <button class="opt-btn" onclick="setEyes('#2f855a')">ירוק</button>
+          <button class="opt-btn" onclick="setEyes('#6b46c1')">סגול</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- מפת התקדמות -->
@@ -570,8 +952,8 @@
       </div>
 
       <div class="workout-item">
-        <strong>4. ריצת ערב מרעננת 🌙</strong>
-        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: יוצאים לריצה בכיף בערב כשנעים בחוץ! 15-20 דקות בקצב קל.</p>
+        <strong>4. אימון אירובי מרענן 🏃‍♀️</strong>
+        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: 15-20 דקות של הליכה נמרצת, ריצה קלה או ריקוד משחרר בחדר!</p>
       </div>
     </div>
 
@@ -617,54 +999,106 @@
 
     // חנות פריטים שנרכשו
     const ownedItems = {
-      'sweater-purple': false,
-      'sweater-yellow': false,
-      'shoes-red': false,
-      'shoes-teal': false
+      dress: false,
+      hoodie: false,
+      allstarHigh: false,
+      glasses: false,
+      hat: false,
+      bag: false
     };
 
+    // זיהוי שעת היום והחזרת ברכה מתאימה
+    function getTimeContext() {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) {
+        return { timeOfDay: "morning", greeting: "🌅 בוקר אור! איזה כיף להתחיל יום חדש ביחד!" };
+      } else if (hour >= 12 && hour < 17) {
+        return { timeOfDay: "afternoon", greeting: "☀️ צהריים טובים! מקווה שיש לך יום מקסים מלא באנרגיה!" };
+      } else if (hour >= 17 && hour < 21) {
+        return { timeOfDay: "evening", greeting: "🌙 ערב טוב ונעים! זמן מעולה לריצה קלה או להירגע." };
+      } else {
+        return { timeOfDay: "night", greeting: "✨ לילה טוב! מגיעה לך מנוחה טובה אחרי יום מוצלח." };
+      }
+    }
+
+    // הפעלת שאלון כניסה
     function submitQuiz() {
       const mood = document.getElementById('q1').value;
+      const timeCtx = getTimeContext();
+
       document.getElementById('welcome-modal').style.display = 'none';
       document.getElementById('app').style.display = 'block';
 
+      document.getElementById('time-greeting-text').innerText = timeCtx.greeting;
+
       const speech = document.getElementById('lily-speech');
-      let response = `איזה כיף שבאות! סוכות ושמחת תורה כאן ואין לימודים עד יום ראשון הבא! 🎉<br>`;
-      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נהנה מהחופש הזה ביחד!`;
+      let response = `${timeCtx.greeting}<br>`;
+      response += `איזה כיף שאת כאן! ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נעשה את היום הזה מושלם!`;
 
       speech.innerHTML = response;
     }
 
-    // הגדרות מראה לילי
-    function setHair(color, style) {
+    // --- מערכת עיצוב הדמות של לילי ---
+
+    // תסרוקות
+    function setHairCut(className) {
       const hair = document.getElementById('lily-hair');
-      hair.style.backgroundColor = color;
-      hair.className = 'lily-hair'; // איפוס מחלקות
-      if (style) {
-        hair.classList.add(style);
+      hair.className = `hair-style ${className}`;
+    }
+
+    function setHairColor(color) {
+      document.getElementById('lily-hair').style.backgroundColor = color;
+    }
+
+    // גזרות בגדים
+    function setOutfitCut(className) {
+      const outfit = document.getElementById('lily-outfit');
+      outfit.className = `outfit-cut ${className}`;
+    }
+
+    function setOutfitColor(color) {
+      document.getElementById('lily-outfit').style.backgroundColor = color;
+    }
+
+    // נעליים
+    function setShoeCut(className) {
+      const shoeL = document.getElementById('shoe-left');
+      const shoeR = document.getElementById('shoe-right');
+      shoeL.className = `shoe ${className}`;
+      shoeR.className = `shoe ${className}`;
+    }
+
+    function setShoeColor(color) {
+      document.getElementById('shoe-left').style.backgroundColor = color;
+      document.getElementById('shoe-right').style.backgroundColor = color;
+    }
+
+    // אקססוריז
+    function toggleAccessory(elementId) {
+      const el = document.getElementById(elementId);
+      if (el.style.display === 'flex' || el.style.display === 'block') {
+        el.style.display = 'none';
+      } else {
+        el.style.display = (elementId === 'acc-glasses' || elementId === 'acc-earrings') ? 'flex' : 'block';
       }
     }
 
+    // עיניים
     function setEyes(color) {
       document.getElementById('eye-left').style.backgroundColor = color;
       document.getElementById('eye-right').style.backgroundColor = color;
     }
 
-    function setOutfit(color) {
-      document.getElementById('lily-outfit').style.backgroundColor = color;
-    }
-
-    function setShoes(color) {
-      document.getElementById('shoe-left').style.backgroundColor = color;
-      document.getElementById('shoe-right').style.backgroundColor = color;
-    }
-
-    // קניית פריטים בחנות
-    function buyItem(itemId, color, price) {
+    // מערכת קנייה והלבשה בחנות
+    function buyOrEquip(itemId, category, targetValue, price) {
       if (ownedItems[itemId]) {
-        // אם הפיט כבר בבעלות, פשוט נלביש אותו
-        if (itemId.startsWith('sweater')) setOutfit(color);
-        if (itemId.startsWith('shoes')) setShoes(color);
+        // בבעלות - הלבשה ישירה
+        if (category === 'outfitCut') setOutfitCut(targetValue);
+        if (category === 'shoeCut') setShoeCut(targetValue);
+        if (category === 'accessory') {
+          const el = document.getElementById(targetValue);
+          el.style.display = (targetValue === 'acc-glasses') ? 'flex' : 'block';
+        }
         return;
       }
 
@@ -674,16 +1108,20 @@
         document.getElementById('money-display').innerText = money;
 
         const btn = document.getElementById(`buy-${itemId}`);
-        if (itemId.startsWith('sweater')) {
-          setOutfit(color);
-          btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
-        } else if (itemId.startsWith('shoes')) {
-          setShoes(color);
-          btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+        btn.classList.remove('shop-item');
+        btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+
+        // הלבשה אקטיבית
+        if (category === 'outfitCut') setOutfitCut(targetValue);
+        if (category === 'shoeCut') setShoeCut(targetValue);
+        if (category === 'accessory') {
+          const el = document.getElementById(targetValue);
+          el.style.display = (targetValue === 'acc-glasses') ? 'flex' : 'block';
         }
-        alert("תתחדשי! הקנייה בוצעה בהצלחה! 🎉");
+
+        alert("תתחדשי! הקנייה בוצעה בהצלחה והפריט הולבש! 🎉");
       } else {
-        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪. השלימי אימונים במפה כדי להרוויח!`);
+        alert(`אין לך מספיק מטבעות! נדרשים ${price} ₪, ויש לך ${money} ₪. השלימי אימונים במפה כדי להרוויח!`);
       }
     }
 
@@ -740,7 +1178,7 @@
       const allFood = (b + l + s + d).toLowerCase();
       const speech = document.getElementById('lily-speech');
 
-      if (allFood.includes("ממתק") || allFood.includes("חטיף") || allFood.includes("שוקולד") || allFood.includes("מקדונלדס")) {
+      if (allFood.includes("ממתק") || allFood.includes("חטיף") || allFood.includes("שוקולד") || allFood.includes("מקדונלדס") || allFood.includes("ג'אנק")) {
         speech.innerHTML = "אממ... התפריט נראה טעים, אבל אולי כדאי לוותר על חלק מהחטיפים/ממתקים? זה פחות בריא ומזין. 😉💕";
       } else {
         speech.innerHTML = "וואו! התפריט שלך נשמע ונראה מעולה, טעים ומזין בטירוף! כל הכבוד לך! 🥗🥞✨";
@@ -751,3 +1189,6 @@
   </script>
 </body>
 </html>
+```eof
+
+קובץ האפליקציה המלא עודכן ונמצא כעת בעורך הראשי. תוכלי להתנסות ולשחק בארון הענק ובכל הרכיבים שנוספו!
