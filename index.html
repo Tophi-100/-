@@ -48,7 +48,7 @@
 
     nav {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       overflow-x: auto;
     }
 
@@ -59,6 +59,7 @@
       white-space: nowrap;
       padding: 6px 12px;
       border-radius: 20px;
+      transition: background 0.2s;
     }
 
     nav a:hover {
@@ -98,7 +99,62 @@
       height: 320px;
     }
 
-    /* טבלת לו"ז חודשי אינטראקטיבית */
+    /* מתכונים */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .recipe-card {
+      background: #fff;
+      border: 2px solid var(--primary-light);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .recipe-card h3 {
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* אימונים */
+    .workout-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .workout-item {
+      background: #f1f2f6;
+      margin-bottom: 10px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border-right: 4px solid var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* שאלות ותשובות ציניות */
+    .faq-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-right: 4px solid var(--accent);
+    }
+
+    .faq-q {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .faq-a {
+      color: #555;
+    }
+
+    /* טבלת לו"ז חודשי */
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -194,20 +250,24 @@
 </head>
 <body>
 
+  <!-- סרגל עליון -->
   <header>
     <div class="logo">🍭 טופי 100</div>
     <nav>
       <a href="#lily-sec">👗 לילי</a>
-      <a href="#monthly-sec">🗓️ לו"ז חודשי בטבלה</a>
+      <a href="#recipes-sec">🍧 מתכונים</a>
+      <a href="#workout-sec">💪 אימונים</a>
+      <a href="#faq-sec">😏 10 שאלות ציניות</a>
+      <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
     </nav>
   </header>
 
   <div class="container">
 
-    <!-- דמות של לילי - מעוצבת מחדש -->
+    <!-- דמות של לילי -->
     <div id="lily-sec" class="card lily-box">
-      <h2>👗 לילי החדשה</h2>
-      <p>מעוצבת, ללא זקן, עם צבע עור טבעי ורגליים!</p>
+      <h2>👗 לילי</h2>
+      <p>מעוצבת ומתוקה, ללא זקן, עם צבע עור טבעי ורגליים!</p>
       
       <svg class="lily-svg" viewBox="0 0 100 200">
         <!-- צל בתחתית -->
@@ -221,7 +281,7 @@
         <rect x="40" y="120" width="6" height="62" fill="#ffe0bd"/>
         <rect x="54" y="120" width="6" height="62" fill="#ffe0bd"/>
         
-        <!-- חצאית/חולצה -->
+        <!-- חצאית וחולצה -->
         <path d="M 35 60 L 65 60 L 70 120 L 30 120 Z" fill="#6c5ce7"/>
         <path d="M 38 45 L 62 45 L 65 60 L 35 60 Z" fill="#a29bfe"/>
         
@@ -234,18 +294,123 @@
         <circle cx="50" cy="26" r="15" fill="#ffe0bd"/>
 
         <!-- שיער חום רך -->
-        <path d="M 35 25 C 35 10, 65 10, 65 25 C 68 35, 68 50, 65 55 C 60 40, 40 40, 35 55 Z" fill="#6c5ce7" opacity="0.1"/>
         <path d="M 33 26 C 33 8, 67 8, 67 26 C 70 42, 63 58, 63 58 C 55 45, 45 45, 37 58 Z" fill="#5c3d2e"/>
 
-        <!-- תווי פנים עדינים ומתוקים (ללא זקן!) -->
+        <!-- תווי פנים עדינים -->
         <circle cx="44" cy="24" r="1.5" fill="#2d3436"/>
         <circle cx="56" cy="24" r="1.5" fill="#2d3436"/>
-        <!-- חיוך -->
         <path d="M 46 30 Q 50 33 54 30" stroke="#e17055" stroke-width="1.2" fill="none"/>
-        <!-- סומק בלחיים -->
         <circle cx="41" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
         <circle cx="59" cy="28" r="2" fill="#fd79a8" opacity="0.5"/>
       </svg>
+    </div>
+
+    <!-- מתכונים -->
+    <div id="recipes-sec" class="card">
+      <h2>🍧 המתכונים השווים</h2>
+      <div class="recipe-grid">
+        <div class="recipe-card">
+          <h3>🍉 ברד אבטיח-לימון</h3>
+          <p><strong>רכיבים:</strong> קוביות אבטיח קפואות, מיץ מלימון טרי, מעט דבש/סוכר וקרח.</p>
+          <p><strong>הכנה:</strong> טוחנים הכל בבלנדר עד למרקם קפוא ומרענן. מושלם לקיץ!</p>
+        </div>
+
+        <div class="recipe-card">
+          <h3>🍞 פרנץ' טוסט מהיר</h3>
+          <p><strong>רכיבים:</strong> 2 פרוסות לחם, ביצה אחת, 3 כפות חלב, קורט קינמון ומעט חמאה.</p>
+          <p><strong>הכנה:</strong> טורפים ביצה, חלב וקינמון. טובלים את הלחם ומטגנים בחמאה כ-2 דקות מכל צד.</p>
+        </div>
+
+        <div class="recipe-card">
+          <h3>🍪 עוגיות שוקולד צ'יפס (10 דק')</h3>
+          <p><strong>רכיבים:</strong> קערה קטנה, חמאה מומסת, סוכר חום, קמח, ביצה וים שוקולד צ'יפס.</p>
+          <p><strong>הכנה:</strong> מערבבים בצק מהיר, יוצרים כדורים ואופים ב-180 מעלות ל-9-10 דקות.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- אימונים -->
+    <div id="workout-sec" class="card">
+      <h2>💪 תוכנית אימון קליסטניקס</h2>
+      <p>אימון משקל גוף מעולה ומחזק:</p>
+      <ul class="workout-list">
+        <li class="workout-item">
+          <span><strong>1. שקדיות/סקוואטים (Squats)</strong> - חיזוק רגליים</span>
+          <span>3 סטים × 15 חזרות</span>
+        </li>
+        <li class="workout-item">
+          <span><strong>2. שילוב סקוואט עם קפיצה</strong> - דופק ואירובי</span>
+          <span>3 סטים × 10 חזרות</span>
+        </li>
+        <li class="workout-item">
+          <span><strong>3. שכולות/שילוב פלאנק (Plank)</strong> - חיזוק ליבה ובטן</span>
+          <span>3 סטים × 30 שניות</span>
+        </li>
+        <li class="workout-item">
+          <span><strong>4. שוטטות/לאנג'ים (Lunges)</strong> - יציבות ורגליים</span>
+          <span>3 סטים × 12 חזרות לכל רגל</span>
+        </li>
+        <li class="workout-item">
+          <span><strong>5. שכיבות סמיכה (Push-ups)</strong> - חזה וזרועות</span>
+          <span>3 סטים × 8-10 חזרות</span>
+        </li>
+      </ul>
+      <p style="font-size:13px; color:#777;">* מנוחה של 45-60 שניות בין סט לסט.</p>
+    </div>
+
+    <!-- 10 שאלות ותשובות ציניות -->
+    <div id="faq-sec" class="card">
+      <h2>😏 10 שאלות ותשובות ציניות</h2>
+      
+      <div class="faq-item">
+        <div class="faq-q">1. האם שיעורי בית באמת עוזרים בחיים?</div>
+        <div class="faq-a">ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">2. למה צריך לקום מוקדם בבוקר?</div>
+        <div class="faq-a">כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">3. איך יודעים אם מישהו באמת חבר אמת?</div>
+        <div class="faq-a">אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">4. מה הסוד להצליח במבחן באנגלית?</div>
+        <div class="faq-a">להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">5. מה הדרך הכי טובה לנקות נעלי אולסטאר?</div>
+        <div class="faq-a">ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">6. למה השעון המעורר תמיד מצלצל באמצע החלום הכי טוב?</div>
+        <div class="faq-a">כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">7. מה עושים כשהאינטרנט מנתק באמצע סרטון?</div>
+        <div class="faq-a">נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">8. איך לומדים להקליד עיוור בשיא המהירות?</div>
+        <div class="faq-a">פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">9. איזה אוכל הכי בריא בעולם?</div>
+        <div class="faq-a">זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">10. מה העצה הכי טובה לחיים?</div>
+        <div class="faq-a">אם משהו קשה מדי – תמיד אפשר להגיד "אני אעשה את זה מחר". מחר זה יום חדש!</div>
+      </div>
     </div>
 
     <!-- לו"ז חודשי אינטראקטיבי -->
