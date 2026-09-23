@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>האתר של רני</title>
+  <title>טופי 100 - האתר הרשמי</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f9fc;
+      color: #2c3e50;
       margin: 0;
       padding: 20px;
     }
 
-    /* עיצוב סרגל צדדי */
+    /* סרגל ניווט צדדי */
     .sidebar {
       height: 100%;
       width: 0;
@@ -67,12 +67,12 @@
       margin-bottom: 15px;
     }
 
-    /* עיצוב כללי ותצוגת יתרה */
+    /* כרטיסיות ואזורים */
     .wallet {
       background-color: #fff;
       border: 2px solid #27ae60;
       border-radius: 8px;
-      padding: 15px;
+      padding: 12px 20px;
       margin-bottom: 20px;
       font-size: 20px;
       font-weight: bold;
@@ -80,22 +80,26 @@
       display: inline-block;
     }
 
-    .section-card {
+    .card {
       background: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       margin-bottom: 25px;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
     }
 
     .quiz-option {
       display: block;
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin: 8px 0;
       background-color: #ecf0f1;
       border: 1px solid #bdc3c7;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       text-align: right;
       font-size: 16px;
@@ -105,7 +109,7 @@
       background-color: #d5dbdb;
     }
 
-    .btn-action {
+    .btn-next {
       background-color: #2980b9;
       color: white;
       border: none;
@@ -113,54 +117,142 @@
       font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .btn-action:hover {
-      background-color: #3498db;
+      margin-top: 12px;
     }
 
     .feedback {
-      margin-top: 10px;
+      margin-top: 12px;
+      font-size: 18px;
       font-weight: bold;
+    }
+
+    /* עיצוב טבלאות לוז ותפריט */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: right;
+    }
+
+    th {
+      background-color: #34495e;
+      color: white;
     }
   </style>
 </head>
 <body>
 
   <!-- כפתור לפתיחת סרגל הצד -->
-  <button class="open-btn" onclick="toggleSidebar()">☰ תפריט ניווט</button>
+  <button class="open-btn" onclick="toggleSidebar()">☰ תפריט ניווט - טופי 100</button>
 
   <!-- סרגל צדדי -->
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="close-btn" onclick="toggleSidebar()">&times;</a>
-    <h3>ניווט באתר</h3>
-    <a href="#quiz-section" onclick="toggleSidebar()">📝 חידון ה-20 (שקל לשאלה!)</a>
+    <h3>🍭 טופי 100</h3>
+    <a href="#quiz-section" onclick="toggleSidebar()">📝 חידון ה-20 (קבלת 1 ₪)</a>
     <a href="#lilys-closet" onclick="toggleSidebar()" style="color: #f1c40f; font-weight: bold;">👗 הארון של לילי</a>
+    <a href="#workout-section" onclick="toggleSidebar()">🏋️‍♀️ תוכנית אימונים</a>
+    <a href="#menu-section" onclick="toggleSidebar()">🥗 תפריט יומי</a>
+    <a href="#schedule-section" onclick="toggleSidebar()">📅 לוח זמנים (לו"ז)</a>
   </div>
+
+  <h1>Welcome to Toffee 100 🍭</h1>
 
   <!-- תצוגת יתרת הכסף (מאופס ל-0) -->
   <div class="wallet">
     💰 יתרה בחשבון: <span id="money-amount">0</span> ₪
   </div>
 
-  <!-- אזור החידון -->
-  <div id="quiz-section" class="section-card">
-    <h2>⚡ חידון ה-20 (הכי הוגן, ציני ומציק ברשת)</h2>
-    <p>עונים נכון על שאלה ומרוויחים <strong>1 ₪</strong> למאזן!</p>
+  <!-- 1. אזור החידון -->
+  <div id="quiz-section" class="card">
+    <h2>📝 חידון ה-20</h2>
+    <p>עונים נכון ומרוויחים <strong>1 ₪</strong> לחשבון!</p>
 
     <div id="quiz-container">
       <h3 id="question-text">טוען שאלה...</h3>
       <div id="options-container"></div>
       <div id="feedback" class="feedback"></div>
-      <button id="next-btn" class="btn-action" style="display:none;" onclick="loadRandomQuestion()">לשאלה הצינית הבאה 👈</button>
+      <button id="next-btn" class="btn-next" style="display:none;" onclick="loadRandomQuestion()">לשאלה הבאה 👈</button>
     </div>
   </div>
 
-  <!-- אזור הארון של לילי -->
-  <div id="lilys-closet" class="section-card">
+  <!-- 2. אזור הארון של לילי -->
+  <div id="lilys-closet" class="card">
     <h2>👗 הארון של לילי</h2>
-    <p>ברוכים הבאים לארון של לילי! כאן תוכלו לצפות בפרטים, לעצב מראה ייחודי או לרכוש פריטים בעזרת המטבעות שהרווחתם.</p>
+    <p>ברוכים הבאים לארון של לילי! כאן תוכלו להתאים לוקים, לבחור בגדים ולשדרג פריטים בעזרת המטבעות שאספתם.</p>
+  </div>
+
+  <!-- 3. אזור האימונים -->
+  <div id="workout-section" class="card">
+    <h2>🏋️‍♀️ תוכנית אימונים</h2>
+    <ul>
+      <li><strong>אימון בוקר:</strong> מתיחות קלות + 15 סקואטים + 10 שקילת בטן.</li>
+      <li><strong>אימון קליסטניקס:</strong> עבודה על משקל גוף, מתח, ושכיבות סמיכה מותאמות.</li>
+      <li><strong>אימון ערב:</strong> הליכה קלה או מתיחות לשחרור השרירים.</li>
+    </ul>
+  </div>
+
+  <!-- 4. אזור התפריט -->
+  <div id="menu-section" class="card">
+    <h2>🥗 תפריט תזונה יומי</h2>
+    <table>
+      <tr>
+        <th>ארוחה</th>
+        <th>מה אוכלים?</th>
+      </tr>
+      <tr>
+        <td>ארוחת בוקר</td>
+        <td>חביתה, ירקות חתוכים, חצי קוטג' ומים.</td>
+      </tr>
+      <tr>
+        <td>ארוחת צהריים</td>
+        <td>חזה עוף / טופו עם אורז וסלט ירוק.</td>
+      </tr>
+      <tr>
+        <td>נשנוש אחה"כ</td>
+        <td>פרי (תפוח / אבטיח) או חופן שקדים.</td>
+      </tr>
+      <tr>
+        <td>ארוחת ערב</td>
+        <td>פרנץ' טוסט מהיר או חביתת ירק עם פרוסת לחם מלא.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 5. אזור הלו"ז -->
+  <div id="schedule-section" class="card">
+    <h2>📅 לוח זמנים יומי (לו"ז)</h2>
+    <table>
+      <tr>
+        <th>שעה</th>
+        <th>פעילות</th>
+      </tr>
+      <tr>
+        <td>08:00 - 08:30</td>
+        <td>קילוף עיניים, מתיחות ושתיית מים</td>
+      </tr>
+      <tr>
+        <td>08:30 - 09:30</td>
+        <td>ארוחת בוקר וארגון ליום</td>
+      </tr>
+      <tr>
+        <td>10:00 - 12:00</td>
+        <td>לימודים / תרגול אנגלית / הקלדה עיוורת</td>
+      </tr>
+      <tr>
+        <td>16:00 - 17:00</td>
+        <td>זמן אימון ספורט / קליסטניקס</td>
+      </tr>
+      <tr>
+        <td>19:00 - 20:00</td>
+        <td>ארוחת ערב וזמן פנאי עם חברות</td>
+      </tr>
+    </table>
   </div>
 
   <script>
@@ -182,42 +274,51 @@
       }
     }
 
-    // מאגר שאלות ציניות ומשעשעות
-    const cynicalQuestions = [
+    // מאגר שאלות לחידון 20 עם תגובות ציניות ומשעשעות רק אחרי שעונים
+    const quizQuestions = [
       {
-        q: "מה הדבר הראשון שאנשים עושים כשהם קמים בבוקר?",
-        options: ["קמים בריצה ומחייכים לעולם", "בוהים בטלפון 40 דקות ותוהים למה הם קמו", "עושים יוגה ב-5 בבוקר", "שותים מיץ ירוק מגעיל"],
-        correct: 1
+        q: "מה הדבר הכי מועיל לעשות כשמתעוררים בבוקר?",
+        options: [
+          "לקום ישר ולחייך לשמש",
+          "לבהות בתקרה 20 דקות ולשאול את עצמך למה קמת",
+          "לצאת לריצת מרתון של 10 קילומטר",
+          "לשתות שייק ירוק מעשב חיים"
+        ],
+        correct: 1,
+        funnyNote: "בדיוק. אף אחד לא באמת קם ומחייך ב-7 בבוקר."
       },
       {
-        q: "מה קורה כשאומרים למשהו 'אני עוד 5 דקות שם'?",
-        options: ["אתה כבר בדלת", "אתה עוד לא בחרת מה ללבוש", "אתה ברכב בדרך", "הגעת לפני הזמן"],
-        correct: 1
+        q: "מה המקור האמיתי לזה שגרב אחת תמיד נעלמת בכביסה?",
+        options: [
+          "היא פשוט התאיידה מרוב חום",
+          "יש שם שער חלל סודי לגרביים בודדות",
+          "היא הלכה למצוא את העתיד שלה במקום אחר",
+          "הכביסה אכלה אותה"
+        ],
+        correct: 1,
+        funnyNote: "ברור, כולנו יודעים שיש ממד מקביל רק לגרביים."
       },
       {
-        q: "מה התפקיד האמיתי של סוללה ב-1%?",
-        options: ["לשרוד עוד 3 שעות לפחות", "לכבות בדיוק כשאתה באמצע לכתוב הודעה חשובה", "להטעין את עצמה מחדש בקסם", "להתריע בנימוס"],
-        correct: 1
+        q: "כמה זמן מראש צריך לצאת מהבית כשכותבים לחבר 'אני עוד 5 דקות שם'?",
+        options: [
+          "5 דקות מראש",
+          "10 דקות מראש",
+          "אתה עדיין בפיג'מה ולא התחלת להתארגן בכלל",
+          "כבר הגעת"
+        ],
+        correct: 2,
+        funnyNote: "קלאסי! 'אני בדרך' = הברשת שיניים בלחץ."
       },
       {
-        q: "איך יודעים שמשהו ממש חשוב?",
-        options: ["כתבו אותו בחדשות", "אמא אמרה את זה שלוש פעמים ברצף", "יש על זה ערך בויקיפדיה", "מישהו העלה על זה סרטון בטיקטוק"],
-        correct: 1
-      },
-      {
-        q: "מה קורה לגרביים שנעלמות בכביסה?",
-        options: ["הן עוברות לממד מקביל של גרביים בודדות", "הן הופכות לאבק", "החתול אכל אותן", "הן פשוט הלכו לטייל"],
-        correct: 0
-      },
-      {
-        q: "מהי הדרך הטובה ביותר לזכור משהו דחוף?",
-        options: ["לכתוב בפתקים", "לשכוח אותו ולזכור שניה אחרי שזה כבר לא רלוונטי", "לבקש מחבר שיזכיר", "לשים שעון מעורר"],
-        correct: 1
-      },
-      {
-        q: "מה עושים כשהאינטרנט פתאום נתקע?",
-        options: ["ממתינים בסבלנות", "מכבים ומדליקים את הראוטר בפרצוף עצבני", "קוראים ספר", "יוצאים לנוף ליהנות מהטבע"],
-        correct: 1
+        q: "מה הקסם של סוללה שמגיעה ל-1% בטלפון?",
+        options: [
+          "היא תחזיק מעמד עוד 4 שעות אם לא תגע בה",
+          "היא תכבה בדיוק כשאתה באמצע לכתוב את ההודעה הכי חשובה",
+          "היא תטען את עצמה מחדש",
+          "היא תתחיל לשיר"
+        ],
+        correct: 1,
+        funnyNote: "מדויק! ה-1% הזה יודע בדיוק מתי לבגוד בנו."
       }
     ];
 
@@ -227,9 +328,8 @@
       document.getElementById('feedback').innerText = '';
       document.getElementById('next-btn').style.display = 'none';
 
-      // בחירת שאלה רנדומלית
-      const randomIndex = Math.floor(Math.random() * cynicalQuestions.length);
-      currentQuestion = cynicalQuestions[randomIndex];
+      const randomIndex = Math.floor(Math.random() * quizQuestions.length);
+      currentQuestion = quizQuestions[randomIndex];
 
       document.getElementById('question-text').innerText = currentQuestion.q;
 
@@ -251,18 +351,18 @@
       allButtons.forEach(b => b.disabled = true);
 
       if (selectedIndex === currentQuestion.correct) {
-        feedback.innerText = "🎉 וואו, יפה! צדקת. הרווחת 1 ₪!";
-        feedback.style.color = "green";
+        feedback.innerText = "🎉 בול! " + currentQuestion.funnyNote + " (+1 ₪)";
+        feedback.style.color = "#27ae60";
         updateBalance(1);
       } else {
-        feedback.innerText = "❌ טעות! לא נורא, אולי בפעם הבאה יתמזל מזלך...";
-        feedback.style.color = "red";
+        feedback.innerText = "😅 כמעט... " + currentQuestion.funnyNote;
+        feedback.style.color = "#e67e22";
       }
 
       document.getElementById('next-btn').style.display = 'inline-block';
     }
 
-    // טעינת שאלה ראשונה בטעינת הדף
+    // טעינת שאלה ראשונה
     window.onload = loadRandomQuestion;
   </script>
 
