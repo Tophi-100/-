@@ -3,958 +3,599 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>טופי 100 - האתר הרשמי</title>
+  <title>העולם של לילי ✨</title>
   <style>
     :root {
-      --primary: #6c5ce7;
-      --primary-light: #a29bfe;
-      --accent: #fd79a8;
-      --bg: #f8f9fa;
+      --primary-color: #ff85a2;
+      --secondary-color: #ffd1dc;
+      --bg-color: #fff0f5;
       --card-bg: #ffffff;
-      --text: #2d3436;
+      --text-color: #4a4a4a;
     }
-
-    * { box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
       padding: 0;
-    }
-
-    /* מסך פתיחה / שאלות כניסה */
-    #gate-screen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, #a29bfe, #fd79a8);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .gate-card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 450px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    .gate-card h2 {
-      color: var(--primary);
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .gate-step {
-      display: none;
-    }
-
-    .gate-step.active {
-      display: block;
-    }
-
-    .gate-options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      min-height: 100vh;
     }
 
-    .gate-btn {
-      background: #f1f2f6;
-      border: 2px solid var(--primary-light);
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .gate-btn:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    /* תוכן האתר הראשי */
-    #main-content {
-      display: none;
-      padding-top: 70px;
-    }
-
-    header {
+    /* מודאל השאלון בכניסה */
+    #welcome-modal {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 60px;
-      background-color: var(--primary);
-      color: white;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       z-index: 1000;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #ffeaa7;
-    }
-
-    nav {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;
-      padding: 6px 12px;
-      border-radius: 20px;
-      transition: background 0.2s;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .container {
-      max-width: 950px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
-    }
-
-    h1, h2, h3 {
-      color: var(--primary);
-      margin-top: 0;
-    }
-
-    /* אימונים */
-    .workout-box {
-      background: #f1f2f6;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-right: 5px solid var(--primary);
-    }
-
-    .workout-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .youtube-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ff0000;
-      color: white;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .timer-container {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      padding: 10px 15px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .timer-display {
-      font-size: 20px;
-      font-weight: bold;
-      font-family: monospace;
-      color: var(--primary);
-    }
-
-    .btn-timer {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    /* לילי וארון בגדים */
-    .lily-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .lily-container {
-      background: #ffeaa7;
-      padding: 20px;
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 220px;
-    }
-
-    .lily-svg {
-      width: 180px;
-      height: 320px;
-    }
-
-    .shop-container {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .wallet-bar {
-      background: #ffeaa7;
-      padding: 10px 15px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      border: 2px solid #fdcb6e;
-    }
-
-    .shop-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      overflow-x: auto;
-      padding-bottom: 5px;
-    }
-
-    .tab-btn {
-      background: #f1f2f6;
-      border: 1px solid var(--primary-light);
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      white-space: nowrap;
-      font-size: 13px;
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: white;
-    }
-
-    .item-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-      max-height: 320px;
-      overflow-y: auto;
-      padding: 5px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      border: 1px solid #dfe4ea;
-    }
-
-    .shop-item-card {
+    .modal-content {
       background: white;
-      border: 1px solid #dfe4ea;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .item-name {
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .item-price {
-      font-size: 12px;
-      color: #e17055;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .buy-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .buy-btn.owned {
-      background: #00b894;
-    }
-
-    /* מתכונים */
-    .recipe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 15px;
-    }
-
-    .recipe-link-card {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      border-radius: 14px;
-      padding: 18px;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s;
-    }
-
-    .recipe-link-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .recipe-btn-text {
-      color: var(--accent);
-      font-weight: bold;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    /* לו"ז */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .calendar-day-header {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 8px;
-      font-weight: bold;
-      border-radius: 6px;
-    }
-
-    .calendar-day {
-      background: #f1f2f6;
-      border: 1px solid #dfe4ea;
-      border-radius: 8px;
-      min-height: 80px;
-      padding: 6px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .day-number {
-      font-weight: bold;
-      font-size: 13px;
-      color: var(--primary);
-    }
-
-    .day-event {
-      font-size: 10px;
-      background: #ffffff;
-      padding: 2px 4px;
-      border-radius: 4px;
-      border-right: 3px solid var(--accent);
-    }
-
-    .workout-tag {
-      font-size: 10px;
-      font-weight: bold;
-      padding: 2px;
-      border-radius: 4px;
+      padding: 30px;
+      border-radius: 25px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       text-align: center;
     }
-    .workout-yes { background: #55efc4; color: #00b894; }
-    .workout-no { background: #ff7675; color: white; }
 
-    /* שאלות בסוף הדף */
-    .faq-card-wrapper {
-      background: #ffffff;
-      border: 2px solid var(--primary-light);
-      border-radius: 16px;
-      padding: 25px;
-      text-align: center;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .modal-content h2 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
     }
 
-    .faq-counter { font-size: 13px; font-weight: bold; color: var(--accent); margin-bottom: 10px; }
-    .faq-question-title { font-size: 18px; font-weight: bold; color: var(--primary); margin-bottom: 15px; }
-    .faq-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-
-    .faq-option-btn {
-      background: #f1f2f6;
-      border: 2px solid #dfe4ea;
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
+    .question-group {
+      margin-bottom: 18px;
       text-align: right;
     }
 
-    .faq-option-btn.selected { background: var(--primary-light); color: white; border-color: var(--primary); }
-
-    .faq-answer-box {
-      display: none;
-      background: #ffeaa7;
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 10px;
-      font-weight: 500;
-      border-right: 4px solid var(--accent);
+    .question-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
     }
 
-    .carousel-nav { display: flex; justify-content: space-between; align-items: center; }
-    .nav-btn { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .question-group select, .question-group input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--secondary-color);
+      border-radius: 12px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
 
-    /* מודאל */
-    #day-modal {
+    .btn-submit {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: #ff527b;
+    }
+
+    /* תוכן האפליקציה */
+    #app {
       display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 2000;
+      flex: 1;
+      padding: 20px;
+      padding-bottom: 190px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    header {
+      text-align: center;
+      background: white;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .coin-badge {
+      background: #fff3bf;
+      color: #f59f00;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 5px;
+      border: 1px solid #ffe066;
+    }
+
+    /* עיצוב לילי - דמות נקייה ומתוקה */
+    .character-section {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lily-avatar-card {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #ffe3e8;
+      border: 4px solid var(--primary-color);
+      display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 15px;
+      position: relative;
+      box-shadow: 0 6px 15px rgba(255, 133, 162, 0.3);
+      transition: 0.3s;
     }
-    .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; }
-    .btn-action { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+
+    .lily-avatar-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .speech-bubble {
+      background: #fff0f3;
+      border: 2px solid var(--primary-color);
+      border-radius: 15px;
+      padding: 15px;
+      font-weight: bold;
+      color: #d6336c;
+      font-size: 15px;
+      line-height: 1.4;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* כרטיסים וקטעים */
+    .section-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button.opt-btn {
+      background: #ffe3e8;
+      border: 1px solid #ffb6c1;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+
+    button.opt-btn:hover {
+      background: #ffd1dc;
+    }
+
+    /* מפת התקדמות */
+    .progress-track {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 10px;
+      position: relative;
+    }
+
+    .progress-track::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      right: 10px;
+      height: 6px;
+      background: #f0f0f0;
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .step-node {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      z-index: 2;
+      color: #aaa;
+    }
+
+    .step-node.active {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* אימונים, סטופר וסרטונים */
+    .workout-item {
+      background: #fff0f3;
+      border-right: 4px solid var(--primary-color);
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .timer-display {
+      font-size: 22px;
+      font-weight: bold;
+      color: #d6336c;
+      margin: 5px 0;
+    }
+
+    /* עריכת תפריט אוכל */
+    .food-edit-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .food-edit-group label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .food-edit-group input {
+      padding: 10px;
+      border: 2px solid #ffb6c1;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    /* תפריט אוכל קבוע למטה */
+    .food-menu-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-top: 3px solid var(--primary-color);
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+      z-index: 100;
+    }
+
+    .food-items {
+      display: flex;
+      justify-content: space-around;
+      max-width: 750px;
+      margin: 5px auto 0;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .food-item {
+      font-size: 11px;
+      background: #fff0f5;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-  <!-- מסך שאלות הפתיחה (תוקן ולא נתקע) -->
-  <div id="gate-screen">
-    <div class="gate-card">
-
-      <!-- שאלה 1 -->
-      <div class="gate-step active" id="gate-step-1">
-        <h2>🔒 בדיקת כניסה (1/3)</h2>
-        <p>מה המאכל הלאומי המועדף באתר?</p>
-        <div class="gate-options">
-          <button class="gate-btn" onclick="nextGateStep(2)">🍫 שוקולד ועוגיות</button>
-          <button class="gate-btn" onclick="nextGateStep(2)">🍉 ברד אבטיח מרענן</button>
-          <button class="gate-btn" onclick="nextGateStep(2)">🥞 פנקייק אוורירי</button>
-        </div>
+  <!-- מודאל כניסה: שאלון להתעניינות בשלומך -->
+  <div id="welcome-modal">
+    <div class="modal-content">
+      <h2>היי אהובה! ברוכה הבאה 💖</h2>
+      <p>כדי שלילי תדע איך לעזור לך היום, עני על השאלות הקצרות:</p>
+      
+      <div class="question-group">
+        <label for="q1">1. איך הרגשתך היום?</label>
+        <select id="q1">
+          <option value="מעולה ושמחה">מעולה ושמחה! 😄</option>
+          <option value="רגיל">בסדר, יום רגיל 🙂</option>
+          <option value="עייפה">קצת עייפה 😴</option>
+          <option value="זקוקה לחיזוק">זקוקה לקצת חיזוק וחיבוק 🥺</option>
+        </select>
       </div>
 
-      <!-- שאלה 2 -->
-      <div class="gate-step" id="gate-step-2">
-        <h2>🔒 בדיקת כניסה (2/3)</h2>
-        <p>מה לעשות אם אין כוח להתאמן היום?</p>
-        <div class="gate-options">
-          <button class="gate-btn" onclick="nextGateStep(3)">💪 עושים אימון צהריים קל</button>
-          <button class="gate-btn" onclick="nextGateStep(3)">😴 מעבירים ליום מנוחה בלו"ז</button>
-          <button class="gate-btn" onclick="nextGateStep(3)">👗 מלבישים את לילי בסטייל</button>
-        </div>
+      <div class="question-group">
+        <label for="q2">2. כמה אנרגיה יש לך מ-1 עד 10?</label>
+        <input type="number" id="q2" min="1" max="10" value="8">
       </div>
 
-      <!-- שאלה 3 -->
-      <div class="gate-step" id="gate-step-3">
-        <h2>🔒 בדיקת כניסה (3/3)</h2>
-        <p>מוכנה להיכנס לאתר "טופי 100"?</p>
-        <div class="gate-options">
-          <button class="gate-btn" style="background: var(--accent); color:white;" onclick="enterSite()">🚀 כן, כנסי אותי עכשיו!</button>
-        </div>
+      <div class="question-group">
+        <label for="q3">3. מה בא לך לעשות כרגע?</label>
+        <select id="q3">
+          <option value="לנוח מחופשת סוכות">לנוח ולבלות בכיף 🌴</option>
+          <option value="להתאמן ולעשות ספורט">אימון כיפי / ריצת ערב 🏃‍♀️</option>
+          <option value="להכין מתכון טעים">להכין מתכון טעים ומחטב 🥞</option>
+        </select>
       </div>
 
+      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר ✨</button>
     </div>
   </div>
 
-  <!-- התוכן המלא של האתר -->
-  <div id="main-content">
-
+  <!-- התוכן הראשי של האתר -->
+  <div id="app">
     <header>
-      <div class="logo">🍭 טופי 100</div>
-      <nav>
-        <a href="#workout-sec">💪 אימונים</a>
-        <a href="#lily-sec">👗 הבוטיק של לילי</a>
-        <a href="#recipes-sec">🍧 מתכונים</a>
-        <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
-        <a href="#faq-sec">❓ שאלות ותשובות</a>
-      </nav>
+      <h1>העולם של לילי 👑</h1>
+      <div class="coin-badge">💰 מטבעות בחלל: <span id="money-display">0</span> ₪</div>
     </header>
 
-    <div class="container">
-
-      <!-- 1. אימונים בראש הדף -->
-      <div id="workout-sec" class="card">
-        <h2>💪 תוכנית אימונים יומית</h2>
-
-        <!-- אימון צהריים -->
-        <div class="workout-box">
-          <div class="workout-header">
-            <h3>☀️ אימון צהריים - חיזוק ואנרגיה</h3>
-            <a href="https://www.youtube.com/results?search_query=calisthenics+workout+for+beginners" target="_blank" class="youtube-link">
-              ▶️ לצפייה באימון ב-YouTube
-            </a>
-          </div>
-          <p><strong>הסבר:</strong> אימון קליסטניקס ממוקד לפלג גוף תחתון. 3 סטים של סקוואטים (15 חזרות) ולאנג'ים (12 לכל רגל).</p>
-
-          <div class="timer-container">
-            <span>⏱️ סטופר צהריים:</span>
-            <div class="timer-display" id="timer-noon">00:00</div>
-            <button class="btn-timer" onclick="startTimer('noon')">התחל</button>
-            <button class="btn-timer" style="background:#ff7675;" onclick="stopTimer('noon')">עצור</button>
-            <button class="btn-timer" style="background:#b2bec3;" onclick="resetTimer('noon')">איפוס</button>
-          </div>
-        </div>
-
-        <!-- אימון ערב -->
-        <div class="workout-box" style="border-right-color: var(--accent);">
-          <div class="workout-header">
-            <h3>🌙 אימון ערב - ליבה ויציבות</h3>
-            <a href="https://www.youtube.com/results?search_query=core+plank+workout" target="_blank" class="youtube-link">
-              ▶️ לצפייה באימון ב-YouTube
-            </a>
-          </div>
-          <p><strong>הסבר:</strong> אימון רגוע לחיזוק שרירי הליבה. 3 סטים של פלאנק (30 שניות) ושכיבות סמיכה (8-10 חזרות).</p>
-
-          <div class="timer-container">
-            <span>⏱️ סטופר ערב:</span>
-            <div class="timer-display" id="timer-eve">00:00</div>
-            <button class="btn-timer" onclick="startTimer('eve')">התחל</button>
-            <button class="btn-timer" style="background:#ff7675;" onclick="stopTimer('eve')">עצור</button>
-            <button class="btn-timer" style="background:#b2bec3;" onclick="resetTimer('eve')">איפוס</button>
-          </div>
-        </div>
+    <!-- הצגת לילי המתוקה -->
+    <div class="character-section">
+      <div class="lily-avatar-card" id="lily-card">
+        <img id="lily-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lily&hairColor=2c1b18&skinColor=f8d25c&top=longHair&eyes=default" alt="לילי">
       </div>
-
-      <!-- 2. לילי + ארון בגדים ענק -->
-      <div id="lily-sec" class="card">
-        <h2>👗 הבוטיק וארון הבגדים המטורף של לילי</h2>
-        <p style="color:#636e72;">30 חולצות, 20 חצאיות, 20 מכנסיים ו-30 אולסטאר ונעליים יוקרתיות!</p>
-
-        <div class="lily-layout">
-          <div class="lily-container">
-            <svg class="lily-svg" viewBox="0 0 100 200">
-              <ellipse cx="50" cy="195" rx="22" ry="5" fill="#dcdde1"/>
-              <!-- נעליים -->
-              <g id="lily-shoes">
-                <rect x="36" y="180" width="12" height="12" rx="3" fill="#fd79a8"/>
-                <rect x="52" y="180" width="12" height="12" rx="3" fill="#fd79a8"/>
-              </g>
-              <!-- רגליים -->
-              <rect x="40" y="115" width="6" height="67" fill="#ffe0bd"/>
-              <rect x="54" y="115" width="6" height="67" fill="#ffe0bd"/>
-              <!-- מכנסיים / חצאית -->
-              <g id="lily-bottom">
-                <path d="M 35 60 L 65 60 L 70 120 L 30 120 Z" fill="#6c5ce7"/>
-              </g>
-              <!-- חולצה / סריג -->
-              <g id="lily-top">
-                <path d="M 36 45 L 64 45 L 66 62 L 34 62 Z" fill="#a29bfe"/>
-              </g>
-              <!-- זרועות -->
-              <rect x="27" y="46" width="8" height="42" rx="4" fill="#ffe0bd"/>
-              <rect x="65" y="46" width="8" height="42" rx="4" fill="#ffe0bd"/>
-              <!-- ראש -->
-              <rect x="46" y="34" width="8" height="12" fill="#ffe0bd"/>
-              <circle cx="50" cy="25" r="15" fill="#ffe0bd"/>
-              <!-- שיער -->
-              <path d="M 33 25 C 33 6, 67 6, 67 25 C 70 42, 63 58, 63 58 C 55 45, 45 45, 37 58 Z" fill="#5c3d2e"/>
-              <!-- עיניים ופה -->
-              <circle cx="44" cy="23" r="1.5" fill="#2d3436"/>
-              <circle cx="56" cy="23" r="1.5" fill="#2d3436"/>
-              <path d="M 46 29 Q 50 32 54 29" stroke="#e17055" stroke-width="1.2" fill="none"/>
-              <circle cx="41" cy="27" r="2" fill="#fd79a8" opacity="0.5"/>
-              <circle cx="59" cy="27" r="2" fill="#fd79a8" opacity="0.5"/>
-            </svg>
-          </div>
-
-          <div class="shop-container">
-            <div class="wallet-bar">
-              <span>💰 יתרת מטבעות: <span id="coin-count">2500</span></span>
-              <button class="buy-btn" style="background:#00b894; padding:6px 12px;" onclick="addCoins()">🎁 בונוס +500</button>
-            </div>
-
-            <div class="shop-tabs">
-              <button class="tab-btn active" onclick="switchCategory('tops')">👕 חולצות וסריגים (30)</button>
-              <button class="tab-btn" onclick="switchCategory('skirts')">👗 חצאיות (20)</button>
-              <button class="tab-btn" onclick="switchCategory('pants')">👖 מכנסיים (20)</button>
-              <button class="tab-btn" onclick="switchCategory('shoes')">👟 אולסטאר ונעליים (30)</button>
-            </div>
-
-            <div class="item-grid" id="shop-grid"></div>
-          </div>
-        </div>
+      
+      <div class="speech-bubble" id="lily-speech">
+        טוענת את התגובה של לילי...
       </div>
-
-      <!-- 3. מתכונים -->
-      <div id="recipes-sec" class="card">
-        <h2>🍧 המתכונים הכי מושחתים ברשת</h2>
-        <p style="color: #636e72;">לחצי על המתכון כדי לחפש את המדריך המלא:</p>
-
-        <div class="recipe-grid">
-          <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" class="recipe-link-card">
-            <h3>🍉 ברד אבטיח-לימון גן עדן</h3>
-            <p>משקה הקיץ האולטימטיבי – מתוק, חמוץ וקפוא.</p>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=פרנץ+טוסט+מושלם+מתכון" target="_blank" class="recipe-link-card">
-            <h3>🍞 פרנץ' טוסט פריך וזהוב</h3>
-            <p>קראנצ'י מבחוץ ונימוח מבפנים עם סירופ מייפל.</p>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=עוגיות+שוקולד+צ'יפס+10+דקות" target="_blank" class="recipe-link-card">
-            <h3>🍪 עוגיות שוקולד צ'יפס ב-10 דק'</h3>
-            <p>שוקולד נמס במרכז ומרקם רך כמו ענן.</p>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-
-          <a href="https://www.google.com/search?q=פנקייק+אורירי+ומתוחכם+מתכון" target="_blank" class="recipe-link-card">
-            <h3>🥞 פנקייקים אווריריים כמו עננים</h3>
-            <p>מגדל פנקייקים גבוהים ונמסים בפה.</p>
-            <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4. לו"ז חודשי -->
-      <div id="monthly-sec" class="card">
-        <h2>🗓️ לו"ז חודשי אינטראקטיבי</h2>
-        <p>לחצי על יום כדי לשבץ משימה ולסמן אימון/מנוחה:</p>
-
-        <div class="calendar-grid">
-          <div class="calendar-day-header">א'</div>
-          <div class="calendar-day-header">ב'</div>
-          <div class="calendar-day-header">ג'</div>
-          <div class="calendar-day-header">ד'</div>
-          <div class="calendar-day-header">ה'</div>
-          <div class="calendar-day-header">ו'</div>
-          <div class="calendar-day-header">ש'</div>
-        </div>
-
-        <div class="calendar-grid" id="calendar-days"></div>
-      </div>
-
-      <!-- 5. 10 שאלות בסוף הדף -->
-      <div id="faq-sec" class="card">
-        <h2>❓ 10 שאלות ותשובות בכרטיסיות</h2>
-
-        <div class="faq-card-wrapper">
-          <div>
-            <div class="faq-counter" id="faq-counter">שאלה 1 מתוך 10</div>
-            <div class="faq-question-title" id="faq-question">טוען שאלה...</div>
-            <div class="faq-options" id="faq-options"></div>
-            <div class="faq-answer-box" id="faq-answer"></div>
-          </div>
-
-          <div class="carousel-nav">
-            <button class="nav-btn" id="prev-btn" onclick="changeCard(-1)">➡️ הקודם</button>
-            <button class="nav-btn" id="next-btn" onclick="changeCard(1)">הבא ⬅️</button>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- הארון והחנות של לילי -->
+    <div class="section-card">
+      <h3>הארון והחנות של לילי 👗✨</h3>
+      <p style="font-size:13px; color:#666;">שני את העיצוב של לילי – שיער, תסרוקות, עיניים וסטייל (חלק נפתחים בקנייה עם מטבעות):</p>
+      
+      <div class="controls-grid">
+        <!-- תסרוקות ושיער -->
+        <button class="opt-btn" onclick="updateLily('hairColor=2c1b18&top=longHair')">שיער חום גלי</button>
+        <button class="opt-btn" onclick="updateLily('hairColor=000000&top=straight01')">שיער שחור חלק</button>
+        <button class="opt-btn" onclick="updateLily('hairColor=f5a524&top=longHairBigHair')">בלונד גלי</button>
+        <button class="opt-btn" onclick="updateLily('hairColor=b1320f&top=bun')">גולגול ג'ינג'י</button>
+
+        <!-- עיניים -->
+        <button class="opt-btn" onclick="updateLily('eyes=default')">עיניים חומות</button>
+        <button class="opt-btn" onclick="updateLily('eyes=happy')">עיניים שמחות</button>
+        <button class="opt-btn" onclick="updateLily('eyes=wink')">עין קורצת</button>
+
+        <!-- בגדים וסריגים -->
+        <button class="opt-btn" onclick="updateLily('clothes=sweater&clothesColor=ff85a2')">סריג ורוד</button>
+        <button class="opt-btn" onclick="updateLily('clothes=sweater&clothesColor=51cf66')">סריג ירוק</button>
+        <button class="opt-btn" id="buy-sweater-purple" onclick="buyItem('sweater-purple', 'clothes=sweater&clothesColor=845ef7', 20)">סריג סגול (20 ₪)</button>
+        <button class="opt-btn" id="buy-sweater-yellow" onclick="buyItem('sweater-yellow', 'clothes=sweater&clothesColor=fcc419', 25)">סריג צהוב (25 ₪)</button>
+
+        <!-- נעליים וסטיילינג -->
+        <button class="opt-btn" onclick="updateLily('accessories=kurt')">משקפי אופנה</button>
+        <button class="opt-btn" id="buy-allstar-red" onclick="buyItem('shoes-red', 'accessories=sunglasses', 30)">משקפי שמש קוליות (30 ₪)</button>
+      </div>
+    </div>
+
+    <!-- מפת התקדמות -->
+    <div class="section-card">
+      <h3>מפת התקדמות 🏆 (שלב <span id="current-step-num">1</span> מתוך 10)</h3>
+      <div class="progress-track">
+        <div class="step-node active" id="node-1">1</div>
+        <div class="step-node" id="node-2">2</div>
+        <div class="step-node" id="node-3">3</div>
+        <div class="step-node" id="node-4">4</div>
+        <div class="step-node" id="node-5">5</div>
+        <div class="step-node" id="node-6">6</div>
+        <div class="step-node" id="node-7">7</div>
+        <div class="step-node" id="node-8">8</div>
+        <div class="step-node" id="node-9">9</div>
+        <div class="step-node" id="node-10">10</div>
+      </div>
+      <button class="btn-submit" style="margin-top:15px; width:100%;" onclick="advanceStep()">השלמתי אימון! עלי שלב ותרוויחי 10 ₪ 💰</button>
+    </div>
+
+    <!-- תוכנית אימונים מפורטת עם סרטונים וסטופר -->
+    <div class="section-card">
+      <h3>📋 תוכנית אימונים, סרטונים וסטופרים</h3>
+
+      <div class="workout-item">
+        <strong>1. סקוואטים לחיזוק הרגליים (Squats)</strong>
+        <p style="font-size:13px; margin:5px 0;">הסבר: עמדי בפיסוק ברוחב הכתפיים, רדי לאחור כאילו את יושבת על כיסא ושמרי על גב ישר.</p>
+        <a href="https://www.youtube.com/results?search_query=how+to+do+squats+for+beginners" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
+        <div class="timer-display" id="timer-1">00:45</div>
+        <button class="opt-btn" onclick="startTimer('timer-1', 45)">הפעילי טיימר (45 שניות) ⏱️</button>
+      </div>
+
+      <div class="workout-item">
+        <strong>2. פלאנק לבטן חזקה (Plank)</strong>
+        <p style="font-size:13px; margin:5px 0;">הסבר: הישעני על האמות והבהונות, שמרי על הגוף ישר כמו קרש ללא צניחה של האגן.</p>
+        <a href="https://www.youtube.com/results?search_query=how+to+do+a+plank" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
+        <div class="timer-display" id="timer-2">00:30</div>
+        <button class="opt-btn" onclick="startTimer('timer-2', 30)">הפעילי טיימר (30 שניות) ⏱️</button>
+      </div>
+
+      <div class="workout-item">
+        <strong>3. מכרעים (Lunges) לחיזוק הירכיים</strong>
+        <p style="font-size:13px; margin:5px 0;">הסבר: קחי צעד גדול קדימה ורדי עם הברך האחורית כמעט עד הרצפה. החליפי רגליים.</p>
+        <a href="https://www.youtube.com/results?search_query=how+to+do+lunges" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
+        <div class="timer-display" id="timer-3">00:40</div>
+        <button class="opt-btn" onclick="startTimer('timer-3', 40)">הפעילי טיימר (40 שניות) ⏱️</button>
+      </div>
+
+      <div class="workout-item">
+        <strong>4. ריצת ערב מרעננת 🌙</strong>
+        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: יוצאים לריצה בכיף בערב כשנעים בחוץ! 15-20 דקות בקצב קל.</p>
+      </div>
+    </div>
+
+    <!-- עריכת התפריט היומי -->
+    <div class="section-card">
+      <h3>עדכון התפריט היומי שלי 🥗</h3>
+      <p style="font-size:13px; color:#666;">עדכני מה אכלת היום ולילי תגיב לך:</p>
+
+      <div class="food-edit-group">
+        <label>🌅 ארוחת בוקר:</label>
+        <input type="text" id="input-breakfast" value="חביתה, סלט ירקות ופרוסת לחם">
+
+        <label>☀️ ארוחת צהריים:</label>
+        <input type="text" id="input-lunch" value="חזה עוף / פפארדלה ברוטב עגבניות">
+
+        <label>🍎 ארוחת ביניים:</label>
+        <input type="text" id="input-snack" value="מעדן חלבון ופרי">
+
+        <label>🌙 ארוחת ערב:</label>
+        <input type="text" id="input-dinner" value="טוסט גבינה צהובה וסלט">
+      </div>
+
+      <button class="btn-submit" style="width:100%;" onclick="updateUserFood()">עדכני תפריט וקבלי חוות דעת מלילי ✨</button>
+    </div>
+
   </div>
 
-  <!-- חלון עריכת יום -->
-  <div id="day-modal">
-    <div class="modal-content">
-      <h3 id="modal-day-title">עריכת יום</h3>
-      <label style="font-weight:bold;">אירוע/משימה:</label>
-      <input type="text" id="event-input" style="width:100%; padding:8px; margin: 8px 0 15px 0; border-radius:6px; border:1px solid #ccc;">
-
-      <label style="font-weight:bold;">מתאים להתאמן?</label>
-      <select id="workout-select" style="width:100%; padding:8px; margin: 8px 0 15px 0; border-radius:6px; border:1px solid #ccc;">
-        <option value="">-- לבחירה --</option>
-        <option value="yes">כן, מתאים להתאמן! 💪</option>
-        <option value="no">לא, יום מנוחה 😴</option>
-      </select>
-
-      <button class="btn-action" onclick="saveDayData()">שמירה</button>
-      <button class="btn-action" style="background:#b2bec3;" onclick="closeModal()">ביטול</button>
+  <!-- תפריט אוכל קבוע למטה -->
+  <div class="food-menu-bar">
+    <strong>התפריט היומי שלי 🥗</strong>
+    <div class="food-items">
+      <div class="food-item" id="bar-breakfast">🌅 בוקר: חביתה וסלט</div>
+      <div class="food-item" id="bar-lunch">☀️ צהריים: חזה עוף / פסטה</div>
+      <div class="food-item" id="bar-snack">🍎 ביניים: מעדן ופרי</div>
+      <div class="food-item" id="bar-dinner">🌙 ערב: טוסט וסלט</div>
     </div>
   </div>
 
   <script>
-    // ניווט בשאלות הכניסה
-    function nextGateStep(step) {
-      document.querySelectorAll('.gate-step').forEach(el => el.classList.remove('active'));
-      document.getElementById(`gate-step-${step}`).classList.add('active');
+    let money = 0;
+    let currentStep = 1;
+    let activeTimers = {};
+    let currentParams = 'hairColor=2c1b18&skinColor=f8d25c&top=longHair&eyes=default';
+
+    // חנות פריטים שנרכשו
+    const ownedItems = {
+      'sweater-purple': false,
+      'sweater-yellow': false,
+      'shoes-red': false
+    };
+
+    function submitQuiz() {
+      const mood = document.getElementById('q1').value;
+      document.getElementById('welcome-modal').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+
+      const speech = document.getElementById('lily-speech');
+      let response = `איזה כיף שבאות! סוכות ושמחת תורה כאן ואין לימודים עד יום ראשון הבא! 🎉<br>`;
+      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נהנה מהחופש הזה ביחד!`;
+
+      speech.innerHTML = response;
     }
 
-    function enterSite() {
-      document.getElementById('gate-screen').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
+    // עדכון המראה של לילי בצורה נקייה ומהירה
+    function updateLily(extraParam) {
+      currentParams += '&' + extraParam;
+      const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=Lily&${currentParams}`;
+      document.getElementById('lily-img').src = url;
     }
 
-    // ניהול הסטופרים
-    let timers = { noon: { sec: 0, interval: null }, eve: { sec: 0, interval: null } };
+    // קניית פריטים בחנות
+    function buyItem(itemId, styleParam, price) {
+      if (ownedItems[itemId]) {
+        updateLily(styleParam);
+        return;
+      }
 
-    function startTimer(type) {
-      if (timers[type].interval) return;
-      timers[type].interval = setInterval(() => {
-        timers[type].sec++;
-        let m = String(Math.floor(timers[type].sec / 60)).padStart(2, '0');
-        let s = String(timers[type].sec % 60).padStart(2, '0');
-        document.getElementById(`timer-${type}`).innerText = `${m}:${s}`;
+      if (money >= price) {
+        money -= price;
+        ownedItems[itemId] = true;
+        document.getElementById('money-display').innerText = money;
+
+        const btn = document.getElementById(`buy-${itemId}`);
+        updateLily(styleParam);
+        btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+        
+        alert("תתחדשי! הקנייה בוצעה בהצלחה! 🎉");
+      } else {
+        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪. השלימי אימונים במפה כדי להרוויח!`);
+      }
+    }
+
+    // התקדמות בשלבים
+    function advanceStep() {
+      if (currentStep < 10) {
+        currentStep++;
+        money += 10;
+        document.getElementById('money-display').innerText = money;
+        document.getElementById('current-step-num').innerText = currentStep;
+        document.getElementById(`node-${currentStep}`).classList.add('active');
+        alert(`כל הכבוד! עלית לשלב ${currentStep} והרווחת 10 ₪! 💰`);
+      } else {
+        alert("וואו!! הגעת לשלב 10! את אלופה אמיתית! 🏆👑");
+      }
+    }
+
+    // סטופר/טיימר מותאם
+    function startTimer(timerId, seconds) {
+      if (activeTimers[timerId]) {
+        clearInterval(activeTimers[timerId]);
+      }
+
+      let timeLeft = seconds;
+      const display = document.getElementById(timerId);
+
+      activeTimers[timerId] = setInterval(() => {
+        timeLeft--;
+        let sec = timeLeft < 10 ? '0' + timeLeft : timeLeft;
+        display.innerText = `00:${sec}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(activeTimers[timerId]);
+          display.innerText = "00:00 - סיימת!";
+          alert("אלופה!! הזמן נגמר, עבודה מצוינת! 💪✨");
+        }
       }, 1000);
     }
 
-    function stopTimer(type) {
-      clearInterval(timers[type].interval);
-      timers[type].interval = null;
-    }
+    // עדכון תפריט האוכל והערות מלילי
+    function updateUserFood() {
+      const b = document.getElementById('input-breakfast').value;
+      const l = document.getElementById('input-lunch').value;
+      const s = document.getElementById('input-snack').value;
+      const d = document.getElementById('input-dinner').value;
 
-    function resetTimer(type) {
-      stopTimer(type);
-      timers[type].sec = 0;
-      document.getElementById(`timer-${type}`).innerText = "00:00";
-    }
+      // עדכון התפריט הקבוע בתחתית המסך
+      document.getElementById('bar-breakfast').innerText = `🌅 בוקר: ${b}`;
+      document.getElementById('bar-lunch').innerText = `☀️ צהריים: ${l}`;
+      document.getElementById('bar-snack').innerText = `🍎 ביניים: ${s}`;
+      document.getElementById('bar-dinner').innerText = `🌙 ערב: ${d}`;
 
-    // הבוטיק של לילי
-    let userCoins = 2500;
-    let ownedItems = new Set();
-    let currentCategory = 'tops';
+      // בדיקת מילים קיצוניות בלבד (ממתקים/חטיפים/ג'אנק)
+      const allFood = (b + l + s + d).toLowerCase();
+      const speech = document.getElementById('lily-speech');
 
-    function addCoins() {
-      userCoins += 500;
-      document.getElementById('coin-count').innerText = userCoins;
-    }
-
-    // יצירת פריטים
-    const shopData = {
-      tops: Array.from({length: 30}, (_, i) => ({
-        id: `top_${i+1}`,
-        name: [`חולצת בסיס`, `סריג קשמיר`, `קרופ-טופ ספורט`, `גופיית קיץ`, `סווטשירט אוברסייז`][i % 5] + ` #${i+1}`,
-        price: (i + 1) * 70,
-        color: ['#a29bfe', '#6c5ce7', '#fd79a8', '#00b894', '#fab1a0', '#ffeaa7', '#0984e3', '#2d3436'][i % 8],
-        type: 'top'
-      })),
-      skirts: Array.from({length: 20}, (_, i) => ({
-        id: `skirt_${i+1}`,
-        name: [`חצאית קפלים`, `חצאית ג'ינס`, `חצאית משי`, `חצאית טול נוצצת`][i % 4] + ` #${i+1}`,
-        price: (i + 1) * 90,
-        color: ['#6c5ce7', '#fd79a8', '#00b894', '#e17055', '#ffeaa7', '#0984e3'][i % 6],
-        type: 'skirt'
-      })),
-      pants: Array.from({length: 20}, (_, i) => ({
-        id: `pant_${i+1}`,
-        name: [`ג'ינס רחב`, `דגמ"ח אופנתי`, `מכנסי טרנינג`, `טייץ ספורט`][i % 4] + ` #${i+1}`,
-        price: (i + 1) * 100,
-        color: ['#2d3436', '#0984e3', '#636e72', '#b2bec3', '#d63031'][i % 5],
-        type: 'pant'
-      })),
-      shoes: Array.from({length: 30}, (_, i) => ({
-        id: `shoe_${i+1}`,
-        name: [`אולסטאר קלאסי`, `אולסטאר פלטפורמה`, `אולסטאר ניאון`, `נעלי ספורט יוקרתיות`][i % 4] + ` #${i+1}`,
-        price: (i + 1) * 110,
-        color: ['#fd79a8', '#2d3436', '#00b894', '#e17055', '#fdcb6e', '#6c5ce7'][i % 6],
-        type: 'shoe'
-      }))
-    };
-
-    function switchCategory(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      renderShop();
-    }
-
-    function renderShop() {
-      const grid = document.getElementById('shop-grid');
-      grid.innerHTML = '';
-
-      shopData[currentCategory].forEach(item => {
-        const isOwned = ownedItems.has(item.id);
-        const card = document.createElement('div');
-        card.className = 'shop-item-card';
-        card.innerHTML = `
-          <div class="item-name">${item.name}</div>
-          <div class="item-price">${item.price} 🪙</div>
-          <button class="buy-btn ${isOwned ? 'owned' : ''}" onclick="buyOrEquip('${item.id}', ${item.price}, '${item.color}', '${item.type}')">
-            ${isOwned ? 'לבשי 👗' : 'קני 🛒'}
-          </button>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function buyOrEquip(id, price, color, type) {
-      if (!ownedItems.has(id)) {
-        if (userCoins < price) {
-          alert("אין לך מספיק מטבעות! לחצי על בונוס לקבלת מטבעות.");
-          return;
-        }
-        userCoins -= price;
-        ownedItems.add(id);
-        document.getElementById('coin-count').innerText = userCoins;
+      if (allFood.includes("ממתק") || allFood.includes("חטיף") || allFood.includes("שוקולד") || allFood.includes("מקדונלדס")) {
+        speech.innerHTML = "אממ... התפריט נראה טעים, אבל אולי כדאי לוותר על חלק מהחטיפים/ממתקים? זה פחות בריא ומזין. 😉💕";
+      } else {
+        speech.innerHTML = "וואו! התפריט שלך נשמע ונראה מעולה, טעים ומזין בטירוף! כל הכבוד לך! 🥗🥞✨";
       }
 
-      // הלבשת הפריט על SVG
-      if (type === 'top') {
-        document.getElementById('lily-top').innerHTML = `<path d="M 36 45 L 64 45 L 66 62 L 34 62 Z" fill="${color}"/>`;
-      } else if (type === 'skirt') {
-        document.getElementById('lily-bottom').innerHTML = `<path d="M 35 60 L 65 60 L 70 120 L 30 120 Z" fill="${color}"/>`;
-      } else if (type === 'pant') {
-        document.getElementById('lily-bottom').innerHTML = `
-          <rect x="38" y="60" width="10" height="122" fill="${color}"/>
-          <rect x="52" y="60" width="10" height="122" fill="${color}"/>
-        `;
-      } else if (type === 'shoe') {
-        document.getElementById('lily-shoes').innerHTML = `
-          <rect x="35" y="178" width="14" height="14" rx="4" fill="${color}"/>
-          <rect x="51" y="178" width="14" height="14" rx="4" fill="${color}"/>
-        `;
-      }
-
-      renderShop();
+      alert("התפריט עודכן בהצלחה!");
     }
-
-    // 10 שאלות בסוף הדף
-    const faqData = [
-      { q: "האם שיעורי בית באמת עוזרים בחיים?", options: ["א. מפתחים את המוח", "ב. מפתחים בעיקר יכולת להמציא תירוצים", "ג. עוזרים למורים לישון", "ד. שום דבר"], a: "ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון." },
-      { q: "למה צריך לקום מוקדם בבוקר?", options: ["א. להספיק להתארגן בכיף", "ב. לבהות בקיר 20 דקות במיטה", "ג. לראות זריחה", "ד. ככה אמרו"], a: "כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה." },
-      { q: "איך יודעים אם מישהו באמת חבר אמת?", options: ["א. מספר סודות", "ב. עוזר בשיעורים", "ג. חולק מעטפת של אוזניות בלי לבקש בחזרה", "ד. שולח לייקים"], a: "אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה." },
-      { q: "מה הסוד להצליח במבחן באנגלית?", options: ["א. ללמוד חודש מראש", "ב. להוסיף s בסוף כל מילה ולרשום Past Simple", "ג. לקרוא מילון", "ד. להתפלל לנס"], a: "להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד." },
-      { q: "מה הדרך הכי טובה לנקות נעלי אולסטאר?", options: ["א. מברשת שיניים וסבון", "ב. ללכת איתן בגשם ולקוות שהטבע יעשה את שלו", "ג. לקנות חדשות", "ד. מכונה"], a: "ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך." },
-      { q: "למה השעון המעורר מנגן באמצע החלום הכי טוב?", options: ["א. מקריות", "ב. מנגנון רשעות מובנה", "ג. שעון מקולקל", "ד. ככה זה"], a: "כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד." },
-      { q: "מה עושים כשהאינטרנט מנתק באמצע סרטון?", options: ["א. קוראים ספר", "ב. לוחצים על הראוטר בטירוף", "ג. הולכים לישון", "ד. מחכים"], a: "נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה." },
-      { q: "איך לומדים להקליד עיוור בשיא המהירות?", options: ["א. קורס הקלדה", "ב. מקלידים כל כך מהר שהמקלדת מנחשת", "ג. לא לומדים", "ד. מסתכלים על המקשים"], a: "פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב." },
-      { q: "איזה אוכל הכי בריא בעולם?", options: ["א. סלט ירוק", "ב. מה שנאכל מול סדרה בלי לשטוף צלחת", "ג. תפוח", "ד. שייק"], a: "זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת." },
-      { q: "מה העצה הכי טובה לחיים?", options: ["א. לעבוד קשה", "ב. אם משהו קשה – להגיד 'אני אעשה את זה מחר'", "ג. לקום ב-5", "ד. לוותר"], a: "אם משהו קשה מדי – תמיד אפשר להגיד 'אני אעשה את זה מחר'. מחר זה יום חדש!" }
-    ];
-
-    let currentCardIndex = 0;
-
-    function renderFaqCard() {
-      const card = faqData[currentCardIndex];
-      document.getElementById('faq-counter').innerText = `שאלה ${currentCardIndex + 1} מתוך ${faqData.length}`;
-      document.getElementById('faq-question').innerText = card.q;
-      
-      const optionsContainer = document.getElementById('faq-options');
-      optionsContainer.innerHTML = '';
-      const answerBox = document.getElementById('faq-answer');
-      answerBox.style.display = 'none';
-
-      card.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.className = 'faq-option-btn';
-        btn.innerText = opt;
-        btn.onclick = () => {
-          document.querySelectorAll('.faq-option-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          answerBox.innerText = `💡 תשובת המומחה: ${card.a}`;
-          answerBox.style.display = 'block';
-        };
-        optionsContainer.appendChild(btn);
-      });
-
-      document.getElementById('prev-btn').disabled = currentCardIndex === 0;
-      document.getElementById('next-btn').disabled = currentCardIndex === faqData.length - 1;
-    }
-
-    function changeCard(dir) {
-      currentCardIndex += dir;
-      renderFaqCard();
-    }
-
-    // הלו"ז החודשי
-    const daysData = {};
-    let selectedDay = null;
-
-    function renderCalendar() {
-      const container = document.getElementById('calendar-days');
-      container.innerHTML = '';
-
-      for (let i = 1; i <= 30; i++) {
-        const dayBox = document.createElement('div');
-        dayBox.className = 'calendar-day';
-        dayBox.onclick = () => openModal(i);
-
-        const data = daysData[i] || {};
-        let eventHTML = data.event ? `<div class="day-event">${data.event}</div>` : '';
-        let workoutHTML = '';
-        if (data.workout === 'yes') workoutHTML = `<div class="workout-tag workout-yes">אימון 👍</div>`;
-        else if (data.workout === 'no') workoutHTML = `<div class="workout-tag workout-no">מנוחה 💤</div>`;
-
-        dayBox.innerHTML = `
-          <div class="day-number">${i}</div>
-          <div>${eventHTML}</div>
-          <div>${workoutHTML}</div>
-        `;
-        container.appendChild(dayBox);
-      }
-    }
-
-    function openModal(dayNum) {
-      selectedDay = dayNum;
-      document.getElementById('modal-day-title').innerText = `עריכת יום ${dayNum}`;
-      const current = daysData[dayNum] || {};
-      document.getElementById('event-input').value = current.event || '';
-      document.getElementById('workout-select').value = current.workout || '';
-      document.getElementById('day-modal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('day-modal').style.display = 'none';
-    }
-
-    function saveDayData() {
-      if (!selectedDay) return;
-      daysData[selectedDay] = {
-        event: document.getElementById('event-input').value,
-        workout: document.getElementById('workout-select').value
-      };
-      closeModal();
-      renderCalendar();
-    }
-
-    // הפעלה בטעינה
-    renderShop();
-    renderFaqCard();
-    renderCalendar();
   </script>
 </body>
 </html>
