@@ -99,23 +99,52 @@
       height: 320px;
     }
 
-    /* מתכונים */
+    /* מתכונים כקישורים */
     .recipe-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 15px;
     }
 
-    .recipe-card {
-      background: #fff;
+    .recipe-link-card {
+      background: #ffffff;
       border: 2px solid var(--primary-light);
-      border-radius: 12px;
-      padding: 15px;
+      border-radius: 14px;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
-    .recipe-card h3 {
+    .recipe-link-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(108, 92, 231, 0.2);
+      border-color: var(--accent);
+    }
+
+    .recipe-link-card h3 {
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+
+    .recipe-link-card p {
+      margin: 0 0 12px 0;
+      color: #636e72;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .recipe-btn-text {
       color: var(--accent);
-      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     /* אימונים */
@@ -305,27 +334,59 @@
       </svg>
     </div>
 
-    <!-- מתכונים -->
+    <!-- מתכונים - קישורים בלבד -->
     <div id="recipes-sec" class="card">
-      <h2>🍧 המתכונים השווים</h2>
+      <h2>🍧 המתכונים הכי מושחתים וטעימים ברשת</h2>
+      <p style="margin-bottom: 20px; color: #636e72;">לחצי על המתכון כדי להגיע ישר למדריך המלא:</p>
+
       <div class="recipe-grid">
-        <div class="recipe-card">
-          <h3>🍉 ברד אבטיח-לימון</h3>
-          <p><strong>רכיבים:</strong> קוביות אבטיח קפואות, מיץ מלימון טרי, מעט דבש/סוכר וקרח.</p>
-          <p><strong>הכנה:</strong> טוחנים הכל בבלנדר עד למרקם קפוא ומרענן. מושלם לקיץ!</p>
-        </div>
+        <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🍉 ברד אבטיח-לימון גן עדן</h3>
+            <p>משקה הקיץ האולטימטיבי – מתוק, חמוץ, קפוא וממכר ברמות שא אפשר להפסיק לשתות.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
 
-        <div class="recipe-card">
-          <h3>🍞 פרנץ' טוסט מהיר</h3>
-          <p><strong>רכיבים:</strong> 2 פרוסות לחם, ביצה אחת, 3 כפות חלב, קורט קינמון ומעט חמאה.</p>
-          <p><strong>הכנה:</strong> טורפים ביצה, חלב וקינמון. טובלים את הלחם ומטגנים בחמאה כ-2 דקות מכל צד.</p>
-        </div>
+        <a href="https://www.google.com/search?q=פרנץ+טוסט+מושלם+מתכון" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🍞 פרנץ' טוסט פריך וזהוב</h3>
+            <p>חמציצי, נימוח מבפנים וקראנצ'י מבחוץ עם ניחוח קינמון וסירופ מייפל שמטפטף בכל ביס.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
 
-        <div class="recipe-card">
-          <h3>🍪 עוגיות שוקולד צ'יפס (10 דק')</h3>
-          <p><strong>רכיבים:</strong> קערה קטנה, חמאה מומסת, סוכר חום, קמח, ביצה וים שוקולד צ'יפס.</p>
-          <p><strong>הכנה:</strong> מערבבים בצק מהיר, יוצרים כדורים ואופים ב-180 מעלות ל-9-10 דקות.</p>
-        </div>
+        <a href="https://www.google.com/search?q=עוגיות+שוקולד+צ'יפס+10+דקות" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🍪 עוגיות שוקולד צ'יפס מטורפות ב-10 דק'</h3>
+            <p>שוקולד נמס במרכז, מרקם רך כמו ענן וחיוך ענקי על הפנים תוך רבע שעה מכלום עבודה.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=פנקייק+אורירי+ומתוחכם+מתכון" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🥞 פנקייקים אווריריים כמו עננים</h3>
+            <p>המגדל הכי מפתה שתכיני בחיים – גבוהים, רכים, נמסים בפה ומלאים בשוקולד או שרביט דבש.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=עוגת+כוס+מיקרוגל+שוקולד" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🧁 עוגת שוקולד בספל (דקה אחת במיקרו!)</h3>
+            <p>כשבא משהו מתוק *עכשיו*! עוגה חמה, חטיפית ומפנקת שמוכנה במהירות שיא.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
+
+        <a href="https://www.google.com/search?q=שייק+תות+בננה+קרמי" target="_blank" class="recipe-link-card">
+          <div>
+            <h3>🍓 שייק תות-בננה קטיפתי</h3>
+            <p>שילוב פירות קלאסי במרקם קרמי משגע, בריא, מרענן וצבעוני בטירוף.</p>
+          </div>
+          <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
+        </a>
       </div>
     </div>
 
@@ -361,55 +422,8 @@
     <!-- 10 שאלות ותשובות ציניות -->
     <div id="faq-sec" class="card">
       <h2>😏 10 שאלות ותשובות ציניות</h2>
-      
-      <div class="faq-item">
-        <div class="faq-q">1. האם שיעורי בית באמת עוזרים בחיים?</div>
-        <div class="faq-a">ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">2. למה צריך לקום מוקדם בבוקר?</div>
-        <div class="faq-a">כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">3. איך יודעים אם מישהו באמת חבר אמת?</div>
-        <div class="faq-a">אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">4. מה הסוד להצליח במבחן באנגלית?</div>
-        <div class="faq-a">להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">5. מה הדרך הכי טובה לנקות נעלי אולסטאר?</div>
-        <div class="faq-a">ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">6. למה השעון המעורר תמיד מצלצל באמצע החלום הכי טוב?</div>
-        <div class="faq-a">כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">7. מה עושים כשהאינטרנט מנתק באמצע סרטון?</div>
-        <div class="faq-a">נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">8. איך לומדים להקליד עיוור בשיא המהירות?</div>
-        <div class="faq-a">פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">9. איזה אוכל הכי בריא בעולם?</div>
-        <div class="faq-a">זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">10. מה העצה הכי טובה לחיים?</div>
-        <div class="faq-a">אם משהו קשה מדי – תמיד אפשר להגיד "אני אעשה את זה מחר". מחר זה יום חדש!</div>
+      <div id="faq-container">
+        <!-- יתמלא אוטומטית דרך JavaScript -->
       </div>
     </div>
 
@@ -456,6 +470,32 @@
   </div>
 
   <script>
+    // רשימת 10 השאלות והתשובות הציניות
+    const faqList = [
+      { q: "1. האם שיעורי בית באמת עוזרים בחיים?", a: "ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון." },
+      { q: "2. למה צריך לקום מוקדם בבוקר?", a: "כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה." },
+      { q: "3. איך יודעים אם מישהו באמת חבר אמת?", a: "אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה." },
+      { q: "4. מה הסוד להצליח במבחן באנגלית?", a: "להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד." },
+      { q: "5. מה הדרך הכי טובה לנקות נעלי אולסטאר?", a: "ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך." },
+      { q: "6. למה השעון המעורר תמיד מצלצל באמצע החלום הכי טוב?", a: "כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד." },
+      { q: "7. מה עושים כשהאינטרנט מנתק באמצע סרטון?", a: "נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה." },
+      { q: "8. איך לומדים להקליד עיוור בשיא המהירות?", a: "פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב." },
+      { q: "9. איזה אוכל הכי בריא בעולם?", a: "זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת." },
+      { q: "10. מה העצה הכי טובה לחיים?", a: "אם משהו קשה מדי – תמיד אפשר להגיד 'אני אעשה את זה מחר'. מחר זה יום חדש!" }
+    ];
+
+    function renderFAQ() {
+      const faqContainer = document.getElementById('faq-container');
+      faqContainer.innerHTML = '';
+      faqList.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'faq-item';
+        div.innerHTML = `<div class="faq-q">${item.q}</div><div class="faq-a">${item.a}</div>`;
+        faqContainer.appendChild(div);
+      });
+    }
+
+    // ניהול הלו"ז החודשי
     const daysData = {};
     let selectedDay = null;
 
@@ -519,6 +559,8 @@
       renderCalendar();
     }
 
+    // הפעלה בטעינה
+    renderFAQ();
     renderCalendar();
   </script>
 </body>
