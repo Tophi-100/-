@@ -1,844 +1,375 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>העולם המשודרג של לילי ✨</title>
-  <style>
-    :root {
-      --primary-color: #ff85a2;
-      --secondary-color: #ffd1dc;
-      --bg-color: #fff0f5;
-      --card-bg: #ffffff;
-      --text-color: #4a4a4a;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>המשחק המשודרג</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #FFE5EC 0%, #F0E6FF 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    /* מודאל השאלון בכניסה */
-    #welcome-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.65);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+        .header {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 25px;
-      max-width: 480px;
-      width: 90%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    .modal-content h2 {
-      color: var(--primary-color);
-      margin-bottom: 15px;
-    }
+        .game-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    .question-group {
-      margin-bottom: 18px;
-      text-align: right;
-    }
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .question-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
+        /* עיצוב הדמות האהובה והקלאסית */
+        .character-stage {
+            width: 220px;
+            height: 220px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
 
-    .question-group select, .question-group input {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid var(--secondary-color);
-      border-radius: 12px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
+        .pet-body {
+            width: 140px;
+            height: 140px;
+            background: #FF9AA2;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: inset -10px -10px 0 rgba(0,0,0,0.08), 0 10px 20px rgba(255,154,162,0.4);
+            transition: transform 0.2s, background-color 0.3s;
+            animation: bounce 2s infinite ease-in-out;
+        }
 
-    .btn-submit {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 15px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s;
-    }
+        .pet-eye {
+            width: 18px;
+            height: 24px;
+            background: #2C3E50;
+            border-radius: 50%;
+            position: absolute;
+            top: 45px;
+        }
 
-    .btn-submit:hover {
-      background: #ff527b;
-    }
+        .pet-eye.left { left: 35px; }
+        .pet-eye.right { right: 35px; }
 
-    /* תוכן האפליקציה */
-    #app {
-      display: none;
-      flex: 1;
-      padding: 20px;
-      padding-bottom: 190px;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
+        .pet-eye::after {
+            content: '';
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+        }
 
-    header {
-      text-align: center;
-      background: white;
-      padding: 15px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
-    }
+        .pet-blush {
+            width: 22px;
+            height: 12px;
+            background: #FFB7B2;
+            border-radius: 50%;
+            position: absolute;
+            top: 72px;
+            opacity: 0.8;
+        }
 
-    .coin-badge {
-      background: #fff3bf;
-      color: #f59f00;
-      padding: 6px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 5px;
-      border: 1px solid #ffe066;
-    }
+        .pet-blush.left { left: 20px; }
+        .pet-blush.right { right: 20px; }
 
-    /* עיצוב לילי האהובה והמתוקה */
-    .character-section {
-      background: #ffe3e8;
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: background 0.5s ease;
-      position: relative;
-    }
+        .pet-mouth {
+            width: 20px;
+            height: 10px;
+            border-bottom: 4px solid #2C3E50;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            top: 70px;
+            left: 60px;
+        }
 
-    .lily-avatar-card {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: white;
-      border: 4px solid var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-      box-shadow: 0 6px 15px rgba(255, 133, 162, 0.3);
-      overflow: hidden;
-    }
+        /* פריטי לבוש עליה */
+        .hat-item {
+            position: absolute;
+            top: -25px;
+            font-size: 55px;
+            z-index: 10;
+        }
 
-    .lily-avatar-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
 
-    .speech-bubble {
-      background: #fff0f3;
-      border: 2px solid var(--primary-color);
-      border-radius: 15px;
-      padding: 15px;
-      font-weight: bold;
-      color: #d6336c;
-      font-size: 15px;
-      line-height: 1.4;
-      width: 100%;
-      box-sizing: border-box;
-    }
+        /* מתכונים */
+        .recipe-box {
+            background: #FFF9E6;
+            border: 2px dashed #FFE066;
+            border-radius: 16px;
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: center;
+        }
 
-    .daily-quote-card {
-      background: #e7f5ff;
-      border-right: 4px solid #4ea8de;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-top: 10px;
-      font-size: 13px;
-      color: #1864ab;
-      width: 100%;
-      box-sizing: border-box;
-    }
+        .recipe-title {
+            font-weight: bold;
+            color: #D69E2E;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
 
-    /* כרטיסים וקטעים */
-    .section-card {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+        .recipe-desc {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
 
-    .controls-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
+        .btn {
+            background: #FFB7B2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            width: 100%;
+        }
 
-    button.opt-btn {
-      background: #ffe3e8;
-      border: 1px solid #ffb6c1;
-      padding: 8px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
-      transition: 0.2s;
-    }
+        .btn:hover {
+            background: #FF9AA2;
+        }
 
-    button.opt-btn:hover {
-      background: #ffd1dc;
-    }
+        .btn:active {
+            transform: scale(0.98);
+        }
 
-    /* מד מים יומי */
-    .water-tracker {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 10px;
-    }
+        /* חנות שהתכווצה */
+        .shop-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
 
-    .water-glass {
-      font-size: 28px;
-      cursor: pointer;
-      opacity: 0.3;
-      transition: 0.2s;
-    }
+        .shop-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid #EEE;
+            border-radius: 12px;
+            background: #FAFAFA;
+        }
 
-    .water-glass.active {
-      opacity: 1.0;
-      transform: scale(1.1);
-    }
+        .shop-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    /* צ'ק-ליסט משימות */
-    .task-list {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-    }
+        .buy-btn {
+            width: auto;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            background: #B5EAD7;
+            color: #2D6A4F;
+        }
 
-    .task-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
+        .buy-btn:hover {
+            background: #95D5B2;
+        }
 
-    .task-item input {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-    }
-
-    /* מפת התקדמות */
-    .progress-track {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px 0 10px;
-      position: relative;
-    }
-
-    .progress-track::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      right: 10px;
-      height: 6px;
-      background: #f0f0f0;
-      z-index: 1;
-      transform: translateY(-50%);
-    }
-
-    .step-node {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: white;
-      border: 3px solid #e0e0e0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 12px;
-      z-index: 2;
-      color: #aaa;
-    }
-
-    .step-node.active {
-      border-color: var(--primary-color);
-      background: var(--primary-color);
-      color: white;
-    }
-
-    /* אימונים וסטופרים */
-    .workout-item {
-      background: #fff0f3;
-      border-right: 4px solid var(--primary-color);
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-    }
-
-    .timer-display {
-      font-size: 22px;
-      font-weight: bold;
-      color: #d6336c;
-      margin: 5px 0;
-    }
-
-    /* עריכת תפריט אוכל */
-    .food-edit-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .food-edit-group label {
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .food-edit-group input {
-      padding: 10px;
-      border: 2px solid #ffb6c1;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-
-    /* תפריט אוכל קבוע למטה */
-    .food-menu-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      border-top: 3px solid var(--primary-color);
-      box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-      padding: 10px;
-      box-sizing: border-box;
-      text-align: center;
-      z-index: 100;
-    }
-
-    .food-items {
-      display: flex;
-      justify-content: space-around;
-      max-width: 750px;
-      margin: 5px auto 0;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .food-item {
-      font-size: 11px;
-      background: #fff0f5;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    /* קונפטי */
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      top: -10px;
-      z-index: 2000;
-      animation: fall 3s linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-  </style>
+        .alert-text {
+            color: #E63946;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- מודאל כניסה -->
-  <div id="welcome-modal">
-    <div class="modal-content">
-      <h2>היי אהובה! ברוכה הבאה 💖</h2>
-      <p>כדי שלילי תדע איך לעזור לך היום, עני על השאלות הקצרות:</p>
-      
-      <div class="question-group">
-        <label for="q1">1. איך הרגשתך היום?</label>
-        <select id="q1">
-          <option value="מעולה ושמחה">מעולה ושמחה! 😄</option>
-          <option value="רגיל">בסדר, יום רגיל 🙂</option>
-          <option value="עייפה">קצת עייפה 😴</option>
-          <option value="זקוקה לחיזוק">זקוקה לקצת חיזוק וחיבוק 🥺</option>
-        </select>
-      </div>
-
-      <div class="question-group">
-        <label for="q2">2. כמה אנרגיה יש לך מ-1 עד 10?</label>
-        <input type="number" id="q2" min="1" max="10" value="8">
-      </div>
-
-      <div class="question-group">
-        <label for="q3">3. מה בא לך לעשות כרגע?</label>
-        <select id="q3">
-          <option value="לנוח ולבלות">לנוח ולבלות בכיף 🌴</option>
-          <option value="להתאמן ולעשות ספורט">אימון כיפי / ריצת ערב 🏃‍♀️</option>
-          <option value="להכין מתכון טעים">להכין מתכון טעים ומחטב 🥞</option>
-        </select>
-      </div>
-
-      <button class="btn-submit" onclick="submitQuiz()">היכנסי לאתר ✨</button>
-    </div>
-  </div>
-
-  <!-- התוכן הראשי -->
-  <div id="app">
-    <header>
-      <h1>העולם של לילי 👑</h1>
-      <div class="coin-badge">💰 מטבעות בחלל: <span id="money-display">0</span> ₪</div>
-      <button onclick="resetData()" style="margin-top:5px; background:none; border:none; color:#888; text-decoration:underline; cursor:pointer; font-size:11px;">איפוס מלא של האתר</button>
-    </header>
-
-    <!-- דמות לילי המתוקה -->
-    <div class="character-section" id="room-bg">
-      <div class="lily-avatar-card">
-        <img id="lily-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="לילי">
-      </div>
-      
-      <div class="speech-bubble" id="lily-speech">
-        טוענת את התגובה של לילי...
-      </div>
-
-      <div class="daily-quote-card" id="daily-quote">
-        💡 <strong>טיפ יומי מלילי:</strong> "צעד קטן בכל יום מוביל לתוצאות ענקיות! את מסוגלת להכל ✨"
-      </div>
+    <div class="header">
+        <div class="stat-badge">💰 <span id="coins">0</span> מטבעות</div>
+        <div class="stat-badge">⭐ רמה <span id="level">1</span></div>
     </div>
 
-    <!-- מד מים יומי -->
-    <div class="section-card">
-      <h3>💧 מד שתיית מים יומי</h3>
-      <p style="font-size:12px; color:#666;">לחצי על כוס מים בכל פעם שאת שותה. כל 2 כוסות מעניקות לך 5 מטבעות!</p>
-      <div class="water-tracker">
-        <span class="water-glass" onclick="toggleWater(1)">🥛</span>
-        <span class="water-glass" onclick="toggleWater(2)">🥛</span>
-        <span class="water-glass" onclick="toggleWater(3)">🥛</span>
-        <span class="water-glass" onclick="toggleWater(4)">🥛</span>
-        <span class="water-glass" onclick="toggleWater(5)">🥛</span>
-        <span class="water-glass" onclick="toggleWater(6)">🥛</span>
-      </div>
+    <div class="game-container">
+        
+        <!-- כרטיס דמות -->
+        <div class="card">
+            <h3>הדמות שלך</h3>
+            <div class="character-stage">
+                <div class="hat-item" id="equippedHat"></div>
+                <div class="pet-body" id="petBody">
+                    <div class="pet-eye left"></div>
+                    <div class="pet-eye right"></div>
+                    <div class="pet-blush left"></div>
+                    <div class="pet-blush right"></div>
+                    <div class="pet-mouth"></div>
+                </div>
+            </div>
+            <p id="statusMsg">המפלצת רעבה ומחכה למשהו מצחיק!</p>
+        </div>
+
+        <!-- כרטיס המטבח המטורלל -->
+        <div class="card">
+            <h3>מטבח המתכונים המשתנים 🍳</h3>
+            <div class="recipe-box">
+                <div class="recipe-title" id="recipeTitle">טוען מתכון...</div>
+                <div class="recipe-desc" id="recipeDesc">...</div>
+                <button class="btn" onclick="cookRecipe()">הכן את הטירוף הזה!</button>
+            </div>
+            <div class="alert-text" id="cookMsg"></div>
+        </div>
+
+        <!-- חנות הבגדים הזעירה -->
+        <div class="card">
+            <h3>חנות בגדים (זעירה במיוחד! 😱)</h3>
+            <p style="font-size: 0.8rem; color: #888;">החנות הצטמצמה מסיבות לא ברורות. המחירים יקרים!</p>
+            
+            <div class="shop-items">
+                <div class="shop-item">
+                    <div class="shop-item-info">
+                        <span style="font-size:1.5rem;">👑</span>
+                        <div>
+                            <div>כתר זהב מוזהב</div>
+                            <small>50 מטבעות</small>
+                        </div>
+                    </div>
+                    <button class="btn buy-btn" onclick="buyItem('👑', 50)">קנה</button>
+                </div>
+
+                <div class="shop-item">
+                    <div class="shop-item-info">
+                        <span style="font-size:1.5rem;">🎀</span>
+                        <div>
+                            <div>פפיון ורוד חמוד</div>
+                            <small>30 מטבעות</small>
+                        </div>
+                    </div>
+                    <button class="btn buy-btn" onclick="buyItem('🎀', 30)">קנה</button>
+                </div>
+
+                <div class="shop-item">
+                    <div class="shop-item-info">
+                        <span style="font-size:1.5rem;">🎩</span>
+                        <div>
+                            <div>כובע קוסמים יוקרתי</div>
+                            <small>80 מטבעות</small>
+                        </div>
+                    </div>
+                    <button class="btn buy-btn" onclick="buyItem('🎩', 80)">קנה</button>
+                </div>
+            </div>
+            <div class="alert-text" id="shopMsg"></div>
+        </div>
+
     </div>
 
-    <!-- צ'ק-ליסט משימות -->
-    <div class="section-card">
-      <h3>✅ משימות היום שלי</h3>
-      <ul class="task-list">
-        <li class="task-item"><input type="checkbox" id="task1" onchange="toggleTask('task1', 5)"> <label for="task1">סידור החדר והמיטה (5 ₪)</label></li>
-        <li class="task-item"><input type="checkbox" id="task2" onchange="toggleTask('task2', 10)"> <label for="task2">אימון 15 דקות או ריצת ערב (10 ₪)</label></li>
-        <li class="task-item"><input type="checkbox" id="task3" onchange="toggleTask('task3', 5)"> <label for="task3">שתיית 6 כוסות מים (5 ₪)</label></li>
-      </ul>
-    </div>
+    <script>
+        let coins = 0;
+        let level = 1;
+        let currentRecipe = {};
 
-    <!-- החנות והסטייל של לילי -->
-    <div class="section-card">
-      <h3>הלוק והחנות של לילי 👗✨</h3>
-      <p style="font-size:13px; color:#666;">בחרי סטייל ורקע לחדר של לילי (חלק נפתחים בקנייה עם מטבעות):</p>
-      
-      <div class="controls-grid">
-        <!-- לוקים של לילי -->
-        <button class="opt-btn" onclick="setLilyStyle('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80')">לוק קלאסי</button>
-        <button class="opt-btn" onclick="setLilyStyle('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80')">לוק מחויך</button>
-        <button class="opt-btn" id="buy-look-sport" onclick="buyLook('look-sport', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', 15)">לוק ספורטיבי (15 ₪)</button>
-        <button class="opt-btn" id="buy-look-chic" onclick="buyLook('look-chic', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', 25)">לוק שיק וחורפי (25 ₪)</button>
+        // מאגר מתכונים קורעים מצחוק שמתחלפים כל הזמן
+        const funnyRecipes = [
+            { title: "חביתת גרביים מוקפצת", desc: "קח גרב ישנה, רסס עליה מיץ לימון ותעשה קולות של תרנגולת עד שזה מוכן.", reward: 4 },
+            { title: "פיצה בלי פיצה", desc: "שים צלחת ריקה בתנור. תדמיין גבינה צהובה ונמס . תצעק 'פיצה!' שלוש פעמים.", reward: 3 },
+            { title: "מרק עננים מצחיק", desc: "תאסוף אדים מהמקלחת, תוסיף קורטוב של צחוק של מכשפה ותערבב עם כף עץ.", reward: 5 },
+            { title: "עוגת בננה מבוהלת", desc: "תבהיל בננה עד שהיא תהפוך לצהובה יותר, מעך אותה עם המרפק ושים במקרר.", reward: 6 },
+            { title: "שיפוד פסטה לא מבושלת", desc: "קח אטריה קשה, תנסה לנגן עליה בגיטרה, ואז תגיד לדמות שזה גורמה.", reward: 2 },
+            { title: "סלט קוביות קרח חמות", desc: "חמם קרח במיקרוגל עד שהוא נעלם. תתלונן שהסלט יצא מים.", reward: 4 },
+            { title: "שוקו מים בטעם שוקולד", desc: "תסתכל על תמונה של שוקולד בזמן שאתה שותה כוס מים פושרים.", reward: 7 }
+        ];
 
-        <!-- רקעים לחדר -->
-        <button class="opt-btn" onclick="setRoomBg('#ffe3e8')">חדר ורוד</button>
-        <button class="opt-btn" id="buy-bg-park" onclick="buyRoomBg('bg-park', '#d4edda', 15)">פארק ירוק 🌳 (15 ₪)</button>
-        <button class="opt-btn" id="buy-bg-sea" onclick="buyRoomBg('bg-sea', '#ffe8cc', 20)">שקיעה בים 🌅 (20 ₪)</button>
-      </div>
-    </div>
-
-    <!-- מפת התקדמות -->
-    <div class="section-card">
-      <h3>מפת התקדמות 🏆 (שלב <span id="current-step-num">1</span> מתוך 10)</h3>
-      <div class="progress-track">
-        <div class="step-node active" id="node-1">1</div>
-        <div class="step-node" id="node-2">2</div>
-        <div class="step-node" id="node-3">3</div>
-        <div class="step-node" id="node-4">4</div>
-        <div class="step-node" id="node-5">5</div>
-        <div class="step-node" id="node-6">6</div>
-        <div class="step-node" id="node-7">7</div>
-        <div class="step-node" id="node-8">8</div>
-        <div class="step-node" id="node-9">9</div>
-        <div class="step-node" id="node-10">10</div>
-      </div>
-      <button class="btn-submit" style="margin-top:15px; width:100%;" onclick="advanceStep()">השלמתי אימון! עלי שלב ותרוויחי 10 ₪ 💰</button>
-    </div>
-
-    <!-- אימונים וטיימרים -->
-    <div class="section-card">
-      <h3>📋 תוכנית אימונים, סרטונים וסטופרים</h3>
-
-      <div class="workout-item">
-        <strong>1. סקוואטים לחיזוק הרגליים (Squats)</strong>
-        <p style="font-size:13px; margin:5px 0;">הסבר: עמדי בפיסוק ברוחב הכתפיים, רדי לאחור כאילו את יושבת על כיסא ושמרי על גב ישר.</p>
-        <a href="https://www.youtube.com/results?search_query=how+to+do+squats+for+beginners" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
-        <div class="timer-display" id="timer-1">00:45</div>
-        <button class="opt-btn" onclick="startTimer('timer-1', 45)">הפעילי טיימר (45 שניות) ⏱️</button>
-      </div>
-
-      <div class="workout-item">
-        <strong>2. פלאנק לבטן חזקה (Plank)</strong>
-        <p style="font-size:13px; margin:5px 0;">הסבר: הישעני על האמות והבהונות, שמרי על הגוף ישר כמו קרש ללא צניחה של האגן.</p>
-        <a href="https://www.youtube.com/results?search_query=how+to+do+a+plank" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
-        <div class="timer-display" id="timer-2">00:30</div>
-        <button class="opt-btn" onclick="startTimer('timer-2', 30)">הפעילי טיימר (30 שניות) ⏱️</button>
-      </div>
-
-      <div class="workout-item">
-        <strong>3. מכרעים (Lunges) לחיזוק הירכיים</strong>
-        <p style="font-size:13px; margin:5px 0;">הסבר: קחי צעד גדול קדימה ורדי עם הברך האחורית כמעט עד הרצפה. החליפי רגליים.</p>
-        <a href="https://www.youtube.com/results?search_query=how+to+do+lunges" target="_blank" style="color:#d6336c; font-weight:bold; font-size:12px;">🎬 צפי בסרטון הדגמה ב-YouTube</a>
-        <div class="timer-display" id="timer-3">00:40</div>
-        <button class="opt-btn" onclick="startTimer('timer-3', 40)">הפעילי טיימר (40 שניות) ⏱️</button>
-      </div>
-
-      <div class="workout-item">
-        <strong>4. ריצת ערב מרעננת 🌙</strong>
-        <p style="font-size:13px; margin:5px 0;">לילי מזכירה: יוצאים לריצה בכיף בערב כשנעים בחוץ! 15-20 דקות בקצב קל.</p>
-      </div>
-    </div>
-
-    <!-- תפריט אוכל -->
-    <div class="section-card">
-      <h3>עדכון התפריט היומי שלי 🥗</h3>
-      <p style="font-size:13px; color:#666;">עדכני מה אכלת היום ולילי תגיב לך:</p>
-
-      <div class="food-edit-group">
-        <label>🌅 ארוחת בוקר:</label>
-        <input type="text" id="input-breakfast" value="חביתה, סלט ירקות ופרוסת לחם">
-
-        <label>☀️ ארוחת צהריים:</label>
-        <input type="text" id="input-lunch" value="חזה עוף / פפארדלה ברוטב עגבניות">
-
-        <label>🍎 ארוחת ביניים:</label>
-        <input type="text" id="input-snack" value="מעדן חלבון ופרי">
-
-        <label>🌙 ארוחת ערב:</label>
-        <input type="text" id="input-dinner" value="טוסט גבינה צהובה וסלט">
-      </div>
-
-      <button class="btn-submit" style="width:100%; margin-bottom:10px;" onclick="updateUserFood()">עדכני תפריט וקבלי חוות דעת מלילי ✨</button>
-      <button class="opt-btn" style="width:100%; background:#e7f5ff; border-color:#74c0fc;" onclick="showRecipeModal()">🥞 לחצי כאן למתכון בריא ומהיר מומלץ מלילי!</button>
-    </div>
-
-  </div>
-
-  <!-- תפריט אוכל קבוע בתחתית -->
-  <div class="food-menu-bar">
-    <strong>התפריט היומי שלי 🥗</strong>
-    <div class="food-items">
-      <div class="food-item" id="bar-breakfast">🌅 בוקר: חביתה וסלט</div>
-      <div class="food-item" id="bar-lunch">☀️ צהריים: חזה עוף / פסטה</div>
-      <div class="food-item" id="bar-snack">🍎 ביניים: מעדן ופרי</div>
-      <div class="food-item" id="bar-dinner">🌙 ערב: טוסט וסלט</div>
-    </div>
-  </div>
-
-  <script>
-    let money = 0;
-    let currentStep = 1;
-    let waterCount = 0;
-    let activeTimers = {};
-
-    let ownedItems = {
-      'look-sport': false,
-      'look-chic': false,
-      'bg-park': false,
-      'bg-sea': false
-    };
-
-    let completedTasks = {
-      task1: false,
-      task2: false,
-      task3: false
-    };
-
-    function loadSavedData() {
-      const savedMoney = localStorage.getItem('lily_money');
-      const savedStep = localStorage.getItem('lily_step');
-      const savedOwned = localStorage.getItem('lily_owned');
-      const savedTasks = localStorage.getItem('lily_tasks');
-
-      if (savedMoney !== null) money = parseInt(savedMoney);
-      if (savedStep !== null) currentStep = parseInt(savedStep);
-      if (savedOwned !== null) ownedItems = JSON.parse(savedOwned);
-      if (savedTasks !== null) completedTasks = JSON.parse(savedTasks);
-
-      updateUI();
-    }
-
-    function saveData() {
-      localStorage.setItem('lily_money', money);
-      localStorage.setItem('lily_step', currentStep);
-      localStorage.setItem('lily_owned', JSON.stringify(ownedItems));
-      localStorage.setItem('lily_tasks', JSON.stringify(completedTasks));
-    }
-
-    function resetData() {
-      if (confirm("האם את בטוחה שאת רוצה לאפס את כל המטבעות, הרכישות וההתקדמות באתר?")) {
-        localStorage.clear();
-        money = 0;
-        currentStep = 1;
-        ownedItems = { 'look-sport': false, 'look-chic': false, 'bg-park': false, 'bg-sea': false };
-        completedTasks = { task1: false, task2: false, task3: false };
-        location.reload();
-      }
-    }
-
-    function updateUI() {
-      document.getElementById('money-display').innerText = money;
-      document.getElementById('current-step-num').innerText = currentStep;
-
-      for (let i = 1; i <= 10; i++) {
-        const node = document.getElementById(`node-${i}`);
-        if (i <= currentStep) {
-          node.classList.add('active');
-        } else {
-          node.classList.remove('active');
+        function generateNewRecipe() {
+            const randomIndex = Math.floor(Math.random() * funnyRecipes.length);
+            currentRecipe = funnyRecipes[randomIndex];
+            document.getElementById('recipeTitle').innerText = currentRecipe.title;
+            document.getElementById('recipeDesc').innerText = currentRecipe.desc;
         }
-      }
 
-      for (let key in ownedItems) {
-        if (ownedItems[key]) {
-          const btn = document.getElementById(`buy-${key}`);
-          if (btn) btn.innerText = btn.innerText.split('(')[0] + "(בבעלותך)";
+        function cookRecipe() {
+            // הקפצת כסף בסכומים קטנים וקשים
+            coins += currentRecipe.reward;
+            document.getElementById('coins').innerText = coins;
+            
+            document.getElementById('cookMsg').innerText = `בישלת! הרווחת ${currentRecipe.reward} מטבעות בקושי...`;
+            document.getElementById('statusMsg').innerText = `הדמות אכלה "${currentRecipe.title}" וצוחקת!`;
+
+            // אפקט ויזואלי קטן לדמות
+            const pet = document.getElementById('petBody');
+            pet.style.transform = 'scale(1.15)';
+            setTimeout(() => pet.style.transform = 'scale(1)', 200);
+
+            // החלפת מתכון למשהו חדש ומצחיק
+            setTimeout(() => {
+                document.getElementById('cookMsg').innerText = '';
+                generateNewRecipe();
+            }, 1500);
         }
-      }
 
-      for (let key in completedTasks) {
-        const check = document.getElementById(key);
-        if (check) check.checked = completedTasks[key];
-      }
-    }
-
-    function submitQuiz() {
-      const mood = document.getElementById('q1').value;
-      document.getElementById('welcome-modal').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-
-      loadSavedData();
-
-      const speech = document.getElementById('lily-speech');
-      let response = `איזה כיף שבאות! שמחה לראות אותך! 🎉<br>`;
-      response += `ראיתי שאת מרגישה <strong>${mood}</strong>. ✨ את מדהימה ואלופה, בואי נבלה ביחד!`;
-
-      speech.innerHTML = response;
-      playSound('pop');
-    }
-
-    function playSound(type) {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        if (type === 'coin') {
-          osc.frequency.value = 800;
-          gain.gain.setValueAtTime(0.1, ctx.currentTime);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.15);
-        } else if (type === 'pop') {
-          osc.frequency.value = 400;
-          gain.gain.setValueAtTime(0.1, ctx.currentTime);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.1);
+        function buyItem(icon, price) {
+            const msgEl = document.getElementById('shopMsg');
+            if (coins >= price) {
+                coins -= price;
+                document.getElementById('coins').innerText = coins;
+                document.getElementById('equippedHat').innerText = icon;
+                msgEl.style.color = '#2D6A4F';
+                msgEl.innerText = "תתחדש! מראה מדהים!";
+            } else {
+                msgEl.style.color = '#E63946';
+                msgEl.innerText = "אין לך מספיק מטבעות! לך לבשל עוד מתכונים מצחיקים...";
+            }
+            setTimeout(() => msgEl.innerText = '', 2500);
         }
-      } catch(e){}
-    }
 
-    function setLilyStyle(imgUrl) {
-      document.getElementById('lily-img').src = imgUrl;
-    }
-
-    function buyLook(lookId, imgUrl, price) {
-      if (ownedItems[lookId]) {
-        setLilyStyle(imgUrl);
-        return;
-      }
-
-      if (money >= price) {
-        money -= price;
-        ownedItems[lookId] = true;
-        setLilyStyle(imgUrl);
-        saveData();
-        updateUI();
-        playSound('coin');
-        alert("תתחדשי! הלוק החדש נפתח בהצלחה! 🎉");
-      } else {
-        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪.`);
-      }
-    }
-
-    function setRoomBg(color) {
-      document.getElementById('room-bg').style.backgroundColor = color;
-    }
-
-    function buyRoomBg(bgId, color, price) {
-      if (ownedItems[bgId]) {
-        setRoomBg(color);
-        return;
-      }
-
-      if (money >= price) {
-        money -= price;
-        ownedItems[bgId] = true;
-        setRoomBg(color);
-        saveData();
-        updateUI();
-        playSound('coin');
-        alert("תתחדשי על הרקע החדש לחדר! 🎨");
-      } else {
-        alert(`אין לך מספיק מטבעות! תצטרכי עוד ${price - money} ₪.`);
-      }
-    }
-
-    function toggleWater(index) {
-      const glasses = document.querySelectorAll('.water-glass');
-      glasses.forEach((g, idx) => {
-        if (idx < index) {
-          g.classList.add('active');
-        } else {
-          g.classList.remove('active');
-        }
-      });
-
-      if (index > waterCount && index % 2 === 0) {
-        money += 5;
-        saveData();
-        updateUI();
-        playSound('coin');
-        alert("כל הכבוד על שתיית המים! הרווחת 5 מטבעות! 💧💰");
-      }
-      waterCount = index;
-    }
-
-    function toggleTask(taskId, reward) {
-      const check = document.getElementById(taskId);
-      if (check.checked) {
-        if (!completedTasks[taskId]) {
-          money += reward;
-          completedTasks[taskId] = true;
-          playSound('coin');
-          alert(`משימה הושלמה! הרווחת ${reward} ₪! 🎉`);
-        }
-      } else {
-        completedTasks[taskId] = false;
-      }
-      saveData();
-      updateUI();
-    }
-
-    function advanceStep() {
-      if (currentStep < 10) {
-        currentStep++;
-        money += 10;
-        saveData();
-        updateUI();
-        playSound('coin');
-        alert(`כל הכבוד! עלית לשלב ${currentStep} והרווחת 10 ₪! 💰`);
-      } else {
-        triggerConfetti();
-        alert("וואו!! הגעת לשלב 10! את אלופה אמיתית! 🏆👑");
-      }
-    }
-
-    function triggerConfetti() {
-      for (let i = 0; i < 50; i++) {
-        const c = document.createElement('div');
-        c.className = 'confetti';
-        c.style.left = Math.random() * 100 + 'vw';
-        c.style.backgroundColor = ['#ff85a2', '#ffd166', '#06d6a0', '#118ab2'][Math.floor(Math.random()*4)];
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 3000);
-      }
-    }
-
-    function startTimer(timerId, seconds) {
-      if (activeTimers[timerId]) clearInterval(activeTimers[timerId]);
-
-      let timeLeft = seconds;
-      const display = document.getElementById(timerId);
-
-      activeTimers[timerId] = setInterval(() => {
-        timeLeft--;
-        let sec = timeLeft < 10 ? '0' + timeLeft : timeLeft;
-        display.innerText = `00:${sec}`;
-
-        if (timeLeft <= 0) {
-          clearInterval(activeTimers[timerId]);
-          display.innerText = "00:00 - סיימת!";
-          playSound('coin');
-          alert("אלופה!! הזמן נגמר, עבודה מצוינת! 💪✨");
-        }
-      }, 1000);
-    }
-
-    function updateUserFood() {
-      const b = document.getElementById('input-breakfast').value;
-      const l = document.getElementById('input-lunch').value;
-      const s = document.getElementById('input-snack').value;
-      const d = document.getElementById('input-dinner').value;
-
-      document.getElementById('bar-breakfast').innerText = `🌅 בוקר: ${b}`;
-      document.getElementById('bar-lunch').innerText = `☀️ צהריים: ${l}`;
-      document.getElementById('bar-snack').innerText = `🍎 ביניים: ${s}`;
-      document.getElementById('bar-dinner').innerText = `🌙 ערב: ${d}`;
-
-      const allFood = (b + l + s + d).toLowerCase();
-      const speech = document.getElementById('lily-speech');
-
-      if (allFood.includes("ממתק") || allFood.includes("חטיף") || allFood.includes("שוקולד") || allFood.includes("מקדונלדס")) {
-        speech.innerHTML = "אממ... התפריט נראה טעים, אבל אולי כדאי לוותר על חלק מהחטיפים/ממתקים? זה פחות בריא ומזין. 😉💕";
-      } else {
-        speech.innerHTML = "וואו! התפריט שלך נשמע ונראה מעולה, טעים ומזין בטירוף! כל הכבוד לך! 🥗🥞✨";
-      }
-
-      alert("התפריט עודכן בהצלחה!");
-    }
-
-    function showRecipeModal() {
-      alert("🥞 מתכון מהיר מלילי: פנקייק שיבולת שועל בריא!\n\nרכיבים:\n• 1 ביצה\n• 3 כפות שיבולת שועל\n• 2 כפות חלב\n• חצי בננה מעוכה\n\nהכנה: מערבבים הכל בקערית ומטגנים 2 דקות מכל צד במחבת משומנת קל. בתיאבון! 😋");
-    }
-  </script>
+        // התחלת המשחק
+        generateNewRecipe();
+    </script>
 </body>
 </html>
