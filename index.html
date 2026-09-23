@@ -92,6 +92,54 @@
       color: #2c3e50;
     }
 
+    /* עיצוב הדמות והארון של לילי */
+    .closet-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-around;
+      background-color: #fff0f6;
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px dashed #ff85a2;
+    }
+
+    .lily-avatar-box {
+      text-align: center;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 200px;
+    }
+
+    .lily-character {
+      font-size: 80px;
+      line-height: 1;
+      margin: 10px 0;
+    }
+
+    .outfit-controls {
+      max-width: 400px;
+    }
+
+    .outfit-btn {
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .outfit-btn:hover {
+      background-color: #ee5253;
+    }
+
     .lily-comment {
       background-color: #fff0f6;
       border-right: 4px solid #ff6b81;
@@ -201,8 +249,32 @@
 
   <!-- 1. הארון של לילי -->
   <div id="lilys-closet" class="card">
-    <h2>👗 הארון של לילי</h2>
-    <p>ברוכים הבאים לארון של לילי! כאן תוכלו לבחור לוקים מיוחדים, לשלב בגדים ולארגן את הארון בעזרת המטבעות שצברתם.</p>
+    <h2>👗 הארון הבגדים של לילי</h2>
+    <p>בחרי בגדים ואביזרים והלבישי את לילי ליום החדש!</p>
+    
+    <div class="closet-container">
+      <div class="lily-avatar-box">
+        <h3>לילי 👧</h3>
+        <div id="lily-head" style="font-size: 30px;">🧢</div>
+        <div id="lily-body" class="lily-character">👚</div>
+        <div id="lily-legs" style="font-size: 40px;">👟</div>
+        <p id="outfit-description" style="font-weight: bold; color: #ff6b81; margin-top: 10px;">לוק: יום-יומי קליל</p>
+      </div>
+
+      <div class="outfit-controls">
+        <h3>תלבושות:</h3>
+        <button class="outfit-btn" onclick="changeOutfit('casual')">👕 סגנון קז'ואל</button>
+        <button class="outfit-btn" onclick="changeOutfit('sport')">🏃‍♀️ לוק ספורטיבי</button>
+        <button class="outfit-btn" onclick="changeOutfit('fancy')">👗 לוק חגיגי</button>
+        <button class="outfit-btn" onclick="changeOutfit('cozy')">🛋️ פיג'מה מפנקת</button>
+
+        <h3>אקססוריז וכובעים:</h3>
+        <button class="outfit-btn" onclick="changeHat('cap')">🧢 כובע מצחיה</button>
+        <button class="outfit-btn" onclick="changeHat('glasses')">🕶️ משקפי שמש</button>
+        <button class="outfit-btn" onclick="changeHat('crown')">👑 כתר</button>
+        <button class="outfit-btn" onclick="changeHat('none')">❌ ללא הינומה/כובע</button>
+      </div>
+    </div>
   </div>
 
   <!-- 2. חידון ה-20 -->
@@ -315,6 +387,39 @@
       } else {
         sidebar.style.width = "250px";
       }
+    }
+
+    // הלבשת הדמות של לילי
+    function changeOutfit(style) {
+      const body = document.getElementById('lily-body');
+      const legs = document.getElementById('lily-legs');
+      const desc = document.getElementById('outfit-description');
+
+      if (style === 'casual') {
+        body.innerText = '👕';
+        legs.innerText = '👖';
+        desc.innerText = 'לוק: יום-יומי קליל';
+      } else if (style === 'sport') {
+        body.innerText = '🎽';
+        legs.innerText = '👟';
+        desc.innerText = 'לוק: מוכנה לאימון כושר!';
+      } else if (style === 'fancy') {
+        body.innerText = '👗';
+        legs.innerText = '👠';
+        desc.innerText = 'לוק: שמלה חגיגית';
+      } else if (style === 'cozy') {
+        body.innerText = '🧥';
+        legs.innerText = '🧦';
+        desc.innerText = 'לוק: פיג\'מה חמה וכיפית';
+      }
+    }
+
+    function changeHat(hat) {
+      const head = document.getElementById('lily-head');
+      if (hat === 'cap') head.innerText = '🧢';
+      else if (hat === 'glasses') head.innerText = '🕶️';
+      else if (hat === 'crown') head.innerText = '👑';
+      else if (hat === 'none') head.innerText = '';
     }
 
     // שמירת תפריט והערה של לילי
