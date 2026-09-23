@@ -99,6 +99,97 @@
       height: 320px;
     }
 
+    /* כרטיסיות שאלות ותשובות (FAQ Carousel) */
+    .faq-card-wrapper {
+      background: #ffffff;
+      border: 2px solid var(--primary-light);
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .faq-counter {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .faq-question-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .faq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .faq-option-btn {
+      background: #f1f2f6;
+      border: 2px solid #dfe4ea;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+      text-align: right;
+    }
+
+    .faq-option-btn:hover {
+      background: #e4e7eb;
+      border-color: var(--primary-light);
+    }
+
+    .faq-option-btn.selected {
+      background: var(--primary-light);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .faq-answer-box {
+      display: none;
+      background: #ffeaa7;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+      font-weight: 500;
+      color: #2d3436;
+      border-right: 4px solid var(--accent);
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .nav-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
     /* מתכונים כקישורים */
     .recipe-grid {
       display: grid;
@@ -162,25 +253,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    /* שאלות ותשובות ציניות */
-    .faq-item {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 12px;
-      border-right: 4px solid var(--accent);
-    }
-
-    .faq-q {
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 5px;
-    }
-
-    .faq-a {
-      color: #555;
     }
 
     /* טבלת לו"ז חודשי */
@@ -283,15 +355,35 @@
   <header>
     <div class="logo">🍭 טופי 100</div>
     <nav>
+      <a href="#faq-sec">❓ שאלות בכרטיסיות</a>
       <a href="#lily-sec">👗 לילי</a>
       <a href="#recipes-sec">🍧 מתכונים</a>
       <a href="#workout-sec">💪 אימונים</a>
-      <a href="#faq-sec">😏 10 שאלות ציניות</a>
       <a href="#monthly-sec">🗓️ לו"ז חודשי</a>
     </nav>
   </header>
 
   <div class="container">
+
+    <!-- שאלות אמריקאיות מתחלפות בכרטיסיות (קודם כל!) -->
+    <div id="faq-sec" class="card">
+      <h2>❓ שאלות אמריקאיות בכרטיסיות</h2>
+      <p style="color:#636e72; margin-bottom:15px;">לחצי על אחת התשובות כדי לגלות את האמת הצינית!</p>
+
+      <div class="faq-card-wrapper">
+        <div>
+          <div class="faq-counter" id="faq-counter">שאלה 1 מתוך 10</div>
+          <div class="faq-question-title" id="faq-question">טוען שאלה...</div>
+          <div class="faq-options" id="faq-options"></div>
+          <div class="faq-answer-box" id="faq-answer"></div>
+        </div>
+
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prev-btn" onclick="changeCard(-1)">➡️ הקודם</button>
+          <button class="nav-btn" id="next-btn" onclick="changeCard(1)">הבא ⬅️</button>
+        </div>
+      </div>
+    </div>
 
     <!-- דמות של לילי -->
     <div id="lily-sec" class="card lily-box">
@@ -343,7 +435,7 @@
         <a href="https://www.google.com/search?q=ברד+אבטיח+ולימון+מתכון" target="_blank" class="recipe-link-card">
           <div>
             <h3>🍉 ברד אבטיח-לימון גן עדן</h3>
-            <p>משקה הקיץ האולטימטיבי – מתוק, חמוץ, קפוא וממכר ברמות שא אפשר להפסיק לשתות.</p>
+            <p>משקה הקיץ האולטימטיבי – מתוק, חמוץ, קפוא וממכר ברמות שאפשר להפסיק לשתות.</p>
           </div>
           <span class="recipe-btn-text">לצפייה במתכון 🔗</span>
         </a>
@@ -419,14 +511,6 @@
       <p style="font-size:13px; color:#777;">* מנוחה של 45-60 שניות בין סט לסט.</p>
     </div>
 
-    <!-- 10 שאלות ותשובות ציניות -->
-    <div id="faq-sec" class="card">
-      <h2>😏 10 שאלות ותשובות ציניות</h2>
-      <div id="faq-container">
-        <!-- יתמלא אוטומטית דרך JavaScript -->
-      </div>
-    </div>
-
     <!-- לו"ז חודשי אינטראקטיבי -->
     <div id="monthly-sec" class="card">
       <h2>🗓️ לו"ז חודשי בטבלה</h2>
@@ -470,29 +554,93 @@
   </div>
 
   <script>
-    // רשימת 10 השאלות והתשובות הציניות
-    const faqList = [
-      { q: "1. האם שיעורי בית באמת עוזרים בחיים?", a: "ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון." },
-      { q: "2. למה צריך לקום מוקדם בבוקר?", a: "כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה." },
-      { q: "3. איך יודעים אם מישהו באמת חבר אמת?", a: "אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה." },
-      { q: "4. מה הסוד להצליח במבחן באנגלית?", a: "להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד." },
-      { q: "5. מה הדרך הכי טובה לנקות נעלי אולסטאר?", a: "ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך." },
-      { q: "6. למה השעון המעורר תמיד מצלצל באמצע החלום הכי טוב?", a: "כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד." },
-      { q: "7. מה עושים כשהאינטרנט מנתק באמצע סרטון?", a: "נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה." },
-      { q: "8. איך לומדים להקליד עיוור בשיא המהירות?", a: "פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב." },
-      { q: "9. איזה אוכל הכי בריא בעולם?", a: "זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת." },
-      { q: "10. מה העצה הכי טובה לחיים?", a: "אם משהו קשה מדי – תמיד אפשר להגיד 'אני אעשה את זה מחר'. מחר זה יום חדש!" }
+    // שאלות אמריקאיות בכרטיסיות
+    const faqData = [
+      {
+        q: "האם שיעורי בית באמת עוזרים בחיים?",
+        options: ["א. ברור, הם מפתחים את המוח", "ב. הם מפתחים בעיקר יכולת להמציא תירוצים", "ג. הם עוזרים למורים לישון טוב", "ד. שום דבר מזה"],
+        a: "ברור! הם בעיקר עוזרים לדעת איך לסבול בשקט ולפתח יכולת מופלאה להמציא תירוצים ברגע האחרון."
+      },
+      {
+        q: "למה צריך לקום מוקדם בבוקר?",
+        options: ["א. כדי להספיק להתארגן בכיף", "ב. כדי לבהות בקיר 20 דקות במיטה", "ג. כדי לראות את הזריחה", "ד. כי ככה ההורים אמרו"],
+        a: "כדי שתוכלי לשבת 20 דקות על המיטה ולבהות בקיר תוך כדי שאת תהוהה למה המצאנו את הציוויליזציה."
+      },
+      {
+        q: "איך יודעים אם מישהו באמת חבר אמת?",
+        options: ["א. הוא מספר לך סודות", "ב. הוא עוזר לך בשיעורי בית", "ג. הוא חולק את המעטפת של האוזניות בלי לבקש בחזרה", "ד. הוא שולח לייקים"],
+        a: "אם הוא מוכן לחלוק איתך את המעטפת של האוזניות בלי לבקש אותה בחזרה."
+      },
+      {
+        q: "מה הסוד להצליח במבחן באנגלית?",
+        options: ["א. ללמוד חודש מראש", "ב. להוסיף s בסוף כל מילה ולרשום Past Simple", "ג. לקרוא מילון שלם", "ד. להתפלל לנס"],
+        a: "להוסיף s בסוף כל מילה ולרשום Past Simple בכל מקום שנראה חשוד."
+      },
+      {
+        q: "מה הדרך הכי טובה לנקות נעלי אולסטאר?",
+        options: ["א. עם מברשת שיניים וסבון special", "ב. ללכת איתן בגשם ולקוות שהטבע יעשה את שלו", "ג. לקנות חדשות", "ד. לכבס במכונה"],
+        a: "ללכת איתן בגשם ולקוות שהטבע יעשה את העבודה בשבילך."
+      },
+      {
+        q: "למה השעון המעורר תמיד מצלצל באמצע החלום הכי טוב?",
+        options: ["א. מקריות מוחלטת", "ב. מנגנון רשעות מובנה שמזהה חלומות טובים", "ג. השעון מקולקל", "ד. ככה זה עובד"],
+        a: "כי הוא מופעל על ידי מנגנון רשעות מתקדם שמזהה מתי שרביט הקסם שלך כמעט עבד."
+      },
+      {
+        q: "מה עושים כשהאינטרנט מנתק באמצע סרטון?",
+        options: ["א. קוראים ספר", "ב. נושמים עמוק ולוחצים על הראוטר בטירוף", "ג. הולכים לישון", "ד. מחכים בסבלנות"],
+        a: "נושמים עמוק, סופרים עד 10, ואז לוחצים על הראוטר בטירוף כאילו זה לחצן מצוקה."
+      },
+      {
+        q: "איך לומדים להקליד עיוור בשיא המהירות?",
+        options: ["א. עושים קורס הקלדה", "ב. מקלידים כל כך מהר שהמקלדת מוותרת ומנחשת", "ג. לא לומדים בכלל", "ד. מסתכלים על המקשים"],
+        a: "פשוט מקלידים כל כך מהר שהמקלדת בעצמה מוותרת ומנחשת מה רצית לכתוב."
+      },
+      {
+        q: "איזה אוכל הכי בריא בעולם?",
+        options: ["א. סלט ירוק בלי רוטב", "ב. מה שנאכל מול סדרה בלי לשטוף צלחת", "ג. תפוח עץ", "ד. שייק קייל"],
+        a: "זה שנאכל תוך כדי צפייה בסדרה ושלא צריך לשטוף אחריו צלחת."
+      },
+      {
+        q: "מה העצה הכי טובה לחיים?",
+        options: ["א. לעבוד קשה כל יום", "ב. אם משהו קשה – להגיד 'אני אעשה את זה מחר'", "ג. לקום ב-5 בבוקר", "ד. לוותר מראש"],
+        a: "אם משהו קשה מדי – תמיד אפשר להגיד 'אני אעשה את זה מחר'. מחר זה יום חדש!"
+      }
     ];
 
-    function renderFAQ() {
-      const faqContainer = document.getElementById('faq-container');
-      faqContainer.innerHTML = '';
-      faqList.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'faq-item';
-        div.innerHTML = `<div class="faq-q">${item.q}</div><div class="faq-a">${item.a}</div>`;
-        faqContainer.appendChild(div);
+    let currentCardIndex = 0;
+
+    function renderFaqCard() {
+      const card = faqData[currentCardIndex];
+      document.getElementById('faq-counter').innerText = `שאלה ${currentCardIndex + 1} מתוך ${faqData.length}`;
+      document.getElementById('faq-question').innerText = card.q;
+      
+      const optionsContainer = document.getElementById('faq-options');
+      optionsContainer.innerHTML = '';
+      
+      const answerBox = document.getElementById('faq-answer');
+      answerBox.style.display = 'none';
+
+      card.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = 'faq-option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          document.querySelectorAll('.faq-option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          answerBox.innerText = `💡 תשובת המומחה: ${card.a}`;
+          answerBox.style.display = 'block';
+        };
+        optionsContainer.appendChild(btn);
       });
+
+      document.getElementById('prev-btn').disabled = currentCardIndex === 0;
+      document.getElementById('next-btn').disabled = currentCardIndex === faqData.length - 1;
+    }
+
+    function changeCard(direction) {
+      currentCardIndex += direction;
+      renderFaqCard();
     }
 
     // ניהול הלו"ז החודשי
@@ -559,8 +707,8 @@
       renderCalendar();
     }
 
-    // הפעלה בטעינה
-    renderFAQ();
+    // הפעלה ראשונית בטעינה
+    renderFaqCard();
     renderCalendar();
   </script>
 </body>
