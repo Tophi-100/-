@@ -92,6 +92,16 @@
       color: #2c3e50;
     }
 
+    .lily-comment {
+      background-color: #fff0f6;
+      border-right: 4px solid #ff6b81;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 4px;
+      font-style: italic;
+      color: #d63031;
+    }
+
     .quiz-option {
       display: block;
       width: 100%;
@@ -109,7 +119,7 @@
       background-color: #d5dbdb;
     }
 
-    .btn-next {
+    .btn-next, .btn-save {
       background-color: #2980b9;
       color: white;
       border: none;
@@ -126,7 +136,6 @@
       font-weight: bold;
     }
 
-    /* עיצוב טבלאות לוז ותפריט */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -143,6 +152,26 @@
       background-color: #34495e;
       color: white;
     }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    a.recipe-link {
+      color: #e67e22;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.recipe-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -154,21 +183,29 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="close-btn" onclick="toggleSidebar()">&times;</a>
     <h3>🍭 טופי 100</h3>
-    <a href="#quiz-section" onclick="toggleSidebar()">📝 חידון ה-20 (קבלת 1 ₪)</a>
     <a href="#lilys-closet" onclick="toggleSidebar()" style="color: #f1c40f; font-weight: bold;">👗 הארון של לילי</a>
+    <a href="#quiz-section" onclick="toggleSidebar()">📝 חידון ה-20 (קבלת 1 ₪)</a>
     <a href="#workout-section" onclick="toggleSidebar()">🏋️‍♀️ תוכנית אימונים</a>
-    <a href="#menu-section" onclick="toggleSidebar()">🥗 תפריט יומי</a>
-    <a href="#schedule-section" onclick="toggleSidebar()">📅 לוח זמנים (לו"ז)</a>
+    <a href="#menu-section" onclick="toggleSidebar()">🥗 התפריט שלי</a>
+    <a href="#recipes-section" onclick="toggleSidebar()">🍓 מתכונים טעימים ובריאים</a>
+    <a href="#daily-schedule" onclick="toggleSidebar()">📅 לו"ז יומי</a>
+    <a href="#monthly-schedule" onclick="toggleSidebar()">🗓️ לו"ז חודשי</a>
   </div>
 
   <h1>Welcome to Toffee 100 🍭</h1>
 
-  <!-- תצוגת יתרת הכסף (מאופס ל-0) -->
+  <!-- תצוגת יתרת הכסף -->
   <div class="wallet">
     💰 יתרה בחשבון: <span id="money-amount">0</span> ₪
   </div>
 
-  <!-- 1. אזור החידון -->
+  <!-- 1. הארון של לילי -->
+  <div id="lilys-closet" class="card">
+    <h2>👗 הארון של לילי</h2>
+    <p>ברוכים הבאים לארון של לילי! כאן תוכלו לבחור לוקים מיוחדים, לשלב בגדים ולארגן את הארון בעזרת המטבעות שצברתם.</p>
+  </div>
+
+  <!-- 2. חידון ה-20 -->
   <div id="quiz-section" class="card">
     <h2>📝 חידון ה-20</h2>
     <p>עונים נכון ומרוויחים <strong>1 ₪</strong> לחשבון!</p>
@@ -181,76 +218,82 @@
     </div>
   </div>
 
-  <!-- 2. אזור הארון של לילי -->
-  <div id="lilys-closet" class="card">
-    <h2>👗 הארון של לילי</h2>
-    <p>ברוכים הבאים לארון של לילי! כאן תוכלו להתאים לוקים, לבחור בגדים ולשדרג פריטים בעזרת המטבעות שאספתם.</p>
+  <!-- 3. תוכנית אימונים -->
+  <div id="workout-section" class="card">
+    <h2>🏋️‍♀️ תוכנית אימונים מומלצת (קליסטניקס וכושר)</h2>
+    <ul>
+      <li><strong>אימון בוקר:</strong> מתיחות דינמיות + 15 סקואטים + 10 עליות אגן.</li>
+      <li><strong>אימון משקל גוף (קליסטניקס):</strong>
+        <ul>
+          <li>3 סטים של 8-10 שכיבות סמיכה (אפשר על הברכיים).</li>
+          <li>פלאנק 30 שניות.</li>
+          <li>תרגול מתח או שילוב תרגילי גב.</li>
+        </ul>
+      </li>
+      <li><strong>שחרור:</strong> מתיחות קלות לשרירים.</li>
+    </ul>
+    <div class="lily-comment">💬 <strong>לילי מעירה:</strong> "אל תשכחי לשתות מים בסוף האימון, זה הכי חשוב!"</div>
   </div>
 
-  <!-- 3. אזור האימונים -->
-  <div id="workout-section" class="card">
-    <h2>🏋️‍♀️ תוכנית אימונים</h2>
+  <!-- 4. תפריט יומי אישי -->
+  <div id="menu-section" class="card">
+    <h2>🥗 התפריט שלי (ניתן לעריכה)</h2>
+    <p>רשמי כאן את התפריט שאת רוצה להיום:</p>
+    <textarea id="user-menu-input" placeholder="לדוגמה: ארוחת בוקר - חביתה וירקות, ארוחת צהריים - אורז וחזה עוף..."></textarea>
+    <button class="btn-save" onclick="saveMenu()">שמרי תפריט</button>
+    <div id="saved-menu-display" style="margin-top: 10px; font-weight: bold;"></div>
+    
+    <div id="lily-menu-comment" class="lily-comment" style="display:none;">
+      💬 <strong>לילי מעירה:</strong> <span id="lily-menu-text"></span>
+    </div>
+  </div>
+
+  <!-- 5. קישורים לאוכל טעים ובריא -->
+  <div id="recipes-section" class="card">
+    <h2>🍓 קישורים למתכונים טעימים ובריאים</h2>
     <ul>
-      <li><strong>אימון בוקר:</strong> מתיחות קלות + 15 סקואטים + 10 שקילת בטן.</li>
-      <li><strong>אימון קליסטניקס:</strong> עבודה על משקל גוף, מתח, ושכיבות סמיכה מותאמות.</li>
-      <li><strong>אימון ערב:</strong> הליכה קלה או מתיחות לשחרור השרירים.</li>
+      <li>🍉 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לברד+אבטיח+ביתי" target="_blank">ברד אבטיח מרענן ומהיר</a></li>
+      <li>🍞 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לפרנץ'+טוסט+קל" target="_blank">פרנץ' טוסט מהיר וטעים</a></li>
+      <li>🍪 <a class="recipe-link" href="https://www.google.com/search?q=מתכון+לעוגיות+שוקולד+צ'יפס+10+דקות" target="_blank">עוגיות שוקולד צ'יפס ב-10 דקות</a></li>
+      <li>🥗 <a class="recipe-link" href="https://www.google.com/search?q=מתכונים+לארוחות+ערב+בריאות+וקלות" target="_blank">רעיונות לארוחות ערב בריאות וקלות</a></li>
     </ul>
   </div>
 
-  <!-- 4. אזור התפריט -->
-  <div id="menu-section" class="card">
-    <h2>🥗 תפריט תזונה יומי</h2>
-    <table>
-      <tr>
-        <th>ארוחה</th>
-        <th>מה אוכלים?</th>
-      </tr>
-      <tr>
-        <td>ארוחת בוקר</td>
-        <td>חביתה, ירקות חתוכים, חצי קוטג' ומים.</td>
-      </tr>
-      <tr>
-        <td>ארוחת צהריים</td>
-        <td>חזה עוף / טופו עם אורז וסלט ירוק.</td>
-      </tr>
-      <tr>
-        <td>נשנוש אחה"כ</td>
-        <td>פרי (תפוח / אבטיח) או חופן שקדים.</td>
-      </tr>
-      <tr>
-        <td>ארוחת ערב</td>
-        <td>פרנץ' טוסט מהיר או חביתת ירק עם פרוסת לחם מלא.</td>
-      </tr>
-    </table>
+  <!-- 6. לו"ז יומי -->
+  <div id="daily-schedule" class="card">
+    <h2>📅 לו"ז יומי (כתיבה אישית)</h2>
+    <textarea id="user-schedule-input" placeholder="רשמי כאן את סדר היום שלך..."></textarea>
+    <button class="btn-save" onclick="saveSchedule()">שמרי לו"ז יומי</button>
+    <div id="saved-schedule-display" style="margin-top: 10px; font-weight: bold;"></div>
+
+    <div id="lily-schedule-comment" class="lily-comment" style="display:none;">
+      💬 <strong>לילי מעירה:</strong> <span id="lily-schedule-text"></span>
+    </div>
   </div>
 
-  <!-- 5. אזור הלו"ז -->
-  <div id="schedule-section" class="card">
-    <h2>📅 לוח זמנים יומי (לו"ז)</h2>
+  <!-- 7. לו"ז חודשי -->
+  <div id="monthly-schedule" class="card">
+    <h2>🗓️ לו"ז חודשי</h2>
     <table>
       <tr>
-        <th>שעה</th>
-        <th>פעילות</th>
+        <th>שבוע</th>
+        <th>משימות ואירועים מרכזיים</th>
       </tr>
       <tr>
-        <td>08:00 - 08:30</td>
-        <td>קילוף עיניים, מתיחות ושתיית מים</td>
+        <td>שבוע 1</td>
+        <td>פתיחת חודש, ארגון ציוד ולימודים.</td>
       </tr>
       <tr>
-        <td>08:30 - 09:30</td>
-        <td>ארוחת בוקר וארגון ליום</td>
+        <td>שבוע 2</td>
+        <td>מפגש חברות + תרגול הקלדה עיוורת ואנגלית.</td>
       </tr>
       <tr>
-        <td>10:00 - 12:00</td>
-        <td>לימודים / תרגול אנגלית / הקלדה עיוורת</td>
+        <td>שבוע 3</td>
+        <td>פעילות הדרכה לחניכות + אימון כושר מוגבר.</td>
       </tr>
       <tr>
-        <td>16:00 - 17:00</td>
-        <td>זמן אימון ספורט / קליסטניקס</td>
-      </tr>
-      <tr>
-        <td>19:00 - 20:00</td>
-        <td>ארוחת ערב וזמן פנאי עם חברות</td>
+        <td>שבוע 4</td>
+        <td>סיכום חודשי, יציאה לקניון וזמן חופשי.</td>
       </tr>
     </table>
   </div>
@@ -274,7 +317,43 @@
       }
     }
 
-    // מאגר שאלות לחידון 20 עם תגובות ציניות ומשעשעות רק אחרי שעונים
+    // שמירת תפריט והערה של לילי
+    function saveMenu() {
+      const text = document.getElementById('user-menu-input').value;
+      if (text.trim() === "") return;
+      
+      document.getElementById('saved-menu-display').innerText = "התפריט שלך נשמר: " + text;
+      
+      const lilyComments = [
+        "נראה טעים במיוחד! אל תשכחי להוסיף לזה איזה פרי טעים בצד 🍓",
+        "תפריט מעולה! ממש מאוזן ונותן כוח לכל היום 💪",
+        "יאמי! אם בא לך רענון, ברד אבטיח יילך עם זה מושלם!"
+      ];
+      const randomComment = lilyComments[Math.floor(Math.random() * lilyComments.length)];
+      
+      document.getElementById('lily-menu-text').innerText = randomComment;
+      document.getElementById('lily-menu-comment').style.display = 'block';
+    }
+
+    // שמירת לו"ז והערה של לילי
+    function saveSchedule() {
+      const text = document.getElementById('user-schedule-input').value;
+      if (text.trim() === "") return;
+
+      document.getElementById('saved-schedule-display').innerText = "הלו\"ז נשמר: " + text;
+
+      const lilyComments = [
+        "לו\"ז מסודר ומטורף! אל תשכחי לשים בו גם כמה דקות הפסקה ☕",
+        "גאה בך על הארגון! יום עמוס אבל קטן עלייך 😉",
+        "מעולה! אל תשכחי לשלב בלו\"ז גם את האימון היומי!"
+      ];
+      const randomComment = lilyComments[Math.floor(Math.random() * lilyComments.length)];
+
+      document.getElementById('lily-schedule-text').innerText = randomComment;
+      document.getElementById('lily-schedule-comment').style.display = 'block';
+    }
+
+    // מאגר שאלות ציניות לחידון 20
     const quizQuestions = [
       {
         q: "מה הדבר הכי מועיל לעשות כשמתעוררים בבוקר?",
@@ -362,7 +441,6 @@
       document.getElementById('next-btn').style.display = 'inline-block';
     }
 
-    // טעינת שאלה ראשונה
     window.onload = loadRandomQuestion;
   </script>
 
